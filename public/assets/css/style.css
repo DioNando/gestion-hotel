@@ -1,0 +1,72 @@
+@charset "UTF-8";
+
+:root {
+  --blanc: #ffffff;
+}
+
+@font-face {
+  font-family: "Helvetica";
+  src: url("../font/Helvetica.ttf");
+}
+
+@font-face {
+  font-family: "Merriweather";
+  src: url("../font/Merriweather-Regular.ttf");
+}
+
+body {
+  font-family: "Helvetica";
+  background-image: url("#");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+body::-webkit-scrollbar {
+  display: none; /* Hide scrollbar for Chrome, Safari and Opera */
+}
+
+body {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+a {
+  text-decoration: none;
+}
+
+h1,
+h3,
+h5 {
+  font-family: "Merriweather";
+}
+
+th {
+  text-align: center;
+}
+
+header {
+  text-align: center;
+}
+
+footer {
+  text-align: center;
+}
+
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.formulaire {
+  margin-top: 1rem;
+  padding-top: 0.5rem;
+  padding-bottom: 1rem;
+  width: 50%;
+}
+
+@media screen and (max-width: 600px) {
+  
+}

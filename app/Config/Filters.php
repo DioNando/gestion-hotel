@@ -8,6 +8,8 @@ use CodeIgniter\Filters\DebugToolbar;
 use CodeIgniter\Filters\Honeypot;
 use App\Filters\Auth;
 use App\Filters\NoAuth;
+use App\Filters\IsAdmin;
+
 
 class Filters extends BaseConfig
 {
@@ -23,7 +25,11 @@ class Filters extends BaseConfig
 		'honeypot' => Honeypot::class,
 		'auth' => Auth::class,
 		'noauth' => NoAuth::class,
-	];
+		'isadmin' => [
+			IsAdmin::class,
+			Auth::class,
+	]
+];
 
 	/**
 	 * List of filter aliases that are always

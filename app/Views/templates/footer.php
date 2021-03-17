@@ -1,11 +1,9 @@
-<br><?php
-$page = $_SERVER['REQUEST_URI'];
-echo('Page en cours : ' . $page);
-?>
 <footer>
-    <?php if (session()->get('isLoggedIn')) : ?>
-        
-    <?php endif ?>
+    <?php
+    $page = $_SERVER['REQUEST_URI'];
+    echo ('Page en cours : ' . $page);
+    ?>
+
 </footer>
 
 </body>

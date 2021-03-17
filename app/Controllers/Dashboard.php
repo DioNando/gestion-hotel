@@ -2,8 +2,9 @@
 
 namespace App\Controllers;
 
-use App\models\clientModel;
+use App\models\userModel;
 use App\models\adminModel;
+use App\models\clientModel;
 
 class Dashboard extends BaseController
 {

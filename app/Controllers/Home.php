@@ -2,24 +2,24 @@
 
 namespace App\Controllers;
 
-use App\models\clientModel;
+use App\models\userModel;
 use App\models\adminModel;
 
 class Home extends BaseController
 {
 	public function index()
 	{
-		if ($this->request->getMethod() == 'post') : {
+		if(isset($_POST['btn_connexion'])) : {
 				$rules = [
-					'nom_client' => 'required',
-					'mdp_client' => 'required',
+					'nom_user' => 'required',
+					'mdp_user' => 'required|validateUser[nom_user,mdp_user]',
 				];
 
 				if (!$this->validate($rules)) {
 					$data['validation'] = $this->validator;
 				} else {
-					$users = new clientModel();
-					$user = $users->where('nom_client', $this->request->getVar('nom_client'))
+					$users = new userModel();
+					$user = $users->where('nom_user', $_POST['nom_user'])
 						->first();
 
 					$this->setUserSession($user);
@@ -35,17 +35,17 @@ class Home extends BaseController
 
 	public function loginAdmin()
 	{
-		if ($this->request->getMethod() == 'post') : {
+		if(isset($_POST['btn_connexion'])) : {
 				$rules = [
 					'nom_admin' => 'required',
-					'mdp_admin' => 'required',
+					'mdp_admin' => 'required|validateAdmin[nom_admin,mdp_admin]',
 				];
 
 				if (!$this->validate($rules)) {
 					$data['validation'] = $this->validator;
 				} else {
 					$admins = new adminModel();
-					$admin = $admins->where('nom_admin', $this->request->getVar('nom_admin'))
+					$admin = $admins->where('nom_admin', $_POST['nom_admin'])
 						->first();
 
 					$this->setAdminSession($admin);
@@ -61,19 +61,19 @@ class Home extends BaseController
 
 	public function register()
 	{
-		if ($this->request->getMethod() == 'post') : {
+		if(isset($_POST['btn_enregistrer'])) : {
 				$rules = [
-					'nom_client' => 'required|min_length[3]|max_length[30]',
-					'mdp_client' => 'required|min_length[4]|max_length[255]',
+					'nom_user' => 'required|min_length[3]|max_length[30]',
+					'mdp_user' => 'required|min_length[4]|max_length[255]',
 				];
 
 				if (!$this->validate($rules)) {
 					$data['validation'] = $this->validator;
 				} else {
-					$users = new clientModel();
+					$users = new userModel();
 					$newData = [
-						'nom_client' => $this->request->getVar('nom_client'),
-						'mdp_client' => $this->request->getVar('mdp_client'),
+						'nom_user' => $_POST['nom_user'],
+						'mdp_user' => $_POST['mdp_user'],
 					];
 
 					$users->save($newData);
@@ -98,8 +98,9 @@ class Home extends BaseController
 	private function setUserSession($user)
 	{
 		$data = [
-			'ID_client' => $user['ID_client'],
-			'nom_client' => $user['nom_client'],
+			'ID_user' => $user['ID_user'],
+			'nom_user' => $user['nom_user'],
+			'isUser' => true,
 			'isLoggedIn' => true,
 		];
 		session()->set($data);

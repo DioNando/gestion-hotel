@@ -34,7 +34,8 @@ $routes->setAutoRoute(true);
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index', ['filter' => 'noauth']);
 $routes->match(['get','post'], 'loginAdmin', 'Home::loginAdmin', ['filter' => 'noauth']);
-$routes->match(['get','post'], 'register', 'Home::register', ['filter' => 'auth']);
+$routes->match(['get','post'], 'register', 'Home::register', ['filter' => 'isadmin']);
+$routes->get('reservation', 'Client::index', ['filter' => 'auth']);
 $routes->get('dashboard', 'Dashboard::index', ['filter' => 'auth']);
 $routes->get('logout', 'Home::logout');
 

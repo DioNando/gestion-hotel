@@ -11,8 +11,16 @@
                 <input type="password" class="form-control" name="mdp_admin" id="">
             </div>
             <div class="d-grid gap-2 mt-3">
-            <button type="submit" class="btn btn-primary" name="btn_connexion">Connexion</button>
+                <button type="submit" class="btn btn-primary" name="btn_connexion">Connexion</button>
             </div>
+            <?php
+            if (isset($validation)) : ?>
+                <div class="col-12 mt-3">
+                    <div class="alert alert-danger" role="alert">
+                        <?= $validation->listErrors() ?>
+                    </div>
+                </div>
+            <?php endif ?>
         </form>
     </div>
 </div>

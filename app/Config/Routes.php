@@ -33,9 +33,14 @@ $routes->setAutoRoute(true);
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index', ['filter' => 'noauth']);
-$routes->match(['get','post'], 'loginAdmin', 'Home::loginAdmin', ['filter' => 'noauth']);
-$routes->match(['get','post'], 'register', 'Home::register', ['filter' => 'isadmin']);
-$routes->get('reservation', 'Client::index', ['filter' => 'auth']);
+$routes->match(['get','post'], 'addUser', 'User::addUser', ['filter' => 'isadmin']);
+$routes->match(['get','post'], 'addChambre', 'Chambre::addChambre', ['filter' => 'isadmin']);
+$routes->match(['get','post'], 'reservation', 'Reservation::reservation', ['filter' => 'auth']);
+$routes->match(['get','post'], 'reservationNuit', 'Reservation::index', ['filter' => 'auth']);
+$routes->match(['get','post'], 'configClient', 'Client::index', ['filter' => 'auth']);
+$routes->match(['get','post'], 'configUser', 'User::index', ['filter' => 'auth']);
+$routes->match(['get','post'], 'configAdmin', 'Admin::index', ['filter' => 'auth']);
+$routes->match(['get','post'], 'configChambre', 'Chambre::index', ['filter' => 'auth']);
 $routes->get('dashboard', 'Dashboard::index', ['filter' => 'auth']);
 $routes->get('logout', 'Home::logout');
 

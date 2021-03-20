@@ -50,7 +50,10 @@ header {
 }
 
 footer {
-  text-align: left;
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
 }
 
 
@@ -62,9 +65,49 @@ footer {
 
 .formulaire {
   margin-top: 1rem;
+  margin-bottom: 1rem;
   padding-top: 0.5rem;
   padding-bottom: 1rem;
-  width: 50%;
+}
+
+.menu-parent
+{
+  height: 100vh;
+}
+
+.menu-parent>* {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.parametre {
+  text-align: center;
+}
+
+.menu {
+  background-color: rgb(77, 77, 77);
+  height: auto;
+}
+
+.accordion-button {
+  color: var(--blanc);
+}
+
+.accordion-button::after, .accordion-button:not(.collapsed)::after {
+  background-image: none;
+}
+
+.menu ul li a, .parametre {
+  color: rgb(124, 148, 255);
+}
+
+.alert-danger {
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
+.alert-danger ul {
+  list-style-type: none;
 }
 
 @media screen and (max-width: 600px) {

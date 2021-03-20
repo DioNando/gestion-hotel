@@ -11,7 +11,7 @@ class IsAdmin implements FilterInterface
     public function before(RequestInterface $request, $arguments = null)
     {
         // Do something here
-        if(!session()->get('isAdmin'))
+        if(session()->get('isUser') != 'Administrateur')
             return redirect()->to('dashboard');
     }
 

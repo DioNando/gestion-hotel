@@ -5,6 +5,8 @@ namespace App\Controllers;
 use App\models\userModel;
 use App\models\adminModel;
 use App\models\clientModel;
+use App\models\chambreModel;
+use App\models\reservationModel;
 
 class Dashboard extends BaseController
 {

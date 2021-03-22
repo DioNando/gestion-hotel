@@ -3,12 +3,12 @@
         <h1 class="center">RESERVATION NUIT</h1>
         <form action="" method="post">
             <div class="row">
-            <div class="col-12">
-                <?php if (session()->get('success')) : ?>
-                    <div class="alert alert-success" role="alert">
-                        <?= session()->get('success') ?>
-                    </div>
-                <?php endif; ?>
+                <div class="col-12">
+                    <?php if (session()->get('success')) : ?>
+                        <div class="alert alert-success" role="alert">
+                            <?= session()->get('success') ?>
+                        </div>
+                    <?php endif; ?>
                 </div>
                 <div class="col-12 col-sm-6">
                     <div class="form-group">
@@ -46,6 +46,16 @@
                         <input type="text" class="form-control" id="#" name="nom_user" value="<?= session()->get('nom_user') ?>" readonly>
                     </div>
                 </div>
+                <!--Checkbox-->
+                <h3 class="center mt-3">Chambres disponible</h3>
+                    <?php foreach ($chambres as $chambre) { ?>
+                        <div class="form-check form-switch form-check-inline">
+                            <input class="form-check-input" type="checkbox" name="ID_chambre[]" value="<?= set_value('ID_chambre', $chambre['ID_chambre']) ?>" id="flexSwitchCheckDefault">
+                            <label class="form-check-label" for="flexSwitchCheckDefault">Chambre <?php echo ($chambre['ID_chambre']) ?></label>
+                        </div>
+                    <?php } ?>
+                
+                <!--Checkbox-->
                 <div class="d-grid gap-2 mt-3">
                     <button type="submit" class="btn btn-primary" name="btn_reservation">Valider</button>
                 </div>

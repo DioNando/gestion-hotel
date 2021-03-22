@@ -18,17 +18,23 @@
                             <div class="form-group">
                                 <label for="tarif_nuit" class="form-label">Tarif nuit</label>
                                 <input type="number" class="form-control" id="inputTarif_nuit" name="tarif_nuit">
-                                <input type="number" class="form-control" id="inputTarif_heure" name="tarif_nuit">
                             </div>
                         </div>
                         <div class="col-12 mt-2">
                             <div class="form-group">
                                 <label for="tarif_heure" class="form-label">Tarif heure</label>
-                                <input type="number" class="form-control" id="inputTarif_nuit" name="tarif_heure">
                                 <input type="number" class="form-control" id="inputTarif_heure" name="tarif_heure">
                             </div>
                         </div>
-                        
+                        <div class="form-group mt-2">
+                            <label for="">Statut chambre</label>
+                            <select class="form-select" name="statut_chambre">
+                                <option selected value="Libre">Libre</option>
+                                <option value="Occupée">Occupée</option>
+                                <option value="En attente">En attente</option>
+                            </select>
+                        </div>
+
                         <div class="d-grid gap-2 mt-4">
                             <button type="submit" class="btn btn-primary" id="btnSubmit" name="btn_modification">Modifier</button>
                         </div>
@@ -85,7 +91,7 @@
 <!-- JAVASCRIPT -->
 
 <script type="text/javascript">
-    function updateData(ID_chambre, tarif_nuit, tarif_heure) {
+    function updateData(ID_chambre, tarif_nuit, tarif_heure, staut_chambre) {
         document.getElementById('inputID_chambre').value = ID_chambre;
         document.getElementById('inputTarif_nuit').value = tarif_nuit;
         document.getElementById('inputTarif_heure').value = tarif_heure;

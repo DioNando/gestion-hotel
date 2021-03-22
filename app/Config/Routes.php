@@ -35,7 +35,7 @@ $routes->setAutoRoute(true);
 $routes->get('/', 'Home::index', ['filter' => 'noauth']);
 $routes->match(['get','post'], 'addUser', 'User::addUser', ['filter' => 'isadmin']);
 $routes->match(['get','post'], 'addChambre', 'Chambre::addChambre', ['filter' => 'isadmin']);
-$routes->match(['get','post'], 'reservation', 'Reservation::reservation', ['filter' => 'auth']);
+$routes->match(['get','post'], 'addClient', 'Reservation::addClient', ['filter' => 'auth']);
 $routes->match(['get','post'], 'reservationNuit', 'Reservation::index', ['filter' => 'auth']);
 $routes->match(['get','post'], 'configClient', 'Client::index', ['filter' => 'auth']);
 $routes->match(['get','post'], 'configUser', 'User::index', ['filter' => 'auth']);

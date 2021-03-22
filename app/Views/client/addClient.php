@@ -1,6 +1,6 @@
 <div class="container">
     <div class="container-fluid bg-light formulaire">
-        <h1 class="center">RESERVATION</h1>
+        <h1 class="center">NOUVEAU CLIENT</h1>
         <form action="" method="post">
             <?php if (session()->get('success')) : ?>
                 <div class="alert alert-success" role="alert">

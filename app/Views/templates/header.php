@@ -28,30 +28,40 @@
         <?php if (session()->get('isUser') == 'Administrateur') : ?>
 
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                <div class="navbar-collapse">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item"><a class="nav-link" href="dashboard">Tableau de bord</a></li>
-                        <li class="nav-item"><a class="nav-link" href="reservation">Réservation</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Planning</a></li>
-                    </ul>
-                    <ul class="navbar-nav my-2 my-lg-0">
-                        <li class="nav-item"><a class="nav-link" href="logout">Déconnexion</a></li>
-                    </ul>
+                <div class="container-fluid">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navBarHeader" aria-controls="navBarHeader" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navBarHeader">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item"><a class="nav-link" href="dashboard">Tableau de bord</a></li>
+                            <li class="nav-item"><a class="nav-link" href="addClient">Réservation</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#">Planning</a></li>
+                        </ul>
+                        <ul class="navbar-nav my-2 my-lg-0">
+                            <li class="nav-item"><a class="nav-link" href="logout">Déconnexion</a></li>
+                        </ul>
+                    </div>
                 </div>
             </nav>
 
         <?php elseif (session()->get('isUser') == 'Utilisateur') : ?>
 
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                <div class="navbar-collapse">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item"><a class="nav-link" href="dashboard">Accueil</a></li>
-                        <li class="nav-item"><a class="nav-link" href="reservation">Réservation</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Planning</a></li>
-                    </ul>
-                    <ul class="navbar-nav my-2 my-lg-0">
-                        <li class="nav-item"><a class="nav-link" href="logout">Déconnexion</a></li>
-                    </ul>
+                <div class="container-fluid">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navBarHeader" aria-controls="navBarHeader" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navBarHeader">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item"><a class="nav-link" href="dashboard">Accueil</a></li>
+                            <li class="nav-item"><a class="nav-link" href="addClient">Réservation</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#">Planning</a></li>
+                        </ul>
+                        <ul class="navbar-nav my-2 my-lg-0">
+                            <li class="nav-item"><a class="nav-link" href="logout">Déconnexion</a></li>
+                        </ul>
+                    </div>
                 </div>
             </nav>
 
@@ -71,6 +81,7 @@
 
     <?php if (session()->get('isLoggedIn')) : ?>
         <div class="container-fluid">
+        <!--Sidebar debut-->
             <div class="row menu-parent">
                 <div class="col-2 menu">
 
@@ -87,32 +98,11 @@
                                         <li class="nav-item">
                                             <a class="nav-link" href="configClient">Liste</a>
                                         </li>
-                                      
+
                                         <li class="nav-item">
-                                            <a class="nav-link" href="reservation">Nouveau</a>
+                                            <a class="nav-link" href="addClient">Nouveau</a>
                                         </li>
-                                       
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="flush-headingTwo">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                                    Utilisateur
-                                </button>
-                            </h2>
-                            <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionMenu">
-                                <div class="accordion-body">
-                                    <ul class="nav flex-column">
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="configUser">Liste</a>
-                                        </li>
-                                        <?php if (session()->get('isUser') == 'Administrateur') : ?>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="addUser">Nouveau</a>
-                                        </li>
-                                        <?php endif; ?>
+
                                     </ul>
                                 </div>
                             </div>
@@ -130,9 +120,30 @@
                                             <a class="nav-link" href="configChambre">Liste</a>
                                         </li>
                                         <?php if (session()->get('isUser') == 'Administrateur') : ?>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="addChambre">Nouveau</a>
+                                            </li>
+                                        <?php endif; ?>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="flush-headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                                    Utilisateur
+                                </button>
+                            </h2>
+                            <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionMenu">
+                                <div class="accordion-body">
+                                    <ul class="nav flex-column">
                                         <li class="nav-item">
-                                            <a class="nav-link" href="addChambre">Nouveau</a>
+                                            <a class="nav-link" href="configUser">Liste</a>
                                         </li>
+                                        <?php if (session()->get('isUser') == 'Administrateur') : ?>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="addUser">Nouveau</a>
+                                            </li>
                                         <?php endif; ?>
                                     </ul>
                                 </div>
@@ -155,11 +166,10 @@
                             </div>
                         </div>
                     </div>
-                    <ul class="nav flex-column parametre">
-                        <li><a href="#">Paramètres</a></li>
-                    </ul>
+                    
 
                 </div>
+                <!--Sidebar fin-->
                 <div class="col main">
 
                 <?php endif ?>

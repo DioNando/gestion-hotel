@@ -6,6 +6,7 @@ use App\models\clientModel;
 use App\models\userModel;
 use App\models\chambreModel;
 use App\models\reservationModel;
+use App\models\concernerModel;
 
 class Reservation extends BaseController
 {
@@ -29,7 +30,7 @@ class Reservation extends BaseController
 					$client = $clients->where('nom_client', $_POST['nom_client'])->first();
 					$users = new userModel();
 					$user = $users->where('nom_user', $_POST['nom_user'])->first();
-					$reservation = new reservationModel();
+					$reservations = new reservationModel();
 					$newData = [
 						'nbr_personne' => $_POST['nbr_personne'],
 						'debut_sejour' => $_POST['debut_sejour'],
@@ -37,8 +38,9 @@ class Reservation extends BaseController
 						'ID_client' => $client['ID_client'],
 						'ID_user' => $user['ID_user'],
 					];
-
-					$reservation->save($newData);
+					$reservations->save($newData);
+					$id = $reservations->getInsertID();
+					$this->addConcerner($id);
 					$session = session();
 					$session->set($newData);
 					$session->setFlashdata('success', 'Réservation réussie');
@@ -47,12 +49,28 @@ class Reservation extends BaseController
 			}
 		endif;
 
+		$chambres = new chambreModel();
+        $data['chambres'] = $chambres->findAll();
 		echo view('templates\header');
-		echo view('reservation\Nuit');
+		echo view('reservation\nuit', $data);
 		echo view('templates\footer');
 	}
 
-	public function reservation()
+	public function addConcerner($ID)
+	{
+		$concerner = new concernerModel();
+		if (isset($_POST['ID_chambre'])) {
+			foreach ($_POST['ID_chambre'] as $valeur) {
+				$newData = [
+					'ID_chambre' => $valeur,
+					'ID_reservation' => $ID,
+				];
+				$concerner->save($newData);
+			}
+		}
+	}
+
+	public function addClient()
 	{
 		$data = [];
 		helper(['form']);
@@ -82,7 +100,7 @@ class Reservation extends BaseController
 		endif;
 
 		echo view('templates\header');
-		echo view('client\reservation', $data);
+		echo view('client\addClient', $data);
 		echo view('templates\footer');
 	}
 }

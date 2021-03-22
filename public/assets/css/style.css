@@ -46,16 +46,16 @@ th {
 }
 
 header {
-  text-align: center;
+  text-align: left;
 }
 
 footer {
   text-align: center;
+  width: 100%;
+  color: var(--blanc);
   position: fixed;
   bottom: 0;
-  width: 100%;
 }
-
 
 .center {
   display: flex;
@@ -70,12 +70,11 @@ footer {
   padding-bottom: 1rem;
 }
 
-.menu-parent
-{
+.menu-parent {
   height: 100vh;
 }
 
-.menu-parent>* {
+.menu-parent > * {
   padding-left: 0;
   padding-right: 0;
 }
@@ -93,11 +92,13 @@ footer {
   color: var(--blanc);
 }
 
-.accordion-button::after, .accordion-button:not(.collapsed)::after {
+.accordion-button::after,
+.accordion-button:not(.collapsed)::after {
   background-image: none;
 }
 
-.menu ul li a, .parametre {
+.menu ul li a,
+.parametre {
   color: rgb(124, 148, 255);
 }
 
@@ -110,6 +111,20 @@ footer {
   list-style-type: none;
 }
 
-@media screen and (max-width: 600px) {
-  
+@media screen and (max-width: 900px) {
+  .menu-parent {
+    height: 100%;
+  }
+
+  .menu {
+    width: 100%;
+    height: auto;
+    position: relative;
+    text-align: right;
+  }
+
+  .accordion-button {
+    text-align: right;
+    display: inline;
+  }
 }

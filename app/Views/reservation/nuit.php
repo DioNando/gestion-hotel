@@ -48,13 +48,21 @@
                 </div>
                 <!--Checkbox-->
                 <h3 class="center mt-3">Chambres disponible</h3>
-                    <?php foreach ($chambres as $chambre) { ?>
-                        <div class="form-check form-switch form-check-inline">
-                            <input class="form-check-input" type="checkbox" name="ID_chambre[]" value="<?= set_value('ID_chambre', $chambre['ID_chambre']) ?>" id="flexSwitchCheckDefault">
-                            <label class="form-check-label" for="flexSwitchCheckDefault">Chambre <?php echo ($chambre['ID_chambre']) ?></label>
-                        </div>
-                    <?php } ?>
-                
+                <div class="container">
+                    <div class="row row-cols-1 row-cols-lg-5 g-2 g-lg-3">
+                        <?php foreach ($chambres as $chambre) { ?>
+                            <div class="col">
+                                <div class="p-2 border checkChambre">
+                                    <div class="form-check">
+                                        <input class="form-check-input <?php if ($chambre['statut_chambre'] == 'En attente') echo ('checkBoxAttente');
+                                                                        elseif ($chambre['statut_chambre'] == 'Occupée') echo ('checkBoxOccupee'); ?>" type="checkbox" name="ID_chambre[]" value="<?php echo($chambre['ID_chambre']) ?>" <?php if ($chambre['statut_chambre'] == 'Occupée') echo ('disabled') ?> id="checkbox_chambre <?php echo($chambre['ID_chambre']) ?>">
+                                        <label class="form-check-label align-middle" for="checkbox_chambre <?php echo($chambre['ID_chambre']) ?>"><?php echo ($chambre['ID_chambre']) . ' : ' . ($chambre['statut_chambre']) ?></label>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php } ?>
+                    </div>
+                </div>
                 <!--Checkbox-->
                 <div class="d-grid gap-2 mt-3">
                     <button type="submit" class="btn btn-primary" name="btn_reservation">Valider</button>

@@ -94,7 +94,7 @@ footer {
 
 .accordion-button::after,
 .accordion-button:not(.collapsed)::after {
-  background-image: none;
+  background-image: url("../icons/chevron-en-bas.png");
 }
 
 .menu ul li a,
@@ -109,6 +109,28 @@ footer {
 
 .alert-danger ul {
   list-style-type: none;
+}
+
+.form-check {
+ margin-bottom: 0;
+}
+
+.form-check-input[type=checkbox] {
+ background: #51b417;
+ border-radius: 50px;
+ border: none;
+}
+
+.checkBoxAttente {
+  background: #ff2c2c !important;
+}
+
+.checkBoxOccupee {
+  background: #2c4cff !important;
+}
+
+.checkBoxAttente:checked, .checkBoxOccupee:checked, .form-check-input[type=checkbox]:checked {
+  background: #fffb19 !important;
 }
 
 @media screen and (max-width: 900px) {
@@ -126,5 +148,13 @@ footer {
   .accordion-button {
     text-align: right;
     display: inline;
+  }
+
+  .container {
+    padding: 0;
+  }
+
+  .formulaire {
+    margin-top: 0;
   }
 }

@@ -6,11 +6,34 @@ use App\models\clientModel;
 use App\models\userModel;
 use App\models\chambreModel;
 use App\models\reservationModel;
+use App\models\reservationPassageModel;
 use App\models\concernerModel;
 
 class Reservation extends BaseController
 {
 	public function index()
+	{
+		$data = [];
+		helper(['form']);
+
+		if (isset($_POST['btn_reservation'])) {
+			//$this->create();
+			return redirect()->to('reservation');
+		} elseif (isset($_POST['btn_modification'])) {
+			//$this->update();
+			return redirect()->to('configReservation');
+		} elseif (isset($_POST['btn_suppression'])) {
+			//$this->delete();
+			return redirect()->to('configReservation');
+		} else {
+			$data = $this->read();
+			echo view('templates\header');
+			echo view('reservation\configReservation', $data);
+			echo view('templates\footer');
+		}
+	}
+
+	public function addReservationNuit()
 	{
 		$data = [];
 		helper(['form']);
@@ -50,7 +73,7 @@ class Reservation extends BaseController
 		endif;
 
 		$chambres = new chambreModel();
-        $data['chambres'] = $chambres->findAll();
+		$data['chambres'] = $chambres->findAll();
 		echo view('templates\header');
 		echo view('reservation\nuit', $data);
 		echo view('templates\footer');
@@ -70,15 +93,15 @@ class Reservation extends BaseController
 		}
 	}
 
-	public function addClient()
+	public function accueilClient()
 	{
 		$data = [];
 		helper(['form']);
 
 		if (isset($_POST['btn_reservation'])) : {
 				$rules = [
-					'nom_client' => 'required|min_length[3]|max_length[30]|is_unique[client.nom_client]',
-					'prenom_client' => 'required|min_length[4]|max_length[255]|is_unique[client.prenom_client]',
+					'nom_client' => 'required|min_length[3]|max_length[30]',
+					'prenom_client' => 'required|min_length[4]|max_length[255]',
 				];
 
 				if (!$this->validate($rules)) {
@@ -100,7 +123,19 @@ class Reservation extends BaseController
 		endif;
 
 		echo view('templates\header');
-		echo view('client\addClient', $data);
+		echo view('reservation\accueilClient', $data);
 		echo view('templates\footer');
+	}
+
+	public function read()
+	{
+		$data = [];
+		/*$clients = new clientModel();
+		$users = new userModel();*/
+		$reservations = new reservationModel();
+		$data['reservations'] = $reservations->findAll();
+		//$data['clients'] = $clients->where('ID_client', $reservations['ID_client'])->first();
+		//$data['users'] = $users->where('ID_user', $reservations['ID_user'])->first();
+		return $data;
 	}
 }

@@ -5,6 +5,7 @@
 
 
     <h1>Liste des chambres</h1>
+    <?php include("search/recherche.php"); ?>
     <?php if (session()->get('update')) : ?>
         <div class="alert alert-success" role="alert">
             <?= session()->get('update') ?>

@@ -98,9 +98,8 @@ class Client extends BaseController
 		$session = session();
 		$session->setFlashdata('delete', 'Le client a été supprimé avec succès');
 	}
-}
 
-	/*public function reservation()
+	public function addClient()
 	{
 		$data = [];
 		helper(['form']);
@@ -122,13 +121,17 @@ class Client extends BaseController
 
 					$clients->save($newData);
 					$session = session();
-					$session->setFlashdata('success', 'Réservation réussie');
-					return redirect()->to('reservation');
+					$session->set($newData);
+					$session->setFlashdata('success', 'Ajout réussie');
+					return redirect()->to('addClient');
 				}
 			}
 		endif;
 
 		echo view('templates\header');
-		echo view('client\reservation', $data);
+		echo view('client\addClient', $data);
 		echo view('templates\footer');
-	}*/
+	}
+}
+
+	

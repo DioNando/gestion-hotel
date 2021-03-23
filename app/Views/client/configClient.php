@@ -2,9 +2,11 @@
 <?php include("modal/modalClient.php"); ?>
 
 <div class="container-fluid mt-3">
-
-
+    
+    
     <h1>Liste des clients</h1>
+    
+    <?php include("search/recherche.php"); ?>
     <?php if (session()->get('update')) : ?>
         <div class="alert alert-success" role="alert">
             <?= session()->get('update') ?>

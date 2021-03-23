@@ -1,7 +1,20 @@
 @charset "UTF-8";
+/*--chambreLibre: #51b417;
+--chambreOccupee: #2c4cff;
+--chambreAttente: #ff2c2c;
+--chambreReservation: #fffb19;*/
 
 :root {
   --blanc: #ffffff;
+  --chambreLibre: #84ff3d;
+  --chambreOccupee: #c1e6ff;
+  --chambreAttente: #067eed;
+  --chambreReservation: #ff7c1f;
+  --primaryColor: #0e3854;
+  --secondaryColor: #067eed;
+  --thirdColor: #ff7c1f;
+  --fourthColor: #c1e6ff;
+  --fifthColor: #ffffff;
 }
 
 @font-face {
@@ -68,6 +81,7 @@ footer {
   margin-bottom: 1rem;
   padding-top: 0.5rem;
   padding-bottom: 1rem;
+  background-color: var(--fourthColor) !important;
 }
 
 .menu-parent {
@@ -79,12 +93,12 @@ footer {
   padding-right: 0;
 }
 
-.parametre {
-  text-align: center;
+.navbar a {
+  color: var(--fifthColor);
 }
 
 .menu {
-  background-color: rgb(77, 77, 77);
+  background: var(--primaryColor);
   height: auto;
 }
 
@@ -94,12 +108,12 @@ footer {
 
 .accordion-button::after,
 .accordion-button:not(.collapsed)::after {
-  background-image: url("../icons/chevron-en-bas.png");
+  /*background-image: url("../icons/chevron-en-bas.png");*/
+  background-image: none;
 }
 
-.menu ul li a,
-.parametre {
-  color: rgb(124, 148, 255);
+.menu ul li a {
+  color: var(--fourthColor);
 }
 
 .alert-danger {
@@ -112,25 +126,27 @@ footer {
 }
 
 .form-check {
- margin-bottom: 0;
+  margin-bottom: 0;
 }
 
-.form-check-input[type=checkbox] {
- background: #51b417;
- border-radius: 50px;
- border: none;
+.form-check-input[type="checkbox"] {
+  background: var(--chambreLibre);
+  border-radius: 50px;
+  border: none;
 }
 
 .checkBoxAttente {
-  background: #ff2c2c !important;
+  background: var(--chambreAttente) !important;
 }
 
 .checkBoxOccupee {
-  background: #2c4cff !important;
+  background: var(--chambreOccupee) !important;
 }
 
-.checkBoxAttente:checked, .checkBoxOccupee:checked, .form-check-input[type=checkbox]:checked {
-  background: #fffb19 !important;
+.checkBoxAttente:checked,
+.checkBoxOccupee:checked,
+.form-check-input[type="checkbox"]:checked {
+  background: var(--chambreReservation) !important;
 }
 
 @media screen and (max-width: 900px) {

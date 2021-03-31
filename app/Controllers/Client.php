@@ -17,6 +17,11 @@ class Client extends BaseController
 		} elseif (isset($_POST['btn_suppression'])) {
 			$this->delete();
 			return redirect()->to('configClient');
+		} elseif (isset($_POST['btn_recherche'])) {
+			$data = $this->search($_POST['element_recherche']);
+			echo view('templates\header');
+			echo view('client\configClient', $data);
+			echo view('templates\footer');
 		} else {
 			$data = $this->read();
 			echo view('templates\header');
@@ -43,6 +48,7 @@ class Client extends BaseController
 					$newData = [
 						'nom_client' => $_POST['nom_client'],
 						'prenom_client' => $_POST['prenom_client'],
+						'telephone_client' => $_POST['telephone_client'],
 					];
 
 					$clients->save($newData);
@@ -61,6 +67,14 @@ class Client extends BaseController
 		return $data;
 	}
 
+	public function search($nom_client)
+	{
+		$data = [];
+		$clients = new clientModel();
+		$data['clients'] = $clients->where('nom_client', $nom_client)->find();
+		return $data;
+	}
+
 	public function update()
 	{
 		$data = [];
@@ -70,6 +84,7 @@ class Client extends BaseController
 				$rules = [
 					'nom_client' => 'required',
 					'prenom_client' => 'required',
+					'telephone_client' => 'required',
 				];
 
 				if (!$this->validate($rules)) {
@@ -79,6 +94,7 @@ class Client extends BaseController
 					$data = [
 						'nom_client' => $_POST['nom_client'],
 						'prenom_client' => $_POST['prenom_client'],
+						'telephone_client' => $_POST['telephone_client'],
 					];
 
 					$clients->set($data);
@@ -108,6 +124,7 @@ class Client extends BaseController
 				$rules = [
 					'nom_client' => 'required|min_length[3]|max_length[30]',
 					'prenom_client' => 'required|min_length[4]|max_length[255]',
+					'telephone_client' => 'required',
 				];
 
 				if (!$this->validate($rules)) {
@@ -117,6 +134,7 @@ class Client extends BaseController
 					$newData = [
 						'nom_client' => $_POST['nom_client'],
 						'prenom_client' => $_POST['prenom_client'],
+						'telephone_client' => $_POST['telephone_client'],
 					];
 
 					$clients->save($newData);
@@ -133,5 +151,3 @@ class Client extends BaseController
 		echo view('templates\footer');
 	}
 }
-
-	

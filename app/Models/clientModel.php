@@ -6,5 +6,5 @@ class clientModel extends model {
     protected $table = 'client';
     protected $primaryKey = 'ID_client';
 
-    protected $allowedFields = ['nom_client', 'prenom_client'];
+    protected $allowedFields = ['nom_client', 'prenom_client', 'telephone_client'];
 }

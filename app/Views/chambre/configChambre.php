@@ -20,8 +20,7 @@
         <thead>
             <tr>
                 <th scope="col">Identification</th>
-                <th scope="col">Tarif nuit (Ar)</th>
-                <th scope="col">Tarif heure (Ar)</th>
+                <th scope="col">Tarif (Ar)</th>
                 <th scope="col">Statut chambre</th>
                 <?php if (session()->get('isUser') == 'Administrateur') : ?>
                 <th scope="col">Actions</th>
@@ -38,14 +37,13 @@
             ?>
                     <tr>
                         <th scope="row"> <?php echo ($chambre['ID_chambre']) ?> </th>
-                        <td> <?php echo ($chambre['tarif_nuit']); ?> </td>
-                        <td> <?php echo ($chambre['tarif_heure']); ?> </td>
+                        <td> <?php echo ($chambre['tarif_chambre']); ?> </td>
                         <td> <?php echo ($chambre['statut_chambre']); ?> </td>
                         <?php if (session()->get('isUser') == 'Administrateur') : ?>
                         <td>
                             <div class="center">
                                 <div>
-                                    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalChambreUpdate" onclick="updateData('<?php echo $chambre['ID_chambre']; ?>' , '<?php echo $chambre['tarif_nuit']; ?>' , '<?php echo $chambre['tarif_heure']; ?>' , '<?php echo $chambre['statut_chambre']; ?>')"><img src="assets/icons/pencil-fill.svg" alt="Modifier"></button>
+                                    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalChambreUpdate" onclick="updateData('<?php echo $chambre['ID_chambre']; ?>' , '<?php echo $chambre['tarif_chambre']; ?>' , '<?php echo $chambre['statut_chambre']; ?>')"><img src="assets/icons/pencil-fill.svg" alt="Modifier"></button>
                                     <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalChambreDelete" onclick="deleteData('<?php echo $chambre['ID_chambre']; ?>')"><img src="assets/icons/eraser-fill.svg" alt="Supprimer"></button>
                                     <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#modalChambreInfo" onclick="infoData('<?php echo $chambre['ID_chambre']; ?>')"><img src="assets/icons/info-circle-fill.svg" alt="Info"></button>
                                 </div>

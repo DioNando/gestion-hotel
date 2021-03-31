@@ -20,6 +20,7 @@
             <tr>
                 <th scope="col">Identification</th>
                 <th scope="col">Nom</th>
+                <th scope="col">Prénom</th>
                 <th scope="col">Droit</th>
                 <?php if (session()->get('isUser') == 'Administrateur') : ?>
                     <th scope="col">Actions</th>
@@ -36,12 +37,13 @@
                     <tr>
                         <th scope="row"> <?php echo ($user['ID_user']) ?> </th>
                         <td> <?php echo ($user['nom_user']); ?> </td>
+                        <td> <?php echo ($user['prenom_user']); ?> </td>
                         <td> <?php echo ($user['droit_user']); ?> </td>
                         <?php if (session()->get('isUser') == 'Administrateur') : ?>
                             <td>
                                 <div class="center">
                                     <div>
-                                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalUserUpdate" onclick="updateData('<?php echo $user['ID_user']; ?>' , '<?php echo $user['nom_user']; ?>')"><img src="assets/icons/pencil-fill.svg" alt="Modifier"></button>
+                                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalUserUpdate" onclick="updateData('<?php echo $user['ID_user']; ?>' , '<?php echo $user['nom_user']; ?>' , '<?php echo $user['prenom_user']; ?>')"><img src="assets/icons/pencil-fill.svg" alt="Modifier"></button>
                                         <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalUserDelete" onclick="deleteData('<?php echo $user['ID_user']; ?>')"><img src="assets/icons/eraser-fill.svg" alt="Supprimer"></button>
                                         <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#modalUserInfo" onclick="infoData('<?php echo $user['ID_user']; ?>')"><img src="assets/icons/info-circle-fill.svg" alt="Info"></button>
                                     </div>

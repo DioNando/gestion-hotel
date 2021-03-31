@@ -20,6 +20,7 @@
             <tr>
                 <th scope="col">Identification</th>
                 <th scope="col">Nom</th>
+                <th scope="col">Prénom</th>
                 <?php if (session()->get('isAdmin')) : ?>
                 <th scope="col">Actions</th>
                 <?php endif; ?>
@@ -35,6 +36,7 @@
                     <tr>
                         <th scope="row"> <?php echo ($admin['ID_user']) ?> </th>
                         <td> <?php echo ($admin['nom_user']); ?> </td>
+                        <td> <?php echo ($admin['prenom_user']); ?> </td>
                         <?php if (session()->get('isAdmin') == 'Administrateur') : ?>
                         <td>
                             <div class="center">

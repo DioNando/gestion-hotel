@@ -1,6 +1,7 @@
 <div class="container">
-    <div class="container-fluid bg-light formulaire">
-        <h1 class="center">LOGIN</h1>
+    <div class="container-fluid bg-light formulaire formulaire-login">
+        <span class="center mb-2"><img src="assets/images/login5.png"></span>
+        <h1 class="center">SE CONNECTER</h1>
         <form action="" method="post">
             <div class="form-group"><label for="">Nom</label>
                 <input type="text" class="form-control" name="nom_user" id="">

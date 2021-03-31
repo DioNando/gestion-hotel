@@ -5,5 +5,5 @@ use CodeIgniter\Model;
 class concernerModel extends model {
     protected $table = 'concerner';
 
-    protected $allowedFields = ['ID_chambre', 'ID_reservation'];
+    protected $allowedFields = ['ID_chambre', 'ID_nuit', 'ID_day'];
 }

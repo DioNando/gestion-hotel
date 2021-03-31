@@ -9,12 +9,9 @@
             <?php endif; ?>
             <div class="form-group">
                 <label for="">Tarif par nuit</label>
-                <input type="number" class="form-control" name="tarif_nuit" id="" min="1" placeholder="ariary">
+                <input type="number" class="form-control" name="tarif_chambre" id="" min="1" placeholder="ariary">
             </div>
-            <div class="form-group mt-2">
-                <label for="">Tarif par heure</label>
-                <input type="number" class="form-control" name="tarif_heure" id="" min="1" placeholder="ariary">
-            </div>
+          
 
             <div class="form-group mt-2">
                 <label for="">Statut chambre</label>

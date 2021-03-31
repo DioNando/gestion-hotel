@@ -5,11 +5,12 @@ namespace App\Controllers;
 use App\models\clientModel;
 use App\models\userModel;
 use App\models\chambreModel;
-use App\models\reservationModel;
-use App\models\reservationPassageModel;
+use App\models\reservationNuitModel;
+use App\models\reservationDayModel;
 use App\models\concernerModel;
+use App\models\effectuerModel;
 
-class Reservation extends BaseController
+class ReservationNuit extends BaseController
 {
 	public function index()
 	{
@@ -28,7 +29,7 @@ class Reservation extends BaseController
 		} else {
 			$data = $this->read();
 			echo view('templates\header');
-			echo view('reservation\configReservation', $data);
+			echo view('reservation\configReservationNuit', $data);
 			echo view('templates\footer');
 		}
 	}
@@ -38,12 +39,13 @@ class Reservation extends BaseController
 		$data = [];
 		helper(['form']);
 
-		if (isset($_POST['btn_reservation'])) : {
+		if (isset($_POST['btn_attente']) OR isset($_POST['btn_arrive'])) : {
 				$rules = [
 					'nom_client' => 'required|min_length[3]|max_length[30]',
 					'prenom_client' => 'required|min_length[4]|max_length[255]',
 					'debut_sejour' => 'required',
 					'fin_sejour' => 'required',
+					'nbr_nuit' => 'is_natural'
 				];
 
 				if (!$this->validate($rules)) {
@@ -53,17 +55,35 @@ class Reservation extends BaseController
 					$client = $clients->where('nom_client', $_POST['nom_client'])->first();
 					$users = new userModel();
 					$user = $users->where('nom_user', $_POST['nom_user'])->first();
-					$reservations = new reservationModel();
+
+					if (isset($_POST['btn_attente'])) { //etat_reservation = 0
+						if (isset($_POST['confirmation_reservation']))
+						$etat = 2;
+						else
+						$etat = 3;
+					}
+					if (isset($_POST['btn_arrive'])) { //etat_reservation = 1
+						if (isset($_POST['confirmation_reservation']))
+						$etat = 1;
+						else
+						$etat = 4;
+					}
+
+					$reservations = new reservationNuitModel();
 					$newData = [
 						'nbr_personne' => $_POST['nbr_personne'],
 						'debut_sejour' => $_POST['debut_sejour'],
 						'fin_sejour' => $_POST['fin_sejour'],
+						'nbr_nuit' => $_POST['nbr_nuit'],
 						'ID_client' => $client['ID_client'],
-						'ID_user' => $user['ID_user'],
+						'ID_etat_reservation' => $etat,
+						'type_reservation' => $_POST['type_reservation'],
+						'remarque_reservation' => $_POST['remarque_reservation'],
 					];
 					$reservations->save($newData);
 					$id = $reservations->getInsertID();
 					$this->addConcerner($id);
+					$this->addEffectuer($id, $user['ID_user']);
 					$session = session();
 					$session->set($newData);
 					$session->setFlashdata('success', 'Réservation réussie');
@@ -79,15 +99,30 @@ class Reservation extends BaseController
 		echo view('templates\footer');
 	}
 
-	public function addConcerner($ID)
+	public function addEffectuer($ID_reservation, $ID_user)
+	{
+		$effectuer = new effectuerModel();
+		$newData = [
+			'ID_user' => $ID_user,
+			'ID_nuit' => $ID_reservation,
+		];
+		$effectuer->save($newData);
+	}
+
+	public function addConcerner($ID_reservation)
 	{
 		$concerner = new concernerModel();
+		$chambres = new chambreModel();
 		if (isset($_POST['ID_chambre'])) {
 			foreach ($_POST['ID_chambre'] as $valeur) {
 				$newData = [
 					'ID_chambre' => $valeur,
-					'ID_reservation' => $ID,
+					'ID_nuit' => $ID_reservation,
+					'statut_chambre' => 'Occupée',
 				];
+				$chambres->set($newData);
+				$chambres->where('ID_chambre', $valeur);
+				$chambres->update();
 				$concerner->save($newData);
 			}
 		}
@@ -111,6 +146,7 @@ class Reservation extends BaseController
 					$newData = [
 						'nom_client' => $_POST['nom_client'],
 						'prenom_client' => $_POST['prenom_client'],
+						'telephone_client' => $_POST['telephone_client'],
 					];
 
 					$clients->save($newData);
@@ -122,6 +158,21 @@ class Reservation extends BaseController
 			}
 		endif;
 
+		if (isset($_POST['btn_recherche'])) : {
+				$rules = [
+					'element_recherche' => 'required',
+				];
+
+				if (!$this->validate($rules)) {
+					$data['validation_recherche'] = $this->validator;
+				} else {
+					$data = $this->search($_POST['element_recherche']);
+					return redirect()->to('reservationNuit');
+				}
+			}
+		endif;
+
+
 		echo view('templates\header');
 		echo view('reservation\accueilClient', $data);
 		echo view('templates\footer');
@@ -130,12 +181,23 @@ class Reservation extends BaseController
 	public function read()
 	{
 		$data = [];
-		/*$clients = new clientModel();
-		$users = new userModel();*/
-		$reservations = new reservationModel();
-		$data['reservations'] = $reservations->findAll();
-		//$data['clients'] = $clients->where('ID_client', $reservations['ID_client'])->first();
-		//$data['users'] = $users->where('ID_user', $reservations['ID_user'])->first();
+		// $reservations = new reservationNuitModel();
+		// $data['reservations'] = $reservations->join('user', 'reservation_nuit.ID_user = user.ID_user')->join('client', 'reservation_nuit.ID_client = client.ID_client')->orderBy('ID_nuit', 'desc')->findAll();
+		$reservations = new effectuerModel();
+		$data['reservations'] = $reservations->join('user', 'effectuer.ID_user = user.ID_user')->join('reservation_nuit', 'effectuer.ID_nuit = reservation_nuit.ID_nuit')->join('client', 'reservation_nuit.ID_client = client.ID_client')->orderBy('reservation_nuit.ID_nuit', 'desc')->findAll();
 		return $data;
+	}
+
+	public function search($nom_client)
+	{
+		$clients = new clientModel();
+		$client = $clients->where('nom_client', $nom_client)->first();
+
+		$newData = [
+			'nom_client' => $client['nom_client'],
+			'prenom_client' => $client['prenom_client'],
+		];
+		$session = session();
+		$session->set($newData);
 	}
 }

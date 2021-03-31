@@ -33,8 +33,7 @@ class Chambre extends BaseController
 
         if (isset($_POST['btn_enregistrer'])) : {
                 $rules = [
-                    'tarif_nuit' => 'required',
-                    'tarif_heure' => 'required',
+                    'tarif_chambre' => 'required',
                 ];
 
                 if (!$this->validate($rules)) {
@@ -42,8 +41,7 @@ class Chambre extends BaseController
                 } else {
                     $chambres = new chambreModel();
                     $newData = [
-                        'tarif_nuit' => $_POST['tarif_nuit'],
-                        'tarif_heure' => $_POST['tarif_heure'],
+                        'tarif_chambre' => $_POST['tarif_chambre'],
                         'statut_chambre' => $_POST['statut_chambre'],
                     ];
 
@@ -63,8 +61,7 @@ class Chambre extends BaseController
 
         if (isset($_POST['btn_enregistrer'])) : {
                 $rules = [
-                    'tarif_nuit' => 'required',
-                    'tarif_heure' => 'required',
+                    'tarif_chambre' => 'required',
                 ];
 
                 if (!$this->validate($rules)) {
@@ -72,8 +69,7 @@ class Chambre extends BaseController
                 } else {
                     $chambres = new chambreModel();
                     $newData = [
-                        'tarif_nuit' => $_POST['tarif_nuit'],
-                        'tarif_heure' => $_POST['tarif_heure'],
+                        'tarif_chambre' => $_POST['tarif_chambre'],
                         'statut_chambre' => $_POST['statut_chambre'],
                     ];
 
@@ -105,8 +101,7 @@ class Chambre extends BaseController
 
         if (isset($_POST['btn_modification'])) : {
                 $rules = [
-                    'tarif_nuit' => 'required',
-                    'tarif_heure' => 'required',
+                    'tarif_chambre' => 'required',
                 ];
 
                 if (!$this->validate($rules)) {
@@ -114,8 +109,7 @@ class Chambre extends BaseController
                 } else {
                     $chambres = new chambreModel();
                     $data = [
-                        'tarif_nuit' => $_POST['tarif_nuit'],
-                        'tarif_heure' => $_POST['tarif_heure'],
+                        'tarif_chambre' => $_POST['tarif_chambre'],
                         'statut_chambre' => $_POST['statut_chambre'],
                     ];
 

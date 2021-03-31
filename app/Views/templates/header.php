@@ -37,11 +37,25 @@
                     </a>
                     <div class="collapse navbar-collapse" id="navBarHeader">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li class="nav-item"><a class="nav-link" href="dashboard">Tableau de bord</a></li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Tableau de bord</a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="etatFinancier">Etat financier</a></li>
+                                    <li><a class="dropdown-item" href="statistique">Statistique</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Planning</a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">Planning du jour</a></li>
+                                    <li><a class="dropdown-item" href="#">Planning du mois</a></li>
+                                </ul>
+                            </li>
                             <li class="nav-item"><a class="nav-link" href="accueilClient">Réservation</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#">Planning</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#">Fiche cardex</a></li>
                         </ul>
                         <ul class="navbar-nav my-2 my-lg-0">
+                            <li class="nav-item"><a class="nav-link" href="#">Paramètres</a></li>
                             <li class="nav-item"><a class="nav-link" href="logout">Déconnexion</a></li>
                         </ul>
                     </div>
@@ -60,11 +74,24 @@
                     </a>
                     <div class="collapse navbar-collapse" id="navBarHeader">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li class="nav-item"><a class="nav-link" href="dashboard">Accueil</a></li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Tableau de bord</a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="etatFinancier">Etat financier</a></li>
+                                    <li><a class="dropdown-item" href="statistique">Statistique</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Planning</a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">Planning du jour</a></li>
+                                    <li><a class="dropdown-item" href="#">Planning du mois</a></li>
+                                </ul>
+                            </li>
                             <li class="nav-item"><a class="nav-link" href="accueilClient">Réservation</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#">Planning</a></li>
                         </ul>
                         <ul class="navbar-nav my-2 my-lg-0">
+                            <li class="nav-item"><a class="nav-link" href="#">Paramètres</a></li>
                             <li class="nav-item"><a class="nav-link" href="logout">Déconnexion</a></li>
                         </ul>
                     </div>
@@ -102,10 +129,10 @@
                                 <div class="accordion-body">
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
-                                            <a class="nav-link" href="configReservation">Liste nuitée</a>
+                                            <a class="nav-link" href="configReservationNuit">Fiche nuitée</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="configReservationPassage">Liste passage</a>
+                                            <a class="nav-link" href="configReservationDay">Fiche day use</a>
                                         </li>
 
                                         <li class="nav-item">

@@ -20,6 +20,12 @@
                                 <input type="text" class="form-control" id="inputNom_user" name="nom_user">
                             </div>
                         </div>
+                        <div class="col-12 mt-2">
+                            <div class="form-group">
+                                <label for="prenom_user" class="form-label">Prénom</label>
+                                <input type="text" class="form-control" id="inputPrenom_user" name="prenom_user">
+                            </div>
+                        </div>
                         <div class="form-group mt-2">
                             <label for="">Droit d'accès</label>
                             <select class="form-select" name="droit_user">
@@ -83,9 +89,10 @@
 <!-- JAVASCRIPT -->
 
 <script type="text/javascript">
-    function updateData(ID_user, nom_user) {
+    function updateData(ID_user, nom_user, prenom_user) {
         document.getElementById('inputID_user').value = ID_user;
         document.getElementById('inputNom_user').value = nom_user;
+        document.getElementById('inputPrenom_user').value = prenom_user;
         document.getElementById('btnDelete').value = "Modifier";
     }
 

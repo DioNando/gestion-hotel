@@ -6,10 +6,10 @@
 
 :root {
   --blanc: #ffffff;
-  --chambreLibre: #84ff3d;
+  --chambreLibre: #ff7c1f;
   --chambreOccupee: #c1e6ff;
   --chambreAttente: #067eed;
-  --chambreReservation: #ff7c1f;
+  --chambreReservation: #84ff3d;; 
   --primaryColor: #0e3854;
   --secondaryColor: #067eed;
   --thirdColor: #ff7c1f;
@@ -81,7 +81,10 @@ footer {
   margin-bottom: 1rem;
   padding-top: 0.5rem;
   padding-bottom: 1rem;
-  background-color: var(--fourthColor) !important;
+}
+
+.formulaire-login {
+  width: 50%;
 }
 
 .menu-parent {
@@ -91,10 +94,6 @@ footer {
 .menu-parent > * {
   padding-left: 0;
   padding-right: 0;
-}
-
-.navbar a {
-  color: var(--fifthColor);
 }
 
 .menu {
@@ -150,6 +149,10 @@ footer {
 }
 
 @media screen and (max-width: 900px) {
+  .formulaire-login {
+    width: 95%;
+  }
+  
   .menu-parent {
     height: 100%;
   }

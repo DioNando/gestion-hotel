@@ -1,4 +1,6 @@
-<div class="modal fade" id="modalChambreUpdate" tabindex="-1" aria-labelledby="#" aria-hidden="true">
+<!-- MODIFICATION -->
+
+<div class="modal fade" id="modalReservationUpdate" tabindex="-1" aria-labelledby="#" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -53,7 +55,7 @@
 
 <!-- DELETE -->
 
-<div class="modal fade" id="modalChambreDelete" tabindex="-1" aria-labelledby="#" aria-hidden="true">
+<div class="modal fade" id="modalReservationDelete" tabindex="-1" aria-labelledby="#" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -82,10 +84,60 @@
     </div>
 </div>
 
+<!-- INFO -->
+
+<div class="modal fade" id="modalReservationInfo" tabindex="-1" aria-labelledby="#" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="#">Détails</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <table class="table table-hover table-striped table-light mb-0">
+                    <thead>
+                        <tr>
+                            <th scope="col">Durée</th>
+                            <th scope="col">N°Chambre</th>
+                            <th scope="col">Prix Unitaire</th>
+                            <th scope="col">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td>1</td>
+                            <td>20.000</td>
+                            <td>40.000</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">TOTAL</td>
+                            <td><b>40.000</b></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">Payement du 20/06/2020</td>
+                            <td colspan="1">Espèce</td>
+                            <td>40.000</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">RESTE A PAYER</td>
+                            <td><b>0</b></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
 <!-- JAVASCRIPT -->
 
 <script type="text/javascript">
-    function updateData(ID_chambre, tarif_chambre, statut_chambre) {
+    function updateData(ID_chambre, tarif_chambre, staut_chambre) {
         document.getElementById('inputID_chambre').value = ID_chambre;
         document.getElementById('inputTarif_chambre').value = tarif_chambre;
         document.getElementById('btnDelete').value = "Modifier";

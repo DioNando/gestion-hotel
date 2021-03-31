@@ -113,6 +113,7 @@ class User extends BaseController
                     $users = new userModel();
                     $data = [
                         'nom_user' => $_POST['nom_user'],
+                        'prenom_user' => $_POST['prenom_user'],
                         'droit_user' => $_POST['droit_user'],
                     ];
 

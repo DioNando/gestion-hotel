@@ -17,16 +17,25 @@ class ReservationNuit extends BaseController
 		$data = [];
 		helper(['form']);
 
-		if (isset($_POST['btn_reservation'])) {
-			//$this->create();
-			return redirect()->to('reservation');
-		} elseif (isset($_POST['btn_modification'])) {
+		if (isset($_POST['infoClient'])) {
+			$data['info'] = $this->infoReservationNuit($_POST['ID_nuit']);
+			echo view('reservation\infoReservationClient', $data);
+			return ($data);
+		}
+		if (isset($_POST['infoNuit'])) {
+			$data['info'] = $this->infoReservationNuit($_POST['ID_nuit']);
+			echo view('reservation\infoReservationClient', $data);
+			return ($data);
+		}
+		if (isset($_POST['btn_modification'])) {
 			//$this->update();
-			return redirect()->to('configReservation');
-		} elseif (isset($_POST['btn_suppression'])) {
-			//$this->delete();
-			return redirect()->to('configReservation');
-		} else {
+			return redirect()->to('configReservationNuit');
+		}
+		if (isset($_POST['btn_suppression'])) {
+			$this->delete();
+			return redirect()->to('configReservationNuit');
+		}
+		else {
 			$data = $this->read();
 			echo view('templates\header');
 			echo view('reservation\configReservationNuit', $data);
@@ -39,7 +48,7 @@ class ReservationNuit extends BaseController
 		$data = [];
 		helper(['form']);
 
-		if (isset($_POST['btn_attente']) OR isset($_POST['btn_arrive'])) : {
+		if (isset($_POST['btn_attente']) or isset($_POST['btn_arrive'])) : {
 				$rules = [
 					'nom_client' => 'required|min_length[3]|max_length[30]',
 					'prenom_client' => 'required|min_length[4]|max_length[255]',
@@ -58,15 +67,15 @@ class ReservationNuit extends BaseController
 
 					if (isset($_POST['btn_attente'])) { //etat_reservation = 0
 						if (isset($_POST['confirmation_reservation']))
-						$etat = 2;
+							$etat = 2;
 						else
-						$etat = 3;
+							$etat = 3;
 					}
 					if (isset($_POST['btn_arrive'])) { //etat_reservation = 1
 						if (isset($_POST['confirmation_reservation']))
-						$etat = 1;
+							$etat = 1;
 						else
-						$etat = 4;
+							$etat = 4;
 					}
 
 					$reservations = new reservationNuitModel();
@@ -160,7 +169,7 @@ class ReservationNuit extends BaseController
 
 		if (isset($_POST['btn_recherche'])) : {
 				$rules = [
-					'element_recherche' => 'required',
+					'element_recherche' => 'required|validateClient',
 				];
 
 				if (!$this->validate($rules)) {
@@ -181,10 +190,16 @@ class ReservationNuit extends BaseController
 	public function read()
 	{
 		$data = [];
-		// $reservations = new reservationNuitModel();
-		// $data['reservations'] = $reservations->join('user', 'reservation_nuit.ID_user = user.ID_user')->join('client', 'reservation_nuit.ID_client = client.ID_client')->orderBy('ID_nuit', 'desc')->findAll();
 		$reservations = new effectuerModel();
 		$data['reservations'] = $reservations->join('user', 'effectuer.ID_user = user.ID_user')->join('reservation_nuit', 'effectuer.ID_nuit = reservation_nuit.ID_nuit')->join('client', 'reservation_nuit.ID_client = client.ID_client')->orderBy('reservation_nuit.ID_nuit', 'desc')->findAll();
+		return $data;
+	}
+
+	public function infoReservationNuit($ID_nuit)
+	{
+		$data = [];
+		$reservations = new effectuerModel();
+		$data = $reservations->where('effectuer.ID_nuit', $ID_nuit)->join('user', 'effectuer.ID_user = user.ID_user')->join('reservation_nuit', 'effectuer.ID_nuit = reservation_nuit.ID_nuit')->join('client', 'reservation_nuit.ID_client = client.ID_client')->orderBy('reservation_nuit.ID_nuit', 'desc')->first();
 		return $data;
 	}
 
@@ -199,5 +214,13 @@ class ReservationNuit extends BaseController
 		];
 		$session = session();
 		$session->set($newData);
+	}
+
+	public function delete()
+	{
+		$reservation = new reservationNuitModel();
+		$reservation->delete(['ID_nuit' => $_POST['ID_nuit']]);
+		$session = session();
+		$session->setFlashdata('delete', 'La réservation a été supprimé avec succès');
 	}
 }

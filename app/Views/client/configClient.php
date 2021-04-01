@@ -40,7 +40,7 @@
                         <td>
                             <div class="center">
                                 <div>
-                                    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalClientUpdate" onclick="updateData('<?php echo $client['ID_client']; ?>' , '<?php echo $client['nom_client']; ?>' , '<?php echo $client['prenom_client']; ?>')"><img src="assets/icons/pencil-fill.svg" alt="Modifier"></button>
+                                    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalClientUpdate" onclick="updateData('<?php echo $client['ID_client']; ?>' , '<?php echo $client['nom_client']; ?>' , '<?php echo $client['prenom_client']; ?>' , '<?php echo $client['telephone_client']; ?>')"><img src="assets/icons/pencil-fill.svg" alt="Modifier"></button>
                                     <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalClientDelete" onclick="deleteData('<?php echo $client['ID_client']; ?>')"><img src="assets/icons/eraser-fill.svg" alt="Supprimer"></button>
                                     <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#modalClientInfo" onclick="infoData('<?php echo $client['ID_client']; ?>')"><img src="assets/icons/info-circle-fill.svg" alt="Info"></button>
                                 </div>

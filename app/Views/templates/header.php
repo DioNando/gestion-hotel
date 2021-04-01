@@ -7,12 +7,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" type="image/png" href="assets/icons/signe-de-l'hotel.png">
     <title>Hotel</title>
+    <!-- CSS -->
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/Chart.css">
     <link rel="stylesheet" href="assets/css/style.css">
-    <?php if (session()->get('isLoggedIn')) : ?>
+    <!-- JAVASCRIPT -->
+    <script src="assets/js/Chart.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/jquery/jquery.min.js"></script>
+    <?php if (!session()->get('isLoggedIn')) : ?>
         <style>
             body {
-                background-image: url("#");
+                background-image: url("assets/images/background1.png");
             }
         </style>
     <?php endif ?>

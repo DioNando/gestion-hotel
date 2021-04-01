@@ -23,20 +23,20 @@
                 </div>
                 <div class="col-12 col-sm-4 mt-2">
                     <div class="form-group">
-                        <label for="heure_day" class="form-label">Heure d'entrée</label>
-                        <input type="time" class="form-control" id="heureDebut" onchange="calculHeure(document.getElementById('heureDebut').value, document.getElementById('heureFin').value,);" name="heure_day">
+                        <label for="heure_arrive" class="form-label">Heure d'entrée</label>
+                        <input type="time" class="form-control" id="heure_arrive" onchange="calculHeure(document.getElementById('heure_arrive').value, document.getElementById('heure_depart').value,);" name="heure_arrive">
                     </div>
                 </div>
                 <div class="col-12 col-sm-4 mt-2">
                     <div class="form-group">
-                        <label for="heure_day" class="form-label">Heure de sortie</label>
-                        <input type="time" class="form-control" id="heureFin" onchange="calculHeure(document.getElementById('heureDebut').value, document.getElementById('heureFin').value,);" name="heure_day">
+                        <label for="heure_depart" class="form-label">Heure de sortie</label>
+                        <input type="time" class="form-control" id="heure_depart" onchange="calculHeure(document.getElementById('heure_arrive').value, document.getElementById('heure_depart').value,);" name="heure_depart">
                     </div>
                 </div>
                 <div class="col-12 col-sm-4 mt-2">
                     <div class="form-group">
                         <label for="duree_day" class="form-label">Durée</label>
-                        <input type="number" class="form-control" id="duree_day" name="duree_day" value="1" min="1" readonly>
+                        <input type="number" class="form-control" id="duree_day" name="duree_day" value="0" min="1" readonly>
                     </div>
                 </div>
                 <div class="col-12 mt-2">
@@ -82,12 +82,12 @@
 <script>
     var today = new Date();
     var time = today.getHours() + ":" + today.getMinutes();
-    document.getElementById('heureDebut').value = time;
-    document.getElementById('heureFin').value = time;
+    document.getElementById('heure_arrive').value = time;
+    document.getElementById('heure_depart').value = time;
 
-    function calculHeure(heureDebut, heureFin) {
-        x = heureDebut.split(':');
-        y = heureFin.split(':');
+    function calculHeure(heure_arrive, heure_depart) {
+        x = heure_arrive.split(':');
+        y = heure_depart.split(':');
         z = y[0] - x[0];
 
         console.log(x[0] + ":" + x[1]);

@@ -11,13 +11,16 @@ class Client extends BaseController
 		if (isset($_POST['btn_reservation'])) {
 			$this->create();
 			return redirect()->to('reservation');
-		} elseif (isset($_POST['btn_modification'])) {
+		} 
+		if (isset($_POST['btn_modification'])) {
 			$this->update();
 			return redirect()->to('configClient');
-		} elseif (isset($_POST['btn_suppression'])) {
+		} 
+		if (isset($_POST['btn_suppression'])) {
 			$this->delete();
 			return redirect()->to('configClient');
-		} elseif (isset($_POST['btn_recherche'])) {
+		} 
+		if (isset($_POST['btn_recherche'])) {
 			$data = $this->search($_POST['element_recherche']);
 			echo view('templates\header');
 			echo view('client\configClient', $data);

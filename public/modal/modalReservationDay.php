@@ -12,8 +12,8 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="form-group">
-                                <label for="ID_chambre" class="form-label">Identification</label>
-                                <input type="text" class="form-control" id="inputID_chambre" name="ID_chambre" readonly>
+                                <label for="ID_day" class="form-label">Identification</label>
+                                <input type="text" class="form-control" id="inputID_chambre" name="ID_day" readonly>
                             </div>
                         </div>
                         <div class="col-12 mt-2">
@@ -66,8 +66,8 @@
                 <p>Voulez-vous vraiment effacer la ligne <b id="innerIDdel"></b> ?</p>
                 <form action="#" method="post">
                     <div class="mb-2" style="display: none;">
-                        <label for="ID_chambre" class="form-label">Identification</label>
-                        <input type="text" class="form-control" id="inputIDdel" name="ID_chambre" readonly>
+                        <label for="ID_day" class="form-label">Identification</label>
+                        <input type="text" class="form-control" id="inputIDdel" name="ID_day" readonly>
                     </div>
 
                     <div class="d-grid gap-2 mt-4">
@@ -137,15 +137,15 @@
 <!-- JAVASCRIPT -->
 
 <script type="text/javascript">
-    function updateData(ID_chambre, tarif_chambre, staut_chambre) {
-        document.getElementById('inputID_chambre').value = ID_chambre;
+    function updateData(ID_day, tarif_chambre, staut_chambre) {
+        document.getElementById('inputID_chambre').value = ID_day;
         document.getElementById('inputTarif_chambre').value = tarif_chambre;
         document.getElementById('btnDelete').value = "Modifier";
     }
 
-    function deleteData(ID_chambre) {
-        document.getElementById('innerIDdel').innerHTML = ID_chambre;
-        document.getElementById('inputIDdel').value = ID_chambre;
+    function deleteData(ID_day) {
+        document.getElementById('innerIDdel').innerHTML = ID_day;
+        document.getElementById('inputIDdel').value = ID_day;
         document.getElementById('btnDelete').value = "Effacer";
     }
 </script>

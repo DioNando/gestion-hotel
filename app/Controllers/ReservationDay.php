@@ -20,11 +20,13 @@ class ReservationDay extends BaseController
 		if (isset($_POST['btn_reservation'])) {
 			//$this->create();
 			return redirect()->to('reservation');
-		} elseif (isset($_POST['btn_modification'])) {
-			//$this->update();
+		} 
+		if (isset($_POST['btn_modification'])) {
+			$this->update();
 			return redirect()->to('configReservationDay');
-		} elseif (isset($_POST['btn_suppression'])) {
-			//$this->delete();
+		} 
+		if (isset($_POST['btn_suppression'])) {
+			$this->delete();
 			return redirect()->to('configReservationDay');
 		} else {
 			$data = $this->read();
@@ -44,7 +46,7 @@ class ReservationDay extends BaseController
 		if (isset($_POST['btn_reservation'])) : {
 				$rules = [
 					'date_day' => 'required',
-					'heure_day' => 'required',
+					'duree_day' => 'required|is_natural_no_zero',
 				];
 
 				if (!$this->validate($rules)) {
@@ -55,7 +57,8 @@ class ReservationDay extends BaseController
 					$reservations = new reservationDayModel();
 					$newData = [
 						'date_day' => $_POST['date_day'],
-						'heure_day' => $_POST['heure_day'],
+						'heure_arrive' => $_POST['heure_arrive'],
+						'heure_depart' => $_POST['heure_depart'],
 						'duree_day' => $_POST['duree_day'],
 						'ID_user' => $user['ID_user'],
 					];
@@ -117,5 +120,48 @@ class ReservationDay extends BaseController
 		$reservations = new effectuerModel();
 		$data['reservations'] = $reservations->join('user', 'effectuer.ID_user = user.ID_user')->join('reservation_day', 'effectuer.ID_day = reservation_day.ID_day')->orderBy('reservation_day.ID_day', 'desc')->findAll();
 		return $data;
+	}
+
+	public function update()
+	{
+		$data = [];
+		helper('form');
+
+		if (isset($_POST['btn_modification'])) : {
+				$rules = [
+					'date_day' => 'required',
+					'duree_day' => 'required|is_natural_no_zero',
+				];
+
+				if (!$this->validate($rules)) {
+					$data['validation'] = $this->validator;
+				} else {
+					$users = new userModel();
+					$user = $users->where('nom_user', $_POST['nom_user'])->first();
+					$reservations = new reservationDayModel();
+					$data = [
+						'date_day' => $_POST['date_day'],
+						'heure_arrive' => $_POST['heure_arrive'],
+						'heure_depart' => $_POST['heure_depart'],
+						'duree_day' => $_POST['duree_day'],
+						'ID_user' => $user['ID_user'],
+					];
+
+					$reservations->set($data);
+					$reservations->where('ID_day', $_POST['ID_day']);
+					$reservations->update();
+					$session = session();
+					$session->setFlashdata('update', 'La ligne a été modifié avec succès');
+				}
+			}
+		endif;
+	}
+
+	public function delete()
+	{
+		$reservation = new reservationDayModel();
+		$reservation->delete(['ID_day' => $_POST['ID_day']]);
+		$session = session();
+		$session->setFlashdata('delete', 'La réservation a été supprimé avec succès');
 	}
 }

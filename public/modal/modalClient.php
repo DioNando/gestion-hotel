@@ -26,6 +26,12 @@
                                 <input type="text" class="form-control" id="inputPrenom_client" name="prenom_client">
                             </div>
                         </div>
+                        <div class="col-12 col-sm-12 mt-2">
+                            <div class="form-group">
+                                <label for="telephone_client" class="form-label">Téléphone</label>
+                                <input type="tel" class="form-control" id="inputTelephone_client" name="telephone_client">
+                            </div>
+                        </div>
 
                         <div class="d-grid gap-2 mt-4">
                             <button type="submit" class="btn btn-primary" id="btnSubmit" name="btn_modification">Modifier</button>
@@ -83,10 +89,11 @@
 <!-- JAVASCRIPT -->
 
 <script type="text/javascript">
-    function updateData(ID_client, nom_client, prenom_client) {
+    function updateData(ID_client, nom_client, prenom_client, telephone_client) {
         document.getElementById('inputID_client').value = ID_client;
         document.getElementById('inputNom_client').value = nom_client;
         document.getElementById('inputPrenom_client').value = prenom_client;
+        document.getElementById('inputTelephone_client').value = telephone_client;
         document.getElementById('btnDelete').value = "Modifier";
     }
 

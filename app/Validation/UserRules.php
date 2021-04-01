@@ -3,7 +3,7 @@
 namespace App\Validation;
 
 use App\models\userModel;
-use App\models\adminModel;
+use App\models\clientModel;
 
 class UserRules
 {
@@ -18,14 +18,13 @@ class UserRules
         return password_verify($data['mdp_user'], $user['mdp_user']);
     }
     
-    public function validateAdmin(string $str, string $fields, array $data)
+    public function validateClient(string $nom_client)
     {
-        $model = new adminModel();
-        $user = $model->where('nom_admin', $data['nom_admin']) 
+        $model = new clientModel();
+        $user = $model->where('nom_client', $nom_client) 
                       ->first();
-
+                      
         if (!$user)
             return false;
-        return password_verify($data['mdp_admin'], $user['mdp_admin']);
     }
 }

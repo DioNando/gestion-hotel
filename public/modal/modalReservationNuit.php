@@ -12,8 +12,8 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="form-group">
-                                <label for="ID_chambre" class="form-label">Identification</label>
-                                <input type="text" class="form-control" id="inputID_chambre" name="ID_chambre" readonly>
+                                <label for="ID_nuit" class="form-label">Identification</label>
+                                <input type="text" class="form-control" id="inputID_chambre" name="ID_nuit" readonly>
                             </div>
                         </div>
                         <div class="col-12 mt-2">
@@ -66,8 +66,8 @@
                 <p>Voulez-vous vraiment effacer la ligne <b id="innerIDdel"></b> ?</p>
                 <form action="#" method="post">
                     <div class="mb-2" style="display: none;">
-                        <label for="ID_chambre" class="form-label">Identification</label>
-                        <input type="text" class="form-control" id="inputIDdel" name="ID_chambre" readonly>
+                        <label for="ID_nuit" class="form-label">Identification</label>
+                        <input type="text" class="form-control" id="inputIDdel" name="ID_nuit" readonly>
                     </div>
 
                     <div class="d-grid gap-2 mt-4">
@@ -146,18 +146,88 @@
     </div>
 </div>
 
+<!-- INFO CLIENT -->
+
+<div class="modal fade" id="modalReservationInfoClient" tabindex="-1" aria-labelledby="#" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="#">Informations client</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="modalInfoClient">
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- INFO RESERVATION -->
+
+<div class="modal fade" id="modalReservationInfoNuit" tabindex="-1" aria-labelledby="#" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="#">Informations client</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="modalInfoNuit">
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
 <!-- JAVASCRIPT -->
 
 <script type="text/javascript">
-    function updateData(ID_chambre, tarif_chambre, staut_chambre) {
-        document.getElementById('inputID_chambre').value = ID_chambre;
+    function updateData(ID_nuit, tarif_chambre, statut_chambre) {
+        document.getElementById('inputID_chambre').value = ID_nuit;
         document.getElementById('inputTarif_chambre').value = tarif_chambre;
         document.getElementById('btnDelete').value = "Modifier";
     }
 
-    function deleteData(ID_chambre) {
-        document.getElementById('innerIDdel').innerHTML = ID_chambre;
-        document.getElementById('inputIDdel').value = ID_chambre;
+    function deleteData(ID_nuit) {
+        document.getElementById('innerIDdel').innerHTML = ID_nuit;
+        document.getElementById('inputIDdel').value = ID_nuit;
         document.getElementById('btnDelete').value = "Effacer";
+    }
+
+    function infoSupplementaireNuit(ID_nuit, info) {
+        $(document).ready(function() {
+            if (info == 'infoClient') {
+
+                $.ajax({
+                    url: 'ReservationNuit',
+                    type: 'post',
+                    data: {
+                        ID_nuit: ID_nuit,
+                        infoClient: info
+                    },
+
+                    success: function(data) {
+                        $('#modalInfoClient').html(data);
+                    }
+                })
+            }
+
+            if (info == 'infoNuit') {
+                $.ajax({
+                    url: 'ReservationNuit',
+                    type: 'post',
+                    data: {
+                        ID_nuit: ID_nuit,
+                        infoNuit: info
+                    },
+
+                    success: function(data) {
+                        $('#modalInfoNuit').html(data);
+                    }
+                })
+            }
+            
+        });
     }
 </script>

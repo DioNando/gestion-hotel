@@ -84,6 +84,7 @@ footer {
 }
 
 .formulaire-login {
+  background: rgba(255, 255, 255, 0.671);
   width: 50%;
 }
 
@@ -122,6 +123,10 @@ footer {
 
 .alert-danger ul {
   list-style-type: none;
+}
+
+.btn-icon {
+  border-color: transparent;
 }
 
 .form-check {

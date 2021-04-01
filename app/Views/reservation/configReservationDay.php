@@ -21,11 +21,12 @@
         <thead>
             <tr>
                 <th scope="col">Identification</th>
-                <th scope="col">Date</th>
-                <th scope="col">Heure</th>
+                <th scope="col">Heure d'arrivée</th>
+                <th scope="col">Heure de départ</th>
                 <th scope="col">Durée</th>
-                <th scope="col">Utilisateur</th>
-                    <th scope="col">Actions</th>
+                <th scope="col">Détails</th>
+                <th scope="col">Info réservation</th>
+                <th scope="col">Actions</th>
             </tr>
         </thead>
         <tbody class="align-middle">
@@ -35,16 +36,28 @@
             ?>
                     <tr>
                         <th scope="row"> <?php echo ($reservation['ID_day']) ?> </th>
-                        <td> <?php echo ($reservation['date_day']); ?> </td>
-                        <td> <?php echo ($reservation['heure_day']); ?> </td>
+                        <td> <?php echo ($reservation['heure_arrive']); ?> </td>
+                        <td> <?php echo ($reservation['heure_depart']); ?> </td>
                         <td> <?php echo ($reservation['duree_day']); ?> </td>
-                        <td> <?php echo ($reservation['nom_user']); ?> </td>
                         <td>
                             <div class="center">
                                 <div>
-                                    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalReservationUpdate" onclick="updateData('<?php echo $reservation['ID_day']; ?>' , '<?php echo $reservation['ID_user']; ?>')"><img src="assets/icons/pencil-fill.svg" alt="Modifier"></button>
-                                    <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalReservationDelete" onclick="deleteData('<?php echo $reservation['ID_day']; ?>')"><img src="assets/icons/eraser-fill.svg" alt="Supprimer"></button>
-                                    <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#modalReservationInfo" onclick="infoData('<?php echo $reservation['ID_day']; ?>')"><img src="assets/icons/info-circle-fill.svg" alt="Info"></button>
+                                    <button type="button" class="btn btn-outline-primary btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalReservationInfo" onclick="infoData('<?php echo $reservation['ID_day']; ?>')"><img src="assets/icons/info-circle-fill.svg" alt="Info"></button>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="center">
+                                <div>
+                                    <button type="button" class="btn btn-outline-success btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalReservationInfo" onclick="infoData('<?php echo $reservation['ID_day']; ?>')"><img src="assets/icons/stickies-fill.svg" alt="Info"></button>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="center">
+                                <div>
+                                    <button type="button" class="btn btn-outline-warning btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalReservationUpdate" onclick="updateData('<?php echo $reservation['ID_day']; ?>' , '<?php echo $reservation['ID_user']; ?>')"><img src="assets/icons/pencil-fill.svg" alt="Modifier"></button>
+                                    <button type="button" class="btn btn-outline-danger btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalReservationDelete" onclick="deleteData('<?php echo $reservation['ID_day']; ?>')"><img src="assets/icons/eraser-fill.svg" alt="Supprimer"></button>
                                 </div>
                             </div>
                         </td>

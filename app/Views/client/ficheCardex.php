@@ -4,7 +4,7 @@
 <div class="container-fluid mt-3">
     
     
-    <h1>Liste des clients</h1>
+    <h1>Fiche Cardex</h1>
     
     <?php include("search/recherche.php"); ?>
     <?php if (session()->get('update')) : ?>
@@ -23,7 +23,7 @@
                 <th scope="col">Identification</th>
                 <th scope="col">Nom</th>
                 <th scope="col">Prénom</th>
-                <th scope="col">Actions</th>
+                <th scope="col">Fiche Cardex</th>
             </tr>
         </thead>
         <tbody class="align-middle">
@@ -40,9 +40,7 @@
                         <td>
                             <div class="center">
                                 <div>
-                                    <button type="button" class="btn btn-outline-primary btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalClientUpdate" onclick="updateData('<?php echo $client['ID_client']; ?>' , '<?php echo $client['nom_client']; ?>' , '<?php echo $client['prenom_client']; ?>' , '<?php echo $client['telephone_client']; ?>')"><img src="assets/icons/pencil-fill.svg" alt="Modifier"></button>
-                                    <button type="button" class="btn btn-outline-danger btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalClientDelete" onclick="deleteData('<?php echo $client['ID_client']; ?>')"><img src="assets/icons/eraser-fill.svg" alt="Supprimer"></button>
-                                    <button type="button" class="btn btn-outline-success btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalClientInfo" onclick="infoData('<?php echo $client['ID_client']; ?>')"><img src="assets/icons/info-circle-fill.svg" alt="Info"></button>
+                                    <button type="button" class="btn btn-outline-success btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalClientInfo" onclick="infoData('<?php echo $client['ID_client']; ?>')"><img src="assets/icons/file-earmark-text-fill.svg" alt="Info"></button>
                                 </div>
                             </div>
                         </td>

@@ -39,8 +39,7 @@ class ReservationNuit extends BaseController
 		if (isset($_POST['btn_suppression'])) {
 			$this->delete();
 			return redirect()->to('configReservationNuit');
-		}
-		else {
+		} else {
 			$data = $this->read();
 			echo view('templates\header');
 			echo view('reservation\configReservationNuit', $data);
@@ -55,8 +54,8 @@ class ReservationNuit extends BaseController
 
 		if (isset($_POST['btn_attente']) or isset($_POST['btn_arrive'])) : {
 				$rules = [
-					'nom_client' => 'required|min_length[3]|max_length[30]',
-					'prenom_client' => 'required|min_length[4]|max_length[255]',
+					'nom_client' => 'required|min_length[1]',
+					'prenom_client' => 'required|min_length[1]',
 					'debut_sejour' => 'required',
 					'fin_sejour' => 'required',
 					'nbr_nuit' => 'is_natural'
@@ -149,8 +148,8 @@ class ReservationNuit extends BaseController
 
 		if (isset($_POST['btn_validation'])) : {
 				$rules = [
-					'nom_client' => 'required|min_length[3]|max_length[30]',
-					'prenom_client' => 'required|min_length[4]|max_length[255]',
+					'nom_client' => 'required|min_length[1]',
+					'prenom_client' => 'required|min_length[1]',
 				];
 
 				if (!$this->validate($rules)) {

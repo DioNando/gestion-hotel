@@ -8,16 +8,16 @@
                 </div>
             <?php endif; ?>
             <div class="form-group">
-                <label for="">Nom</label>
+                <label class="form-label" for="">Nom</label>
                 <input type="text" class="form-control" name="nom_user" id="">
             </div>
 
             <div class="form-group mt-2">
-                <label for="">Mot de passe</label>
+                <label class="form-label" for="">Mot de passe</label>
                 <input type="password" class="form-control" name="mdp_user" id="">
             </div>
             <div class="form-group mt-2">
-                <label for="">Droit d'accès</label>
+                <label class="form-label" for="">Droit d'accès</label>
                 <select class="form-select" name="droit_user">
                     <option selected value="Utilisateur">Utilisateur</option>
                     <option value="Administrateur">Administrateur</option>

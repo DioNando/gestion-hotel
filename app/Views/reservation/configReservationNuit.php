@@ -6,7 +6,7 @@
 
     <h1>Liste des réservations</h1>
 
-    <?php include("search/recherche.php"); ?>
+    <!-- <?php include("search/recherche.php"); ?> -->
     <?php if (session()->get('update')) : ?>
         <div class="alert alert-success" role="alert">
             <?= session()->get('update') ?>
@@ -78,9 +78,9 @@
                 ?>
                 <tr>
                     <?php if (session()->get('isUser') == 'Administrateur') : ?>
-                        <td colspan="6">Tableau vide.</td>
+                        <td colspan="8">Tableau vide.</td>
                     <?php else : ?>
-                        <td colspan="6">Tableau vide.</td>
+                        <td colspan="8">Tableau vide.</td>
                     <?php endif; ?>
                 </tr>
             <?php

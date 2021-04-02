@@ -53,16 +53,30 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Planning</a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">Planning du jour</a></li>
-                                    <li><a class="dropdown-item" href="#">Planning du mois</a></li>
+                                    <li><a class="dropdown-item" href="planningJour">Planning du jour</a></li>
+                                    <li><a class="dropdown-item" href="planningMois">Planning du mois</a></li>
                                 </ul>
                             </li>
                             <li class="nav-item"><a class="nav-link" href="accueilClient">Réservation</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#">Fiche cardex</a></li>
+                            <li class="nav-item"><a class="nav-link" href="ficheCardex">Fiche cardex</a></li>
                         </ul>
                         <ul class="navbar-nav my-2 my-lg-0">
-                            <li class="nav-item"><a class="nav-link" href="#">Paramètres</a></li>
-                            <li class="nav-item"><a class="nav-link" href="logout">Déconnexion</a></li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Paramètres</a>
+                                <ul class="dropdown-menu dropdown-menu-lg-end">
+                                    <li><a class="dropdown-item" href="#">Profil</a></li>
+                                    <li><a class="dropdown-item" href="configUser">Utilisateur</a></li>
+                                    <li><a class="dropdown-item" href="configAdmin">Administrateur</a></li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li><a class="dropdown-item" href="logout">Déconnexion</a></li>
+                                </ul>
+                            </li>
+                            <!-- <li class="nav-item"><a class="nav-link" href="#">Paramètres</a></li>
+                            <li class="nav-item"><a class="nav-link" href="logout">Déconnexion</a></li> -->
+
+                            
                         </ul>
                     </div>
                 </div>
@@ -95,10 +109,23 @@
                                 </ul>
                             </li>
                             <li class="nav-item"><a class="nav-link" href="accueilClient">Réservation</a></li>
+                            <li class="nav-item"><a class="nav-link" href="ficheCardex">Fiche cardex</a></li>
                         </ul>
                         <ul class="navbar-nav my-2 my-lg-0">
-                            <li class="nav-item"><a class="nav-link" href="#">Paramètres</a></li>
-                            <li class="nav-item"><a class="nav-link" href="logout">Déconnexion</a></li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Paramètres</a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">Profil</a></li>
+                                    <li><a class="dropdown-item" href="configUser">Utilisateur</a></li>
+                                    <li><a class="dropdown-item" href="configAdmin">Administrateur</a></li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li><a class="dropdown-item" href="logout">Déconnexion</a></li>
+                                </ul>
+                            </li>
+                            <!-- <li class="nav-item"><a class="nav-link" href="#">Paramètres</a></li>
+                            <li class="nav-item"><a class="nav-link" href="logout">Déconnexion</a></li> -->
                         </ul>
                     </div>
                 </div>

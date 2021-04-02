@@ -51,6 +51,7 @@ class ReservationDay extends BaseController
 
 		if (isset($_POST['btn_validation'])) : {
 				$rules = [
+					'nom_client_day' => 'required',
 					'date_day' => 'required',
 					'duree_day' => 'required|is_natural_no_zero',
 				];
@@ -62,6 +63,7 @@ class ReservationDay extends BaseController
 					$user = $users->where('nom_user', $_POST['nom_user'])->first();
 					$reservations = new reservationDayModel();
 					$newData = [
+						'nom_client_day' => $_POST['nom_client_day'],
 						'date_day' => $_POST['date_day'],
 						'heure_arrive' => $_POST['heure_arrive'],
 						'heure_depart' => $_POST['heure_depart'],
@@ -140,7 +142,8 @@ class ReservationDay extends BaseController
 		helper('form');
 
 		if (isset($_POST['btn_modification'])) : {
-				$rules = [
+			$rules = [
+					'nom_client_day' => 'required',
 					'date_day' => 'required',
 					'duree_day' => 'required|is_natural_no_zero',
 				];
@@ -152,6 +155,7 @@ class ReservationDay extends BaseController
 					$user = $users->where('nom_user', $_POST['nom_user'])->first();
 					$reservations = new reservationDayModel();
 					$data = [
+						'nom_client_day' => $_POST['nom_client_day'],
 						'date_day' => $_POST['date_day'],
 						'heure_arrive' => $_POST['heure_arrive'],
 						'heure_depart' => $_POST['heure_depart'],

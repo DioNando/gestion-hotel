@@ -9,8 +9,7 @@
         </thead>
         <tbody class="align-middle">
        
-                    <tr>
-                     
+                    <tr>                    
                         <td> <?php echo ($info['date_reservation_day']); ?> </td>
                         <td> <?php echo ($info['nom_user']); ?> </td>
                         <td> <?php echo ($info['date_modification_day']); ?> </td>

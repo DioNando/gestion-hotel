@@ -11,8 +11,13 @@
                     <?php endif; ?>
                 </div>
 
-
-                <div class="col-12 col-sm-12">
+                <div class="col-12 col-sm-6">
+                    <div class="form-group">
+                        <label for="nom_client_day" class="form-label">Nom du client</label>
+                        <input type="text" class="form-control" id="nom_client_day" name="nom_client_day">
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6">
                     <div class="form-group">
                         <label for="date_day" class="form-label">Date</label>
                         <input type="date" class="form-control" id="dateAujourdhui" name="date_day" readonly>

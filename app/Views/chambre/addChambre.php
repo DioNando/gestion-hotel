@@ -8,13 +8,13 @@
                 </div>
             <?php endif; ?>
             <div class="form-group">
-                <label for="">Tarif par nuit</label>
+                <label class="form-label" for="">Tarif par nuit</label>
                 <input type="number" class="form-control" name="tarif_chambre" id="" min="1" placeholder="ariary">
             </div>
           
 
             <div class="form-group mt-2">
-                <label for="">Statut chambre</label>
+                <label class="form-label" for="">Statut chambre</label>
                 <select class="form-select" name="statut_chambre">
                     <option selected value="Libre">Libre</option>
                     <option value="Occupée">Occupée</option>

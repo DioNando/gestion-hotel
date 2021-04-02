@@ -54,7 +54,7 @@
                 </div>
                 <div class="col-12 mt-2">
                     <div class="form-group">
-                        <label for="">Type de réservation</label>
+                        <label class="form-label" for="">Type de réservation</label>
                         <select class="form-select" name="type_reservation">
                             <option selected value="Réception">Réception</option>
                             <option value="Téléphone">Téléphone</option>
@@ -71,7 +71,6 @@
                 <div class="col-12 mt-2">
                     <div class="form-group">
                         <label for="remarque_reservation" class="form-label">Remarque</label>
-                        <!-- <input type="textarea" class="form-control" id="remarque_reservation" name="remarque_reservation"> -->
                         <textarea class="form-control" id="remarque_reservation" name="remarque_reservation" rows="2"></textarea>
                     </div>
                 </div>

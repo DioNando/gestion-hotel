@@ -18,6 +18,12 @@ class Chambre extends BaseController
         } elseif (isset($_POST['btn_suppression'])) {
             $this->delete();
             return redirect()->to('configChambre');
+        }
+        if (isset($_POST['btn_recherche']) AND $_POST['element_recherche'] != NULL) {
+            $data = $this->search($_POST['element_recherche']);
+            echo view('templates\header');
+            echo view('chambre\configChambre', $data);
+            echo view('templates\footer');
         } else {
             $data = $this->read();
             echo view('templates\header');
@@ -130,4 +136,12 @@ class Chambre extends BaseController
         $session = session();
         $session->setFlashdata('delete', 'La chambre a été supprimé avec succès');
     }
+
+    public function search($statut_chambre)
+	{
+		$data = [];
+		$chambres = new chambreModel();
+		$data['chambres'] = $chambres->where('statut_chambre', $statut_chambre)->find();
+		return $data;
+	}
 }

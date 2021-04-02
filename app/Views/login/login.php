@@ -3,12 +3,12 @@
         <span class="center mb-2"><img src="assets/images/login.png"></span>
         <h1 class="center">SE CONNECTER</h1>
         <form action="" method="post">
-            <div class="form-group"><label for="nom_user">Nom</label>
+            <div class="form-group"><label class="form-label" for="nom_user">Nom</label>
                 <input type="text" class="form-control" name="nom_user" id="nom_user">
             </div>
 
             <div class="form-group mt-2">
-                <label for="mdp_user">Mot de passe</label>
+                <label class="form-label" for="mdp_user">Mot de passe</label>
                 <input type="password" class="form-control" name="mdp_user" id="mdp_user">
             </div>
             <div class="d-grid gap-2 mt-3">

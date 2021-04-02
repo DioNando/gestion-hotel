@@ -21,16 +21,16 @@
                             <?= session()->get('success') ?>
                         </div>
                     <?php endif; ?>
-                    <div class="form-group col-12"><label for="">Nom</label>
+                    <div class="form-group col-12"><label class="form-label" for="">Nom</label>
                         <input type="text" class="form-control" name="nom_client" id="">
                     </div>
 
                     <div class="form-group mt-2 col-12">
-                        <label for="">Prénom</label>
+                        <label class="form-label" for="">Prénom</label>
                         <input type="text" class="form-control" name="prenom_client" id="">
                     </div>
                     <div class="form-group mt-2">
-                        <label for="">Téléphone</label>
+                        <label class="form-label" for="">Téléphone</label>
                         <input type="tel" class="form-control" name="telephone_client" id="">
                     </div>
                     <div class="d-grid gap-2 mt-3">

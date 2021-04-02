@@ -62,8 +62,8 @@ class User extends BaseController
 
         if (isset($_POST['btn_enregistrer'])) : {
                 $rules = [
-                    'nom_user' => 'required|min_length[3]|max_length[30]',
-                    'mdp_user' => 'required|min_length[4]|max_length[255]',
+                    'nom_user' => 'required|min_length[1]',
+                    'mdp_user' => 'required|min_length[1]',
                 ];
 
                 if (!$this->validate($rules)) {

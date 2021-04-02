@@ -20,7 +20,7 @@ class Client extends BaseController
 			$this->delete();
 			return redirect()->to('configClient');
 		} 
-		if (isset($_POST['btn_recherche'])) {
+		if (isset($_POST['btn_recherche']) AND $_POST['element_recherche'] != NULL) {
 			$data = $this->search($_POST['element_recherche']);
 			echo view('templates\header');
 			echo view('client\configClient', $data);
@@ -40,8 +40,8 @@ class Client extends BaseController
 
 		if (isset($_POST['btn_validation'])) : {
 				$rules = [
-					'nom_client' => 'required|min_length[3]|max_length[30]',
-					'prenom_client' => 'required|min_length[4]|max_length[255]',
+					'nom_client' => 'required|min_length[1]',
+					'prenom_client' => 'required|min_length[1]',
 				];
 
 				if (!$this->validate($rules)) {
@@ -125,8 +125,8 @@ class Client extends BaseController
 
 		if (isset($_POST['btn_validation'])) : {
 				$rules = [
-					'nom_client' => 'required|min_length[3]|max_length[30]',
-					'prenom_client' => 'required|min_length[4]|max_length[255]',
+					'nom_client' => 'required|min_length[1]',
+					'prenom_client' => 'required|min_length[1]',
 					'telephone_client' => 'required',
 				];
 

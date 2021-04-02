@@ -57,9 +57,9 @@
                 ?>
                 <tr>
                     <?php if (session()->get('isUser') == 'Administrateur') : ?>
-                        <td colspan="4">Tableau vide.</td>
+                        <td colspan="5">Tableau vide.</td>
                     <?php else : ?>
-                        <td colspan="3">Tableau vide.</td>
+                        <td colspan="4">Tableau vide.</td>
                     <?php endif; ?>
                 </tr>
             <?php

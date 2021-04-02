@@ -43,9 +43,9 @@
                             <td>
                                 <div class="center">
                                     <div>
-                                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalUserUpdate" onclick="updateData('<?php echo $user['ID_user']; ?>' , '<?php echo $user['nom_user']; ?>' , '<?php echo $user['prenom_user']; ?>')"><img src="assets/icons/pencil-fill.svg" alt="Modifier"></button>
-                                        <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalUserDelete" onclick="deleteData('<?php echo $user['ID_user']; ?>')"><img src="assets/icons/eraser-fill.svg" alt="Supprimer"></button>
-                                        <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#modalUserInfo" onclick="infoData('<?php echo $user['ID_user']; ?>')"><img src="assets/icons/info-circle-fill.svg" alt="Info"></button>
+                                        <button type="button" class="btn btn-outline-warning btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalUserUpdate" onclick="updateData('<?php echo $user['ID_user']; ?>' , '<?php echo $user['nom_user']; ?>' , '<?php echo $user['prenom_user']; ?>')"><img src="assets/icons/pencil-fill.svg" alt="Modifier"></button>
+                                        <button type="button" class="btn btn-outline-danger btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalUserDelete" onclick="deleteData('<?php echo $user['ID_user']; ?>')"><img src="assets/icons/eraser-fill.svg" alt="Supprimer"></button>
+                                        <button type="button" class="btn btn-outline-success btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalUserInfo" onclick="infoData('<?php echo $user['ID_user']; ?>')"><img src="assets/icons/info-circle-fill.svg" alt="Info"></button>
                                     </div>
                                 </div>
                             </td>

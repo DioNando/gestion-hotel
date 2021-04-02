@@ -56,9 +56,9 @@
                     <div class="form-group">
                         <label for="">Type de réservation</label>
                         <select class="form-select" name="type_reservation">
-                            <option selected value="reception">Réception</option>
-                            <option value="telephone">Téléphone</option>
-                            <option value="mail">Mail</option>
+                            <option selected value="Réception">Réception</option>
+                            <option value="Téléphone">Téléphone</option>
+                            <option value="Mail">Mail</option>
                         </select>
                     </div>
                 </div>
@@ -102,11 +102,7 @@
                         <?php } ?>
                     </div>
                 </div>
-                <!--Checkbox-->
-                <!-- <div class="d-grid gap-2 mt-3">
-                    <button type="submit" class="btn btn-primary" name="btn_reservation">Valider</button>
-                </div> -->
-
+            
                 <div class="col-12 col-sm-6">
                     <div class="d-grid gap-2 mt-3">
                         <button type="submit" class="btn btn-primary" name="btn_attente">En attente</button>

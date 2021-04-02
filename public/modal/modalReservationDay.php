@@ -13,22 +13,8 @@
                         <div class="col-12">
                             <div class="form-group">
                                 <label for="ID_day" class="form-label">Identification</label>
-                                <input type="text" class="form-control" id="inputID_chambre" name="ID_day" readonly>
+                                <input type="text" class="form-control" id="inputID_day" name="ID_day" readonly>
                             </div>
-                        </div>
-                        <div class="col-12 mt-2">
-                            <div class="form-group">
-                                <label for="tarif_chambre" class="form-label">Tarif nuit</label>
-                                <input type="number" class="form-control" id="inputTarif_chambre" name="tarif_chambre">
-                            </div>
-                        </div>
-                        <div class="form-group mt-2">
-                            <label for="">Statut chambre</label>
-                            <select class="form-select" name="statut_chambre">
-                                <option selected value="Libre">Libre</option>
-                                <option value="Occupée">Occupée</option>
-                                <option value="En attente">En attente</option>
-                            </select>
                         </div>
 
                         <div class="d-grid gap-2 mt-4">
@@ -93,40 +79,27 @@
                 <h4 class="modal-title" id="#">Détails</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" id="modalInfoDetails">
 
-                <table class="table table-hover table-striped table-light mb-0">
-                    <thead>
-                        <tr>
-                            <th scope="col">Durée</th>
-                            <th scope="col">N°Chambre</th>
-                            <th scope="col">Prix Unitaire</th>
-                            <th scope="col">Total</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>1</td>
-                            <td>20.000</td>
-                            <td>40.000</td>
-                        </tr>
-                        <tr>
-                            <td colspan="3">TOTAL</td>
-                            <td><b>40.000</b></td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">Payement du 20/06/2020</td>
-                            <td colspan="1">Espèce</td>
-                            <td>40.000</td>
-                        </tr>
-                        <tr>
-                            <td colspan="3">RESTE A PAYER</td>
-                            <td><b>0</b></td>
-                        </tr>
-                    </tbody>
-                </table>
 
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- INFO RESERVATION -->
+
+<div class="modal fade" id="modalReservationInfoDay" tabindex="-1" aria-labelledby="#" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="#">Informations réservation</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="modalInfoDay">
 
             </div>
 
@@ -137,9 +110,8 @@
 <!-- JAVASCRIPT -->
 
 <script type="text/javascript">
-    function updateData(ID_day, tarif_chambre, staut_chambre) {
-        document.getElementById('inputID_chambre').value = ID_day;
-        document.getElementById('inputTarif_chambre').value = tarif_chambre;
+    function updateData(ID_day) {
+        document.getElementById('inputID_day').value = ID_day;
         document.getElementById('btnDelete').value = "Modifier";
     }
 
@@ -147,5 +119,41 @@
         document.getElementById('innerIDdel').innerHTML = ID_day;
         document.getElementById('inputIDdel').value = ID_day;
         document.getElementById('btnDelete').value = "Effacer";
+    }
+
+    function infoSupplementaireDay(ID_day, info) {
+        $(document).ready(function() {
+
+            if (info == 'infoDay') {
+                $.ajax({
+                    url: 'ReservationDay',
+                    type: 'post',
+                    data: {
+                        ID_day: ID_day,
+                        infoDay: info
+                    },
+
+                    success: function(data) {
+                        $('#modalInfoDay').html(data);
+                    }
+                })
+            }
+
+            if (info == 'infoDetails') {
+                $.ajax({
+                    url: 'ReservationDay',
+                    type: 'post',
+                    data: {
+                        ID_day: ID_day,
+                        infoDetails: info
+                    },
+
+                    success: function(data) {
+                        $('#modalInfoDetails').html(data);
+                    }
+                })
+            }
+
+        });
     }
 </script>

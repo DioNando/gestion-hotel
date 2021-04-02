@@ -17,10 +17,16 @@ class ReservationDay extends BaseController
 		$data = [];
 		helper(['form']);
 
-		if (isset($_POST['btn_reservation'])) {
-			//$this->create();
-			return redirect()->to('reservation');
-		} 
+		if (isset($_POST['infoDay'])) {
+			$data['info'] = $this->infoSupplementaireDay($_POST['ID_day']);
+			echo view('reservation\infoReservationDay', $data);
+			return ($data);
+		}
+		if (isset($_POST['infoDetails'])) {
+			$data['info'] = $this->infoSupplementaireDay($_POST['ID_day']);
+			echo view('reservation\infoDayDetails', $data);
+			return ($data);
+		}
 		if (isset($_POST['btn_modification'])) {
 			$this->update();
 			return redirect()->to('configReservationDay');
@@ -43,7 +49,7 @@ class ReservationDay extends BaseController
 		$data = [];
 		helper(['form']);
 
-		if (isset($_POST['btn_reservation'])) : {
+		if (isset($_POST['btn_validation'])) : {
 				$rules = [
 					'date_day' => 'required',
 					'duree_day' => 'required|is_natural_no_zero',
@@ -114,11 +120,17 @@ class ReservationDay extends BaseController
 	public function read()
 	{
 		$data = [];
-		// $reservations = new reservationDayModel();
-		// $data['reservations'] = $reservations->join('user', 'reservation_day.ID_user = user.ID_user')->findAll();
-
+	
 		$reservations = new effectuerModel();
 		$data['reservations'] = $reservations->join('user', 'effectuer.ID_user = user.ID_user')->join('reservation_day', 'effectuer.ID_day = reservation_day.ID_day')->orderBy('reservation_day.ID_day', 'desc')->findAll();
+		return $data;
+	}
+
+	public function infoSupplementaireDay($ID_day)
+	{
+		$data = [];
+		$reservations = new effectuerModel();
+		$data = $reservations->where('effectuer.ID_day', $ID_day)->join('user', 'effectuer.ID_user = user.ID_user')->join('reservation_day', 'effectuer.ID_day = reservation_day.ID_day')->first();
 		return $data;
 	}
 

@@ -8,7 +8,7 @@ class Client extends BaseController
 {
 	public function index()
 	{
-		if (isset($_POST['btn_reservation'])) {
+		if (isset($_POST['btn_validation'])) {
 			$this->create();
 			return redirect()->to('reservation');
 		} 
@@ -38,7 +38,7 @@ class Client extends BaseController
 		$data = [];
 		helper(['form']);
 
-		if (isset($_POST['btn_reservation'])) : {
+		if (isset($_POST['btn_validation'])) : {
 				$rules = [
 					'nom_client' => 'required|min_length[3]|max_length[30]',
 					'prenom_client' => 'required|min_length[4]|max_length[255]',
@@ -123,7 +123,7 @@ class Client extends BaseController
 		$data = [];
 		helper(['form']);
 
-		if (isset($_POST['btn_reservation'])) : {
+		if (isset($_POST['btn_validation'])) : {
 				$rules = [
 					'nom_client' => 'required|min_length[3]|max_length[30]',
 					'prenom_client' => 'required|min_length[4]|max_length[255]',

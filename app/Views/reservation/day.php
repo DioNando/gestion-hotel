@@ -64,7 +64,7 @@
                 </div>
                 <!--Checkbox-->
                 <div class="d-grid gap-2 mt-3">
-                    <button type="submit" class="btn btn-primary" name="btn_reservation">Valider</button>
+                    <button type="submit" class="btn btn-primary" name="btn_validation">Valider</button>
                 </div>
                 <?php
                 if (isset($validation)) : ?>

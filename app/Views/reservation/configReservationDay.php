@@ -42,14 +42,14 @@
                         <td>
                             <div class="center">
                                 <div>
-                                    <button type="button" class="btn btn-outline-primary btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalReservationInfo" onclick="infoData('<?php echo $reservation['ID_day']; ?>')"><img src="assets/icons/info-circle-fill.svg" alt="Info"></button>
+                                    <button type="button" class="btn btn-outline-primary btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalReservationInfo" onclick="infoSupplementaireDay('<?php echo $reservation['ID_day']; ?>', 'infoDetails')"><img src="assets/icons/info-circle-fill.svg" alt="Info"></button>
                                 </div>
                             </div>
                         </td>
                         <td>
                             <div class="center">
                                 <div>
-                                    <button type="button" class="btn btn-outline-success btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalReservationInfo" onclick="infoData('<?php echo $reservation['ID_day']; ?>')"><img src="assets/icons/stickies-fill.svg" alt="Info"></button>
+                                    <button type="button" class="btn btn-outline-success btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalReservationInfoDay" onclick="infoSupplementaireDay('<?php echo $reservation['ID_day']; ?>', 'infoDay')"><img src="assets/icons/stickies-fill.svg" alt="Info"></button>
                                 </div>
                             </div>
                         </td>

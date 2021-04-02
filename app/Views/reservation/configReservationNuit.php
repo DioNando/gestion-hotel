@@ -45,7 +45,7 @@
                         <td>
                             <div class="center">
                                 <div>
-                                    <button type="button" class="btn btn-outline-primary btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalReservationInfo" onclick="infoData('<?php echo $reservation['ID_nuit']; ?>')"><img src="assets/icons/info-circle-fill.svg" alt="Info"></button>
+                                    <button type="button" class="btn btn-outline-primary btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalReservationInfo" id="infoDetails" onclick="infoSupplementaireNuit('<?php echo $reservation['ID_nuit']; ?>', 'infoDetails')"><img src="assets/icons/info-circle-fill.svg" alt="Info"></button>
                                 </div>
                             </div>
                         </td>
@@ -88,8 +88,6 @@
             ?>
         </tbody>
     </table>
-
-
 
 </div>
 

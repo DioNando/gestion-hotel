@@ -43,9 +43,9 @@
                         <td>
                             <div class="center">
                                 <div>
-                                    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalChambreUpdate" onclick="updateData('<?php echo $chambre['ID_chambre']; ?>' , '<?php echo $chambre['tarif_chambre']; ?>' , '<?php echo $chambre['statut_chambre']; ?>')"><img src="assets/icons/pencil-fill.svg" alt="Modifier"></button>
-                                    <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalChambreDelete" onclick="deleteData('<?php echo $chambre['ID_chambre']; ?>')"><img src="assets/icons/eraser-fill.svg" alt="Supprimer"></button>
-                                    <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#modalChambreInfo" onclick="infoData('<?php echo $chambre['ID_chambre']; ?>')"><img src="assets/icons/info-circle-fill.svg" alt="Info"></button>
+                                    <button type="button" class="btn btn-outline-warning btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalChambreUpdate" onclick="updateData('<?php echo $chambre['ID_chambre']; ?>' , '<?php echo $chambre['tarif_chambre']; ?>' , '<?php echo $chambre['statut_chambre']; ?>')"><img src="assets/icons/pencil-fill.svg" alt="Modifier"></button>
+                                    <button type="button" class="btn btn-outline-danger btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalChambreDelete" onclick="deleteData('<?php echo $chambre['ID_chambre']; ?>')"><img src="assets/icons/eraser-fill.svg" alt="Supprimer"></button>
+                                    <button type="button" class="btn btn-outline-success btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalChambreInfo" onclick="infoData('<?php echo $chambre['ID_chambre']; ?>')"><img src="assets/icons/info-circle-fill.svg" alt="Info"></button>
                                 </div>
                             </div>
                         </td>

@@ -18,13 +18,18 @@ class ReservationNuit extends BaseController
 		helper(['form']);
 
 		if (isset($_POST['infoClient'])) {
-			$data['info'] = $this->infoReservationNuit($_POST['ID_nuit']);
+			$data['info'] = $this->infoSupplementaireNuit($_POST['ID_nuit']);
 			echo view('reservation\infoReservationClient', $data);
 			return ($data);
 		}
 		if (isset($_POST['infoNuit'])) {
-			$data['info'] = $this->infoReservationNuit($_POST['ID_nuit']);
-			echo view('reservation\infoReservationClient', $data);
+			$data['info'] = $this->infoSupplementaireNuit($_POST['ID_nuit']);
+			echo view('reservation\infoReservationNuit', $data);
+			return ($data);
+		}
+		if (isset($_POST['infoDetails'])) {
+			$data['info'] = $this->infoSupplementaireNuit($_POST['ID_nuit']);
+			echo view('reservation\infoNuitDetails', $data);
 			return ($data);
 		}
 		if (isset($_POST['btn_modification'])) {
@@ -142,7 +147,7 @@ class ReservationNuit extends BaseController
 		$data = [];
 		helper(['form']);
 
-		if (isset($_POST['btn_reservation'])) : {
+		if (isset($_POST['btn_validation'])) : {
 				$rules = [
 					'nom_client' => 'required|min_length[3]|max_length[30]',
 					'prenom_client' => 'required|min_length[4]|max_length[255]',
@@ -195,11 +200,11 @@ class ReservationNuit extends BaseController
 		return $data;
 	}
 
-	public function infoReservationNuit($ID_nuit)
+	public function infoSupplementaireNuit($ID_nuit)
 	{
 		$data = [];
 		$reservations = new effectuerModel();
-		$data = $reservations->where('effectuer.ID_nuit', $ID_nuit)->join('user', 'effectuer.ID_user = user.ID_user')->join('reservation_nuit', 'effectuer.ID_nuit = reservation_nuit.ID_nuit')->join('client', 'reservation_nuit.ID_client = client.ID_client')->orderBy('reservation_nuit.ID_nuit', 'desc')->first();
+		$data = $reservations->where('effectuer.ID_nuit', $ID_nuit)->join('user', 'effectuer.ID_user = user.ID_user')->join('reservation_nuit', 'effectuer.ID_nuit = reservation_nuit.ID_nuit')->join('client', 'reservation_nuit.ID_client = client.ID_client')->first();
 		return $data;
 	}
 
@@ -211,6 +216,7 @@ class ReservationNuit extends BaseController
 		$newData = [
 			'nom_client' => $client['nom_client'],
 			'prenom_client' => $client['prenom_client'],
+			'telephone_client' => $client['telephone_client'],
 		];
 		$session = session();
 		$session->set($newData);

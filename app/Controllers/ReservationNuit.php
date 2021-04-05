@@ -9,6 +9,8 @@ use App\models\reservationNuitModel;
 use App\models\reservationDayModel;
 use App\models\concernerModel;
 use App\models\effectuerModel;
+use app\models\planningModel;
+use App\models\pourModel;
 
 class ReservationNuit extends BaseController
 {
@@ -32,8 +34,13 @@ class ReservationNuit extends BaseController
 			echo view('reservation\infoNuitDetails', $data);
 			return ($data);
 		}
+		if (isset($_POST['updateNuit'])) {
+			$data['info'] = $this->infoSupplementaireNuit($_POST['ID_nuit']);
+			echo view('reservation\updateNuit', $data);
+			return ($data);
+		}
 		if (isset($_POST['btn_modification'])) {
-			//$this->update();
+			$this->update();
 			return redirect()->to('configReservationNuit');
 		}
 		if (isset($_POST['btn_suppression'])) {
@@ -56,8 +63,7 @@ class ReservationNuit extends BaseController
 				$rules = [
 					'nom_client' => 'required|min_length[1]',
 					'prenom_client' => 'required|min_length[1]',
-					'debut_sejour' => 'required',
-					'fin_sejour' => 'required',
+					'telephone_client' => 'required',
 					'nbr_nuit' => 'is_natural'
 				];
 
@@ -83,6 +89,8 @@ class ReservationNuit extends BaseController
 					}
 
 					$reservations = new reservationNuitModel();
+					$planning = new planningModel();
+
 					$newData = [
 						'nbr_personne' => $_POST['nbr_personne'],
 						'debut_sejour' => $_POST['debut_sejour'],
@@ -93,10 +101,22 @@ class ReservationNuit extends BaseController
 						'type_reservation' => $_POST['type_reservation'],
 						'remarque_reservation' => $_POST['remarque_reservation'],
 					];
+
+					$newDataPlanning = [
+						'date_affectation_debut' => $_POST['debut_sejour'],
+						'date_affectation_fin' => $_POST['fin_sejour'],
+						'motif' => 'Nuitée',
+					];
+
 					$reservations->save($newData);
 					$id = $reservations->getInsertID();
-					$this->addConcerner($id);
+					$planning->save($newDataPlanning);
+					$id_planning = $planning->getInsertID();
+
 					$this->addEffectuer($id, $user['ID_user']);
+					$this->addPour($id, $id_planning);
+					$this->addConcerner($id);
+
 					$session = session();
 					$session->set($newData);
 					$session->setFlashdata('success', 'Réservation réussie');
@@ -116,10 +136,20 @@ class ReservationNuit extends BaseController
 	{
 		$effectuer = new effectuerModel();
 		$newData = [
-			'ID_user' => $ID_user,
 			'ID_nuit' => $ID_reservation,
+			'ID_user' => $ID_user,
 		];
 		$effectuer->save($newData);
+	}
+
+	public function addPour($ID_reservation, $ID_planning)
+	{
+		$pour = new pourModel();
+		$newData = [
+			'ID_nuit' => $ID_reservation,
+			'ID_planning' => $ID_planning,
+		];
+		$pour->save($newData);
 	}
 
 	public function addConcerner($ID_reservation)
@@ -207,10 +237,11 @@ class ReservationNuit extends BaseController
 		return $data;
 	}
 
-	public function search($nom_client)
+	public function search($element_recherche)
 	{
 		$clients = new clientModel();
-		$client = $clients->where('nom_client', $nom_client)->first();
+		$client = $clients->like('nom_client', $element_recherche, 'both')->orLike('prenom_client', $element_recherche, 'both')->first();
+
 
 		$newData = [
 			'nom_client' => $client['nom_client'],
@@ -219,6 +250,36 @@ class ReservationNuit extends BaseController
 		];
 		$session = session();
 		$session->set($newData);
+	}
+
+	public function update()
+	{
+		$data = [];
+		helper('form');
+
+		if (isset($_POST['btn_modification'])) : {
+				$rules = [
+					'ID_nuit' => 'required',
+				];
+
+				if (!$this->validate($rules)) {
+					$data['validation'] = $this->validator;
+				} else {
+					// $users = new userModel();
+					// $user = $users->where('nom_user', $_POST['nom_user'])->first();
+					$reservations = new reservationNuitModel();
+					$data = [
+						// 'debut_sejour' => $_POST['debut_sejour'],
+					];
+
+					$reservations->set($data);
+					$reservations->where('ID_nuit', $_POST['ID_nuit']);
+					$reservations->update();
+					$session = session();
+					$session->setFlashdata('update', 'La ligne a été modifié avec succès');
+				}
+			}
+		endif;
 	}
 
 	public function delete()

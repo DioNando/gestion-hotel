@@ -2,8 +2,8 @@
 
 use CodeIgniter\Model;
 
-class effectuerModel extends model {
-    protected $table = 'effectuer';
+class pourModel extends model {
+    protected $table = 'pour';
 
-    protected $allowedFields = ['ID_user', 'ID_nuit', 'ID_day'];
+    protected $allowedFields = ['ID_planning', 'ID_nuit', 'ID_day'];
 }

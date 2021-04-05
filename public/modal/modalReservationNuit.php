@@ -7,32 +7,8 @@
                 <h4 class="modal-title" id="#">Modification</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <form action="#" method="post">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="form-group">
-                                <label for="ID_nuit" class="form-label">Identification</label>
-                                <input type="text" class="form-control" id="inputID_nuit" name="ID_nuit" readonly>
-                            </div>
-                        </div>
-
-                        <div class="d-grid gap-2 mt-4">
-                            <button type="submit" class="btn btn-primary" id="btnSubmit" name="btn_modification">Modifier</button>
-                        </div>
-                        <div class="d-grid gap-2 mt-3">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                        </div>
-                        <?php
-                        if (isset($validation)) : ?>
-                            <div class="col-12 mt-3">
-                                <div class="alert alert-danger" role="alert">
-                                    <?= $validation->listErrors() ?>
-                                </div>
-                            </div>
-                        <?php endif ?>
-                    </div>
-                </form>
+            <div class="modal-body" id="modalUpdateNuit">
+                
             </div>
 
         </div>
@@ -80,9 +56,6 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body" id="modalInfoDetails">
-
-
-
 
             </div>
 
@@ -183,6 +156,21 @@
 
                     success: function(data) {
                         $('#modalInfoDetails').html(data);
+                    }
+                })
+            }
+
+            if (info == 'updateNuit') {
+                $.ajax({
+                    url: 'ReservationNuit',
+                    type: 'post',
+                    data: {
+                        ID_nuit: ID_nuit,
+                        updateNuit: info
+                    },
+
+                    success: function(data) {
+                        $('#modalUpdateNuit').html(data);
                     }
                 })
             }

@@ -137,11 +137,11 @@ class Chambre extends BaseController
         $session->setFlashdata('delete', 'La chambre a été supprimé avec succès');
     }
 
-    public function search($statut_chambre)
+    public function search($element_recherche)
 	{
 		$data = [];
 		$chambres = new chambreModel();
-		$data['chambres'] = $chambres->where('statut_chambre', $statut_chambre)->find();
+        $data['chambres'] = $chambres->like('tarif_chambre', $element_recherche, 'both')->orLike('statut_chambre', $element_recherche, 'both')->find();
 		return $data;
 	}
 }

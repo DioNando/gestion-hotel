@@ -58,7 +58,7 @@
                         <td>
                             <div class="center">
                                 <div>
-                                    <button type="button" class="btn btn-outline-warning btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalReservationUpdate" onclick="updateData('<?php echo $reservation['ID_day']; ?>' , '<?php echo $reservation['ID_user']; ?>')"><img src="assets/icons/pencil-fill.svg" alt="Modifier"></button>
+                                    <button type="button" class="btn btn-outline-warning btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalReservationUpdate" onclick="infoSupplementaireDay('<?php echo $reservation['ID_day']; ?>', 'updateDay')"><img src="assets/icons/pencil-fill.svg" alt="Modifier"></button>
                                     <button type="button" class="btn btn-outline-danger btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalReservationDelete" onclick="deleteData('<?php echo $reservation['ID_day']; ?>')"><img src="assets/icons/eraser-fill.svg" alt="Supprimer"></button>
                                 </div>
                             </div>

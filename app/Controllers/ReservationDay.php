@@ -9,6 +9,7 @@ use App\models\reservationNuitModel;
 use App\models\reservationDayModel;
 use App\models\concernerModel;
 use App\models\effectuerModel;
+use App\models\pourModel;
 
 class ReservationDay extends BaseController
 {
@@ -27,10 +28,15 @@ class ReservationDay extends BaseController
 			echo view('reservation\infoDayDetails', $data);
 			return ($data);
 		}
+		if (isset($_POST['updateDay'])) {
+			$data['info'] = $this->infoSupplementaireDay($_POST['ID_day']);
+			echo view('reservation\updateDay', $data);
+			return ($data);
+		}
 		if (isset($_POST['btn_modification'])) {
 			$this->update();
 			return redirect()->to('configReservationDay');
-		} 
+		}
 		if (isset($_POST['btn_suppression'])) {
 			$this->delete();
 			return redirect()->to('configReservationDay');
@@ -42,7 +48,7 @@ class ReservationDay extends BaseController
 		}
 	}
 
-	
+
 
 	public function addReservationDay()
 	{
@@ -122,7 +128,7 @@ class ReservationDay extends BaseController
 	public function read()
 	{
 		$data = [];
-	
+
 		$reservations = new effectuerModel();
 		$data['reservations'] = $reservations->join('user', 'effectuer.ID_user = user.ID_user')->join('reservation_day', 'effectuer.ID_day = reservation_day.ID_day')->orderBy('reservation_day.ID_day', 'desc')->findAll();
 		return $data;
@@ -142,25 +148,18 @@ class ReservationDay extends BaseController
 		helper('form');
 
 		if (isset($_POST['btn_modification'])) : {
-			$rules = [
-					'nom_client_day' => 'required',
-					'date_day' => 'required',
-					'duree_day' => 'required|is_natural_no_zero',
+				$rules = [
+					'ID_day' => 'required',
 				];
 
 				if (!$this->validate($rules)) {
 					$data['validation'] = $this->validator;
 				} else {
-					$users = new userModel();
-					$user = $users->where('nom_user', $_POST['nom_user'])->first();
+					// $users = new userModel();
+					// $user = $users->where('nom_user', $_POST['nom_user'])->first();
 					$reservations = new reservationDayModel();
 					$data = [
-						'nom_client_day' => $_POST['nom_client_day'],
-						'date_day' => $_POST['date_day'],
-						'heure_arrive' => $_POST['heure_arrive'],
-						'heure_depart' => $_POST['heure_depart'],
-						'duree_day' => $_POST['duree_day'],
-						'ID_user' => $user['ID_user'],
+						// 'nom_client_day' => $_POST['nom_client_day'],
 					];
 
 					$reservations->set($data);

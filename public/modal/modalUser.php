@@ -27,9 +27,9 @@
                             </div>
                         </div>
                         <div class="form-group mt-2">
-                            <label for="">Droit d'accès</label>
-                            <select class="form-select" name="droit_user">
-                                <option selected value="Utilisateur">Utilisateur</option>
+                            <label class="form-label" for="">Droit d'accès</label>
+                            <select class="form-select" id="inputDroit_user" name="droit_user">
+                                <option value="Utilisateur">Utilisateur</option>
                                 <option value="Administrateur">Administrateur</option>
                             </select>
                         </div>
@@ -89,10 +89,11 @@
 <!-- JAVASCRIPT -->
 
 <script type="text/javascript">
-    function updateData(ID_user, nom_user, prenom_user) {
+    function updateData(ID_user, nom_user, prenom_user, droit_user) {
         document.getElementById('inputID_user').value = ID_user;
         document.getElementById('inputNom_user').value = nom_user;
         document.getElementById('inputPrenom_user').value = prenom_user;
+        document.getElementById('inputDroit_user').value = droit_user;
         document.getElementById('btnDelete').value = "Modifier";
     }
 

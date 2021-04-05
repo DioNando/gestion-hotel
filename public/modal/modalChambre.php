@@ -21,9 +21,9 @@
                             </div>
                         </div>
                         <div class="form-group mt-2">
-                            <label for="">Statut chambre</label>
-                            <select class="form-select" name="statut_chambre">
-                                <option selected value="Libre">Libre</option>
+                            <label class="form-label" for="">Statut chambre</label>
+                            <select class="form-select" id="inputStatut_chambre" name="statut_chambre">
+                                <option value="Libre">Libre</option>
                                 <option value="Occupée">Occupée</option>
                                 <option value="En attente">En attente</option>
                             </select>
@@ -88,6 +88,7 @@
     function updateData(ID_chambre, tarif_chambre, statut_chambre) {
         document.getElementById('inputID_chambre').value = ID_chambre;
         document.getElementById('inputTarif_chambre').value = tarif_chambre;
+        document.getElementById('inputStatut_chambre').value = statut_chambre;
         document.getElementById('btnDelete').value = "Modifier";
     }
 

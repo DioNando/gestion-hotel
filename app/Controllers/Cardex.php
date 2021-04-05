@@ -29,11 +29,11 @@ class Cardex extends BaseController
 		return $data;
 	}
 
-	public function search($nom_client)
+	public function search($element_recherche)
 	{
 		$data = [];
 		$clients = new clientModel();
-		$data['clients'] = $clients->where('nom_client', $nom_client)->find();
+		$data['clients'] = $clients->like('nom_client', $element_recherche, 'both')->orLike('prenom_client', $element_recherche, 'both')->find();
 		return $data;
 	}	
 

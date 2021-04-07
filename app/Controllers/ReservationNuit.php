@@ -9,7 +9,7 @@ use App\models\reservationNuitModel;
 use App\models\reservationDayModel;
 use App\models\concernerModel;
 use App\models\effectuerModel;
-use app\models\planningModel;
+use App\models\planningModel;
 use App\models\pourModel;
 
 class ReservationNuit extends BaseController
@@ -30,7 +30,7 @@ class ReservationNuit extends BaseController
 			return ($data);
 		}
 		if (isset($_POST['infoDetails'])) {
-			$data['info'] = $this->infoSupplementaireNuit($_POST['ID_nuit']);
+			$data = $this->infoDetails($_POST['ID_nuit']);
 			echo view('reservation\infoNuitDetails', $data);
 			return ($data);
 		}
@@ -64,7 +64,8 @@ class ReservationNuit extends BaseController
 					'nom_client' => 'required|min_length[1]',
 					'prenom_client' => 'required|min_length[1]',
 					'telephone_client' => 'required',
-					'nbr_nuit' => 'is_natural'
+					'nbr_nuit' => 'is_natural',
+					'ID_chambre' => 'required',
 				];
 
 				if (!$this->validate($rules)) {
@@ -93,8 +94,8 @@ class ReservationNuit extends BaseController
 
 					$newData = [
 						'nbr_personne' => $_POST['nbr_personne'],
-						'debut_sejour' => $_POST['debut_sejour'],
-						'fin_sejour' => $_POST['fin_sejour'],
+						// 'debut_sejour' => $_POST['debut_sejour'],
+						// 'fin_sejour' => $_POST['fin_sejour'],
 						'nbr_nuit' => $_POST['nbr_nuit'],
 						'ID_client' => $client['ID_client'],
 						'ID_etat_reservation' => $etat,
@@ -103,8 +104,8 @@ class ReservationNuit extends BaseController
 					];
 
 					$newDataPlanning = [
-						'date_affectation_debut' => $_POST['debut_sejour'],
-						'date_affectation_fin' => $_POST['fin_sejour'],
+						'debut_sejour' => $_POST['debut_sejour'],
+						'fin_sejour' => $_POST['fin_sejour'],
 						'motif' => 'Nuitée',
 					];
 
@@ -115,7 +116,7 @@ class ReservationNuit extends BaseController
 
 					$this->addEffectuer($id, $user['ID_user']);
 					$this->addPour($id, $id_planning);
-					$this->addConcerner($id);
+					$this->addConcerner($id_planning);
 
 					$session = session();
 					$session->set($newData);
@@ -152,7 +153,7 @@ class ReservationNuit extends BaseController
 		$pour->save($newData);
 	}
 
-	public function addConcerner($ID_reservation)
+	public function addConcerner($ID_planning)
 	{
 		$concerner = new concernerModel();
 		$chambres = new chambreModel();
@@ -160,7 +161,7 @@ class ReservationNuit extends BaseController
 			foreach ($_POST['ID_chambre'] as $valeur) {
 				$newData = [
 					'ID_chambre' => $valeur,
-					'ID_nuit' => $ID_reservation,
+					'ID_planning' => $ID_planning,
 					'statut_chambre' => 'Occupée',
 				];
 				$chambres->set($newData);
@@ -225,7 +226,7 @@ class ReservationNuit extends BaseController
 	{
 		$data = [];
 		$reservations = new effectuerModel();
-		$data['reservations'] = $reservations->join('user', 'effectuer.ID_user = user.ID_user')->join('reservation_nuit', 'effectuer.ID_nuit = reservation_nuit.ID_nuit')->join('client', 'reservation_nuit.ID_client = client.ID_client')->orderBy('reservation_nuit.ID_nuit', 'desc')->findAll();
+		$data['reservations'] = $reservations->join('user', 'effectuer.ID_user = user.ID_user')->join('reservation_nuit', 'effectuer.ID_nuit = reservation_nuit.ID_nuit')->join('client', 'reservation_nuit.ID_client = client.ID_client')->join('pour', 'pour.ID_nuit = reservation_nuit.ID_nuit')->join('planning', 'pour.ID_planning = planning.ID_planning')->orderBy('reservation_nuit.ID_nuit', 'desc')->findAll();
 		return $data;
 	}
 
@@ -234,6 +235,14 @@ class ReservationNuit extends BaseController
 		$data = [];
 		$reservations = new effectuerModel();
 		$data = $reservations->where('effectuer.ID_nuit', $ID_nuit)->join('user', 'effectuer.ID_user = user.ID_user')->join('reservation_nuit', 'effectuer.ID_nuit = reservation_nuit.ID_nuit')->join('client', 'reservation_nuit.ID_client = client.ID_client')->first();
+		return $data;
+	}
+
+	public function infoDetails($ID_nuit)
+	{
+		$data = [];
+		$reservations = new pourModel();
+		$data['details'] = $reservations->where('pour.ID_nuit', $ID_nuit)->join('reservation_nuit', 'pour.ID_nuit = reservation_nuit.ID_nuit')->join('planning', 'pour.ID_planning = planning.ID_planning')->join('concerner', 'concerner.ID_planning = planning.ID_planning')->join('chambre', 'concerner.ID_chambre = chambre.ID_chambre')->groupBy('concerner.ID_chambre')->find();	
 		return $data;
 	}
 

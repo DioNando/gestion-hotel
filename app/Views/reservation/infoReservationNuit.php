@@ -2,6 +2,7 @@
         <thead>
             <tr>
                 <th scope="col">Type de réservation</th>
+                <th scope="col">Nombre de personne</th>
                 <th scope="col">Remarque</th>
                 <th scope="col">Date de réservation</th>
                 <th scope="col">Utilisateur</th>
@@ -13,6 +14,7 @@
        
                     <tr>
                         <td> <?php echo ($info['type_reservation']); ?> </td>
+                        <td> <?php echo ($info['nbr_personne']); ?> </td>
                         <td> <?php echo ($info['remarque_reservation']); ?> </td>
                         <td> <?php echo ($info['date_reservation_nuit']); ?> </td>
                         <td> <?php echo ($info['nom_user']); ?> </td>

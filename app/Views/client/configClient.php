@@ -1,11 +1,11 @@
 <!--DASHBOARD ADMIN-->
 <?php include("modal/modalClient.php"); ?>
 
-<div class="container-fluid mt-3">
-    
-    
+<div class="container-fluid mt-3 mb-3">
     <h1>Liste des clients</h1>
-    
+</div>
+<div class="container-fluid">
+
     <?php include("search/recherche.php"); ?>
     <?php if (session()->get('update')) : ?>
         <div class="alert alert-success" role="alert">

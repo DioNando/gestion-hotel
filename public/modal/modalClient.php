@@ -1,3 +1,5 @@
+<!-- UPDATE -->
+
 <div class="modal fade" id="modalClientUpdate" tabindex="-1" aria-labelledby="#" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -86,6 +88,26 @@
     </div>
 </div>
 
+<!-- CARDEX -->
+
+<div class="modal fade" id="modalFicheCardex" tabindex="-1" aria-labelledby="#" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <!-- <h4 class="modal-title" id="#">Fiche cardex</h4> -->
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="modalCardex">
+
+
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
 <!-- JAVASCRIPT -->
 
 <script type="text/javascript">
@@ -101,5 +123,42 @@
         document.getElementById('innerIDdel').innerHTML = ID_client;
         document.getElementById('inputIDdel').value = ID_client;
         document.getElementById('btnDelete').value = "Effacer";
+    }
+
+    function infoFicheCardex(ID_client, cardex) {
+        $(document).ready(function() {
+
+            if (cardex == 'cardex') {
+                $.ajax({
+                    url: 'Cardex',
+                    type: 'post',
+                    data: {
+                        ID_client: ID_client,
+                        // infoDay: info
+                    },
+
+                    success: function(data) {
+                        $('#modalCardex').html(data);
+                    }
+                })
+            }
+
+        });
+    }
+
+    function genPDF(ID_client, nom_client) {
+
+        // html2canvas($('#ficheCardex'), {
+        //     onrendered: function(canvas) {
+        //         var img = canvas.toDataURL()
+        //         var doc = new jsPDF;
+        //         doc.addImage(img, 'PNG', 20, 20);
+        //         doc.save('Cardex ' + nom_client + '.pdf');
+        //     }
+        // });
+
+        var doc = new jsPDF;
+        doc.fromHTML($('#ficheCardex').get(0), 20, 20);
+        doc.save('Cardex ' + nom_client + '.pdf');
     }
 </script>

@@ -1,6 +1,6 @@
 <!--DASHBOARD ADMIN-->
 
-<div class="container-fluid mt-3 mb-3">
+<div class="container-fluid mt-3">
 
     <?php if (session()->get('isUser') == 'Administrateur') : ?>
         <h1>Tableau de bord, <?= session()->get('nom_user') ?></h1>
@@ -19,7 +19,7 @@
 
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
-            // height: "100%",
+            height: "100%",
             locale: 'fr',
             initialView: 'listWeek',
             headerToolbar: {
@@ -176,23 +176,25 @@
     }
 </script>
 
-<!-- 
+
 <div class="container">
     <div class="row g-2 mb-3">
         <div class="col-lg-5 col-sm-12">
             <div class="p-3" style="height: 500px;">
                 <div class="row g-2" style="height: 100%;">
                     <div class="col-lg-12 col-sm-12">
-                        <div class="p-3 border bg-light"></div>
+                        <div class="p-3 border bg-light"><canvas id="myChart2"></canvas></div>
                     </div>
                     <div class="col-lg-6 col-sm-12">
                         <div class="p-3 border bg-light center" style="height: 100%;">
-
+                            <h3>Nuitée :
+                                <?php echo (count($detailsNuit)) ?></h3>
                         </div>
                     </div>
                     <div class="col-lg-6 col-sm-12">
                         <div class="p-3 border bg-light center" style="height: 100%;">
-
+                            <h3>Day Use :
+                                <?php echo (count($detailsDay)) ?></h3>
                         </div>
                     </div>
 
@@ -200,88 +202,34 @@
             </div>
         </div>
         <div class="col-lg-7 col-sm-12">
-            
+            <div class="p-3" id='calendar'></div>
         </div>
         <div class="col-lg-6 col-sm-12">
             <div class="p-3 border bg-light" style="height: 100%;">
 
 
+                <h3>
+                    <div id="heure_jour"></div>
+                </h3>
 
-
-
+                <table class="table table-hover table-striped table-light">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nom</th>
+                            <th scope="col">Prénom</th>
+                            <th scope="col">Droit</th>
+                        </tr>
+                    </thead>
+                    <tbody class="align-middle">
+                        <td><?php echo ($user['nom_user']) ?></td>
+                        <td><?php echo ($user['prenom_user']) ?></td>
+                        <td><?php echo ($user['droit_user']) ?></td>
+                    </tbody>
+                </table>
             </div>
         </div>
         <div class="col-lg-6 col-sm-12">
-            <div class="p-3 border bg-light"></div>
-        </div>
-    </div>
-</div> -->
-
-
-
-<div class="container mb-3">
-    <div class="row g-2">
-        <div class="col-lg-6 col-sm-12">
-            <!-- <div class="container"> -->
-                <div class="row gx-2" style="height: 100%;">
-                    <div class="col-12">
-                        <div class="p-3 border bg-light height-dashboard center"><canvas id="myChart2"></canvas></div>
-                    </div>
-                    <div class="col-4 mt-2">
-                        <div class="p-3 border bg-light height-dashboard center"><h5>Réservations :
-                                <?php echo (count($detailsNuit) + count($detailsDay)) ?></h5></div>
-                    </div>
-                    <div class="col-4 mt-2">
-                        <div class="p-3 border bg-light height-dashboard center">
-                            <h5>Nuitée :
-                                <?php echo (count($detailsNuit)) ?></h5>
-                        </div>
-                    </div>
-                    <div class="col-4 mt-2">
-                        <div class="p-3 border bg-light height-dashboard center">
-                            <h5>Day Use :
-                                <?php echo (count($detailsDay)) ?></h5>
-                        </div>
-                    </div>
-                </div>
-            <!-- </div> -->
-        </div>
-        <div class="col-lg-6 col-sm-12">
-            <div class="p-3 border bg-light"><div class="p-3" id='calendar'></div></div>
-        </div>
-        <div class="col-lg-6 col-sm-12">
-            <!-- <div class="container"> -->
-                <div class="row gx-2 height-dashboard">
-                    <div class="col-6">
-                        <div class="p-3 border bg-light height-dashboard">
-                            <h3>
-                                <div id="heure_jour"></div>
-                            </h3>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="p-3 border bg-light height-dashboard">
-                            <table class="table table-hover table-striped table-light">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Nom</th>
-                                        <th scope="col">Prénom</th>
-                                        <th scope="col">Droit</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="align-middle">
-                                    <td><?php echo ($user['nom_user']) ?></td>
-                                    <td><?php echo ($user['prenom_user']) ?></td>
-                                    <td><?php echo ($user['droit_user']) ?></td>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            <!-- </div> -->
-        </div>
-        <div class="col-lg-6 col-sm-12">
-            <div class="p-3 border bg-light center"><canvas id="myChart4"></canvas></div>
+            <div class="p-3 border bg-light"><canvas id="myChart4"></canvas></div>
         </div>
     </div>
 </div>

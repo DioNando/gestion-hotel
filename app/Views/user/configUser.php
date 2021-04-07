@@ -1,10 +1,10 @@
 <!--DASHBOARD ADMIN-->
 <?php include("modal/modalUser.php"); ?>
 
-<div class="container-fluid mt-3">
-
-
+<div class="container-fluid mt-3 mb-3">
     <h1>Liste des utilisateurs</h1>
+    </div>
+<div class="container-fluid">
     <?php if (session()->get('update')) : ?>
         <div class="alert alert-success" role="alert">
             <?= session()->get('update') ?>

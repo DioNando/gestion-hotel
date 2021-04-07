@@ -75,6 +75,43 @@
                     </div>
                 </div>
 
+                <!-- FACTURE DEBUT -->
+
+                <div class="col-12 mt-4">
+                    <div class="p-2 border checkChambre">
+                        <div class="form-check">
+                            <label class="form-check-label align-middle" for="offert_sejour">Offert</label>
+                            <input class="form-check-input" type="checkbox" name="offert_sejour" value="1" id="offert_sejour" checked>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 mt-4">
+                    <div class="p-2 border checkChambre">
+                        <div class="form-check">
+                            <input class="form-check-input checkRadio" type="radio" name="ancien_nouveau_tarif" id="ancien_tarif" checked>
+                            <label class="form-check-label align-middle" for="ancien_tarif">
+                                Ancien tarif
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input checkRadio" type="radio" name="ancien_nouveau_tarif" id="nouveau_tarif">
+                            <label class="form-check-label align-middle" for="nouveau_tarif">
+                                Nouveau tarif
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 mt-2">
+                    <div class="form-group">
+                        <label for="remise" class="form-label">Remise</label>
+                        <input type="number" class="form-control" id="remise" name="remise" value="0" min="0" max="100">
+                    </div>
+                </div>
+
+                <!-- FACTURE FIN -->
+
                 <div class="col-12 mt-4">
                     <div class="p-2 border checkChambre">
                         <div class="form-check">
@@ -94,14 +131,14 @@
                                     <div class="form-check">
                                         <input class="form-check-input <?php if ($chambre['statut_chambre'] == 'En attente') echo ('checkBoxAttente');
                                                                         elseif ($chambre['statut_chambre'] == 'Occupée') echo ('checkBoxOccupee'); ?>" type="checkbox" name="ID_chambre[]" value="<?php echo ($chambre['ID_chambre']) ?>" <?php if ($chambre['statut_chambre'] == 'Occupée') echo ('disabled') ?> id="checkbox_chambre <?php echo ($chambre['ID_chambre']) ?>">
-                                        <label class="form-check-label align-middle" for="checkbox_chambre <?php echo ($chambre['ID_chambre']) ?>"><?php echo ($chambre['ID_chambre']) . ' : ' . ($chambre['statut_chambre']) ?></label>
+                                        <label class="form-check-label align-middle" for="checkbox_chambre <?php echo ($chambre['ID_chambre']) ?>"><?php echo ($chambre['ID_chambre']) . ' : ' . ($chambre['tarif_chambre']) ?></label>
                                     </div>
                                 </div>
                             </div>
                         <?php } ?>
                     </div>
                 </div>
-            
+
                 <div class="col-12 col-sm-6">
                     <div class="d-grid gap-2 mt-3">
                         <button type="submit" class="btn btn-primary" name="btn_attente">En attente</button>

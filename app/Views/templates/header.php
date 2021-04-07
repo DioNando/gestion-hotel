@@ -11,14 +11,19 @@
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/Chart.css">
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/main.css">
     <!-- JAVASCRIPT -->
+    <script src="assets/jquery/jquery.min.js"></script>
     <script src="assets/js/Chart.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
-    <script src="assets/jquery/jquery.min.js"></script>
+    <script src="assets/js/jspdf.min.js"></script>
+    <script src="assets/js/html2canvas.js"></script>
+    <script src="assets/js/main.js"></script>
     <?php if (!session()->get('isLoggedIn')) : ?>
         <style>
             body {
-                background-image: url("assets/images/background1.png");
+                /* background-image: url("assets/images/background1.png"); */
+                background-image: url("#");
             }
         </style>
     <?php endif ?>
@@ -218,7 +223,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="accordion-item">
+                        <!-- <div class="accordion-item">
                             <h2 class="accordion-header" id="flush-heading4">
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse4" aria-expanded="false" aria-controls="flush-collapse4">
                                     Utilisateur
@@ -254,7 +259,7 @@
                                     </ul>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
 
 

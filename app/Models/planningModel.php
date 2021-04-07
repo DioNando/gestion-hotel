@@ -6,5 +6,5 @@ class planningModel extends model {
     protected $table = 'planning';
     protected $primaryKey = 'ID_planning';
 
-    protected $allowedFields = ['date_affectation_debut', 'date_affectation_fin', 'motif'];
+    protected $allowedFields = ['debut_sejour', 'fin_sejour', 'heure_arrive', 'heure_depart', 'motif'];
 }

@@ -1,11 +1,11 @@
 <!--DASHBOARD ADMIN-->
 <?php include("modal/modalClient.php"); ?>
 
-<div class="container-fluid mt-3">
-    
-    
+<div class="container-fluid mt-3 mb-3">
     <h1>Fiche Cardex</h1>
-    
+</div>
+<div class="container-fluid">
+
     <?php include("search/recherche.php"); ?>
     <?php if (session()->get('update')) : ?>
         <div class="alert alert-success" role="alert">
@@ -42,7 +42,7 @@
                         <td>
                             <div class="center">
                                 <div>
-                                    <button type="button" class="btn btn-outline-success btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalClientInfo" onclick="infoData('<?php echo $client['ID_client']; ?>')"><img src="assets/icons/file-earmark-text-fill.svg" alt="Info"></button>
+                                    <button type="button" class="btn btn-outline-success btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalFicheCardex" onclick="infoFicheCardex('<?php echo $client['ID_client']; ?>', 'cardex')"><img src="assets/icons/file-earmark-text-fill.svg" alt="Info"></button>
                                 </div>
                             </div>
                         </td>

@@ -1,3 +1,12 @@
+<?php
+$total = 0;
+foreach ($details as $detail) {
+    $total = $total + ($detail['tarif_chambre'] * $detail['duree_day']);
+}
+$montant = $total;
+$reste = $total - $montant;
+?>
+
 <table class="table table-hover table-striped table-light mb-0">
     <thead>
         <tr>
@@ -8,24 +17,26 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <th scope="row">2</th>
-            <td>1</td>
-            <td>20.000</td>
-            <td>40.000</td>
-        </tr>
+        <?php foreach ($details as $detail) { ?>
+            <tr>
+                <th scope="row"> <?php echo ($detail['duree_day']); ?> </th>
+                <td> <?php echo ($detail['ID_chambre']); ?> </td>
+                <td> <?php echo ($detail['tarif_chambre']); ?> </td>
+                <td> <?php echo ($detail['tarif_chambre'] * $detail['duree_day']); ?> </td>
+            </tr>
+        <?php } ?>
         <tr>
             <td colspan="3">TOTAL</td>
-            <td><b>40.000</b></td>
+            <td><b> <?php echo ($total); ?> </b></td>
         </tr>
         <tr>
-            <td colspan="2">Payement du 20/06/2020</td>
+            <td colspan="2">Payement du <?php echo ($detail['date_modification_day']); ?></td>
             <td colspan="1">Espèce</td>
-            <td>40.000</td>
+            <td><?php echo ($montant); ?></td>
         </tr>
         <tr>
             <td colspan="3">RESTE A PAYER</td>
-            <td><b>0</b></td>
+            <td><b><?php echo ($reste); ?></b></td>
         </tr>
     </tbody>
 </table>

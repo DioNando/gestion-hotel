@@ -9,8 +9,9 @@
   --chambreLibre: #ff7c1f;
   --chambreOccupee: #c1e6ff;
   --chambreAttente: #067eed;
-  --chambreReservation: #84ff3d;; 
-  --primaryColor: #0e3854;
+  --chambreReservation: #84ff3d;
+  /* --primaryColor: #0e3854; */
+  --primaryColor: #505050;
   --secondaryColor: #067eed;
   --thirdColor: #ff7c1f;
   --fourthColor: #c1e6ff;
@@ -52,6 +53,7 @@ h1,
 h3,
 h5 {
   font-family: "Merriweather";
+  margin-bottom: 0;
 }
 
 th {
@@ -153,11 +155,23 @@ footer {
   background: var(--chambreReservation) !important;
 }
 
+.checkRadio:checked {
+  background-color: var(--chambreReservation);
+  border-color: var(--chambreReservation);
+}
+
+.height-dashboard {
+  height: 100%;
+}
+/* #calendar {
+ 
+} */
+
 @media screen and (max-width: 900px) {
   .formulaire-login {
     width: 95%;
   }
-  
+
   .menu-parent {
     height: 100%;
   }

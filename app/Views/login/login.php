@@ -4,7 +4,7 @@
         <h1 class="center">SE CONNECTER</h1>
         <form action="" method="post">
             <div class="form-group"><label class="form-label" for="nom_user">Nom</label>
-                <input type="text" class="form-control" name="nom_user" id="nom_user">
+                <input type="text" class="form-control" name="nom_user" id="nom_user" autocomplete="off">
             </div>
 
             <div class="form-group mt-2">

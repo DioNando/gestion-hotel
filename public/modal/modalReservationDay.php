@@ -87,10 +87,10 @@
 <!-- JAVASCRIPT -->
 
 <script type="text/javascript">
-    function updateData(ID_day) {
-        document.getElementById('inputID_day').value = ID_day;
-        document.getElementById('btnDelete').value = "Modifier";
-    }
+    // function updateData(ID_day) {
+    //     document.getElementById('inputID_day').value = ID_day;
+    //     document.getElementById('btnDelete').value = "Modifier";
+    // }
 
     function deleteData(ID_day) {
         document.getElementById('innerIDdel').innerHTML = ID_day;

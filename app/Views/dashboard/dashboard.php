@@ -48,9 +48,6 @@
             return e.nombre;
         });
 
-        console.log(labels);
-        console.log(data);
-
         new Chart(document.getElementById('myChart2'), {
             type: 'doughnut',
             data: {
@@ -64,58 +61,61 @@
             options: {
                 responsive: true,
                 title: {
-                    display: false,
+                    display: true,
                     text: 'Disponibilité des chambres'
-                }
+                },
+                legend: {
+                    display: true,
+                    position: 'top',
+                    // align: 'start'
+                },
             }
         });
     }
 
     function chart2Display(result) {
+        let data1 = result.map(function(e) {
+            if (e.motif == 'Nuitée')
+                return e.nombre;
+        });
+        let data2 = result.map(function(e) {
+            if (e.motif == 'Day use')
+                return e.nombre;
+        });
         let labels = result.map(function(e) {
             return e.date;
         });
-        let data = result.map(function(e) {
-            return e.nombre;
-        });
-        let motif = result.map(function(e) {
-            return e.motif;
-        });
 
         console.log(result);
-        // console.log(labels);
-        // console.log(data);
-        // console.log(motif);
+        console.log(data1);
+        console.log(data2);
 
         new Chart(document.getElementById("myChart4"), {
             type: 'line',
             data: {
-                labels: labels,
+                // labels: labels,
+                labels: ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'],
                 datasets: [{
                     label: "Nuitée",
                     backgroundColor: "#067eed",
-                    data: data
+                    data: data1
                 }, {
                     label: "Day Use",
                     backgroundColor: "#c1e6ff",
-                    data: data
+                    data: data2
                 }]
             },
             options: {
                 title: {
-                    display: false,
+                    display: true,
                     text: 'Tendance des reservations'
                 },
                 responsive: true,
-                plugins: {
-                    legend: {
-                        position: 'top',
-                    },
-                    title: {
-                        display: true,
-                        text: 'Chart.js Line Chart'
-                    }
-                }
+                legend: {
+                    display: true,
+                    position: 'top',
+                    align: 'end'
+                },
             },
         });
     }
@@ -176,92 +176,60 @@
     }
 </script>
 
-<!-- 
-<div class="container">
-    <div class="row g-2 mb-3">
-        <div class="col-lg-5 col-sm-12">
-            <div class="p-3" style="height: 500px;">
-                <div class="row g-2" style="height: 100%;">
-                    <div class="col-lg-12 col-sm-12">
-                        <div class="p-3 border bg-light"></div>
-                    </div>
-                    <div class="col-lg-6 col-sm-12">
-                        <div class="p-3 border bg-light center" style="height: 100%;">
-
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-sm-12">
-                        <div class="p-3 border bg-light center" style="height: 100%;">
-
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-7 col-sm-12">
-            
-        </div>
-        <div class="col-lg-6 col-sm-12">
-            <div class="p-3 border bg-light" style="height: 100%;">
-
-
-
-
-
-            </div>
-        </div>
-        <div class="col-lg-6 col-sm-12">
-            <div class="p-3 border bg-light"></div>
-        </div>
-    </div>
-</div> -->
-
-
-
-<div class="container mb-3">
-    <div class="row g-2">
+<div class="container-fluid mb-3">
+    <div class="row g-3">
         <div class="col-lg-6 col-sm-12">
             <!-- <div class="container"> -->
-                <div class="row gx-2" style="height: 100%;">
-                    <div class="col-12">
-                        <div class="p-3 border bg-light height-dashboard center"><canvas id="myChart2"></canvas></div>
-                    </div>
-                    <div class="col-4 mt-2">
-                        <div class="p-3 border bg-light height-dashboard center"><h5>Réservations :
-                                <?php echo (count($detailsNuit) + count($detailsDay)) ?></h5></div>
-                    </div>
-                    <div class="col-4 mt-2">
-                        <div class="p-3 border bg-light height-dashboard center">
-                            <h5>Nuitée :
-                                <?php echo (count($detailsNuit)) ?></h5>
-                        </div>
-                    </div>
-                    <div class="col-4 mt-2">
-                        <div class="p-3 border bg-light height-dashboard center">
-                            <h5>Day Use :
-                                <?php echo (count($detailsDay)) ?></h5>
-                        </div>
+            <div class="row gx-3" style="height: 100%;">
+                <div class="col-12">
+                    <div class="p-3 border bg-light bg-dashboard height-dashboard center"><canvas id="myChart2"></canvas></div>
+                </div>
+                <div class="col-4 mt-3">
+                    <div class="p-3 border bg-light bg-dashboard height-dashboard center">
+                        <h5>Réservations :
+                            <?php echo (count($detailsNuit) + count($detailsDay)) ?></h5>
                     </div>
                 </div>
+                <div class="col-4 mt-3">
+                    <div class="p-3 border bg-light bg-dashboard height-dashboard center">
+                        <h5>Nuitée :
+                            <?php echo (count($detailsNuit)) ?></h5>
+                    </div>
+                </div>
+                <div class="col-4 mt-3">
+                    <div class="p-3 border bg-light bg-dashboard height-dashboard center">
+                        <h5>Day Use :
+                            <?php echo (count($detailsDay)) ?></h5>
+                    </div>
+                </div>
+            </div>
             <!-- </div> -->
         </div>
         <div class="col-lg-6 col-sm-12">
-            <div class="p-3 border bg-light"><div class="p-3" id='calendar'></div></div>
+            <div class="p-3 border bg-light bg-dashboard">
+                <div class="p-3" id='calendar'></div>
+            </div>
         </div>
         <div class="col-lg-6 col-sm-12">
             <!-- <div class="container"> -->
-                <div class="row gx-2 height-dashboard">
-                    <div class="col-6">
-                        <div class="p-3 border bg-light height-dashboard">
-                            <h3>
-                                <div id="heure_jour"></div>
-                            </h3>
-                        </div>
+            <div class="row gx-3 height-dashboard">
+                <div class="col-6">
+                    <div class="p-3 border bg-light bg-dashboard height-dashboard">
+                        <h3>
+                            <div id="heure_jour"></div>
+                        </h3>
+                        <a href="dashboard">
+                            <div class="center"><img src="assets/images/logo-hotel.png" style="width: 70%;"></div>
+                        </a>
                     </div>
-                    <div class="col-6">
-                        <div class="p-3 border bg-light height-dashboard">
-                            <table class="table table-hover table-striped table-light">
+                </div>
+                <div class="col-6">
+                    <div class="p-3 border bg-light bg-dashboard height-dashboard">
+                        <a href="dashboard">
+                            <div class="center"><img src="assets/images/admin.png" style="width: 70%;"></div>
+                        </a>
+                        <div class="container">
+                            <!-- <table class="table table-light">
                                 <thead>
                                     <tr>
                                         <th scope="col">Nom</th>
@@ -274,14 +242,20 @@
                                     <td><?php echo ($user['prenom_user']) ?></td>
                                     <td><?php echo ($user['droit_user']) ?></td>
                                 </tbody>
-                            </table>
+                            </table> -->
+                            <h5>
+                                <?php echo ($user['nom_user']) . ' ' . $user['prenom_user'] . ',' ?>
+                                <?php echo ($user['droit_user']) ?><br>
+                            </h5>
                         </div>
+
                     </div>
                 </div>
+            </div>
             <!-- </div> -->
         </div>
         <div class="col-lg-6 col-sm-12">
-            <div class="p-3 border bg-light center"><canvas id="myChart4"></canvas></div>
+            <div class="p-3 border bg-light bg-dashboard center"><canvas id="myChart4"></canvas></div>
         </div>
     </div>
 </div>

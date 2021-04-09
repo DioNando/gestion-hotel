@@ -14,7 +14,7 @@
                 <div class="col-12 col-sm-6">
                     <div class="form-group">
                         <label for="nom_client_day" class="form-label">Nom du client</label>
-                        <input type="text" class="form-control" id="nom_client_day" name="nom_client_day">
+                        <input type="text" class="form-control" id="nom_client_day" name="nom_client_day" autocomplete="off">
                     </div>
                 </div>
                 <div class="col-12 col-sm-6">
@@ -51,7 +51,7 @@
                     </div>
                 </div>
                 <!--Checkbox-->
-                <h3 class="center mt-3">Chambres disponible</h3>
+                <h3 class="center mt-3 mb-3">Chambres disponible</h3>
                 <div class="container">
                     <div class="row row-cols-1 row-cols-lg-5 g-2 g-lg-3">
                         <?php foreach ($chambres as $chambre) { ?>
@@ -93,11 +93,21 @@
     function calculHeure(heure_arrive, heure_depart) {
         x = heure_arrive.split(':');
         y = heure_depart.split(':');
-        z = y[0] - x[0];
 
-        console.log(x[0] + ":" + x[1]);
-        console.log(y[0] + ":" + y[1]);
-        console.log(z);
-        document.getElementById('duree_day').value = z;
+        let debut, fin, temps;
+
+        debut = x[0] * 60 + parseInt(x[1]);
+        fin = y[0] * 60 + parseInt(y[1]);
+
+        temps = (fin - debut) / 60;
+        if (temps < 0) {
+            fin += 1440;
+            temps = (fin - debut) / 60;
+        };
+
+        console.log(temps);
+        temps = Math.round(temps);
+
+        document.getElementById('duree_day').value = temps;
     }
 </script>

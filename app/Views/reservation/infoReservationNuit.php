@@ -19,7 +19,7 @@
                         <td> <?php echo ($info['date_reservation_nuit']); ?> </td>
                         <td> <?php echo ($info['nom_user']); ?> </td>
                         <td> <?php echo ($info['date_modification_nuit']); ?> </td>
-                        <td> <?php echo ($info['nom_user']); ?> </td> <!-- ID_user_modification -->
+                        <td> <?php echo ($info['nom_user_modif']); ?> </td> <!-- ID_user_modification -->
                     </tr>
 
         </tbody>

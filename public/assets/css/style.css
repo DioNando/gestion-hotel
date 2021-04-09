@@ -163,6 +163,10 @@ footer {
 .height-dashboard {
   height: 100%;
 }
+
+.bg-dashboard {
+  border-radius: 15px;
+}
 /* #calendar {
  
 } */

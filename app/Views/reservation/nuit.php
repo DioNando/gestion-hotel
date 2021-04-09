@@ -122,7 +122,7 @@
                 </div>
 
                 <!--Checkbox-->
-                <h3 class="center mt-3">Chambres disponible</h3>
+                <h3 class="center mt-3 mb-3">Chambres disponible</h3>
                 <div class="container">
                     <div class="row row-cols-1 row-cols-lg-5 g-2 g-lg-3">
                         <?php foreach ($chambres as $chambre) { ?>

@@ -136,11 +136,28 @@ class ReservationNuit extends BaseController
 	public function addEffectuer($ID_reservation, $ID_user)
 	{
 		$effectuer = new effectuerModel();
+		$users = new userModel();
+		$user = $users->where('ID_user', $ID_user)->first();
 		$newData = [
 			'ID_nuit' => $ID_reservation,
 			'ID_user' => $ID_user,
+			'nom_user_modif' => $user['nom_user'],
 		];
 		$effectuer->save($newData);
+	}
+
+	public function addEffectuerModif($ID_reservation, $nom_user)
+	{
+		$effectuer = new effectuerModel();
+		// $users = new userModel();
+		// $user = $users->where('ID_user', $ID_user)->first();
+		$newData = [
+			'nom_user_modif' => $nom_user,
+		];
+
+		$effectuer->set($newData);
+		$effectuer->where('ID_nuit', $ID_reservation);
+		$effectuer->update();
 	}
 
 	public function addPour($ID_reservation, $ID_planning)
@@ -162,7 +179,7 @@ class ReservationNuit extends BaseController
 				$newData = [
 					'ID_chambre' => $valeur,
 					'ID_planning' => $ID_planning,
-					'statut_chambre' => 'Occupée',
+					'statut_chambre' => 'En attente',
 				];
 				$chambres->set($newData);
 				$chambres->where('ID_chambre', $valeur);
@@ -226,7 +243,7 @@ class ReservationNuit extends BaseController
 	{
 		$data = [];
 		$reservations = new effectuerModel();
-		$data['reservations'] = $reservations->join('user', 'effectuer.ID_user = user.ID_user')->join('reservation_nuit', 'effectuer.ID_nuit = reservation_nuit.ID_nuit')->join('client', 'reservation_nuit.ID_client = client.ID_client')->join('pour', 'pour.ID_nuit = reservation_nuit.ID_nuit')->join('planning', 'pour.ID_planning = planning.ID_planning')->orderBy('reservation_nuit.ID_nuit', 'desc')->findAll();
+		$data['reservations'] = $reservations->select(['*', 'DATE_FORMAT(debut_sejour, "%d %b %Y") AS debut_sejour', 'DATE_FORMAT(fin_sejour, "%d %b %Y") AS fin_sejour'])->join('user', 'effectuer.ID_user = user.ID_user')->join('reservation_nuit', 'effectuer.ID_nuit = reservation_nuit.ID_nuit')->join('client', 'reservation_nuit.ID_client = client.ID_client')->join('pour', 'pour.ID_nuit = reservation_nuit.ID_nuit')->join('planning', 'pour.ID_planning = planning.ID_planning')->orderBy('reservation_nuit.ID_nuit', 'desc')->findAll();
 		return $data;
 	}
 
@@ -234,7 +251,7 @@ class ReservationNuit extends BaseController
 	{
 		$data = [];
 		$reservations = new effectuerModel();
-		$data = $reservations->where('effectuer.ID_nuit', $ID_nuit)->join('user', 'effectuer.ID_user = user.ID_user')->join('reservation_nuit', 'effectuer.ID_nuit = reservation_nuit.ID_nuit')->join('client', 'reservation_nuit.ID_client = client.ID_client')->first();
+		$data = $reservations->select(['*', 'DATE_FORMAT(date_reservation_nuit, "%d %b %Y à %H:%i") AS date_reservation_nuit', 'DATE_FORMAT(date_modification_nuit, "%d %b %Y à %H:%i") AS date_modification_nuit'])->where('effectuer.ID_nuit', $ID_nuit)->join('user', 'effectuer.ID_user = user.ID_user')->join('reservation_nuit', 'effectuer.ID_nuit = reservation_nuit.ID_nuit')->join('client', 'reservation_nuit.ID_client = client.ID_client')->join('pour', 'pour.ID_nuit = reservation_nuit.ID_nuit')->join('planning', 'pour.ID_planning = planning.ID_planning')->first();
 		return $data;
 	}
 
@@ -242,7 +259,7 @@ class ReservationNuit extends BaseController
 	{
 		$data = [];
 		$reservations = new pourModel();
-		$data['details'] = $reservations->where('pour.ID_nuit', $ID_nuit)->join('reservation_nuit', 'pour.ID_nuit = reservation_nuit.ID_nuit')->join('planning', 'pour.ID_planning = planning.ID_planning')->join('concerner', 'concerner.ID_planning = planning.ID_planning')->join('chambre', 'concerner.ID_chambre = chambre.ID_chambre')->groupBy('concerner.ID_chambre')->find();	
+		$data['details'] = $reservations->where('pour.ID_nuit', $ID_nuit)->join('reservation_nuit', 'pour.ID_nuit = reservation_nuit.ID_nuit')->join('planning', 'pour.ID_planning = planning.ID_planning')->join('concerner', 'concerner.ID_planning = planning.ID_planning')->join('chambre', 'concerner.ID_chambre = chambre.ID_chambre')->groupBy('concerner.ID_chambre')->find();
 		return $data;
 	}
 
@@ -269,21 +286,33 @@ class ReservationNuit extends BaseController
 		if (isset($_POST['btn_modification'])) : {
 				$rules = [
 					'ID_nuit' => 'required',
+					'nbr_nuit' => 'is_natural_no_zero',
 				];
 
 				if (!$this->validate($rules)) {
 					$data['validation'] = $this->validator;
 				} else {
-					// $users = new userModel();
-					// $user = $users->where('nom_user', $_POST['nom_user'])->first();
 					$reservations = new reservationNuitModel();
+					$pour = new pourModel();
+					$planning = new planningModel();
 					$data = [
-						// 'debut_sejour' => $_POST['debut_sejour'],
+						'nbr_nuit' => $_POST['nbr_nuit'],
+						'debut_sejour' => $_POST['debut_sejour'],
+						'fin_sejour' => $_POST['fin_sejour'],
 					];
 
+					$id_planning = $pour->where('ID_nuit', $_POST['ID_nuit'])->first();
+
 					$reservations->set($data);
+					$planning->set($data);
+
 					$reservations->where('ID_nuit', $_POST['ID_nuit']);
+					$planning->where('ID_planning', $id_planning['ID_planning']);
+
 					$reservations->update();
+					$planning->update();
+
+					$this->addEffectuerModif($_POST['ID_nuit'], $_POST['nom_user']);
 					$session = session();
 					$session->setFlashdata('update', 'La ligne a été modifié avec succès');
 				}

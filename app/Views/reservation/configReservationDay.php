@@ -49,7 +49,7 @@
                                 </div>
                             </div>
                         </td>
-                        <td> <?php echo ($reservation['nom_client_day']); ?> </td>
+                        <td><b> <?php echo ($reservation['nom_client_day']); ?> </b></td>
                         <td>
                             <div class="center">
                                 <div>

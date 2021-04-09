@@ -11,6 +11,10 @@
                 <label class="form-label" for="">Nom</label>
                 <input type="text" class="form-control" name="nom_user" id="">
             </div>
+            <div class="form-group">
+                <label class="form-label" for="">Nom</label>
+                <input type="text" class="form-control" name="prenom_user" id="">
+            </div>
 
             <div class="form-group mt-2">
                 <label class="form-label" for="">Mot de passe</label>

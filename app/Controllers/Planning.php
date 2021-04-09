@@ -14,17 +14,27 @@ class Planning extends BaseController
     public function index()
     {
         $data = [];
-        $planning = [];
+        // $planning = [];
         helper(['form']);
 
         if (isset($_POST['planning'])) {
             $var = new pourModel();
-            $planning = $var->join('planning', 'pour.ID_planning = planning.ID_planning')->findAll();
+            $planningNuit = $var->join('planning', 'pour.ID_planning = planning.ID_planning')->join('reservation_nuit', 'pour.ID_nuit = reservation_nuit.ID_nuit')->join('client', 'reservation_nuit.ID_client = client.ID_client')->findAll();
+            $planningDay = $var->join('planning', 'pour.ID_planning = planning.ID_planning')->join('reservation_day', 'pour.ID_day = reservation_day.ID_day')->findAll();
 
-            foreach ($planning as $row) {
+            foreach ($planningNuit as $row) {
                 $data[] = array(
                     'id' => $row['ID_planning'],
-                    'title' => $row['motif'],
+                    'title' => $row['nom_client'] . ' ' . $row['prenom_client'] . ' : ' . $row['nbr_nuit'] . ' ' . $row['motif'],
+                    'start' => $row['debut_sejour'] . ' ' . $row['heure_arrive'],
+                    'end' => $row['fin_sejour'] . ' ' . $row['heure_depart'],
+                );
+            }
+
+            foreach ($planningDay as $row) {
+                $data[] = array(
+                    'id' => $row['ID_planning'],
+                    'title' => $row['nom_client_day'] . ' : ' . $row['duree_day'] . 'h ' . $row['motif'],
                     'start' => $row['debut_sejour'] . ' ' . $row['heure_arrive'],
                     'end' => $row['fin_sejour'] . ' ' . $row['heure_depart'],
                 );
@@ -47,9 +57,18 @@ class Planning extends BaseController
             }
             if ($_POST['chart'] == 'chart2') {
                 $var = new planningModel();
-                $planning = $var->select(['*', 'COUNT(motif) AS nombre', 'DATE_FORMAT(debut_sejour, "%d %b") AS date'])->groupBy('debut_sejour')->findAll();
+                $planningDay = $var->select(['*', 'COUNT(motif) AS nombre', 'DATE_FORMAT(debut_sejour, "%d %b") AS date'])->where('motif', 'Day use')->groupBy('debut_sejour')->findAll();
+                $planningNuit = $var->select(['*', 'COUNT(motif) AS nombre', 'DATE_FORMAT(debut_sejour, "%d %b") AS date'])->where('motif', 'Nuitée')->groupBy('debut_sejour')->findAll();
 
-                foreach ($planning as $row) {
+                foreach ($planningDay as $row) {
+                    $data[] = array(
+                        'nombre' => $row['nombre'],
+                        'date' => $row['date'],
+                        'motif' => $row['motif'],
+                    );
+                }
+
+                foreach ($planningNuit as $row) {
                     $data[] = array(
                         'nombre' => $row['nombre'],
                         'date' => $row['date'],
@@ -65,6 +84,7 @@ class Planning extends BaseController
     {
         $data = [];
         helper(['form']);
+        $data['chambres'] = $this->read();
 
         echo view('templates\header');
         echo view('planning\planningJour', $data);
@@ -79,5 +99,12 @@ class Planning extends BaseController
         echo view('templates\header');
         echo view('planning\planningMois', $data);
         echo view('templates\footer');
+    }
+
+    function read() {
+        $data = [];
+        $concerner = new concernerModel();
+        $data = $concerner->join('chambre', 'concerner.ID_chambre = chambre.ID_chambre')->join('planning', 'concerner.ID_planning = planning.ID_planning')->findAll();
+        return $data;
     }
 }

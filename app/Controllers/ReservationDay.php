@@ -25,7 +25,6 @@ class ReservationDay extends BaseController
 			return ($data);
 		}
 		if (isset($_POST['infoDetails'])) {
-			// $data['info'] = $this->infoDetails($_POST['ID_day']);
 			$data = $this->infoDetails($_POST['ID_day']);
 			echo view('reservation\infoDayDetails', $data);
 			return ($data);
@@ -114,11 +113,28 @@ class ReservationDay extends BaseController
 	public function addEffectuer($ID_reservation, $ID_user)
 	{
 		$effectuer = new effectuerModel();
+		$users = new userModel();
+		$user = $users->where('ID_user', $ID_user)->first();
 		$newData = [
 			'ID_user' => $ID_user,
 			'ID_day' => $ID_reservation,
+			'nom_user_modif' => $user['nom_user'],
 		];
 		$effectuer->save($newData);
+	}
+
+	public function addEffectuerModif($ID_reservation, $nom_user)
+	{
+		$effectuer = new effectuerModel();
+		// $users = new userModel();
+		// $user = $users->where('ID_user', $ID_user)->first();
+		$newData = [
+			'nom_user_modif' => $nom_user,
+		];
+
+		$effectuer->set($newData);
+		$effectuer->where('ID_day', $ID_reservation);
+		$effectuer->update();
 	}
 
 	public function addPour($ID_reservation, $ID_planning)
@@ -156,7 +172,7 @@ class ReservationDay extends BaseController
 		$data = [];
 
 		$reservations = new effectuerModel();
-		$data['reservations'] = $reservations->join('user', 'effectuer.ID_user = user.ID_user')->join('reservation_day', 'effectuer.ID_day = reservation_day.ID_day')->join('pour', 'pour.ID_day = reservation_day.ID_day')->join('planning', 'pour.ID_planning = planning.ID_planning')->orderBy('reservation_day.ID_day', 'desc')->findAll();
+		$data['reservations'] = $reservations->select(['*', 'DATE_FORMAT(heure_arrive, "%H:%i") AS heure_arrive', 'DATE_FORMAT(heure_depart, "%H:%i") AS heure_depart'])->join('user', 'effectuer.ID_user = user.ID_user')->join('reservation_day', 'effectuer.ID_day = reservation_day.ID_day')->join('pour', 'pour.ID_day = reservation_day.ID_day')->join('planning', 'pour.ID_planning = planning.ID_planning')->orderBy('reservation_day.ID_day', 'desc')->findAll();
 		return $data;
 	}
 
@@ -164,7 +180,7 @@ class ReservationDay extends BaseController
 	{
 		$data = [];
 		$reservations = new effectuerModel();
-		$data = $reservations->where('effectuer.ID_day', $ID_day)->join('user', 'effectuer.ID_user = user.ID_user')->join('reservation_day', 'effectuer.ID_day = reservation_day.ID_day')->first();
+		$data = $reservations->select(['*', 'DATE_FORMAT(date_reservation_day, "%d %b %Y à %H:%i") AS date_reservation_day', 'DATE_FORMAT(date_modification_day, "%d %b %Y à %H:%i") AS date_modification_day'])->where('effectuer.ID_day', $ID_day)->join('user', 'effectuer.ID_user = user.ID_user')->join('reservation_day', 'effectuer.ID_day = reservation_day.ID_day')->join('pour', 'pour.ID_day = reservation_day.ID_day')->join('planning', 'pour.ID_planning = planning.ID_planning')->first();
 		return $data;
 	}
 
@@ -175,7 +191,7 @@ class ReservationDay extends BaseController
 		// $data = $reservations->where('pour.ID_day', $ID_day)->join('planning', 'pour.ID_day = planning.ID_day')->join('reservation_day', 'pour.ID_day = reservation_day.ID_day')->join('concerner', 'concerner.ID_planning = planning.ID_planning')->join('concerner', 'concerner.ID_chambre = chambre.ID_chambre')->groupBy('chambre.ID_chambre')->first();
 		// $data['details'] = $reservations->where('pour.ID_day', $ID_day)->join('reservation_day', 'pour.ID_day = reservation_day.ID_day')->join('planning', 'pour.ID_planning = planning.ID_planning')->join('concerner', 'concerner.ID_planning = planning.ID_planning')->join('concerner', 'concerner.ID_chambre = chambre.ID_chambre')->groupBy('chambre.ID_chambre')->findAll();
 		$data['details'] = $reservations->where('pour.ID_day', $ID_day)->join('reservation_day', 'pour.ID_day = reservation_day.ID_day')->join('planning', 'pour.ID_planning = planning.ID_planning')->join('concerner', 'concerner.ID_planning = planning.ID_planning')->join('chambre', 'concerner.ID_chambre = chambre.ID_chambre')->groupBy('concerner.ID_chambre')->find();
-		
+
 		// $data['total'] = $reservations->select()->where('pour.ID_day', $ID_day)->join('reservation_day', 'pour.ID_day = reservation_day.ID_day')->join('planning', 'pour.ID_planning = planning.ID_planning')->join('concerner', 'concerner.ID_planning = planning.ID_planning')->join('chambre', 'concerner.ID_chambre = chambre.ID_chambre')->groupBy('concerner.ID_chambre')->find();
 		return $data;
 	}
@@ -188,21 +204,33 @@ class ReservationDay extends BaseController
 		if (isset($_POST['btn_modification'])) : {
 				$rules = [
 					'ID_day' => 'required',
+					'duree_day' => 'required|is_natural_no_zero',
 				];
 
 				if (!$this->validate($rules)) {
 					$data['validation'] = $this->validator;
 				} else {
-					// $users = new userModel();
-					// $user = $users->where('nom_user', $_POST['nom_user'])->first();
 					$reservations = new reservationDayModel();
+					$pour = new pourModel();
+					$planning = new planningModel();
 					$data = [
-						// 'nom_client_day' => $_POST['nom_client_day'],
+						'duree_day' => $_POST['duree_day'],
+						'heure_arrive' => $_POST['heure_arrive'],
+						'heure_depart' => $_POST['heure_depart'],
 					];
 
+					$id_planning = $pour->where('ID_day', $_POST['ID_day'])->first();
+
 					$reservations->set($data);
+					$planning->set($data);
+
 					$reservations->where('ID_day', $_POST['ID_day']);
+					$planning->where('ID_planning', $id_planning['ID_planning']);
+
 					$reservations->update();
+					$planning->update();
+
+					$this->addEffectuerModif($_POST['ID_day'], $_POST['nom_user']);
 					$session = session();
 					$session->setFlashdata('update', 'La ligne a été modifié avec succès');
 				}

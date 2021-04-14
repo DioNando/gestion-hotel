@@ -19,7 +19,7 @@ $reste = $total - $montant;
     <tbody>
         <?php foreach ($details as $detail) { ?>
             <tr>
-                <th scope="row"> <?php echo ($detail['duree_day']); ?> </th>
+                <th scope="row"> <?php echo ($detail['duree_day'] . 'h'); ?> </th>
                 <td> <?php echo ($detail['ID_chambre']); ?> </td>
                 <td> <?php echo ($detail['tarif_chambre']); ?> </td>
                 <td> <?php echo ($detail['tarif_chambre'] * $detail['duree_day']); ?> </td>

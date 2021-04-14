@@ -18,6 +18,7 @@
                 <label class="form-label" for="">Téléphone</label>
                 <input type="tel" class="form-control" name="telephone_client" id="">
             </div>
+            <hr>
             <div class="d-grid gap-2 mt-3">
                 <button type="submit" class="btn btn-primary" name="btn_validation">Valider</button>
             </div>

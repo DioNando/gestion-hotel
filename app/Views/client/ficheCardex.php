@@ -17,7 +17,7 @@
             <?= session()->get('delete') ?>
         </div>
     <?php endif; ?>
-    <table class="table table-hover table-striped table-light" id="result">
+    <table class="table table-hover table-striped table-light">
         <thead>
             <tr>
                 <th scope="col">Identification</th>
@@ -64,6 +64,6 @@
         </tbody>
     </table>
 
-
+    <?= $pager->links('paginationResult', 'pagination') ?>
 
 </div>

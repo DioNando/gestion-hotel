@@ -11,16 +11,16 @@ class Client extends BaseController
 		if (isset($_POST['btn_validation'])) {
 			$this->create();
 			return redirect()->to('reservation');
-		} 
+		}
 		if (isset($_POST['btn_modification'])) {
 			$this->update();
 			return redirect()->to('configClient');
-		} 
+		}
 		if (isset($_POST['btn_suppression'])) {
 			$this->delete();
 			return redirect()->to('configClient');
-		} 
-		if (isset($_POST['btn_recherche']) AND $_POST['element_recherche'] != NULL) {
+		}
+		if (isset($_POST['btn_recherche']) and $_POST['element_recherche'] != NULL) {
 			$data = $this->search($_POST['element_recherche']);
 			echo view('templates\header');
 			echo view('client\configClient', $data);
@@ -66,15 +66,26 @@ class Client extends BaseController
 	{
 		$data = [];
 		$clients = new clientModel();
-		$data['clients'] = $clients->orderBy('ID_client', 'desc')->findAll();
+		// $data['clients'] = $clients->orderBy('ID_client', 'desc')->findAll();
+
+		$data = [
+			'clients' => $clients->orderBy('ID_client', 'desc')->paginate(20, 'paginationResult'),
+			'pager' => $clients->pager,
+		];
+
 		return $data;
 	}
 
-	public function search($nom_client)
+	public function search($element_recherche)
 	{
 		$data = [];
 		$clients = new clientModel();
-		$data['clients'] = $clients->where('nom_client', $nom_client)->find();
+		// $data['clients'] = $clients->where('nom_client', $nom_client)->find();
+
+		$data = [
+			'clients' => $clients->like('nom_client', $element_recherche, 'both')->orLike('prenom_client', $element_recherche, 'both')->paginate(20, 'paginationResult'),
+			'pager' => $clients->pager,
+		];
 		return $data;
 	}
 
@@ -103,6 +114,7 @@ class Client extends BaseController
 					$clients->set($data);
 					$clients->where('ID_client', $_POST['ID_client']);
 					$clients->update();
+					session()->set($data);
 					$session = session();
 					$session->setFlashdata('update', 'La ligne a été modifié avec succès');
 				}
@@ -144,7 +156,7 @@ class Client extends BaseController
 					$session = session();
 					$session->set($newData);
 					$session->setFlashdata('success', 'Ajout réussie');
-					return redirect()->to('addClient');
+					return redirect()->to('configClient');
 				}
 			}
 		endif;

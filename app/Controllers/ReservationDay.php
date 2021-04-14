@@ -98,7 +98,8 @@ class ReservationDay extends BaseController
 					$session = session();
 					$session->set($newData);
 					$session->setFlashdata('success', 'Réservation réussie');
-					return redirect()->to('reservationDay');
+					// return redirect()->to('reservationDay');
+					return redirect()->to('factureDay');
 				}
 			}
 		endif;

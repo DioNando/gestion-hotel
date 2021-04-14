@@ -1,11 +1,17 @@
 <!--DASHBOARD ADMIN-->
 <?php include("modal/modalChambre.php"); ?>
+<?php include("modal/modalNouveau.php"); ?>
 
 <div class="container-fluid mt-3 mb-3">
     <h1>Liste des chambres</h1>
 </div>
 <div class="container-fluid">
     <?php include("search/recherche.php"); ?>
+    <?php if (session()->get('success')) : ?>
+        <div class="alert alert-success" role="alert">
+            <?= session()->get('success') ?>
+        </div>
+    <?php endif; ?>
     <?php if (session()->get('update')) : ?>
         <div class="alert alert-success" role="alert">
             <?= session()->get('update') ?>
@@ -68,6 +74,6 @@
         </tbody>
     </table>
 
-
+    <?= $pager->links('paginationResult', 'pagination') ?>
 
 </div>

@@ -23,7 +23,17 @@
         <style>
             body {
                 /* background-image: url("assets/images/background1.png"); */
-                background-image: url("#");
+                /* background-image: linear-gradient(30deg, #6f84fa , #f37f7f); */
+                /* background-image: linear-gradient(30deg, #136a8a, #267871); */
+                /* 
+                background: #2193b0;
+                background: -webkit-linear-gradient(to left, #6dd5ed, #2193b0);
+                background: linear-gradient(to left, #6dd5ed, #2193b0); */
+
+                background: #6190E8;
+                background: -webkit-linear-gradient(to right, #A7BFE8, #6190E8);
+                background: linear-gradient(to right, #A7BFE8, #6190E8);
+
             }
         </style>
     <?php endif ?>
@@ -35,10 +45,10 @@
     ?>
     <header>
 
-
         <?php if (session()->get('isUser') == 'Administrateur') : ?>
 
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark"> -->
+            <nav class="navbar navbar-expand-lg headerBar">
                 <div class="container-fluid">
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navBarHeader" aria-controls="navBarHeader" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -49,27 +59,27 @@
                     <div class="collapse navbar-collapse" id="navBarHeader">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Tableau de bord</a>
+                                <a class="nav-link dropdown-toggle headerMenu" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Tableau de bord</a>
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" href="etatFinancier">Etat financier</a></li>
                                     <li><a class="dropdown-item" href="statistique">Statistique</a></li>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Planning</a>
+                                <a class="nav-link dropdown-toggle headerMenu" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Planning</a>
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" href="planningJour">Planning du jour</a></li>
                                     <li><a class="dropdown-item" href="planningMois">Planning du mois</a></li>
                                 </ul>
                             </li>
-                            <li class="nav-item"><a class="nav-link" href="accueilClient">Réservation</a></li>
-                            <li class="nav-item"><a class="nav-link" href="ficheCardex">Fiche cardex</a></li>
+                            <li class="nav-item"><a class="nav-link headerMenu" href="accueilClient">Réservation</a></li>
+                            <li class="nav-item"><a class="nav-link headerMenu" href="ficheCardex">Fiche cardex</a></li>
                         </ul>
                         <ul class="navbar-nav my-2 my-lg-0">
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Paramètres</a>
+                                <a class="nav-link dropdown-toggle headerMenu" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Paramètres</a>
                                 <ul class="dropdown-menu dropdown-menu-lg-end">
-                                    <li><a class="dropdown-item" href="#">Profil</a></li>
+                                    <li><a class="dropdown-item" href="profil">Profil</a></li>
                                     <li><a class="dropdown-item" href="configUser">Utilisateur</a></li>
                                     <li><a class="dropdown-item" href="configAdmin">Administrateur</a></li>
                                     <li>
@@ -138,11 +148,18 @@
 
 
         <?php else : ?>
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                <div class="navbar-collapse">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item"><a class="nav-link" href="index.php">Connexion</a></li>
-                    </ul>
+            <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark"> -->
+            <nav class="navbar navbar-expand-lg">
+                <div class="container-fluid">
+                    <a class="center" href="index.php">
+                        <div class="logo-container"><img src="assets/icons/signe-de-l'hotel.png"></div>
+                    </a>
+                    <div class="navbar-collapse">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li></li>
+                            <li class="nav-item"><a class="nav-link" style="color: white;" id="connexion" href="index.php">Connexion</a></li>
+                        </ul>
+                    </div>
                 </div>
             </nav>
 

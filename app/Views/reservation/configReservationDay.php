@@ -2,13 +2,12 @@
 <?php include("modal/modalReservationDay.php"); ?>
 
 <div class="container-fluid mt-3 mb-3">
-
     <h1>Liste des réservations passagères</h1>
 </div>
 
 <div class="container-fluid">
 
-    <!-- <?php include("search/recherche.php"); ?> -->
+    <?php include("search/recherche.php"); ?>
     <?php if (session()->get('update')) : ?>
         <div class="alert alert-success" role="alert">
             <?= session()->get('update') ?>
@@ -41,7 +40,7 @@
                         <th scope="row"> <?php echo ($reservation['ID_day']) ?> </th>
                         <td> <?php echo ($reservation['heure_arrive']); ?> </td>
                         <td> <?php echo ($reservation['heure_depart']); ?> </td>
-                        <td> <?php echo ($reservation['duree_day']); ?> </td>
+                        <td> <?php echo ($reservation['duree_day'] . 'h');?> </td>
                         <td>
                             <div class="center">
                                 <div>

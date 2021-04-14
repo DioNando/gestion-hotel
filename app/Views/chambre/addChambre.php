@@ -21,6 +21,7 @@
                     <option value="En attente">En attente</option>
                 </select>
             </div>
+            <hr>
             <div class="d-grid gap-2 mt-3">
                 <button type="submit" class="btn btn-primary" name="btn_enregistrer">Valider</button>
             </div>

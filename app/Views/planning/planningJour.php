@@ -44,14 +44,37 @@
     }
 </script>
 
+<!-- AJAX POUR AFFICHER LE TABLEAU -->
+
 <script>
-    window.onload = function chargementPage() {
-        calendrierData();
+    function tabPlanningJour() {
+        $(document).ready(function() {
+
+            // if (info == 'infoDay') {
+            $.ajax({
+                url: 'tabPlanningJour',
+                type: 'post',
+                // dataType: 'JSON',
+
+                success: function(data) {
+                    $('#tabPlanningJour').html(data);
+                    // console.log(data);
+                }
+            })
+            // }
+        });
     }
 </script>
 
-<div class="container-fluid">
-    <table class="table table-hover table-striped table-light" id="result">
+<script>
+    window.onload = function chargementPage() {
+        calendrierData();
+        // tabPlanningJour();
+    }
+</script>
+
+<div class="container-fluid" id="tabPlanningJour">
+    <table class="table table-hover table-striped table-light">
         <thead>
             <tr>
                 <th scope="col">N° des chambres</th>
@@ -61,6 +84,7 @@
                 <th scope="col">Date départ</th>
                 <th scope="col">Durée</th>
                 <th scope="col">Commentaire</th>
+                <th scope="col">Montant</th>
                 <th scope="col">Surplus</th>
                 <th scope="col">Total</th>
             </tr>
@@ -68,38 +92,38 @@
         <tbody class="align-middle">
 
             <?php
-            if (count($chambres) > 0) {
-                foreach ($chambres as $chambre) { ?>
+            if (count($plannings) > 0) {
+                foreach ($plannings as $planning) { ?>
 
                     <tr>
-                        <th scope="row"><?php echo ($chambre['ID_chambre']); ?></th>
-                        <td><?php echo ($chambre['motif']); ?></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <th scope="row"><?php echo ($planning['ID_chambre']); ?></th>
+                        <td><?php echo ($planning['motif']); ?></td>
+                        <td><?php echo ($planning['nom']); ?></td>
+                        <td><?php echo ($planning['debut']); ?></td>
+                        <td><?php echo ($planning['fin']); ?></td>
+                        <td><?php echo ($planning['duree']); ?></td>
+                        <td><?php echo ($planning['commentaire']); ?></td>
+                        <td><?php echo ($planning['montant']); ?></td>
+                        <td><?php echo ($planning['surplus']); ?></td>
+                        <td><?php echo ($planning['total']); ?></td>
 
-                    
-
-                <?php
+                    <?php
                 }
             } else {
-                ?>
-                <tr>
-                    <?php if (session()->get('isUser') == 'Administrateur') : ?>
-                        <td colspan="9">Tableau vide.</td>
-                    <?php else : ?>
-                        <td colspan="9">Tableau vide.</td>
-                    <?php endif; ?>
-                </tr>
-            <?php
+                    ?>
+                    <tr>
+                        <?php if (session()->get('isUser') == 'Administrateur') : ?>
+                            <td colspan="10">Tableau vide.</td>
+                        <?php else : ?>
+                            <td colspan="10">Tableau vide.</td>
+                        <?php endif; ?>
+                    </tr>
+                <?php
             }
-            ?>
+                ?>
         </tbody>
     </table>
+
 </div>
 
-<div class="container-fluid" id='calendar'></div>
+<div class="container-fluid mb-4" id='calendar'></div>

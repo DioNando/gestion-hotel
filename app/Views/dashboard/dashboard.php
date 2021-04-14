@@ -54,7 +54,7 @@
                 labels: labels,
                 datasets: [{
                     label: "Statut des chambres",
-                    backgroundColor: ["#c1e6ff", "#067eed", "#ff7c1f"],
+                    backgroundColor: ["#6190E8", "#c1e6ff", "#ff7c1f"],
                     data: data
                 }]
             },
@@ -75,15 +75,22 @@
 
     function chart2Display(result) {
         let data1 = result.map(function(e) {
-            if (e.motif == 'Nuitée')
-                return e.nombre;
+            // if (e.motif == 'Nuitée')
+            //     return e.reservation;
         });
         let data2 = result.map(function(e) {
-            if (e.motif == 'Day use')
-                return e.nombre;
+            // if (e.motif == 'Day use')
+            //     return e.reservation;
+            for(i = 1; i < 8; i++) {
+                if(e.week == i)
+                    return e.reservation;
+                else
+                    return 0;
+            }
         });
+
         let labels = result.map(function(e) {
-            return e.date;
+            return e.week;
         });
 
         console.log(result);
@@ -95,14 +102,17 @@
             data: {
                 // labels: labels,
                 labels: ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'],
+                // labels: ['1', '2', '3', '4', '5', '6', '7'],
                 datasets: [{
                     label: "Nuitée",
-                    backgroundColor: "#067eed",
-                    data: data1
+                    backgroundColor: "#6190E8",
+                    // data: data1
+                    data : ['5', '2', '2', '4', '0', '6', '1'],
                 }, {
                     label: "Day Use",
                     backgroundColor: "#c1e6ff",
-                    data: data2
+                    // data: data2
+                    data : ['1', '2', '0', '2', '7', '1', '5'],
                 }]
             },
             options: {
@@ -261,14 +271,6 @@
 </div>
 
 <!-- CHARTJS -->
-
-<script>
-
-</script>
-
-<script>
-
-</script>
 
 <!-- DATE D'AUJOURD'HUI -->
 

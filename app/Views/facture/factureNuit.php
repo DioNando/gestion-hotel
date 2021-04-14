@@ -1,6 +1,6 @@
 <div class="container">
     <div class="container-fluid bg-light formulaire">
-        <h1 class="center">RESERVATION NUITEE</h1>
+        <h1 class="center">FACTURATION NUITEE</h1>
         <form action="" method="post">
             <div class="row">
                 <div class="col-12">
@@ -28,31 +28,31 @@
                         <input type="tel" class="form-control" id="#" name="telephone_client" value="<?= session()->get('telephone_client') ?>" readonly>
                     </div>
                 </div>
-                <div class="col-12 col-sm-3 mt-2">
+                <div class="col-12 col-sm-6 mt-2">
                     <div class="form-group">
                         <label for="nbr_personne" class="form-label">Nombre de personne</label>
                         <input type="number" class="form-control" id="#" name="nbr_personne" value="1" min="1">
                     </div>
                 </div>
-                <div class="col-12 col-sm-3 mt-2">
+                <div class="col-12 col-sm-6 mt-2">
                     <div class="form-group">
-                        <label for="debut_sejour" class="form-label">Début du séjour</label>
+                        <label for="debut_sejour" class="form-label">Date de réservation</label>
                         <input type="date" class="form-control" id="dateDebutSejour" onchange="calculNuit(document.getElementById('dateDebutSejour').value, document.getElementById('dateFinSejour').value);" name="debut_sejour">
                     </div>
                 </div>
-                <div class="col-12 col-sm-3 mt-2">
+                <!-- <div class="col-12 col-sm-6 mt-2">
                     <div class="form-group">
                         <label for="fin_sejour" class="form-label">Fin du séjour</label>
                         <input type="date" class="form-control" id="dateFinSejour" onchange="calculNuit(document.getElementById('dateDebutSejour').value, document.getElementById('dateFinSejour').value);" name="fin_sejour">
                     </div>
                 </div>
-                <div class="col-12 col-sm-3 mt-2 mt-2">
+                <div class="col-12 mt-2">
                     <div class="form-group">
                         <label class="form-label">Nombre de nuitée</label>
                         <input type="number" class="form-control" id="nbr_nuit" name="nbr_nuit" value="0" readonly>
                     </div>
                 </div>
-                <div class="col-12 col-sm-6 mt-2 mt-2">
+                <div class="col-12 mt-2">
                     <div class="form-group">
                         <label class="form-label" for="">Type de réservation</label>
                         <select class="form-select" name="type_reservation">
@@ -61,19 +61,19 @@
                             <option value="Mail">Mail</option>
                         </select>
                     </div>
-                </div>
-                <div class="col-12 col-sm-6 mt-2 mt-2">
+                </div> -->
+                <div class="col-12 mt-2">
                     <div class="form-group">
                         <label for="nom_user" class="form-label">Fait par :</label>
                         <input type="text" class="form-control" id="#" name="nom_user" value="<?= session()->get('nom_user') ?>" readonly>
                     </div>
                 </div>
-                <div class="col-12 mt-2">
+                <!-- <div class="col-12 mt-2">
                     <div class="form-group">
                         <label for="remarque_reservation" class="form-label">Remarque</label>
                         <textarea class="form-control" id="remarque_reservation" name="remarque_reservation" rows="2"></textarea>
                     </div>
-                </div>
+                </div> -->
 
                 <!-- FACTURE DEBUT -->
 
@@ -121,23 +121,6 @@
                     </div>
                 </div>
 
-                <!--Checkbox-->
-                <h3 class="center mt-3 mb-3">Chambres disponible</h3>
-                <div class="container">
-                    <div class="row row-cols-1 row-cols-lg-5 g-2 g-lg-3">
-                        <?php foreach ($chambres as $chambre) { ?>
-                            <div class="col">
-                                <div class="p-2 border checkChambre">
-                                    <div class="form-check">
-                                        <input class="form-check-input <?php if ($chambre['statut_chambre'] == 'En attente') echo ('checkBoxAttente');
-                                                                        elseif ($chambre['statut_chambre'] == 'Occupée') echo ('checkBoxOccupee'); ?>" type="checkbox" name="ID_chambre[]" value="<?php echo ($chambre['ID_chambre']) ?>" <?php if ($chambre['statut_chambre'] == 'Occupée') echo ('disabled') ?> id="checkbox_chambre <?php echo ($chambre['ID_chambre']) ?>">
-                                        <label class="form-check-label align-middle" for="checkbox_chambre <?php echo ($chambre['ID_chambre']) ?>"><?php echo ($chambre['ID_chambre']) . ' : ' . ($chambre['tarif_chambre']) ?></label>
-                                    </div>
-                                </div>
-                            </div>
-                        <?php } ?>
-                    </div>
-                </div>
 
                 <div class="col-12 col-sm-6">
                     <div class="d-grid gap-2 mt-3">

@@ -33,6 +33,7 @@ $routes->setAutoRoute(true);
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index', ['filter' => 'noauth']);
+$routes->match(['get','post'], 'profil', 'User::profil', ['filter' => 'auth']);
 $routes->match(['get','post'], 'addUser', 'User::addUser', ['filter' => 'isadmin']);
 $routes->match(['get','post'], 'addChambre', 'Chambre::addChambre', ['filter' => 'isadmin']);
 $routes->match(['get','post'], 'addClient', 'Client::addClient', ['filter' => 'auth']);
@@ -47,7 +48,13 @@ $routes->match(['get','post'], 'configReservationNuit', 'ReservationNuit::index'
 $routes->match(['get','post'], 'configReservationDay', 'ReservationDay::index', ['filter' => 'auth']);
 $routes->match(['get','post'], 'ficheCardex', 'Cardex::index', ['filter' => 'auth']);
 $routes->match(['get','post'], 'planningJour', 'Planning::planningJour', ['filter' => 'auth']);
+// $routes->match(['get','post'], 'tabPlanningJour', 'Planning::tabPlanningJour', ['filter' => 'auth']);
 $routes->match(['get','post'], 'planningMois', 'Planning::planningMois', ['filter' => 'auth']);
+$routes->match(['get','post'], 'factureDay', 'Facture::factureDay', ['filter' => 'auth']);
+$routes->match(['get','post'], 'factureNuit', 'Facture::factureNuit', ['filter' => 'auth']);
+// $routes->post('nouveauUser', 'User::create', ['filter' => 'auth']);
+// $routes->post('nouveauClient', 'Client::create', ['filter' => 'auth']);
+// $routes->post('nouveauChambre', 'Chambre::create', ['filter' => 'auth']);
 $routes->get('dashboard', 'Dashboard::index', ['filter' => 'auth']);
 $routes->get('etatFinancier', 'Dashboard::etatFinancier', ['filter' => 'auth']);
 $routes->get('statistique', 'Dashboard::statistique', ['filter' => 'auth']);

@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\models\userModel;
+use App\models\connexionModel;
 
 class Home extends BaseController
 {
@@ -21,10 +22,20 @@ class Home extends BaseController
 					$data['validation'] = $this->validator;
 				} else {
 					$users = new userModel();
+					$connexion = new connexionModel();
+
 					$user = $users->where('nom_user', $_POST['nom_user'])
 						->first();
+					
+					$data = [
+						'ID_user' => $user['ID_user'],
+						'etat_connexion' => 1,
+					];
 
-					$this->setUserSession($user);
+					$connexion->save($data);
+					$id_connexion = $connexion->getInsertID();
+
+					$this->setUserSession($user, $id_connexion);
 					return redirect()->to('dashboard');
 				}
 			}
@@ -37,15 +48,26 @@ class Home extends BaseController
 
 	public function logout()
 	{
+		$connexion = new connexionModel();
+
+		$data = [
+			'etat_connexion' => 0,
+		];
+		$connexion->set($data);
+		$connexion->where('ID_connexion', session()->get('ID_connexion'));
+		$connexion->update();
+		
 		session()->destroy();
 		return redirect()->to('index.php');
 	}
 
-	private function setUserSession($user)
+	private function setUserSession($user, $id_connexion)
 	{
 		$data = [
+			'ID_connexion' => $id_connexion,
 			'ID_user' => $user['ID_user'],
 			'nom_user' => $user['nom_user'],
+			'prenom_user' => $user['prenom_user'],
 			'isUser' => $user['droit_user'],
 			'isLoggedIn' => true,
 		];

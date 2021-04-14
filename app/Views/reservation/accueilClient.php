@@ -1,77 +1,60 @@
+<?php include("modal/modalAccueilReservation.php"); ?>
+
+<div class="container-fluid mt-3 mb-3">
+    <h1>Type de réservation</h1>
+</div>
+
 <div class="container">
     <div class="row mt-2">
 
-        <div class="col-12 col-sm-6">
-            <div class="d-grid gap-2 mt-3">
-                <a href="#" class="btn btn-primary mt-3">Nuité</a>
+        <div class="col-lg-4 col-sm-12">
+            <div class="d-grid gap-2">
+                <!-- <a class="btn btn-primary mt-3 mb-3" data-bs-toggle="modal" data-bs-target="#modalNouveauClient">Nouveau client</a> -->
+                <div class="card" style="width: 100%;">
+                    <a data-bs-toggle="modal" data-bs-target="#modalNouveauClient"><img src="assets/images/reservation1.png" class="card-img-top" alt="..."></a>
+                    <div class="card-body">
+                        <h5 class="card-title">Nuitée</h5>
+                        <p class="card-text">Enregistrement d'un nouveau client pour une réservation d'une à plusieurs nuits.</p>
+                        <a class="btn btn-primary col-12" data-bs-toggle="modal" data-bs-target="#modalNouveauClient">Nouveau client</a>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="col-12 col-sm-6">
-            <div class="d-grid gap-2 mt-3">
-                <a href="reservationDay" class="btn btn-primary mt-3">Day use</a>
+        <div class="col-lg-4 col-sm-12">
+            <div class="d-grid gap-2">
+                <!-- <a class="btn btn-primary mt-3 mb-3" data-bs-toggle="modal" data-bs-target="#modalAncienClient">Ancien client</a> -->
+                <div class="card" style="width: 100%;">
+                <a data-bs-toggle="modal" data-bs-target="#modalAncienClient"><img src="assets/images/reservation2.png" class="card-img-top" alt="..."></a>
+                    <div class="card-body">
+                        <h5 class="card-title">Nuitée</h5>
+                        <p class="card-text">Recherche d'un ancien client à partir de son nom pour une réservation d'une à plusieurs nuits.</p>
+                        <a class="btn btn-primary col-12" data-bs-toggle="modal" data-bs-target="#modalAncienClient">Ancien client</a>
+                    </div>
+                </div>
             </div>
         </div>
-
-        <div class="container-fluid col-12 col-sm-6">
-            <div class="container-fluid bg-light formulaire">
-                <h1 class="center">NOUVEAU CLIENT</h1>
-                <form action="" method="post">
-                    <?php if (session()->get('success')) : ?>
-                        <div class="alert alert-success" role="alert">
-                            <?= session()->get('success') ?>
-                        </div>
-                    <?php endif; ?>
-                    <div class="form-group col-12"><label class="form-label" for="">Nom</label>
-                        <input type="text" class="form-control" name="nom_client" id="">
+        <div class="col-lg-4 col-sm-12">
+            <div class="d-grid gap-2">
+                <!-- <a href="reservationDay" class="btn btn-primary mt-3 mb-3">Day use</a> -->
+                <div class="card" style="width: 100%;">
+                <a href="reservationDay"><img src="assets/images/reservation3.png" class="card-img-top" alt="..."></a>
+                    <div class="card-body">
+                        <h5 class="card-title">Journée</h5>
+                        <p class="card-text">Réservation d'une chambre pour une durée de moins de 24h ou une utilisation day use.</p>
+                        <a href="reservationDay" class="btn btn-primary col-12">Day use</a>
                     </div>
-
-                    <div class="form-group mt-2 col-12">
-                        <label class="form-label" for="">Prénom</label>
-                        <input type="text" class="form-control" name="prenom_client" id="">
-                    </div>
-                    <div class="form-group mt-2">
-                        <label class="form-label" for="">Téléphone</label>
-                        <input type="tel" class="form-control" name="telephone_client" id="">
-                    </div>
-                    <div class="d-grid gap-2 mt-3">
-                        <button type="submit" class="btn btn-outline-primary" name="btn_validation">Valider</button>
-                    </div>
-                    <?php
-                    if (isset($validation)) : ?>
-                        <div class="col-12 mt-3">
-                            <div class="alert alert-danger" role="alert">
-                                <?= $validation->listErrors() ?>
-                            </div>
-                        </div>
-                    <?php endif ?>
-                </form>
-            </div>
-        </div>
-        <div class="container-fluid col-12 col-sm-6">
-            <div class="container-fluid bg-light formulaire">
-                <h1 class="center">ANCIEN CLIENT</h1>
-                <form action="" method="post">
-                    <?php if (session()->get('success')) : ?>
-                        <div class="alert alert-success" role="alert">
-                            <?= session()->get('success') ?>
-                        </div>
-                    <?php endif; ?>
-                    <div class="form-group">
-                        <input class="form-control me-2" type="search" name="element_recherche" id="search" placeholder="Nom du client" aria-label="Search" autocomplete="off">
-                    </div>
-                    <div class="d-grid gap-2 mt-3">
-                        <button class="btn btn-outline-primary" type="submit" name="btn_recherche">Rechercher</button>
-                    </div>
-                    <?php
-                    if (isset($validation_recherche)) : ?>
-                        <div class="col-12 mt-3">
-                            <div class="alert alert-danger" role="alert">
-                                <?= $validation_recherche->listErrors() ?>
-                            </div>
-                        </div>
-                    <?php endif ?>
-                </form>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+
+<!-- <div class="card" style="width: 18rem;">
+    <img src="assets/images/background1.png" class="card-img-top" alt="...">
+    <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+    </div>
+</div> -->

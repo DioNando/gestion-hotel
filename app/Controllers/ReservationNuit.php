@@ -121,7 +121,8 @@ class ReservationNuit extends BaseController
 					$session = session();
 					$session->set($newData);
 					$session->setFlashdata('success', 'Réservation réussie');
-					return redirect()->to('reservationNuit');
+					// return redirect()->to('reservationNuit');
+					return redirect()->to('factureNuit');
 				}
 			}
 		endif;

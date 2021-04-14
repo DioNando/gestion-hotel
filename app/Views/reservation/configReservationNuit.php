@@ -7,7 +7,7 @@
 
 <div class="container-fluid">
 
-    <!-- <?php include("search/recherche.php"); ?> -->
+    <?php include("search/recherche.php"); ?>
     <?php if (session()->get('update')) : ?>
         <div class="alert alert-success" role="alert">
             <?= session()->get('update') ?>

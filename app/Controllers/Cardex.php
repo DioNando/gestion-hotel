@@ -30,7 +30,12 @@ class Cardex extends BaseController
 	{
 		$data = [];
 		$clients = new clientModel();
-		$data['clients'] = $clients->orderBy('ID_client', 'asc')->findAll();
+		// $data['clients'] = $clients->orderBy('ID_client', 'asc')->findAll();
+
+		$data = [
+            'clients' => $clients->paginate(20, 'paginationResult'),
+            'pager' => $clients->pager,
+        ];
 		return $data;
 	}
 
@@ -38,7 +43,12 @@ class Cardex extends BaseController
 	{
 		$data = [];
 		$clients = new clientModel();
-		$data['clients'] = $clients->like('nom_client', $element_recherche, 'both')->orLike('prenom_client', $element_recherche, 'both')->find();
+		// $data['clients'] = $clients->like('nom_client', $element_recherche, 'both')->orLike('prenom_client', $element_recherche, 'both')->find();
+
+		$data = [
+            'clients' => $clients->like('nom_client', $element_recherche, 'both')->orLike('prenom_client', $element_recherche, 'both')->paginate(20, 'paginationResult'),
+            'pager' => $clients->pager,
+        ];
 		return $data;
 	}
 

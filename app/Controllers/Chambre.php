@@ -11,7 +11,7 @@ class Chambre extends BaseController
 
         if (isset($_POST['btn_enregistrer'])) {
             $this->create();
-            return redirect()->to('addChambre');
+            return redirect()->to('configChambre');
         } elseif (isset($_POST['btn_modification'])) {
             $this->update();
             return redirect()->to('configChambre');
@@ -82,7 +82,7 @@ class Chambre extends BaseController
                     $chambres->save($newData);
                     $session = session();
                     $session->setFlashdata('success', 'Création réussie');
-                    return redirect()->to('addChambre');
+                    return redirect()->to('configChambre');
                 }
             }
         endif;
@@ -96,7 +96,12 @@ class Chambre extends BaseController
     {
         $data = [];
         $chambres = new chambreModel();
-        $data['chambres'] = $chambres->findAll();
+        // $data['chambres'] = $chambres->findAll();
+      
+		$data = [
+            'chambres' => $chambres->paginate(10, 'paginationResult'),
+            'pager' => $chambres->pager,
+        ];
         return $data;
     }
 
@@ -141,7 +146,11 @@ class Chambre extends BaseController
 	{
 		$data = [];
 		$chambres = new chambreModel();
-        $data['chambres'] = $chambres->like('tarif_chambre', $element_recherche, 'both')->orLike('statut_chambre', $element_recherche, 'both')->find();
-		return $data;
+        // $data['chambres'] = $chambres->like('tarif_chambre', $element_recherche, 'both')->orLike('statut_chambre', $element_recherche, 'both')->find();
+        $data = [
+            'chambres' => $chambres->like('statut_chambre', $element_recherche, 'both')->orLike('tarif_chambre', $element_recherche, 'both')->paginate(10, 'paginationResult'),
+            'pager' => $chambres->pager,
+        ];
+        return $data;
 	}
 }

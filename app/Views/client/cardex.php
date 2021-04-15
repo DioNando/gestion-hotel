@@ -9,8 +9,8 @@
 
     <h5 class="center">FICHE D'HOTEL</h5>
 
-    <p>Nom :</p>
-    <p>Prénoms :</p>
+    <p>Nom : <?php echo ($client['nom_client'])?> </p>
+    <p>Prénoms : <?php echo ($client['prenom_client'])?> </p>
     <p>Date de naissance :</p>
     <p>Lieu de naissance :</p>
     <p>Père :</p>

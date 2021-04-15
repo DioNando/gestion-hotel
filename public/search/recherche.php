@@ -7,12 +7,14 @@ $page = $_SERVER['REQUEST_URI'];
 <nav class="navbar navbar-light mb-2">
     <div class="container-fluid" style="padding-left: 0; padding-right:0">
 
-        <?php if ($page == '/hotel/public/configChambre') { ?>
-            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalNouveauChambre" name="btn_nouveau">Nouveau</button>
-        <?php } ?>
-        <?php if ($page == '/hotel/public/configUser') { ?>
-            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalNouveauUser" name="btn_nouveau">Nouveau</button>
-        <?php } ?>
+        <?php if (session()->get('isUser') == 'Administrateur') : ?>
+            <?php if ($page == '/hotel/public/configChambre') { ?>
+                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalNouveauChambre" name="btn_nouveau">Nouveau</button>
+            <?php } ?>
+            <?php if ($page == '/hotel/public/configUser') { ?>
+                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalNouveauUser" name="btn_nouveau">Nouveau</button>
+            <?php } ?>
+        <?php endif ?>
 
         <a class="navbar-brand"></a>
         <form class="d-flex" method="post">
@@ -21,4 +23,3 @@ $page = $_SERVER['REQUEST_URI'];
         </form>
     </div>
 </nav>
-

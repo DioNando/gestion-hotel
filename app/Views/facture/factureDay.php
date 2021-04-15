@@ -10,81 +10,124 @@
                         </div>
                     <?php endif; ?>
                 </div>
-                <div class="col-12 col-sm-4">
-                    <div class="form-group">
-                        <label for="nom_client" class="form-label">Nom</label>
-                        <input type="text" class="form-control" id="#" name="nom_client" value="<?= session()->get('nom_client') ?>" readonly>
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <h5 class="mt-3 mb-3">De</h5>
+
+                            <div class="mb-1 row">
+                                <label for="#" class="col-sm-2 col-form-label">Nom</label>
+                                <div class="col-sm-10">
+                                    <input type="text" readonly class="form-control-plaintext" id="#" value="Hotel" readonly>
+                                </div>
+                            </div>
+
+                            <div class="mb-1 row">
+                                <label for="#" class="col-sm-2 col-form-label">Adresse</label>
+                                <div class="col-sm-10">
+                                    <input type="text" readonly class="form-control-plaintext" id="#" value="rue 02 Toamasina" readonly>
+                                </div>
+                            </div>
+
+                            <div class="mb-1 row">
+                                <label for="#" class="col-sm-2 col-form-label">Mail</label>
+                                <div class="col-sm-10">
+                                    <input type="text" readonly class="form-control-plaintext" id="#" value="hotel@mail.mg" readonly>
+                                </div>
+                            </div>
+                            <div class="mb-1 row">
+                                <label for="#" class="col-sm-2 col-form-label">Téléphone</label>
+                                <div class="col-sm-10">
+                                    <input type="text" readonly class="form-control-plaintext" id="#" value="+261 34 00 000 01" readonly>
+                                </div>
+                            </div>
+                            <div class="mb-1 row">
+                                <label for="#" class="col-sm-2 col-form-label">Par</label>
+                                <div class="col-sm-10">
+                                    <input type="text" readonly class="form-control-plaintext" id="#" value="<?= session()->get('nom_user') ?>" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <h5 class="mt-3 mb-3">Adresse de facturation</h5>
+
+                            <div class="mb-1 row">
+                                <label for="#" class="col-sm-2 col-form-label">Nom</label>
+                                <div class="col-sm-10">
+                                    <input type="text" readonly class="form-control-plaintext" id="#" value="<?= session()->get('nom_client_day') ?>" readonly>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
-                <!-- <div class="col-12 col-sm-4">
+
+
+                <div class="col-12 col-sm-6 mt-2 mb-2 text-center">
                     <div class="form-group">
-                        <label for="prenom_client" class="form-label">Prénom</label>
-                        <input type="text" class="form-control" id="#" name="prenom_client" value="<?= session()->get('prenom_client') ?>" readonly>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-4">
-                    <div class="form-group">
-                        <label for="telephone_client" class="form-label">Téléphone</label>
-                        <input type="tel" class="form-control" id="#" name="telephone_client" value="<?= session()->get('telephone_client') ?>" readonly>
-                    </div>
-                </div> -->
-                <!-- <div class="col-12 mt-2">
-                    <div class="form-group">
-                        <label for="nbr_personne" class="form-label">Nombre de personne</label>
-                        <input type="number" class="form-control" id="#" name="nbr_personne" value="1" min="1">
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 mt-2">
-                    <div class="form-group">
-                        <label for="debut_sejour" class="form-label">Début du séjour</label>
+                        <label for="debut_sejour" class="form-label">Date de facturation</label>
                         <input type="date" class="form-control" id="dateDebutSejour" onchange="calculNuit(document.getElementById('dateDebutSejour').value, document.getElementById('dateFinSejour').value);" name="debut_sejour">
                     </div>
                 </div>
-                <div class="col-12 col-sm-6 mt-2">
+                <div class="col-12 col-sm-6 mt-2 mb-2 text-center">
                     <div class="form-group">
-                        <label for="fin_sejour" class="form-label">Fin du séjour</label>
-                        <input type="date" class="form-control" id="dateFinSejour" onchange="calculNuit(document.getElementById('dateDebutSejour').value, document.getElementById('dateFinSejour').value);" name="fin_sejour">
-                    </div>
-                </div>
-                <div class="col-12 mt-2">
-                    <div class="form-group">
-                        <label class="form-label">Nombre de nuitée</label>
-                        <input type="number" class="form-control" id="nbr_nuit" name="nbr_nuit" value="0" readonly>
-                    </div>
-                </div>
-                <div class="col-12 mt-2">
-                    <div class="form-group">
-                        <label class="form-label" for="">Type de réservation</label>
+                        <label class="form-label" for="">Type de payement</label>
                         <select class="form-select" name="type_reservation">
-                            <option selected value="Réception">Réception</option>
-                            <option value="Téléphone">Téléphone</option>
-                            <option value="Mail">Mail</option>
+                            <option selected value="espece">Espèce</option>
+                            <option value="telma">MVola</option>
+                            <option value="orange">Orange Money</option>
+                            <option value="airtel">Airtel Money</option>
+                            <option value="visa">VISA</option>
                         </select>
                     </div>
-                </div> -->
-                <div class="col-12 mt-2">
-                    <div class="form-group">
-                        <label for="nom_user" class="form-label">Fait par :</label>
-                        <input type="text" class="form-control" id="#" name="nom_user" value="<?= session()->get('nom_user') ?>" readonly>
-                    </div>
-                </div>
-                <!-- FACTURE DEBUT -->
-<!-- 
-                <div class="col-12 mt-2">
-                    <div class="form-group">
-                        <label for="remarque_reservation" class="form-label">Remarque</label>
-                        <textarea class="form-control" id="remarque_reservation" name="remarque_reservation" rows="2"></textarea>
-                    </div>
                 </div>
 
-                <div class="col-12 mt-2">
-                    <div class="form-group">
-                        <label for="remise" class="form-label">Remise</label>
-                        <input type="number" class="form-control" id="remise" name="remise" value="0" min="0" max="100">
-                    </div>
-                </div> -->
 
-                <!-- FACTURE FIN -->
+
+                <?php
+                $total = 0;
+                foreach ($details as $detail) {
+                    $total = $total + ($detail['tarif_chambre'] * $detail['duree_day']);
+                }
+                $montant = $total;
+                $reste = $total - $montant;
+                ?>
+
+                <table class="table mt-2">
+                    <thead>
+                        <tr>
+                            <th scope="col">N°Chambre</th>
+                            <th scope="col">Durée</th>
+                            <th scope="col">Prix Unitaire</th>
+                            <th scope="col">Montant</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($details as $detail) { ?>
+                            <tr>
+                                <th> <?php echo ($detail['ID_chambre']); ?> </th>
+                                <td scope="row"> <?php echo ($detail['duree_day'] . 'h'); ?> </td>
+                                <td> <?php echo number_format($detail['tarif_chambre'], 2, ',', ' ')  . ' Ar' ?> </td>
+                                <td> <?php echo number_format($detail['tarif_chambre'] * $detail['duree_day'], 2, ',', ' ') . ' Ar' ?> </td>
+
+                            </tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
+                <hr class="mt-4">
+
+                <table>
+
+                    <tr>
+                        <td class="text-end">Total</td>
+                        <td class="text-center"><b> <?php echo number_format($total, 2, ',', ' ') . ' Ar' ?> </b></td>
+                    </tr>
+                    <tr>
+                        <td class="text-end">Solde Dû</td>
+                        <td class="text-center"><b> <?php echo number_format($reste, 2, ',', ' ') . ' Ar' ?> </b></td>
+                    </tr>
+                </table>
 
                 <div class="col-12 col-sm-6">
                     <div class="d-grid gap-2 mt-3">
@@ -93,7 +136,7 @@
                 </div>
                 <div class="col-12 col-sm-6">
                     <div class="d-grid gap-2 mt-3">
-                        <button type="submit" class="btn btn-primary" name="btn_arrive">Arrivé</button>
+                        <button type="submit" class="btn btn-secondary" name="btn_arrive">Imprimer</button>
                     </div>
                 </div>
 

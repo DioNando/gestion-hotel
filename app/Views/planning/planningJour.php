@@ -103,9 +103,9 @@
                         <td><?php echo ($planning['fin']); ?></td>
                         <td><?php echo ($planning['duree']); ?></td>
                         <td><?php echo ($planning['commentaire']); ?></td>
-                        <td><?php echo ($planning['montant']); ?></td>
+                        <td><?php echo number_format($planning['montant'], '2', ',', ' ') . ' Ar'; ?></td>
                         <td><?php echo ($planning['surplus']); ?></td>
-                        <td><?php echo ($planning['total']); ?></td>
+                        <td><?php echo number_format($planning['total'], '2', ',', ' ') . ' Ar'; ?></td>
 
                     <?php
                 }

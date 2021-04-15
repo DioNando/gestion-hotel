@@ -3,11 +3,17 @@
 namespace App\Controllers;
 
 use App\models\clientModel;
+use App\models\reservationNuitModel;
 
 class Client extends BaseController
 {
 	public function index()
 	{
+		if (isset($_POST['type']) == 'update') {
+			$data['info'] = $this->infoUpdate($_POST['ID_client']);
+			echo view('client\updateClient', $data);
+			return ($data);
+		}
 		if (isset($_POST['btn_validation'])) {
 			$this->create();
 			return redirect()->to('reservation');
@@ -122,12 +128,31 @@ class Client extends BaseController
 		endif;
 	}
 
+	public function infoUpdate($ID_client) {
+        $data = [];
+		$clients = new clientModel();
+        $data = $clients->where('ID_client', $ID_client)->first();
+        return $data;
+    }
+
 	public function delete()
 	{
 		$clients = new clientModel();
+
+		$this->deleteCascade($_POST['ID_client']);
 		$clients->delete(['ID_client' => $_POST['ID_client']]);
 		$session = session();
 		$session->setFlashdata('delete', 'Le client a été supprimé avec succès');
+	}
+
+	public function deleteCascade($id_client)
+	{
+		$reservation = new reservationNuitModel();
+
+		$sql = "DELETE reservation_nuit, pour, planning, concerner FROM reservation_nuit 
+		INNER JOIN pour ON reservation_nuit.ID_nuit = pour.ID_nuit INNER JOIN planning ON pour.ID_planning = planning.ID_planning INNER JOIN concerner ON concerner.ID_planning = planning.ID_planning WHERE reservation_nuit.ID_client = ?";
+
+		$reservation->query($sql, array($id_client));
 	}
 
 	public function addClient()

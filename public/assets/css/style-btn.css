@@ -1,0 +1,36 @@
+@charset "UTF-8";
+
+/* background: #6190e8;
+background: -webkit-linear-gradient(to right, #a7bfe8, #6190e8);
+background: linear-gradient(to right, #a7bfe8, #6190e8); */
+
+:root {
+  --primary-color: #136a8a;
+  --secondary-color: #84ff3d;
+  --color-success: #067eed;
+  --color-warning: #c1e6ff;
+  --color-info: #c1e6ff;
+  --color-danger: #c1e6ff;
+  --color-1: #6190e8;
+  --color-2: #a7bfe8;
+  --color-3: #ff7c1f;
+  --color-4: #c1e6ff;
+  --noir: #000000;
+  --blanc: #ffffff;
+  --bg-dark: ;
+  --border-dark: ;
+  --bg-light: #f8f9fa;
+  --border-light: #dee2e6;
+}
+
+/* .bg-dash1 {
+    background: linear-gradient(to left, #a7bfe8, #6190e8) !important;
+} */
+
+.bg-dash2 {
+    background: linear-gradient(to right, #4b79a1, #283e51) !important;
+}
+
+.bg-dash3 {
+    background: linear-gradient(to right, #ff5f6d, #ffc371) !important;
+}

@@ -3,12 +3,21 @@
 namespace App\Controllers;
 
 use App\models\userModel;
+use App\models\reservationNuitModel;
+use App\models\reservationDayModel;
 
 class User extends BaseController
 {
     public function index()
     {
+        $data = [];
+		helper(['form']);
 
+        if (isset($_POST['type']) == 'update') {
+			$data['info'] = $this->infoUpdate($_POST['ID_user']);
+			echo view('user\updateUser', $data);
+			return ($data);
+		}
         if (isset($_POST['btn_enregistrer'])) {
             $this->create();
             return redirect()->to('configUser');
@@ -48,6 +57,7 @@ class User extends BaseController
         if (isset($_POST['btn_enregistrer'])) : {
                 $rules = [
                     'nom_user' => 'required',
+                    'prenom_user' => 'required',
                     'mdp_user' => 'required',
                 ];
 
@@ -58,6 +68,7 @@ class User extends BaseController
                     $newData = [
                         'nom_user' => $_POST['nom_user'],
                         'prenom_user' => $_POST['prenom_user'],
+                        'mdp_user' => $_POST['mdp_user'],
                         'droit_user' => $_POST['droit_user'],
                     ];
 
@@ -78,6 +89,7 @@ class User extends BaseController
         if (isset($_POST['btn_enregistrer'])) : {
                 $rules = [
                     'nom_user' => 'required|min_length[1]',
+                    'prenom_user' => 'required|min_length[1]',
                     'mdp_user' => 'required|min_length[1]',
                 ];
 
@@ -87,6 +99,7 @@ class User extends BaseController
                     $users = new userModel();
                     $newData = [
                         'nom_user' => $_POST['nom_user'],
+                        'prenom_user' => $_POST['prenom_user'],
                         'mdp_user' => $_POST['mdp_user'],
                         'droit_user' => $_POST['droit_user'],
                     ];
@@ -148,13 +161,43 @@ class User extends BaseController
         endif;
     }
 
+    public function infoUpdate($ID_user) {
+        $data = [];
+		$users = new userModel();
+        $data = $users->where('ID_user', $ID_user)->first();
+        return $data;
+    }
+
     public function delete()
     {
         $users = new userModel();
+
+        $this->deleteCascadeNuit($_POST['ID_user']);
+        $this->deleteCascadeDay($_POST['ID_user']);
         $users->delete(['ID_user' => $_POST['ID_user']]);
         $session = session();
         $session->setFlashdata('delete', 'L\'utilisateur a été supprimé avec succès');
     }
+
+    public function deleteCascadeNuit($id_user)
+	{
+		$reservation = new reservationNuitModel();
+
+		$sql = "DELETE reservation_nuit, effectuer, pour, planning, concerner FROM reservation_nuit 
+		INNER JOIN effectuer ON effectuer.ID_nuit = reservation_nuit.ID_nuit INNER JOIN pour ON reservation_nuit.ID_nuit = pour.ID_nuit INNER JOIN planning ON pour.ID_planning = planning.ID_planning INNER JOIN concerner ON concerner.ID_planning = planning.ID_planning WHERE effectuer.ID_user = ?";
+
+		$reservation->query($sql, array($id_user));
+	}
+    
+    public function deleteCascadeDay($id_user)
+	{
+		$reservation = new reservationDayModel();
+
+		$sql = "DELETE reservation_day, effectuer, pour, planning, concerner FROM reservation_day 
+		INNER JOIN effectuer ON effectuer.ID_day = reservation_day.ID_day INNER JOIN pour ON reservation_day.ID_day = pour.ID_day INNER JOIN planning ON pour.ID_planning = planning.ID_planning INNER JOIN concerner ON concerner.ID_planning = planning.ID_planning WHERE effectuer.ID_user = ?";
+
+		$reservation->query($sql, array($id_user));
+	}
 
     public function profil()
     {

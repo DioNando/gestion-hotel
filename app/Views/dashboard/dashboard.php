@@ -73,6 +73,8 @@
         });
     }
 
+
+
     function chart2Display(result) {
         let data1 = result.map(function(e) {
             // if (e.motif == 'Nuitée')
@@ -81,8 +83,8 @@
         let data2 = result.map(function(e) {
             // if (e.motif == 'Day use')
             //     return e.reservation;
-            for(i = 1; i < 8; i++) {
-                if(e.week == i)
+            for (i = 1; i < 8; i++) {
+                if (e.week == i)
                     return e.reservation;
                 else
                     return 0;
@@ -104,16 +106,31 @@
                 labels: ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'],
                 // labels: ['1', '2', '3', '4', '5', '6', '7'],
                 datasets: [{
-                    label: "Nuitée",
-                    backgroundColor: "#6190E8",
-                    // data: data1
-                    data : ['5', '2', '2', '4', '0', '6', '1'],
-                }, {
-                    label: "Day Use",
-                    backgroundColor: "#c1e6ff",
-                    // data: data2
-                    data : ['1', '2', '0', '2', '7', '1', '5'],
-                }]
+                        label: "Nuitée",
+                        data: ['5', '2', '2', '4', '0', '6', '1'],
+                        borderColor: '#ff7c1f',
+                        backgroundColor: 'rgba(255, 255, 255, 0.5)',
+                        // fill: false,
+                        borderWidth: 5,
+                        radius: 2,
+                        tension: 0,
+                        
+                        // data: data1
+                    }, {
+                        label: "Day Use",
+                        data: ['1', '2', '0', '2', '7', '1', '5'],
+                        borderColor: '#6190E8',
+                        backgroundColor: 'rgba(255, 255, 255, 0.5)',
+                        // fill: false,
+                        borderWidth: 5,
+                        radius: 2,
+                        tension: 0,
+
+                        // data: data2
+                    },
+
+
+                ]
             },
             options: {
                 title: {
@@ -186,7 +203,7 @@
     }
 </script>
 
-<div class="container-fluid mb-3">
+<div class="container-fluid mb-4">
     <div class="row g-3">
         <div class="col-lg-6 col-sm-12">
             <!-- <div class="container"> -->
@@ -195,19 +212,19 @@
                     <div class="p-3 border bg-light bg-dashboard height-dashboard center"><canvas id="myChart2"></canvas></div>
                 </div>
                 <div class="col-4 mt-3">
-                    <div class="p-3 border bg-light bg-dashboard height-dashboard center">
+                    <div class="p-3 border bg-light bg-dashboard bg-dash1 height-dashboard center">
                         <h5>Réservations :
                             <?php echo (count($detailsNuit) + count($detailsDay)) ?></h5>
                     </div>
                 </div>
                 <div class="col-4 mt-3">
-                    <div class="p-3 border bg-light bg-dashboard height-dashboard center">
+                    <div class="p-3 border bg-light bg-dashboard bg-dash2 height-dashboard center">
                         <h5>Nuitée :
                             <?php echo (count($detailsNuit)) ?></h5>
                     </div>
                 </div>
                 <div class="col-4 mt-3">
-                    <div class="p-3 border bg-light bg-dashboard height-dashboard center">
+                    <div class="p-3 border bg-light bg-dashboard bg-dash3 height-dashboard center">
                         <h5>Day Use :
                             <?php echo (count($detailsDay)) ?></h5>
                     </div>

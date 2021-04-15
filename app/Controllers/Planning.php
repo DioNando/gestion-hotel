@@ -135,7 +135,7 @@ class Planning extends BaseController
                 'commentaire' => '',
                 'montant' => $row['tarif_chambre'],
                 'surplus' => '0',
-                'total' => $row['total'] . ' Ar',
+                'total' => $row['total'],
             );
         }
 
@@ -160,7 +160,7 @@ class Planning extends BaseController
                 'commentaire' => $row['remarque_reservation'],
                 'montant' => $row['tarif_chambre'],
                 'surplus' => '0',
-                'total' => $row['total'] . ' Ar',
+                'total' => $row['total'],
             );
         }
 

@@ -92,9 +92,20 @@ class ReservationDay extends BaseController
 					$planning->save($newDataPlanning);
 					$id_planning = $planning->getInsertID();
 
+					$newData = [
+						'nom_client_day' => $_POST['nom_client_day'],
+						'date_day' => $_POST['date_day'],
+						'duree_day' => $_POST['duree_day'],
+						'ID_user' => $user['ID_user'],
+						'ID_day' => $id,
+						'ID_planning' => $id_planning,
+					];
+
+
 					$this->addEffectuer($id, $user['ID_user']);
 					$this->addPour($id, $id_planning);
 					$this->addConcerner($id_planning);
+
 					$session = session();
 					$session->set($newData);
 					$session->setFlashdata('success', 'Réservation réussie');
@@ -242,7 +253,20 @@ class ReservationDay extends BaseController
 	public function delete()
 	{
 		$reservation = new reservationDayModel();
-		$reservation->delete(['ID_day' => $_POST['ID_day']]);
+		// $reservation->delete(['ID_day' => $_POST['ID_day']]);
+		// $reservation->join('pour', 'pour.ID_day = reservation_day.ID_day')->join('planning', 'pour.ID_planning = planning.ID_planning')->join('concerner', 'concerner.ID_planning = planning.ID_planning')->delete(['ID_day' => $_POST['ID_day']]);
+		// $reservation->join('pour', 'pour.ID_day = reservation_day.ID_day')->join('planning', 'pour.ID_planning = planning.ID_planning')->join('concerner', 'concerner.ID_planning = planning.ID_planning')->delete(['reservation', 'pour', 'planning', 'concerner']);
+
+		// $reservation = $reservation->join('pour', 'pour.ID_day = reservation_day.ID_day')->join('planning', 'pour.ID_planning = planning.ID_planning')->join('concerner', 'concerner.ID_planning = planning.ID_planning')->find();
+		// $reservation->delete(['ID_day' => $_POST['ID_day']]);
+		// $pour->delete(['ID_day' => $reservation['ID_day']]);
+		// $planning->delete(['ID_planning' => $reservation['ID_planning']]);
+		// $concerner->delete(['ID_planning' => $reservation['ID_planning']]);
+
+		$sql = "DELETE reservation_day, pour, planning, concerner FROM reservation_day INNER JOIN pour ON reservation_day.ID_day = pour.ID_day INNER JOIN planning ON pour.ID_planning = planning.ID_planning INNER JOIN concerner ON concerner.ID_planning = planning.ID_planning WHERE reservation_day.ID_day = ?";
+
+		$reservation->query($sql, array($_POST['ID_day']));
+
 		$session = session();
 		$session->setFlashdata('delete', 'La réservation a été supprimé avec succès');
 	}

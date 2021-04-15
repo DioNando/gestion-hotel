@@ -10,8 +10,9 @@
     <!-- CSS -->
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/Chart.css">
-    <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/style-btn.css">
     <!-- JAVASCRIPT -->
     <script src="assets/jquery/jquery.min.js"></script>
     <script src="assets/js/Chart.js"></script>
@@ -99,7 +100,8 @@
 
         <?php elseif (session()->get('isUser') == 'Utilisateur') : ?>
 
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark"> -->
+            <nav class="navbar navbar-expand-lg headerBar">
                 <div class="container-fluid">
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navBarHeader" aria-controls="navBarHeader" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -110,27 +112,27 @@
                     <div class="collapse navbar-collapse" id="navBarHeader">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Tableau de bord</a>
+                                <a class="nav-link dropdown-toggle headerMenu" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Tableau de bord</a>
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" href="etatFinancier">Etat financier</a></li>
                                     <li><a class="dropdown-item" href="statistique">Statistique</a></li>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Planning</a>
+                                <a class="nav-link dropdown-toggle headerMenu" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Planning</a>
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" href="planningJour">Planning du jour</a></li>
                                     <li><a class="dropdown-item" href="planningMois">Planning du mois</a></li>
                                 </ul>
                             </li>
-                            <li class="nav-item"><a class="nav-link" href="accueilClient">Réservation</a></li>
-                            <li class="nav-item"><a class="nav-link" href="ficheCardex">Fiche cardex</a></li>
+                            <li class="nav-item"><a class="nav-link headerMenu" href="accueilClient">Réservation</a></li>
+                            <li class="nav-item"><a class="nav-link headerMenu" href="ficheCardex">Fiche cardex</a></li>
                         </ul>
                         <ul class="navbar-nav my-2 my-lg-0">
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Paramètres</a>
+                                <a class="nav-link dropdown-toggle headerMenu" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Paramètres</a>
                                 <ul class="dropdown-menu dropdown-menu-lg-end">
-                                    <li><a class="dropdown-item" href="#">Profil</a></li>
+                                    <li><a class="dropdown-item" href="profil">Profil</a></li>
                                     <li><a class="dropdown-item" href="configUser">Utilisateur</a></li>
                                     <li><a class="dropdown-item" href="configAdmin">Administrateur</a></li>
                                     <li>

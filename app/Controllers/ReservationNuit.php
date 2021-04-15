@@ -94,8 +94,6 @@ class ReservationNuit extends BaseController
 
 					$newData = [
 						'nbr_personne' => $_POST['nbr_personne'],
-						// 'debut_sejour' => $_POST['debut_sejour'],
-						// 'fin_sejour' => $_POST['fin_sejour'],
 						'nbr_nuit' => $_POST['nbr_nuit'],
 						'ID_client' => $client['ID_client'],
 						'ID_etat_reservation' => $etat,
@@ -113,6 +111,18 @@ class ReservationNuit extends BaseController
 					$id = $reservations->getInsertID();
 					$planning->save($newDataPlanning);
 					$id_planning = $planning->getInsertID();
+
+					$newData = [
+						'nbr_personne' => $_POST['nbr_personne'],
+						'nbr_nuit' => $_POST['nbr_nuit'],
+						'ID_client' => $client['ID_client'],
+						'ID_etat_reservation' => $etat,
+						'type_reservation' => $_POST['type_reservation'],
+						'remarque_reservation' => $_POST['remarque_reservation'],
+						'remise' => $_POST['remise'],
+						'ID_nuit' => $id,
+						'ID_planning' => $id_planning,
+					];
 
 					$this->addEffectuer($id, $user['ID_user']);
 					$this->addPour($id, $id_planning);
@@ -252,7 +262,13 @@ class ReservationNuit extends BaseController
 	{
 		$data = [];
 		$reservations = new effectuerModel();
-		$data = $reservations->select(['*', 'DATE_FORMAT(date_reservation_nuit, "%d %b %Y à %H:%i") AS date_reservation_nuit', 'DATE_FORMAT(date_modification_nuit, "%d %b %Y à %H:%i") AS date_modification_nuit'])->where('effectuer.ID_nuit', $ID_nuit)->join('user', 'effectuer.ID_user = user.ID_user')->join('reservation_nuit', 'effectuer.ID_nuit = reservation_nuit.ID_nuit')->join('client', 'reservation_nuit.ID_client = client.ID_client')->join('pour', 'pour.ID_nuit = reservation_nuit.ID_nuit')->join('planning', 'pour.ID_planning = planning.ID_planning')->first();
+		$data = $reservations
+			->select(['*', 'DATE_FORMAT(date_reservation_nuit, "%d %b %Y à %H:%i") AS date_reservation_nuit', 'DATE_FORMAT(date_modification_nuit, "%d %b %Y à %H:%i") AS date_modification_nuit'])
+			->where('effectuer.ID_nuit', $ID_nuit)->join('user', 'effectuer.ID_user = user.ID_user')
+			->join('reservation_nuit', 'effectuer.ID_nuit = reservation_nuit.ID_nuit')
+			->join('client', 'reservation_nuit.ID_client = client.ID_client')
+			->join('pour', 'pour.ID_nuit = reservation_nuit.ID_nuit')
+			->join('planning', 'pour.ID_planning = planning.ID_planning')->first();
 		return $data;
 	}
 
@@ -324,7 +340,13 @@ class ReservationNuit extends BaseController
 	public function delete()
 	{
 		$reservation = new reservationNuitModel();
-		$reservation->delete(['ID_nuit' => $_POST['ID_nuit']]);
+		// $reservation->delete(['ID_nuit' => $_POST['ID_nuit']]);
+
+		$sql = "DELETE reservation_nuit, pour, planning, concerner FROM reservation_nuit 
+		INNER JOIN pour ON reservation_nuit.ID_nuit = pour.ID_nuit INNER JOIN planning ON pour.ID_planning = planning.ID_planning INNER JOIN concerner ON concerner.ID_planning = planning.ID_planning WHERE reservation_nuit.ID_nuit = ?";
+
+		$reservation->query($sql, array($_POST['ID_nuit']));
+
 		$session = session();
 		$session->setFlashdata('delete', 'La réservation a été supprimé avec succès');
 	}

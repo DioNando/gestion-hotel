@@ -23,7 +23,7 @@
                 <th scope="col">Identification</th>
                 <th scope="col">Nom</th>
                 <th scope="col">Prénom</th>
-                <th scope="col">Téléphone</th>
+                <th scope="col">Modifier</th>
                 <th scope="col">Fiche Cardex</th>
             </tr>
         </thead>
@@ -38,7 +38,13 @@
                         <th scope="row"> <?php echo ($client['ID_client']) ?> </th>
                         <td> <?php echo ($client['nom_client']); ?> </td>
                         <td> <?php echo ($client['prenom_client']); ?> </td>
-                        <td> <?php echo ($client['telephone_client']); ?> </td>
+                        <td>
+                            <div class="center">
+                                <div>
+                                <button type="button" class="btn btn-outline-warning btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalCardexUpdate" onclick="updateCardex('<?php echo $client['ID_client']; ?>' , 'update')"><img src="assets/icons/pencil-fill.svg" alt="Modifier"></button>
+                                </div>
+                            </div>
+                        </td>
                         <td>
                             <div class="center">
                                 <div>

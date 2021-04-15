@@ -43,8 +43,8 @@
             ?>
                     <tr>
                         <th scope="row"> <?php echo ($chambre['ID_chambre']) ?> </th>
-                        <td> <?php echo ($chambre['tarif_chambre']); ?> </td>
-                        <td> <?php echo ($chambre['statut_chambre']); ?> </td>
+                        <td> <?php echo number_format($chambre['tarif_chambre'], '2', ',', ' ') . ' Ar' ?> </td>
+                        <td> <?php echo ($chambre['statut_chambre']) ?> </td>
                         <?php if (session()->get('isUser') == 'Administrateur') : ?>
                             <td>
                                 <div class="center">

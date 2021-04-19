@@ -52,6 +52,7 @@ $routes->match(['get','post'], 'planningJour', 'Planning::planningJour', ['filte
 $routes->match(['get','post'], 'planningMois', 'Planning::planningMois', ['filter' => 'auth']);
 $routes->match(['get','post'], 'factureDay', 'Facture::factureDay', ['filter' => 'auth']);
 $routes->match(['get','post'], 'factureNuit', 'Facture::factureNuit', ['filter' => 'auth']);
+$routes->match(['get','post'], 'facture', 'Facture::index', ['filter' => 'auth']);
 // $routes->post('nouveauUser', 'User::create', ['filter' => 'auth']);
 // $routes->post('nouveauClient', 'Client::create', ['filter' => 'auth']);
 // $routes->post('nouveauChambre', 'Chambre::create', ['filter' => 'auth']);

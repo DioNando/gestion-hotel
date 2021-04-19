@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\models\clientModel;
+use App\models\cardexModel;
 use App\models\userModel;
 use App\models\chambreModel;
 use App\models\reservationNuitModel;
@@ -11,6 +12,7 @@ use App\models\concernerModel;
 use App\models\effectuerModel;
 use App\models\planningModel;
 use App\models\pourModel;
+use App\models\factureNuitModel;
 
 class ReservationNuit extends BaseController
 {
@@ -26,11 +28,12 @@ class ReservationNuit extends BaseController
 		}
 		if (isset($_POST['infoNuit'])) {
 			$data['info'] = $this->infoSupplementaireNuit($_POST['ID_nuit']);
+			$data['chambres'] = $this->infoDetails($_POST['ID_nuit']);
 			echo view('reservation\infoReservationNuit', $data);
 			return ($data);
 		}
 		if (isset($_POST['infoDetails'])) {
-			$data = $this->infoDetails($_POST['ID_nuit']);
+			$data['details'] = $this->infoDetails($_POST['ID_nuit']);
 			echo view('reservation\infoNuitDetails', $data);
 			return ($data);
 		}
@@ -63,7 +66,7 @@ class ReservationNuit extends BaseController
 				$rules = [
 					'nom_client' => 'required|min_length[1]',
 					'prenom_client' => 'required|min_length[1]',
-					'telephone_client' => 'required',
+					// 'telephone_client' => 'required',
 					'nbr_nuit' => 'is_natural',
 					'ID_chambre' => 'required',
 				];
@@ -91,6 +94,7 @@ class ReservationNuit extends BaseController
 
 					$reservations = new reservationNuitModel();
 					$planning = new planningModel();
+					$facture = new factureNuitModel();
 
 					$newData = [
 						'nbr_personne' => $_POST['nbr_personne'],
@@ -112,6 +116,14 @@ class ReservationNuit extends BaseController
 					$planning->save($newDataPlanning);
 					$id_planning = $planning->getInsertID();
 
+					$newDataFacture = [
+						'remise' => $_POST['remise'],
+						'ID_nuit' => $id,
+					];
+
+					$facture->save($newDataFacture);
+					$id_facture = $facture->getInsertID();
+
 					$newData = [
 						'nbr_personne' => $_POST['nbr_personne'],
 						'nbr_nuit' => $_POST['nbr_nuit'],
@@ -122,6 +134,7 @@ class ReservationNuit extends BaseController
 						'remise' => $_POST['remise'],
 						'ID_nuit' => $id,
 						'ID_planning' => $id_planning,
+						'ID_facture_nuit' => $id_facture,
 					];
 
 					$this->addEffectuer($id, $user['ID_user']);
@@ -209,12 +222,14 @@ class ReservationNuit extends BaseController
 				$rules = [
 					'nom_client' => 'required|min_length[1]',
 					'prenom_client' => 'required|min_length[1]',
+					'telephone_client' => 'required',
 				];
 
 				if (!$this->validate($rules)) {
 					$data['validation'] = $this->validator;
 				} else {
 					$clients = new clientModel();
+					$cardex = new cardexModel();
 					$newData = [
 						'nom_client' => $_POST['nom_client'],
 						'prenom_client' => $_POST['prenom_client'],
@@ -222,6 +237,12 @@ class ReservationNuit extends BaseController
 					];
 
 					$clients->save($newData);
+
+					$dataCardex = [
+						'ID_client' => $clients->getInsertID(),
+					];
+
+					$cardex->save($dataCardex);
 					$session = session();
 					$session->set($newData);
 					$session->setFlashdata('success', 'Enregistrement réussie');
@@ -262,11 +283,13 @@ class ReservationNuit extends BaseController
 	{
 		$data = [];
 		$reservations = new effectuerModel();
+
 		$data = $reservations
 			->select(['*', 'DATE_FORMAT(date_reservation_nuit, "%d %b %Y à %H:%i") AS date_reservation_nuit', 'DATE_FORMAT(date_modification_nuit, "%d %b %Y à %H:%i") AS date_modification_nuit'])
 			->where('effectuer.ID_nuit', $ID_nuit)->join('user', 'effectuer.ID_user = user.ID_user')
 			->join('reservation_nuit', 'effectuer.ID_nuit = reservation_nuit.ID_nuit')
 			->join('client', 'reservation_nuit.ID_client = client.ID_client')
+			->join('cardex', 'cardex.ID_client = client.ID_client')
 			->join('pour', 'pour.ID_nuit = reservation_nuit.ID_nuit')
 			->join('planning', 'pour.ID_planning = planning.ID_planning')->first();
 		return $data;
@@ -276,7 +299,7 @@ class ReservationNuit extends BaseController
 	{
 		$data = [];
 		$reservations = new pourModel();
-		$data['details'] = $reservations->where('pour.ID_nuit', $ID_nuit)->join('reservation_nuit', 'pour.ID_nuit = reservation_nuit.ID_nuit')->join('planning', 'pour.ID_planning = planning.ID_planning')->join('concerner', 'concerner.ID_planning = planning.ID_planning')->join('chambre', 'concerner.ID_chambre = chambre.ID_chambre')->groupBy('concerner.ID_chambre')->find();
+		$data = $reservations->where('pour.ID_nuit', $ID_nuit)->join('reservation_nuit', 'pour.ID_nuit = reservation_nuit.ID_nuit')->join('planning', 'pour.ID_planning = planning.ID_planning')->join('concerner', 'concerner.ID_planning = planning.ID_planning')->join('chambre', 'concerner.ID_chambre = chambre.ID_chambre')->groupBy('concerner.ID_chambre')->find();
 		return $data;
 	}
 
@@ -316,6 +339,9 @@ class ReservationNuit extends BaseController
 						'nbr_nuit' => $_POST['nbr_nuit'],
 						'debut_sejour' => $_POST['debut_sejour'],
 						'fin_sejour' => $_POST['fin_sejour'],
+						'venant_de' => $_POST['venant_de'],
+						'allant_a' => $_POST['allant_a'],
+						// 'mode_transport' => $_POST['mode_transport'],
 					];
 
 					$id_planning = $pour->where('ID_nuit', $_POST['ID_nuit'])->first();

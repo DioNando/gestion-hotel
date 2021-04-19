@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\models\clientModel;
+use App\models\cardexModel;
 use App\models\reservationNuitModel;
 
 class Client extends BaseController
@@ -54,6 +55,7 @@ class Client extends BaseController
 					$data['validation'] = $this->validator;
 				} else {
 					$clients = new clientModel();
+					$cardex = new cardexModel();
 					$newData = [
 						'nom_client' => $_POST['nom_client'],
 						'prenom_client' => $_POST['prenom_client'],
@@ -61,6 +63,11 @@ class Client extends BaseController
 					];
 
 					$clients->save($newData);
+					$dataCardex = [
+						'ID_client' => $clients->getInsertID(),
+					];
+
+					$cardex->save($dataCardex);
 					$session = session();
 					$session->setFlashdata('success', 'Création réussie');
 				}
@@ -171,6 +178,7 @@ class Client extends BaseController
 					$data['validation'] = $this->validator;
 				} else {
 					$clients = new clientModel();
+					$cardex = new cardexModel();
 					$newData = [
 						'nom_client' => $_POST['nom_client'],
 						'prenom_client' => $_POST['prenom_client'],
@@ -178,6 +186,13 @@ class Client extends BaseController
 					];
 
 					$clients->save($newData);
+
+					$clients->save($newData);
+					$dataCardex = [
+						'ID_client' => $clients->getInsertID(),
+					];
+
+					$cardex->save($dataCardex);
 					$session = session();
 					$session->set($newData);
 					$session->setFlashdata('success', 'Ajout réussie');

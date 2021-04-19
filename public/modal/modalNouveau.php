@@ -27,6 +27,7 @@
                         <label class="form-label" for="">Droit d'accès</label>
                         <select class="form-select" name="droit_user">
                             <option selected value="Utilisateur">Utilisateur</option>
+                            <option value="Controleur">Contrôleur</option>
                             <option value="Administrateur">Administrateur</option>
                         </select>
                     </div>
@@ -94,6 +95,10 @@
             <div class="modal-body" id="modalNouveauChambre">
                 <form action="" method="post">
                     <div class="form-group">
+                        <label class="form-label" for="description_chambre">Description</label>
+                        <input type="text" class="form-control" name="description_chambre" id="description_chambre">
+                    </div>
+                    <div class="form-group mt-2">
                         <label class="form-label" for="">Tarif par nuit</label>
                         <input type="number" class="form-control" name="tarif_chambre" id="" min="1" placeholder="ariary">
                     </div>

@@ -1,7 +1,7 @@
 <div class="container">
     <div class="container-fluid bg-light formulaire">
         <h1 class="center">FACTURATION DAY USE</h1>
-        <form action="" method="post">
+        <form action="facture" method="post">
             <div class="row">
                 <div class="col-12">
                     <?php if (session()->get('success')) : ?>
@@ -67,7 +67,7 @@
                 <div class="col-12 col-sm-6 mt-2 mb-2 text-center">
                     <div class="form-group">
                         <label for="debut_sejour" class="form-label">Date de facturation</label>
-                        <input type="date" class="form-control" id="dateDebutSejour" onchange="calculNuit(document.getElementById('dateDebutSejour').value, document.getElementById('dateFinSejour').value);" name="debut_sejour">
+                        <input type="date" class="form-control" id="dateFacturation" name="debut_sejour">
                     </div>
                 </div>
                 <div class="col-12 col-sm-6 mt-2 mb-2 text-center">
@@ -82,8 +82,6 @@
                         </select>
                     </div>
                 </div>
-
-
 
                 <?php
                 $total = 0;
@@ -123,15 +121,15 @@
                         <td class="text-end">Total</td>
                         <td class="text-center"><b> <?php echo number_format($total, 2, ',', ' ') . ' Ar' ?> </b></td>
                     </tr>
-                    <tr>
+                    <!-- <tr>
                         <td class="text-end">Solde Dû</td>
                         <td class="text-center"><b> <?php echo number_format($reste, 2, ',', ' ') . ' Ar' ?> </b></td>
-                    </tr>
+                    </tr> -->
                 </table>
 
                 <div class="col-12 col-sm-6">
                     <div class="d-grid gap-2 mt-3">
-                        <button type="submit" class="btn btn-primary" name="btn_attente">En attente</button>
+                        <button type="submit" class="btn btn-primary" name="btn_facture_day">Sauvegarder</button>
                     </div>
                 </div>
                 <div class="col-12 col-sm-6">
@@ -155,27 +153,5 @@
 
 <script>
     var dateDebut = new Date();
-    document.getElementById('dateDebutSejour').valueAsDate = dateDebut;
-    document.getElementById('dateFinSejour').valueAsDate = dateDebut;
-
-    function calculNuit(dateDebut, dateFin) {
-        var diff = {}
-        var x = new Date(dateDebut);
-        var y = new Date(dateFin);
-        tmp = y - x;
-
-        tmp = Math.floor(tmp / 1000); // Nombre de secondes entre les 2 dates
-        diff.sec = tmp % 60; // Extraction du nombre de secondes
-
-        tmp = Math.floor((tmp - diff.sec) / 60); // Nombre de minutes (partie entière)
-        diff.min = tmp % 60; // Extraction du nombre de minutes
-
-        tmp = Math.floor((tmp - diff.min) / 60); // Nombre d'heures (entières)
-        diff.hour = tmp % 24;
-
-        tmp = Math.floor((tmp - diff.hour) / 24);
-        diff.day = tmp;
-
-        document.getElementById('nbr_nuit').value = diff.day;
-    }
+    document.getElementById('dateFacturation').valueAsDate = dateDebut; 
 </script>

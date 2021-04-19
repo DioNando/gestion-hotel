@@ -16,7 +16,13 @@
                         </div>
                         <div class="col-12 mt-2">
                             <div class="form-group">
-                                <label for="tarif_chambre" class="form-label">Tarif nuit</label>
+                                <label for="descri_chambre" class="form-label">Description de la chambre</label>
+                                <input type="text" class="form-control" id="inputDescri_chambre" name="description_chambre">
+                            </div>
+                        </div>
+                        <div class="col-12 mt-2">
+                            <div class="form-group">
+                                <label for="tarif_chambre" class="form-label">Tarif</label>
                                 <input type="number" class="form-control" id="inputTarif_chambre" name="tarif_chambre">
                             </div>
                         </div>
@@ -85,8 +91,9 @@
 <!-- JAVASCRIPT -->
 
 <script type="text/javascript">
-    function updateData(ID_chambre, tarif_chambre, statut_chambre) {
+    function updateData(ID_chambre, description_chambre, tarif_chambre, statut_chambre) {
         document.getElementById('inputID_chambre').value = ID_chambre;
+        document.getElementById('inputDescri_chambre').value = description_chambre;
         document.getElementById('inputTarif_chambre').value = tarif_chambre;
         document.getElementById('inputStatut_chambre').value = statut_chambre;
         document.getElementById('btnDelete').value = "Modifier";

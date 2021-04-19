@@ -7,5 +7,5 @@ class reservationNuitModel extends model {
     protected $primaryKey = 'ID_nuit';
 
     // protected $allowedFields = ['nbr_personne', 'debut_sejour', 'fin_sejour', 'nbr_nuit', 'type_reservation', 'ID_client', 'ID_etat_reservation', 'remarque_reservation'];
-    protected $allowedFields = ['nbr_personne', 'nbr_nuit', 'type_reservation', 'ID_client', 'ID_etat_reservation', 'remarque_reservation'];
+    protected $allowedFields = ['nbr_personne', 'nbr_nuit', 'type_reservation', 'ID_client', 'ID_etat_reservation', 'remarque_reservation', 'venant_de', 'allant_a', 'mode_transport'];
 }

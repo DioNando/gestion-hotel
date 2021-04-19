@@ -6,7 +6,7 @@
   --chambreOccupee: #c1e6ff;
   --chambreAttente: #067eed;
   --chambreReservation: #84ff3d;
-  --primaryColor: #6190E8;
+  --primaryColor: #6190e8;
   --headerColor: #136a8a;
   --secondaryColor: #067eed;
   --thirdColor: #ff7c1f;
@@ -14,6 +14,11 @@
   --fifthColor: #ffffff;
   --sidebarColor: #f8f9fa;
   --borderColor: #dee2e6;
+}
+
+@font-face {
+  font-family: "Ubuntu";
+  src: url("../font/Ubuntu-Regular.ttf");
 }
 
 @font-face {
@@ -54,7 +59,8 @@ h1,
 h3,
 h4,
 h5 {
-  font-family: "Merriweather";
+  /* font-family: "Merriweather"; */
+  font-family: "Ubuntu";
   margin-bottom: 0;
 }
 
@@ -74,10 +80,17 @@ footer {
   bottom: 0;
 }
 
+#haut {
+  opacity: 0;
+  float: right;
+  margin-bottom: 1rem;
+  margin-right: 3rem;
+  width: 2rem;
+}
+
 .headerBar {
   /* background: var(--primaryColor); */
-  background: linear-gradient(to left, #A7BFE8, #6190E8);
-
+  background: linear-gradient(to left, #a7bfe8, #6190e8);
 }
 
 .headerMenu {
@@ -176,7 +189,7 @@ footer {
 }
 
 .navbar-toggler-icon {
-  background-image: url("../icons/menu.png");
+  background-image: url("../icons/menu2.png");
 }
 .navbar-toggler:focus {
   box-shadow: none;

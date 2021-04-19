@@ -31,6 +31,55 @@
             </div>
         </div>
 
+        <div class="col-12 col-sm-6 mt-2">
+            <div class="form-group">
+                <label for="venant_de" class="form-label">Venant de</label>
+                <input type="text" class="form-control" value="<?php echo ($info['venant_de']) ?>" name="venant_de">
+            </div>
+        </div>
+        <div class="col-12 col-sm-6 mt-2">
+            <div class="form-group">
+                <label for="allant_a" class="form-label">Allant à</label>
+                <input type="text" class="form-control" value="<?php echo ($info['allant_a']) ?>" name="allant_a">
+            </div>
+        </div>
+        <div class="col-12 mt-4">
+            <div class="p-2 border checkChambre">
+            <label for="allant_a" class="form-label">Mode de transpoort</label>
+                <div class="form-check">
+                    <input class="form-check-input checkRadio" value="Avion" type="checkbox" name="mode_transport" id="mode_transport1">
+                    <label class="form-check-label align-middle" for="mode_transport1">
+                        Avion
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input checkRadio" value="Train" type="checkbox" name="mode_transport" id="mode_transport2">
+                    <label class="form-check-label align-middle" for="mode_transport2">
+                        Train
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input checkRadio" value="Auto" type="checkbox" name="mode_transport" id="mode_transport3">
+                    <label class="form-check-label align-middle" for="mode_transport3">
+                        Auto
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input checkRadio" value="Moto" type="checkbox" name="mode_transport" id="mode_transport4">
+                    <label class="form-check-label align-middle" for="mode_transport4">
+                        Moto
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input checkRadio" value="Bateau" type="checkbox" name="mode_transport" id="mode_transport5">
+                    <label class="form-check-label align-middle" for="mode_transport5">
+                        Bateau
+                    </label>
+                </div>
+            </div>
+        </div>
+
+
         <div class="d-grid gap-2 mt-4">
             <button type="submit" class="btn btn-primary" id="btnSubmit" name="btn_modification">Modifier</button>
         </div>

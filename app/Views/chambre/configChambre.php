@@ -26,6 +26,7 @@
         <thead>
             <tr>
                 <th scope="col">Identification</th>
+                <th scope="col">Description</th>
                 <th scope="col">Tarif (Ar)</th>
                 <th scope="col">Statut chambre</th>
                 <?php if (session()->get('isUser') == 'Administrateur') : ?>
@@ -43,13 +44,14 @@
             ?>
                     <tr>
                         <th scope="row"> <?php echo ($chambre['ID_chambre']) ?> </th>
+                        <td> <?php echo ($chambre['description_chambre']) ?> </td>
                         <td> <?php echo number_format($chambre['tarif_chambre'], '2', ',', ' ') . ' Ar' ?> </td>
                         <td> <?php echo ($chambre['statut_chambre']) ?> </td>
                         <?php if (session()->get('isUser') == 'Administrateur') : ?>
                             <td>
                                 <div class="center">
                                     <div>
-                                        <button type="button" class="btn btn-outline-warning btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalChambreUpdate" onclick="updateData('<?php echo $chambre['ID_chambre']; ?>' , '<?php echo $chambre['tarif_chambre']; ?>' , '<?php echo $chambre['statut_chambre']; ?>')"><img src="assets/icons/pencil-fill.svg" alt="Modifier"></button>
+                                        <button type="button" class="btn btn-outline-warning btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalChambreUpdate" onclick="updateData('<?php echo $chambre['ID_chambre']; ?>' ,'<?php echo $chambre['description_chambre']; ?>' , '<?php echo $chambre['tarif_chambre']; ?>' , '<?php echo $chambre['statut_chambre']; ?>')"><img src="assets/icons/pencil-fill.svg" alt="Modifier"></button>
                                         <button type="button" class="btn btn-outline-danger btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalChambreDelete" onclick="deleteData('<?php echo $chambre['ID_chambre']; ?>')"><img src="assets/icons/eraser-fill.svg" alt="Supprimer"></button>
                                         <button type="button" class="btn btn-outline-success btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalChambreInfo" onclick="infoData('<?php echo $chambre['ID_chambre']; ?>')"><img src="assets/icons/info-circle-fill.svg" alt="Info"></button>
                                     </div>
@@ -63,9 +65,9 @@
                 ?>
                 <tr>
                     <?php if (session()->get('isUser') == 'Administrateur') : ?>
-                        <td colspan="4">Tableau vide.</td>
+                        <td colspan="5">Tableau vide.</td>
                     <?php else : ?>
-                        <td colspan="3">Tableau vide.</td>
+                        <td colspan="4">Tableau vide.</td>
                     <?php endif; ?>
                 </tr>
             <?php

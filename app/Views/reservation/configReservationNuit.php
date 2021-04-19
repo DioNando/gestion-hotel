@@ -2,7 +2,7 @@
 <?php include("modal/modalReservationNuit.php"); ?>
 
 <div class="container-fluid mt-3 mb-3">
-    <h1>Liste des réservations</h1>
+    <h1>Liste des réservations nuitées</h1>
 </div>
 
 <div class="container-fluid">

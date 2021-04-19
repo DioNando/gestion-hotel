@@ -1,7 +1,7 @@
 <div class="container">
     <div class="container-fluid bg-light formulaire">
         <h1 class="center">FACTURATION NUITEE</h1>
-        <form action="" method="post">
+        <form action="facture" method="post">
             <div class="row">
                 <div class="col-12">
                     <?php if (session()->get('success')) : ?>
@@ -105,6 +105,7 @@
                     $total = $total + ($detail['tarif_chambre'] * $detail['nbr_nuit']);
                 }
                 $montant = $total;
+                $remise = $total * $facture['remise'] / 100;
                 $reste = $total - $montant;
                 ?>
 
@@ -139,23 +140,22 @@
                         <td class="text-center"><?php echo number_format($total, 2, ',', ' ') . ' Ar' ?></td>
                     </tr>
                     <tr>
-                        <td class="text-end">Remise (<?php echo session()->get('remise') ?>")</td>
-                        <td class="text-center"> <?php echo number_format(0, 2, ',', ' ') . ' Ar' ?> </td>
+                        <td class="text-end">Remise (<?php echo ($facture['remise']) . ' %'?>)</td>
+                        <td class="text-center"> <?php echo number_format($remise, 2, ',', ' ') . ' Ar' ?> </td>
                     </tr>
                     <tr>
                         <td class="text-end">Total</td>
-                        <td class="text-center"><b> <?php echo number_format($total, 2, ',', ' ') . ' Ar' ?> </b></td>
+                        <td class="text-center"><b> <?php echo number_format($total - $remise, 2, ',', ' ') . ' Ar' ?> </b></td>
                     </tr>
-                    <tr>
+                    <!-- <tr>
                         <td class="text-end">Solde Dû</td>
                         <td class="text-center"><b> <?php echo number_format($reste, 2, ',', ' ') . ' Ar' ?> </b></td>
-                    </tr>
+                    </tr> -->
                 </table>
-
 
                 <div class="col-12 col-sm-6">
                     <div class="d-grid gap-2 mt-3">
-                        <button type="submit" class="btn btn-primary" name="btn_attente">En attente</button>
+                        <button type="submit" class="btn btn-primary" name="btn_facture_nuit">Sauvegarder</button>
                     </div>
                 </div>
                 <div class="col-12 col-sm-6">

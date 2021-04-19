@@ -23,6 +23,7 @@
                 <th scope="col">Identification</th>
                 <th scope="col">Nom</th>
                 <th scope="col">Prénom</th>
+                <th scope="col">Historique</th>
                 <th scope="col">Modifier</th>
                 <th scope="col">Fiche Cardex</th>
             </tr>
@@ -38,6 +39,13 @@
                         <th scope="row"> <?php echo ($client['ID_client']) ?> </th>
                         <td> <?php echo ($client['nom_client']); ?> </td>
                         <td> <?php echo ($client['prenom_client']); ?> </td>
+                        <td>
+                            <div class="center">
+                                <div>
+                                <button type="button" class="btn btn-outline-secondary btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalInfoHistorique" onclick="infoHistorique('<?php echo $client['ID_client']; ?>' , 'historique')"><img src="assets/icons/stopwatch.svg" alt="Historique"></button>
+                                </div>
+                            </div>
+                        </td>
                         <td>
                             <div class="center">
                                 <div>
@@ -59,9 +67,9 @@
                 ?>
                 <tr>
                     <?php if (session()->get('isUser') == 'Administrateur') : ?>
-                        <td colspan="5">Tableau vide.</td>
+                        <td colspan="6">Tableau vide.</td>
                     <?php else : ?>
-                        <td colspan="5">Tableau vide.</td>
+                        <td colspan="6">Tableau vide.</td>
                     <?php endif; ?>
                 </tr>
             <?php

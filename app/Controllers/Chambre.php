@@ -47,6 +47,7 @@ class Chambre extends BaseController
                 } else {
                     $chambres = new chambreModel();
                     $newData = [
+                        'description_chambre' => $_POST['description_chambre'],
                         'tarif_chambre' => $_POST['tarif_chambre'],
                         'statut_chambre' => $_POST['statut_chambre'],
                     ];
@@ -75,6 +76,7 @@ class Chambre extends BaseController
                 } else {
                     $chambres = new chambreModel();
                     $newData = [
+                        'description_chambre' => $_POST['description_chambre'],
                         'tarif_chambre' => $_POST['tarif_chambre'],
                         'statut_chambre' => $_POST['statut_chambre'],
                     ];
@@ -120,6 +122,7 @@ class Chambre extends BaseController
                 } else {
                     $chambres = new chambreModel();
                     $data = [
+                        'description_chambre' => $_POST['description_chambre'],
                         'tarif_chambre' => $_POST['tarif_chambre'],
                         'statut_chambre' => $_POST['statut_chambre'],
                     ];

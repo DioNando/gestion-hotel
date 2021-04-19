@@ -24,6 +24,7 @@
                 <label class="form-label" for="">Droit d'accès</label>
                 <select class="form-select" name="droit_user">
                     <option selected value="Utilisateur">Utilisateur</option>
+                    <option value="Controleur">Contrôleur</option>
                     <option value="Administrateur">Administrateur</option>
                 </select>
             </div>

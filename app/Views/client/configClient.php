@@ -29,6 +29,7 @@
                 <th scope="col">Identification</th>
                 <th scope="col">Nom</th>
                 <th scope="col">Prénom</th>
+                <th scope="col">Téléphone</th>
                 <th scope="col">Actions</th>
             </tr>
         </thead>
@@ -43,6 +44,7 @@
                         <th scope="row"> <?php echo ($client['ID_client']) ?> </th>
                         <td> <?php echo ($client['nom_client']); ?> </td>
                         <td> <?php echo ($client['prenom_client']); ?> </td>
+                        <td> <?php echo ($client['telephone_client']); ?> </td>
                         <td>
                             <div class="center">
                                 <div>
@@ -59,9 +61,9 @@
                 ?>
                 <tr>
                     <?php if (session()->get('isUser') == 'Administrateur') : ?>
-                        <td colspan="4">Tableau vide.</td>
+                        <td colspan="5">Tableau vide.</td>
                     <?php else : ?>
-                        <td colspan="4">Tableau vide.</td>
+                        <td colspan="5">Tableau vide.</td>
                     <?php endif; ?>
                 </tr>
             <?php

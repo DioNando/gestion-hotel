@@ -3,15 +3,24 @@
 namespace App\Controllers;
 
 use App\models\clientModel;
+use App\models\cardexModel;
 
 class Cardex extends BaseController
 {
 	public function index()
-	{			
-		if (isset($_POST['type']) == 'update') {
-			$data['info'] = $this->infoUpdate($_POST['ID_client']);
-			echo view('client\updateCardex', $data);
-			return ($data);
+	{
+		if (isset($_POST['type'])) {
+			if ($_POST['type'] == 'update') {
+				$data['info'] = $this->infoUpdate($_POST['ID_client']);
+				echo view('client\updateCardex', $data);
+				return ($data);
+			}
+			if ($_POST['type'] == 'historique') {
+				$data = [];
+				// $data['client'] = $this->ficheCardex($_POST['ID_client']);
+				echo view('client\historique', $data);
+				return ($data);
+			}
 		}
 		if (isset($_POST['btn_modification'])) {
 			$this->update();
@@ -22,13 +31,12 @@ class Cardex extends BaseController
 			echo view('templates\header');
 			echo view('client\ficheCardex', $data);
 			echo view('templates\footer');
-		} 
+		}
 		if (isset($_POST['ID_client'])) {
 			$data['client'] = $this->ficheCardex($_POST['ID_client']);
 			echo view('client\Cardex', $data);
 			return ($data);
-		}
-		else {
+		} else {
 			$data = $this->read();
 			echo view('templates\header');
 			echo view('client\ficheCardex', $data);
@@ -43,9 +51,9 @@ class Cardex extends BaseController
 		// $data['clients'] = $clients->orderBy('ID_client', 'asc')->findAll();
 
 		$data = [
-            'clients' => $clients->paginate(20, 'paginationResult'),
-            'pager' => $clients->pager,
-        ];
+			'clients' => $clients->paginate(20, 'paginationResult'),
+			'pager' => $clients->pager,
+		];
 		return $data;
 	}
 
@@ -56,9 +64,9 @@ class Cardex extends BaseController
 		// $data['clients'] = $clients->like('nom_client', $element_recherche, 'both')->orLike('prenom_client', $element_recherche, 'both')->find();
 
 		$data = [
-            'clients' => $clients->like('nom_client', $element_recherche, 'both')->orLike('prenom_client', $element_recherche, 'both')->paginate(20, 'paginationResult'),
-            'pager' => $clients->pager,
-        ];
+			'clients' => $clients->like('nom_client', $element_recherche, 'both')->orLike('prenom_client', $element_recherche, 'both')->paginate(20, 'paginationResult'),
+			'pager' => $clients->pager,
+		];
 		return $data;
 	}
 
@@ -66,7 +74,7 @@ class Cardex extends BaseController
 	{
 		$data = [];
 		$clients = new clientModel();
-		$data = $clients->where('ID_client', $ID_client)->first();
+		$data = $clients->where('client.ID_client', $ID_client)->join('cardex', 'cardex.ID_client = client.ID_client')->first();
 		return $data;
 	}
 
@@ -85,15 +93,33 @@ class Cardex extends BaseController
 					$data['validation'] = $this->validator;
 				} else {
 					$clients = new clientModel();
+					$cardex = new cardexModel();
+
 					$data = [
 						'nom_client' => $_POST['nom_client'],
 						'prenom_client' => $_POST['prenom_client'],
-						// 'telephone_client' => $_POST['telephone_client'],
+						'date_naissance' => $_POST['date_naissance'],
+						'lieu_naissance' => $_POST['lieu_naissance'],
+						'pere_client' => $_POST['pere_client'],
+						'mere_client' => $_POST['mere_client'],
+						'profession' => $_POST['profession'],
+						'domicile_habituel' => $_POST['domicile_habituel'],
+						'nationalite' => $_POST['nationalite'],
+						'piece_identite' => $_POST['piece_identite'],
+						'num_piece_identite' => $_POST['num_piece_identite'],
+						'date_delivrance' => $_POST['date_delivrance'],
+						'lieu_delivrance' => $_POST['lieu_delivrance'],
+						'date_fin_validite' => $_POST['date_fin_validite'],
 					];
 
 					$clients->set($data);
 					$clients->where('ID_client', $_POST['ID_client']);
 					$clients->update();
+
+					$cardex->set($data);
+					$cardex->where('ID_client', $_POST['ID_client']);
+					$cardex->update();
+
 					session()->set($data);
 					$session = session();
 					$session->setFlashdata('update', 'La ligne a été modifié avec succès');
@@ -102,10 +128,11 @@ class Cardex extends BaseController
 		endif;
 	}
 
-	public function infoUpdate($ID_client) {
-        $data = [];
+	public function infoUpdate($ID_client)
+	{
+		$data = [];
 		$clients = new clientModel();
-        $data = $clients->where('ID_client', $ID_client)->first();
-        return $data;
-    }
+		$data = $clients->where('client.ID_client', $ID_client)->join('cardex', 'cardex.ID_client = client.ID_client')->first();
+		return $data;
+	}
 }

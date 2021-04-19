@@ -2,7 +2,7 @@
 <?php include("modal/modalReservationDay.php"); ?>
 
 <div class="container-fluid mt-3 mb-3">
-    <h1>Liste des réservations passagères</h1>
+    <h1>Liste des réservations day use</h1>
 </div>
 
 <div class="container-fluid">

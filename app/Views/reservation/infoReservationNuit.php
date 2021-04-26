@@ -71,7 +71,7 @@
                     <p>Date fin de validité : <?php echo ($info['date_fin_validite']) ?> </p>
                     <p>Venant de : <?php echo ($info['venant_de']) ?> </p>
                     <p>Allant à : <?php echo ($info['allant_a']) ?> </p>
-                    <p>Mode de transport : Avion Train Auto Moto Bateau </p>
+                    <p>Mode de transport : <?php echo ($info['mode_transport']) ?> </p>
 
 
                     <div class="row mt-4 mb-5">

@@ -1,4 +1,5 @@
 <!--DASHBOARD ADMIN-->
+<?php include("modal/modalPlanning.php"); ?>
 
 <div class="container-fluid mt-3 mb-3">
 
@@ -15,11 +16,12 @@
 
 <script>
     function planningDisplay(result) {
-        console.log(result);
+        // console.log(result);
 
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
             // height: "100%",
+            // themeSystem: 'bootstrap',
             locale: 'fr',
             initialView: 'listWeek',
             headerToolbar: {
@@ -35,6 +37,37 @@
                 list: 'Liste',
             },
             events: result,
+            eventClick: function(info) {
+
+                let ID_unique, motif_unique;
+                let ID_reservation = result.map(function(e) {
+                    if (e.id == info.event.id) {
+                        ID_unique = e.ID_reservation;
+                        motif_unique = e.motif;
+                        return e.ID_reservation;
+                    }
+                });
+
+                // alert('Event: ' + ID_unique + motif_unique);
+
+                $(document).ready(function() {
+                    $.ajax({
+                        url: 'ajaxPlanning',
+                        type: 'post',
+                        data: {
+                            ID_planning: info.event.id,
+                            ID_reservation: ID_unique,
+                            motif: motif_unique
+                        },
+
+                        success: function(result) {
+                            $('#modalPlanningJour').html(result);
+                        }
+                    })
+                    $('#modalPlanning').modal('show');
+
+                });
+            }
         });
         calendar.render();
 
@@ -77,23 +110,23 @@
 
     function chart2Display(result) {
         let data1 = result.map(function(e) {
-            // if (e.motif == 'Nuitée')
-            //     return e.reservation;
+            if (e.motif == 'Nuitée')
+                return e.reservation;
+            else
+                return null;
         });
         let data2 = result.map(function(e) {
-            // if (e.motif == 'Day use')
-            //     return e.reservation;
-            for (i = 1; i < 8; i++) {
-                if (e.week == i)
-                    return e.reservation;
-                else
-                    return 0;
-            }
+            if (e.motif == 'Day use')
+                return e.reservation;
+            else
+                return null;
         });
 
         let labels = result.map(function(e) {
             return e.week;
         });
+
+        // console.log(result[0].week);
 
         console.log(result);
         console.log(data1);
@@ -102,35 +135,31 @@
         new Chart(document.getElementById("myChart4"), {
             type: 'line',
             data: {
-                // labels: labels,
-                labels: ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'],
+                labels: labels.sort(),
+                // labels: ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'],
                 // labels: ['1', '2', '3', '4', '5', '6', '7'],
+                // labels: [0, 1, 2, 3, 4, 5, 6],
                 datasets: [{
-                        label: "Nuitée",
-                        data: ['5', '2', '2', '4', '0', '6', '1'],
-                        borderColor: '#ff7c1f',
-                        backgroundColor: 'rgba(255, 255, 255, 0.5)',
-                        // fill: false,
-                        borderWidth: 5,
-                        radius: 2,
-                        tension: 0,
-                        
-                        // data: data1
-                    }, {
-                        label: "Day Use",
-                        data: ['1', '2', '0', '2', '7', '1', '5'],
-                        borderColor: '#6190E8',
-                        backgroundColor: 'rgba(255, 255, 255, 0.5)',
-                        // fill: false,
-                        borderWidth: 5,
-                        radius: 2,
-                        tension: 0,
-
-                        // data: data2
-                    },
-
-
-                ]
+                    label: "Nuitée",
+                    data: data1,
+                    // data: ['5', '2', '2', '4', '0', '6', '1'],
+                    // fill: false,
+                    borderColor: '#ff7c1f',
+                    backgroundColor: 'rgba(255, 152, 79, 0.5)',
+                    borderWidth: 4,
+                    radius: 1,
+                    tension: 0,
+                }, {
+                    label: "Day Use",
+                    data: data2,
+                    // data: ['1', '2', '0', '2', '7', '1', '5'],
+                    // fill: false,
+                    borderColor: '#6190E8',
+                    backgroundColor: 'rgba(140, 180, 255, 0.5)',
+                    borderWidth: 4,
+                    radius: 1,
+                    tension: 0,
+                }, ]
             },
             options: {
                 title: {
@@ -143,6 +172,20 @@
                     position: 'top',
                     align: 'end'
                 },
+                scales: {
+                    xAxes: [{
+                        stacked: true,
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }],
+                    yAxes: [{
+                        stacked: true,
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
             },
         });
     }

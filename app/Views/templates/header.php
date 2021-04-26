@@ -8,6 +8,10 @@
     <link rel="shortcut icon" type="image/png" href="assets/icons/signe-de-l'hotel.png">
     <title>Hotel</title>
     <!-- CSS -->
+
+    <!-- <link href='https://use.fontawesome.com/releases/v5.0.6/css/all.css' rel='stylesheet'> -->
+    <!-- <link href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css' rel='stylesheet' /> -->
+    <link rel="stylesheet" href="assets/css/all.css">
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/Chart.css">
     <link rel="stylesheet" href="assets/css/main.css">
@@ -16,9 +20,10 @@
     <!-- JAVASCRIPT -->
     <script src="assets/jquery/jquery.min.js"></script>
     <script src="assets/js/Chart.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
     <script src="assets/js/jspdf.min.js"></script>
     <script src="assets/js/html2canvas.js"></script>
+    <script src="assets/js/all.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
     <script src="assets/js/main.js"></script>
     <?php if (!session()->get('isLoggedIn')) : ?>
         <style>
@@ -86,7 +91,17 @@
                                     <li>
                                         <hr class="dropdown-divider">
                                     </li>
-                                    <li><a class="dropdown-item" href="logout">Déconnexion</a></li>
+                                    <li><a class="dropdown-item" href="logout">
+                                            <div class="d-flex align-items-center">
+                                                <div class="flex-grow-0 me-2">
+                                                    Déconnexion
+                                                </div>
+                                                <div class="flex-shrink-0">
+                                                    <i class="fas fa-sign-out-alt"></i>
+                                                </div>
+
+                                            </div></i>
+                                        </a></li>
                                 </ul>
                             </li>
                             <!-- <li class="nav-item"><a class="nav-link" href="#">Paramètres</a></li>
@@ -179,21 +194,40 @@
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="flush-heading1">
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse1" aria-expanded="false" aria-controls="flush-collapse1">
-                                    Réservation
+                                    <div class="row">
+                                        <div class="col-1 ms-2 center"><i class="fas fa-calendar-alt"></i></div>
+                                        <div class="col text-start">Réservation</div>
+                                    </div>
                                 </button>
                             </h2>
-                            <div id="flush-collapse1" class="accordion-collapse collapse" aria-labelledby="flush-heading1" data-bs-parent="#accordionMenu">
+                            <!-- <div id="flush-collapse1" class="accordion-collapse collapse" aria-labelledby="flush-heading1" data-bs-parent="#accordionMenu"> -->
+                            <div id="flush-collapse1" class="accordion-collapse" aria-labelledby="flush-heading1" data-bs-parent="#accordionMenu">
                                 <div class="accordion-body">
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
-                                            <a class="nav-link" href="configReservationNuit">Fiche nuitée</a>
+                                            <a class="nav-link" href="configReservationNuit">
+                                                <div class="row">
+                                                    <div class="col-1 ms-2 center"><i class="fas fa-suitcase-rolling"></i></div>
+                                                    <div class="col text-start">Fiche nuitée</div>
+                                                </div>
+                                            </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="configReservationDay">Fiche day use</a>
+                                            <a class="nav-link" href="configReservationDay">
+                                                <div class="row">
+                                                    <div class="col-1 ms-2 center"><i class="fas fa-briefcase"></i></div>
+                                                    <div class="col text-start">Fiche day use</div>
+                                                </div>
+                                            </a>
                                         </li>
 
                                         <li class="nav-item">
-                                            <a class="nav-link" href="accueilClient">Nouveau</a>
+                                            <a class="nav-link" href="accueilClient">
+                                                <div class="row">
+                                                    <div class="col-1 ms-2 center"><i class="fas fa-plus-circle"></i></div>
+                                                    <div class="col text-start">Nouveau</div>
+                                                </div>
+                                            </a>
                                         </li>
 
                                     </ul>
@@ -203,18 +237,32 @@
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="flush-heading2">
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse2" aria-expanded="false" aria-controls="flush-collapse2">
-                                    Client
+                                    <div class="row">
+                                        <div class="col-1 ms-2 center"><i class="fas fa-users"></i></div>
+                                        <div class="col text-start">Client</div>
+                                    </div>
                                 </button>
                             </h2>
-                            <div id="flush-collapse2" class="accordion-collapse collapse" aria-labelledby="flush-heading2" data-bs-parent="#accordionMenu">
+                            <!-- <div id="flush-collapse2" class="accordion-collapse collapse" aria-labelledby="flush-heading2" data-bs-parent="#accordionMenu"> -->
+                            <div id="flush-collapse2" class="accordion-collapse" aria-labelledby="flush-heading2" data-bs-parent="#accordionMenu">
                                 <div class="accordion-body">
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
-                                            <a class="nav-link" href="configClient">Liste</a>
+                                            <a class="nav-link" href="configClient">
+                                                <div class="row">
+                                                    <div class="col-1 ms-2 center"><i class="fas fa-address-book"></i></div>
+                                                    <div class="col text-start">Liste</div>
+                                                </div>
+                                            </a>
                                         </li>
 
                                         <li class="nav-item">
-                                            <a class="nav-link" href="addClient">Nouveau</a>
+                                            <a class="nav-link" href="addClient">
+                                                <div class="row">
+                                                    <div class="col-1 ms-2 center"><i class="fas fa-plus-circle"></i></div>
+                                                    <div class="col text-start">Nouveau</div>
+                                                </div>
+                                            </a>
                                         </li>
 
                                     </ul>
@@ -224,18 +272,32 @@
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="flush-heading3">
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse3" aria-expanded="false" aria-controls="flush-collapse3">
-                                    Chambre
+                                    <div class="row">
+                                        <div class="col-1 ms-2 center"><i class="fas fa-home"></i></div>
+                                        <div class="col text-start">Chambre</div>
+                                    </div>
                                 </button>
                             </h2>
-                            <div id="flush-collapse3" class="accordion-collapse collapse" aria-labelledby="flush-heading3" data-bs-parent="#accordionMenu">
+                            <!-- <div id="flush-collapse3" class="accordion-collapse collapse" aria-labelledby="flush-heading3" data-bs-parent="#accordionMenu"> -->
+                            <div id="flush-collapse3" class="accordion-collapse" aria-labelledby="flush-heading3" data-bs-parent="#accordionMenu">
                                 <div class="accordion-body">
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
-                                            <a class="nav-link" href="configChambre">Liste</a>
+                                            <a class="nav-link" href="configChambre">
+                                                <div class="row">
+                                                    <div class="col-1 ms-2 center"><i class="fas fa-clipboard-list"></i></div>
+                                                    <div class="col text-start">Liste</div>
+                                                </div>
+                                            </a>
                                         </li>
                                         <?php if (session()->get('isUser') == 'Administrateur') : ?>
                                             <li class="nav-item">
-                                                <a class="nav-link" href="addChambre">Nouveau</a>
+                                                <a class="nav-link" href="addChambre">
+                                                    <div class="row">
+                                                        <div class="col-1 ms-2 center"><i class="fas fa-plus-circle"></i></div>
+                                                        <div class="col text-start">Nouveau</div>
+                                                    </div>
+                                                </a>
                                             </li>
                                         <?php endif; ?>
                                     </ul>

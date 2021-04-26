@@ -1,3 +1,5 @@
+<?php include("modal/modalPlanning.php"); ?>
+
 <div class="container-fluid mt-3 mb-3">
     <h1>Planning du Mois</h1>
 </div>
@@ -8,6 +10,7 @@
 
         let calendarEl = document.getElementById('calendar');
         let calendar = new FullCalendar.Calendar(calendarEl, {
+            // themeSystem: 'bootstrap',
             height: "auto",
             locale: 'fr',
             initialView: 'dayGridMonth',
@@ -19,6 +22,51 @@
                 list: 'Liste'
             },
             events: result,
+            eventClick: function(info) {
+
+                let ID_unique, motif_unique;
+                let ID_reservation = result.map(function(e) {
+                    if (e.id == info.event.id) {
+                        ID_unique = e.ID_reservation;
+                        motif_unique = e.motif;
+                        return e.ID_reservation;
+                    }
+                });
+
+                    $(document).ready(function() {
+                        $.ajax({
+                            url: 'ajaxPlanning',
+                            type: 'post',
+                            data: {
+                                ID_planning: info.event.id,
+                                ID_reservation: ID_unique,
+                                motif: motif_unique
+                            },
+
+                            success: function(result) {
+                                $('#modalPlanningJour').html(result);
+                            }
+                        })
+                        $('#modalPlanning').modal('show');
+
+                    });
+        
+                // $.ajax({
+                //     url: 'ajaxPlanning',
+                //     type: 'post',
+                //     data: {
+                //         ID_planning: info.event.id,
+                //         ID_reservation: ID_unique,
+                //         motif: motif_unique
+                //     },
+
+                //     success: function(result) {
+                //         $('#modalPlanningJour').html(result);
+                //     }
+                // })
+                // $('#modalPlanning').modal('show');
+
+            }
         });
         calendar.render();
     }

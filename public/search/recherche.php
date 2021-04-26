@@ -9,10 +9,28 @@ $page = $_SERVER['REQUEST_URI'];
 
         <?php if (session()->get('isUser') == 'Administrateur') : ?>
             <?php if ($page == '/hotel/public/configChambre') { ?>
-                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalNouveauChambre" name="btn_nouveau">Nouveau</button>
+                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalNouveauChambre" name="btn_nouveau">
+                    <div class="d-flex align-items-center">
+                        <div class="flex-shrink-0">
+                            <i class="fas fa-plus-circle"></i>
+                        </div>
+                        <div class="flex-grow-1 ms-2">
+                            Nouveau
+                        </div>
+                    </div>
+                </button>
             <?php } ?>
             <?php if ($page == '/hotel/public/configUser') { ?>
-                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalNouveauUser" name="btn_nouveau">Nouveau</button>
+                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalNouveauUser" name="btn_nouveau">
+                    <div class="d-flex align-items-center">
+                        <div class="flex-shrink-0">
+                            <i class="fas fa-plus-circle"></i>
+                        </div>
+                        <div class="flex-grow-1 ms-2">
+                            Nouveau
+                        </div>
+                    </div>
+                </button>
             <?php } ?>
         <?php endif ?>
 

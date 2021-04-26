@@ -7,6 +7,40 @@ $montant = $total;
 $reste = $total - $montant;
 ?>
 
+<div class="row">
+    <div class="col">
+        <h5 class="mt-3 mb-3">A propos de la réservation</h5>
+
+        <div class="mb-1 row">
+            <label for="#" class="col-sm-2 col-form-label">Date de réservation</label>
+            <div class="col-sm-10">
+                <input type="text" readonly class="form-control-plaintext" id="#" value="<?php echo ($info['date_reservation_day'] . ' par ' . $info['nom_user']); ?>" readonly>
+            </div>
+        </div>
+
+        <div class="mb-1 row">
+            <label for="#" class="col-sm-2 col-form-label">Dernière modification</label>
+            <div class="col-sm-10">
+                <input type="text" readonly class="form-control-plaintext" id="#" value="<?php echo ($info['date_modification_day'] . ' par ' . $info['nom_user_modif']); ?>" readonly>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <h5 class="mt-3 mb-3">A propos du client</h5>
+
+        <div class="mb-1 row">
+            <label for="#" class="col-sm-2 col-form-label">Nom</label>
+            <div class="col-sm-10">
+                <input type="text" readonly class="form-control-plaintext" id="#" value="<?php echo ($info['nom_client_day']); ?>" readonly>
+            </div>
+        </div>
+
+       
+    </div>
+</div>
+
+
+
 <table class="table table-hover table-striped table-light mb-0">
     <thead>
         <tr>
@@ -16,6 +50,7 @@ $reste = $total - $montant;
             <th scope="col">Total</th>
         </tr>
     </thead>
+
     <tbody>
         <?php foreach ($details as $detail) { ?>
             <tr>

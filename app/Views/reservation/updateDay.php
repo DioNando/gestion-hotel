@@ -26,6 +26,12 @@
         </div>
         <div class="col-12 mt-2">
             <div class="form-group">
+                <label for="commentaire_day" class="form-label">Commentaire</label>
+                <textarea class="form-control" id="commentaire_day" name="commentaire_day" rows="2"></textarea>
+            </div>
+        </div>
+        <div class="col-12 mt-2">
+            <div class="form-group">
                 <label for="nom_user" class="form-label">Fait par :</label>
                 <input type="text" class="form-control" id="#" name="nom_user" value="<?= session()->get('nom_user') ?>" readonly>
             </div>

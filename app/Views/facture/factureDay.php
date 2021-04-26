@@ -1,14 +1,16 @@
+<?php include("assets/toast/myToast.php"); ?>
+
 <div class="container">
     <div class="container-fluid bg-light formulaire">
         <h1 class="center">FACTURATION DAY USE</h1>
         <form action="facture" method="post">
             <div class="row">
                 <div class="col-12">
-                    <?php if (session()->get('success')) : ?>
+                    <!-- <?php if (session()->get('success')) : ?>
                         <div class="alert alert-success" role="alert">
                             <?= session()->get('success') ?>
                         </div>
-                    <?php endif; ?>
+                    <?php endif; ?> -->
                 </div>
 
                 <div class="container">
@@ -73,12 +75,12 @@
                 <div class="col-12 col-sm-6 mt-2 mb-2 text-center">
                     <div class="form-group">
                         <label class="form-label" for="">Type de payement</label>
-                        <select class="form-select" name="type_reservation">
-                            <option selected value="espece">Espèce</option>
-                            <option value="telma">MVola</option>
-                            <option value="orange">Orange Money</option>
-                            <option value="airtel">Airtel Money</option>
-                            <option value="visa">VISA</option>
+                        <select class="form-select" name="type_payement">
+                            <option selected value="Espece">Espèce</option>
+                            <option value="MVola">MVola</option>
+                            <option value="Orange Money">Orange Money</option>
+                            <option value="Airtel Money">Airtel Money</option>
+                            <option value="VISA">VISA</option>
                         </select>
                     </div>
                 </div>

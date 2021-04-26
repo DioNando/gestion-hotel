@@ -11,10 +11,12 @@ class Facture extends BaseController
 {
 	public function index()
 	{
-		if(isset($_POST['btn_facture_nuit'])) {
+		if (isset($_POST['btn_facture_nuit'])) {
+			$this->addFactureNuit(session()->get('ID_facture_nuit'));
 			return redirect()->to('configReservationNuit');
 		}
-		if(isset($_POST['btn_facture_day'])) {
+		if (isset($_POST['btn_facture_day'])) {
+			$this->addFactureDay(session()->get('ID_facture_day'));
 			return redirect()->to('configReservationDay');
 		}
 	}
@@ -30,7 +32,7 @@ class Facture extends BaseController
 		echo view('facture\factureNuit', $data);
 		echo view('templates\footer');
 	}
-	
+
 	public function factureDay()
 	{
 		$data = [];
@@ -40,15 +42,44 @@ class Facture extends BaseController
 		$data['details'] = $this->infoDetailsDay(session()->get('ID_day'));
 		echo view('templates\header');
 		echo view('facture\factureDay', $data);
-		echo view('templates\footer');	
+		echo view('templates\footer');
 	}
 
-	public function addFactureNuit() {
+	public function addFactureNuit($ID_facture)
+	{
+		$data = [];
+		helper(['form']);
 
+		$facture = new factureNuitModel();
+
+		$data = [
+			'type_payement_nuit' => $_POST['type_payement'],
+		];
+
+		$facture->set($data);
+		$facture->where('ID_facture_nuit', $ID_facture);
+		$facture->update();
+		$session = session();
+		$session->setFlashdata('update', 'La facture a été sauvegardé');
 	}
 
-	public function addFactureDay() {
+	public function addFactureDay($ID_facture)
+	{
+		$data = [];
+		helper(['form']);
 
+		$facture = new factureDayModel();
+
+		$data = [
+			'type_payement_day' => $_POST['type_payement'],
+		];
+
+		$facture->set($data);
+		$facture->where('ID_facture_day', $ID_facture);
+		$facture->update();
+
+		$session = session();
+		$session->setFlashdata('update', 'La facture a été sauvegardé');
 	}
 
 	public function infoDetailsNuit($ID_nuit)

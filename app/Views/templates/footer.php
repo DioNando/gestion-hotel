@@ -25,15 +25,17 @@
                 <use xlink:href="#gentle-wave" x="48" y="7" fill="rgba(255,255,255,0.5)" />
             </g>
         </svg>
-   
-
+        <?php else : ?>
         <!-- <div>
             <button class="btn btn-secondary" onclick="retourHaut()" id="haut" title="Retour haut de page">Haut</button>
             <button class="btn btn-outline-secondary btn-icon" onclick="retourHaut()" id="haut" title="Retour haut de page"><img src="assets/icons/up-chevron.png" alt="Modifier"></button>
         </div> -->
+
+        <!-- BOUTTON RETOUR -->
+<!--         
         <div>
             <img onclick="retourHaut()" id="haut" src="assets/icons/up1.png" alt="Haut de page" title="Retour haut page">
-        </div>
+        </div> -->
 
     <?php endif ?>
 </footer>
@@ -41,7 +43,7 @@
 </body>
 
 
-<script>
+<!-- <script>
     window.onscroll = function() {
         scrollFunction()
     };
@@ -63,6 +65,6 @@
         document.body.scrollTop = 0;
         document.documentElement.scrollTop = 0;
     }
-</script>
+</script> -->
 
 </html>

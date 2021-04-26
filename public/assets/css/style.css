@@ -189,7 +189,7 @@ footer {
 }
 
 .navbar-toggler-icon {
-  background-image: url("../icons/menu2.png");
+  background-image: url("../icons/menu1.png");
 }
 .navbar-toggler:focus {
   box-shadow: none;
@@ -204,6 +204,18 @@ footer {
   color: var(--blanc);
   transition-duration: 0.3s;
   /* border-radius: 0px 25px 25px 0px; */
+}
+
+.alert-toast {
+  margin-bottom: 0;
+  border-radius: 0;
+  border: none;
+  /* background-color: var(--fourthColor);
+  color: var(--secondaryColor); */
+}
+
+.alert-toast-danger {
+  padding-bottom: 0.001rem !important;
 }
 
 .alert-danger {

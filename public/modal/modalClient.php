@@ -8,7 +8,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body" id="modalUpdateClient">
-                
+
             </div>
 
         </div>
@@ -23,7 +23,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body" id="modalUpdateCardex">
-                
+
             </div>
 
         </div>
@@ -102,7 +102,6 @@
 <!-- JAVASCRIPT -->
 
 <script type="text/javascript">
-
     function deleteData(ID_client) {
         document.getElementById('innerIDdel').innerHTML = ID_client;
         document.getElementById('inputIDdel').value = ID_client;
@@ -169,22 +168,24 @@
         });
     }
 
+    var hide;
+
     function infoHistorique(ID_client, type) {
         $(document).ready(function() {
 
             // if (type == 'historique') {
-                $.ajax({
-                    url: 'Cardex',
-                    type: 'post',
-                    data: {
-                        ID_client: ID_client,
-                        type: type,
-                    },
+            $.ajax({
+                url: 'Cardex',
+                type: 'post',
+                data: {
+                    ID_client: ID_client,
+                    type: type,
+                },
 
-                    success: function(data) {
-                        $('#modalHistorique').html(data);
-                    }
-                })
+                success: function(data) {
+                    $('#modalHistorique').html(data);
+                }
+            })
             // }
 
         });

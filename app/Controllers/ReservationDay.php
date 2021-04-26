@@ -9,6 +9,8 @@ use App\models\reservationNuitModel;
 use App\models\reservationDayModel;
 use App\models\concernerModel;
 use App\models\effectuerModel;
+use App\models\factureNuitModel;
+use App\models\factureDayModel;
 use App\models\planningModel;
 use App\models\pourModel;
 
@@ -71,6 +73,7 @@ class ReservationDay extends BaseController
 					$user = $users->where('nom_user', $_POST['nom_user'])->first();
 					$reservations = new reservationDayModel();
 					$planning = new planningModel();
+					$facture = new factureDayModel();
 
 					$newData = [
 						'nom_client_day' => $_POST['nom_client_day'],
@@ -92,6 +95,13 @@ class ReservationDay extends BaseController
 					$planning->save($newDataPlanning);
 					$id_planning = $planning->getInsertID();
 
+					$newDataFacture = [
+						'ID_day' => $id,
+					];
+
+					$facture->save($newDataFacture);
+					$id_facture = $facture->getInsertID();
+
 					$newData = [
 						'nom_client_day' => $_POST['nom_client_day'],
 						'date_day' => $_POST['date_day'],
@@ -99,8 +109,8 @@ class ReservationDay extends BaseController
 						'ID_user' => $user['ID_user'],
 						'ID_day' => $id,
 						'ID_planning' => $id_planning,
+						'ID_facture_day' => $id_facture,
 					];
-
 
 					$this->addEffectuer($id, $user['ID_user']);
 					$this->addPour($id, $id_planning);
@@ -202,7 +212,7 @@ class ReservationDay extends BaseController
 		$reservations = new pourModel();
 		// $data = $reservations->where('pour.ID_day', $ID_day)->join('planning', 'pour.ID_day = planning.ID_day')->join('reservation_day', 'pour.ID_day = reservation_day.ID_day')->join('concerner', 'concerner.ID_planning = planning.ID_planning')->join('concerner', 'concerner.ID_chambre = chambre.ID_chambre')->groupBy('chambre.ID_chambre')->first();
 		// $data['details'] = $reservations->where('pour.ID_day', $ID_day)->join('reservation_day', 'pour.ID_day = reservation_day.ID_day')->join('planning', 'pour.ID_planning = planning.ID_planning')->join('concerner', 'concerner.ID_planning = planning.ID_planning')->join('concerner', 'concerner.ID_chambre = chambre.ID_chambre')->groupBy('chambre.ID_chambre')->findAll();
-		$data['details'] = $reservations->where('pour.ID_day', $ID_day)->join('reservation_day', 'pour.ID_day = reservation_day.ID_day')->join('planning', 'pour.ID_planning = planning.ID_planning')->join('concerner', 'concerner.ID_planning = planning.ID_planning')->join('chambre', 'concerner.ID_chambre = chambre.ID_chambre')->groupBy('concerner.ID_chambre')->find();
+		$data['details'] = $reservations->where('pour.ID_day', $ID_day)->join('reservation_day', 'pour.ID_day = reservation_day.ID_day')->join('facture_day', 'facture_day.ID_day = reservation_day.ID_day')->join('planning', 'pour.ID_planning = planning.ID_planning')->join('concerner', 'concerner.ID_planning = planning.ID_planning')->join('chambre', 'concerner.ID_chambre = chambre.ID_chambre')->groupBy('concerner.ID_chambre')->find();
 
 		// $data['total'] = $reservations->select()->where('pour.ID_day', $ID_day)->join('reservation_day', 'pour.ID_day = reservation_day.ID_day')->join('planning', 'pour.ID_planning = planning.ID_planning')->join('concerner', 'concerner.ID_planning = planning.ID_planning')->join('chambre', 'concerner.ID_chambre = chambre.ID_chambre')->groupBy('concerner.ID_chambre')->find();
 		return $data;
@@ -229,6 +239,7 @@ class ReservationDay extends BaseController
 						'duree_day' => $_POST['duree_day'],
 						'heure_arrive' => $_POST['heure_arrive'],
 						'heure_depart' => $_POST['heure_depart'],
+						'commentaire_day' => $_POST['commentaire_day'],
 					];
 
 					$id_planning = $pour->where('ID_day', $_POST['ID_day'])->first();

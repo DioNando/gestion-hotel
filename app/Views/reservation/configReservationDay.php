@@ -1,5 +1,6 @@
 <!--DASHBOARD ADMIN-->
 <?php include("modal/modalReservationDay.php"); ?>
+<?php include("assets/toast/myToast.php"); ?>
 
 <div class="container-fluid mt-3 mb-3">
     <h1>Liste des réservations day use</h1>
@@ -7,8 +8,7 @@
 
 <div class="container-fluid">
 
-    <?php include("search/recherche.php"); ?>
-    <?php if (session()->get('update')) : ?>
+    <!-- <?php if (session()->get('update')) : ?>
         <div class="alert alert-success" role="alert">
             <?= session()->get('update') ?>
         </div>
@@ -17,7 +17,7 @@
         <div class="alert alert-success" role="alert">
             <?= session()->get('delete') ?>
         </div>
-    <?php endif; ?>
+    <?php endif; ?> -->
     <table class="table table-hover table-striped table-light" id="result">
         <thead>
             <tr>

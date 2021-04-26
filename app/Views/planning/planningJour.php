@@ -1,3 +1,5 @@
+<?php include("modal/modalPlanning.php"); ?>
+
 <div class="container-fluid mt-3 mb-3">
     <h1>Planning du Jour</h1>
 </div>
@@ -8,6 +10,7 @@
 
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
+            // themeSystem: 'bootstrap',
             locale: 'fr',
             initialView: 'listWeek',
             headerToolbar: {
@@ -21,10 +24,45 @@
                 week: 'Semaine',
                 day: 'Jour',
                 list: 'Liste',
+
             },
             events: result,
+            eventClick: function(info) {
+
+                let ID_unique, motif_unique;
+                let ID_reservation = result.map(function(e) {
+                    if (e.id == info.event.id) {
+                        ID_unique = e.ID_reservation;
+                        motif_unique = e.motif;
+                        return e.ID_reservation;
+                    }
+                });
+
+                // alert('Event: ' + ID_unique + motif_unique);
+
+                $(document).ready(function() {
+                    $.ajax({
+                        url: 'ajaxPlanning',
+                        type: 'post',
+                        data: {
+                            ID_planning: info.event.id,
+                            ID_reservation: ID_unique,
+                            motif: motif_unique
+                        },
+
+                        success: function(result) {
+                            $('#modalPlanningJour').html(result);
+                        }
+                    })
+                    $('#modalPlanning').modal('show');
+
+                });
+            }
+
+
         });
         calendar.render();
+
 
     }
 

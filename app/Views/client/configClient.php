@@ -1,6 +1,7 @@
 <!--DASHBOARD ADMIN-->
 <?php include("modal/modalClient.php"); ?>
 <?php include("modal/modalNouveau.php"); ?>
+<?php include("assets/toast/myToast.php"); ?>
 
 <div class="container-fluid mt-3 mb-3">
     <h1>Liste des clients</h1>
@@ -8,7 +9,7 @@
 <div class="container-fluid">
 
     <?php include("search/recherche.php"); ?>
-    <?php if (session()->get('success')) : ?>
+    <!-- <?php if (session()->get('success')) : ?>
         <div class="alert alert-success" role="alert">
             <?= session()->get('success') ?>
         </div>
@@ -22,7 +23,7 @@
         <div class="alert alert-success" role="alert">
             <?= session()->get('delete') ?>
         </div>
-    <?php endif; ?>
+    <?php endif; ?> -->
     <table class="table table-hover table-striped table-light" id="result">
         <thead>
             <tr>
@@ -50,7 +51,7 @@
                                 <div>
                                     <button type="button" class="btn btn-outline-warning btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalClientUpdate" onclick="updateClient('<?php echo $client['ID_client']; ?>' , 'update')"><img src="assets/icons/pencil-fill.svg" alt="Modifier"></button>
                                     <button type="button" class="btn btn-outline-danger btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalClientDelete" onclick="deleteData('<?php echo $client['ID_client']; ?>')"><img src="assets/icons/eraser-fill.svg" alt="Supprimer"></button>
-                                    <button type="button" class="btn btn-outline-success btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalClientInfo" onclick="infoData('<?php echo $client['ID_client']; ?>')"><img src="assets/icons/info-circle-fill.svg" alt="Info"></button>
+                                    <!-- <button type="button" class="btn btn-outline-success btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalClientInfo" onclick="infoData('<?php echo $client['ID_client']; ?>')"><img src="assets/icons/info-circle-fill.svg" alt="Info"></button> -->
                                 </div>
                             </div>
                         </td>

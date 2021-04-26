@@ -56,3 +56,33 @@
     </div>
 </div>
 
+
+
+<script>
+    $(document).ready(function() {
+        $(".show-toast").click(function() {
+        $("#myToast").toast('show');
+            
+        });
+    });
+</script>
+
+<div class="container mt-4">
+    <button type="button" class="btn btn-primary show-toast">Show Toast</button>
+</div>
+
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 5">
+    <div id="myToast" class="toast hide" role="alert" data-autohide="false" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <!-- <img src="assets/icons/stickies-fill.svg" class="me-2" alt="..."> -->
+            <strong class="me-auto">Bootstrap</strong>
+            <small>11 mins ago</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <!-- <div class="toast-body"> -->
+            <div class="toast-body alert alert-success alert-toast" role="alert">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Extionem laborum optio voluptate nobis harum minima alias!
+            </div>
+        <!-- </div> -->
+    </div>
+</div>

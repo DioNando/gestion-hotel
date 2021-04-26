@@ -21,10 +21,30 @@
         <div class="form-group mt-2">
             <label class="form-label" for="">Droit d'accès</label>
             <select class="form-select" name="droit_user">
-                <option <?php if($info['droit_user'] == 'Utilisateur') echo ('selected'); ?> value="Utilisateur">Utilisateur</option>
-                <option <?php if($info['droit_user'] == 'Administrateur') echo ('selected'); ?> value="Administrateur">Administrateur</option>
+                <option <?php if ($info['droit_user'] == 'Utilisateur') echo ('selected'); ?> value="Utilisateur">Utilisateur</option>
+                <option <?php if ($info['droit_user'] == 'Contrôleur') echo ('selected'); ?> value="Contrôleur">Contrôleur</option>
+                <option <?php if ($info['droit_user'] == 'Administrateur') echo ('selected'); ?> value="Administrateur">Administrateur</option>
             </select>
         </div>
+
+        <div class="col-12 col-sm-6 mt-2">
+            <div class="form-group">
+                <label for="mdp_user" class="form-label">Mot de passe</label>
+                <input type="password" class="form-control" id="mdp_user" name="mdp_user">
+            </div>
+        </div>
+
+
+           
+
+
+        <div class="col-12 col-sm-6 mt-2">
+            <div class="form-group">
+                <label for="mdp_user_confirm" class="form-label">Confirmer mot de passe</label>
+                <input type="password" class="form-control" id="mdp_user_confirm" name="mdp_user_confirm">
+            </div>
+        </div>
+
         <div class="d-grid gap-2 mt-4">
             <button type="submit" class="btn btn-primary" id="btnSubmit" name="btn_modification">Modifier</button>
         </div>

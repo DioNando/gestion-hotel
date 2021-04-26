@@ -1,15 +1,20 @@
+<?php include("assets/toast/myToast.php"); ?>
+
 <div class="container">
     <div class="container-fluid bg-light formulaire">
         <h1 class="center">RESERVATION NUITEE</h1>
         <form action="" method="post">
             <div class="row">
                 <div class="col-12">
-                    <?php if (session()->get('success')) : ?>
+                    <!-- <?php if (session()->get('success')) : ?>
                         <div class="alert alert-success" role="alert">
                             <?= session()->get('success') ?>
                         </div>
-                    <?php endif; ?>
+                    <?php endif; ?> -->
                 </div>
+
+               
+
                 <div class="col-12 col-sm-4">
                     <div class="form-group">
                         <label for="nom_client" class="form-label">Nom</label>
@@ -77,17 +82,31 @@
 
                 <!-- FACTURE DEBUT -->
 
-                <div class="col-12 mt-4">
+
+
+                <div class="col-12 col-lg-6 mt-2">
+                    <label for="" class="form-label">Le sejour est-il offert ?</label>
                     <div class="p-2 border checkChambre">
+
                         <div class="form-check">
-                            <label class="form-check-label align-middle" for="offert_sejour">Offert</label>
-                            <input class="form-check-input" type="checkbox" name="offert_sejour" value="1" id="offert_sejour">
+                            <input class="form-check-input checkRadio" type="radio" name="offert_sejour" id="offert_non" value="0" checked>
+                            <label class="form-check-label align-middle" for="offert_non">
+                                Non
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input checkRadio" type="radio" name="offert_sejour" value="1" id="offert_oui">
+                            <label class="form-check-label align-middle" for="offert_oui">
+                                Oui
+                            </label>
                         </div>
                     </div>
                 </div>
+                <div class="col-12 col-lg-6 mt-2">
+                    <label for="" class="form-label">Le tarif à utiliser</label>
 
-                <div class="col-12 mt-4">
                     <div class="p-2 border checkChambre">
+
                         <div class="form-check">
                             <input class="form-check-input checkRadio" type="radio" name="ancien_nouveau_tarif" id="ancien_tarif">
                             <label class="form-check-label align-middle" for="ancien_tarif">

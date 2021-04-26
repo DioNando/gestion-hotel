@@ -3,8 +3,8 @@ $total = 0;
 foreach ($details as $detail) {
     $total = $total + ($detail['tarif_chambre'] * $detail['nbr_nuit']);
 }
-$montant = $total;
-$reste = $total - $montant;
+$montant = $total - $detail['remise'] * $total / 100;
+$reste = $total - $total;
 ?>
 
 <table class="table table-hover table-striped table-light mb-0">
@@ -24,25 +24,25 @@ $reste = $total - $montant;
                 <th scope="row"> <?php echo ($detail['nbr_nuit']); ?> </th>
                 <td> <?php echo ($detail['debut_sejour']); ?> </td>
                 <td> <?php echo ($detail['ID_chambre']); ?> </td>
-                <td> <?php echo ($detail['tarif_chambre']); ?> </td>
+                <td> <?php echo number_format($detail['tarif_chambre'], '2', ',', ' ') . ' Ar'; ?> </td>
                 <td> <?php echo ('0'); ?> </td>
-                <td> <?php echo ($detail['tarif_chambre'] * $detail['nbr_nuit']); ?> </td>
+                <td> <?php echo number_format($detail['tarif_chambre'] * $detail['nbr_nuit'], '2', ',', ' ') . ' Ar'; ?> </td>
             </tr>
         <?php } ?>
 
 
         <tr>
-            <td colspan="5">TOTAL</td>
-            <td><b> <?php echo ($total); ?> </b></td>
+            <td colspan="5">TOTAL (sans <?php echo ($detail['remise'] . '% de remise)'); ?> </td>
+            <td><b> <?php echo number_format($total, '2', ',', ' ') . ' Ar'; ?> </b></td>
         </tr>
         <tr>
-            <td colspan="3">Payement du <?php echo ($detail['date_modification_nuit']); ?></td>
-            <td colspan="2">MVola</td>
-            <td> <?php echo ($montant); ?> </td>
+            <td colspan="3">Payement du <?php echo ($detail['date_facture_nuit']); ?></td>
+            <td colspan="2"><?php echo ($detail['type_payement_nuit']); ?></td>
+            <td> <?php echo number_format($montant, '2', ',', ' ') . ' Ar'; ?> </td>
         </tr>
         <tr>
             <td colspan="5">RESTE A PAYER</td>
-            <td><b> <?php echo ($reste); ?> </b></td>
+            <td><b> <?php echo number_format($reste, '2', ',', ' ') . ' Ar'; ?> </b></td>
         </tr>
     </tbody>
 </table>

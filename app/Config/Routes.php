@@ -50,6 +50,7 @@ $routes->match(['get','post'], 'ficheCardex', 'Cardex::index', ['filter' => 'aut
 $routes->match(['get','post'], 'planningJour', 'Planning::planningJour', ['filter' => 'auth']);
 // $routes->match(['get','post'], 'tabPlanningJour', 'Planning::tabPlanningJour', ['filter' => 'auth']);
 $routes->match(['get','post'], 'planningMois', 'Planning::planningMois', ['filter' => 'auth']);
+$routes->post('ajaxPlanning', 'Planning::ajaxPlanning', ['filter' => 'auth']);
 $routes->match(['get','post'], 'factureDay', 'Facture::factureDay', ['filter' => 'auth']);
 $routes->match(['get','post'], 'factureNuit', 'Facture::factureNuit', ['filter' => 'auth']);
 $routes->match(['get','post'], 'facture', 'Facture::index', ['filter' => 'auth']);

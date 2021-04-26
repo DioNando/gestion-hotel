@@ -1,6 +1,7 @@
 <!--DASHBOARD ADMIN-->
 <?php include("modal/modalUser.php"); ?>
 <?php include("modal/modalNouveau.php"); ?>
+<?php include("assets/toast/myToast.php"); ?>
 
 <div class="container-fluid mt-3 mb-3">
     <h1>Liste des utilisateurs</h1>
@@ -8,7 +9,7 @@
 <div class="container-fluid">
     
     <?php include("search/recherche.php"); ?>
-    <?php if (session()->get('success')) : ?>
+    <!-- <?php if (session()->get('success')) : ?>
         <div class="alert alert-success" role="alert">
             <?= session()->get('success') ?>
         </div>
@@ -22,7 +23,7 @@
         <div class="alert alert-success" role="alert">
             <?= session()->get('delete') ?>
         </div>
-    <?php endif; ?>
+    <?php endif; ?> -->
     <table class="table table-hover table-striped table-light" id="result">
         <thead>
             <tr>

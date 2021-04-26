@@ -4,11 +4,11 @@
         <form action="" method="post">
             <div class="row">
                 <div class="col-12">
-                    <?php if (session()->get('success')) : ?>
+                    <!-- <?php if (session()->get('success')) : ?>
                         <div class="alert alert-success" role="alert">
                             <?= session()->get('success') ?>
                         </div>
-                    <?php endif; ?>
+                    <?php endif; ?> -->
                 </div>
 
                 <div class="col-12 col-sm-6">

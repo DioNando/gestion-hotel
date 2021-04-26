@@ -34,3 +34,16 @@ background: linear-gradient(to right, #a7bfe8, #6190e8); */
 .bg-dash3 {
     background: linear-gradient(to right, #ff5f6d, #ffc371) !important;
 }
+
+.fc .fc-toolbar.fc-header-toolbar {
+    margin-bottom: 1rem;
+}
+
+.fc .fc-button-primary {
+    background-color: var(--color-success);
+    border: none;
+}
+
+.fc-list-event-title a, .fc-list-event-time, .fc-event-title, .fc-event-time {
+    cursor: default;
+}

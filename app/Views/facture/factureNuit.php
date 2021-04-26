@@ -1,15 +1,17 @@
+<?php include("assets/toast/myToast.php"); ?>
+
 <div class="container">
     <div class="container-fluid bg-light formulaire">
         <h1 class="center">FACTURATION NUITEE</h1>
         <form action="facture" method="post">
             <div class="row">
-                <div class="col-12">
+                <!-- <div class="col-12">
                     <?php if (session()->get('success')) : ?>
                         <div class="alert alert-success" role="alert">
                             <?= session()->get('success') ?>
                         </div>
                     <?php endif; ?>
-                </div>
+                </div> -->
 
                 <div class="container">
                     <div class="row">
@@ -83,18 +85,19 @@
                 <div class="col-12 col-sm-6 mt-2 mb-2 text-center">
                     <div class="form-group">
                         <label for="debut_sejour" class="form-label">Date de facturation</label>
-                        <input type="date" class="form-control" id="dateDebutSejour" onchange="calculNuit(document.getElementById('dateDebutSejour').value, document.getElementById('dateFinSejour').value);" name="debut_sejour">
+                        <input type="date" class="form-control" id="dateDebutSejour" name="debut_sejour">
                     </div>
                 </div>
                 <div class="col-12 col-sm-6 mt-2 mb-2 text-center">
                     <div class="form-group">
                         <label class="form-label" for="">Type de payement</label>
-                        <select class="form-select" name="type_reservation">
-                            <option selected value="espece">Espèce</option>
-                            <option value="telma">MVola</option>
-                            <option value="orange">Orange Money</option>
-                            <option value="airtel">Airtel Money</option>
-                            <option value="visa">VISA</option>
+                        <select class="form-select" name="type_payement">
+                            <option selected value="Espece">Espèce</option>
+                            <option value="MVola">MVola</option>
+                            <option value="Orange Money">Orange Money</option>
+                            <option value="Airtel Money">Airtel Money</option>
+                            <option value="VISA">VISA</option>
+                            <option value="Autre">Autre</option>
                         </select>
                     </div>
                 </div>
@@ -140,13 +143,22 @@
                         <td class="text-center"><?php echo number_format($total, 2, ',', ' ') . ' Ar' ?></td>
                     </tr>
                     <tr>
-                        <td class="text-end">Remise (<?php echo ($facture['remise']) . ' %'?>)</td>
+                        <td class="text-end">Remise (<?php echo ($facture['remise']) . ' %' ?>)</td>
                         <td class="text-center"> <?php echo number_format($remise, 2, ',', ' ') . ' Ar' ?> </td>
                     </tr>
-                    <tr>
-                        <td class="text-end">Total</td>
-                        <td class="text-center"><b> <?php echo number_format($total - $remise, 2, ',', ' ') . ' Ar' ?> </b></td>
-                    </tr>
+                    <?php if (session()->get('offert') == 0) : { ?>
+                            <tr>
+                                <td class="text-end">Total</td>
+                                <td class="text-center"><b> <?php echo number_format($total - $remise, 2, ',', ' ') . ' Ar' ?> </b></td>
+                            </tr>
+                        <?php }
+                    else : {  ?>
+                            <tr>
+                                <td class="text-end">Sejour offert</td>
+                                <td class="text-center"><b> <?php echo number_format(0, 2, ',', ' ') . ' Ar' ?> </b></td>
+                            </tr>
+                    <?php }
+                    endif ?>
                     <!-- <tr>
                         <td class="text-end">Solde Dû</td>
                         <td class="text-center"><b> <?php echo number_format($reste, 2, ',', ' ') . ' Ar' ?> </b></td>
@@ -180,26 +192,4 @@
 <script>
     var dateDebut = new Date();
     document.getElementById('dateDebutSejour').valueAsDate = dateDebut;
-    document.getElementById('dateFinSejour').valueAsDate = dateDebut;
-
-    function calculNuit(dateDebut, dateFin) {
-        var diff = {}
-        var x = new Date(dateDebut);
-        var y = new Date(dateFin);
-        tmp = y - x;
-
-        tmp = Math.floor(tmp / 1000); // Nombre de secondes entre les 2 dates
-        diff.sec = tmp % 60; // Extraction du nombre de secondes
-
-        tmp = Math.floor((tmp - diff.sec) / 60); // Nombre de minutes (partie entière)
-        diff.min = tmp % 60; // Extraction du nombre de minutes
-
-        tmp = Math.floor((tmp - diff.min) / 60); // Nombre d'heures (entières)
-        diff.hour = tmp % 24;
-
-        tmp = Math.floor((tmp - diff.hour) / 24);
-        diff.day = tmp;
-
-        document.getElementById('nbr_nuit').value = diff.day;
-    }
 </script>

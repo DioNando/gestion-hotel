@@ -11,13 +11,13 @@ class User extends BaseController
     public function index()
     {
         $data = [];
-		helper(['form']);
+        helper(['form']);
 
         if (isset($_POST['type']) == 'update') {
-			$data['info'] = $this->infoUpdate($_POST['ID_user']);
-			echo view('user\updateUser', $data);
-			return ($data);
-		}
+            $data['info'] = $this->infoUpdate($_POST['ID_user']);
+            echo view('user\updateUser', $data);
+            return ($data);
+        }
         if (isset($_POST['btn_enregistrer'])) {
             $this->create();
             return redirect()->to('configUser');
@@ -139,31 +139,69 @@ class User extends BaseController
         if (isset($_POST['btn_modification'])) : {
                 $rules = [
                     'nom_user' => 'required',
+                    'prenom_user' => 'required',
                 ];
+
+                if (!isset($_POST['mdp_user'])) {
+                    $rules['mdp_user'] = 'required';
+                    $rules['mdp_user_confirm'] = 'matches[mdp_user]';
+                }
 
                 if (!$this->validate($rules)) {
                     $data['validation'] = $this->validator;
                 } else {
                     $users = new userModel();
-                    $data = [
+
+                    $newData = [
                         'nom_user' => $_POST['nom_user'],
                         'prenom_user' => $_POST['prenom_user'],
                         'droit_user' => $_POST['droit_user'],
                     ];
 
-                    $users->set($data);
+                    if ($_POST['mdp_user'] != '') {
+                        $newData['mdp_user'] = $_POST['mdp_user'];
+                    }
+
+                    $users->set($newData);
                     $users->where('ID_user', $_POST['ID_user']);
                     $users->update();
+
                     $session = session();
-                    $session->setFlashdata('update', 'La ligne a été modifié avec succès');
+                    $session->setFlashdata('success', 'La ligne a été modifié avec succès');
+                    return redirect()->to('profil');
                 }
             }
         endif;
+
+        // if (isset($_POST['btn_modification'])) : {
+        //         $rules = [
+        //             'nom_user' => 'required',
+        //         ];
+
+        //         if (!$this->validate($rules)) {
+        //             $data['validation'] = $this->validator;
+        //         } else {
+        //             $users = new userModel();
+        //             $data = [
+        //                 'nom_user' => $_POST['nom_user'],
+        //                 'prenom_user' => $_POST['prenom_user'],
+        //                 'droit_user' => $_POST['droit_user'],
+        //             ];
+
+        //             $users->set($data);
+        //             $users->where('ID_user', $_POST['ID_user']);
+        //             $users->update();
+        //             $session = session();
+        //             $session->setFlashdata('update', 'La ligne a été modifié avec succès');
+        //         }
+        //     }
+        // endif;
     }
 
-    public function infoUpdate($ID_user) {
+    public function infoUpdate($ID_user)
+    {
         $data = [];
-		$users = new userModel();
+        $users = new userModel();
         $data = $users->where('ID_user', $ID_user)->first();
         return $data;
     }
@@ -180,24 +218,24 @@ class User extends BaseController
     }
 
     public function deleteCascadeNuit($id_user)
-	{
-		$reservation = new reservationNuitModel();
+    {
+        $reservation = new reservationNuitModel();
 
-		$sql = "DELETE reservation_nuit, effectuer, pour, planning, concerner FROM reservation_nuit 
+        $sql = "DELETE reservation_nuit, effectuer, pour, planning, concerner FROM reservation_nuit 
 		INNER JOIN effectuer ON effectuer.ID_nuit = reservation_nuit.ID_nuit INNER JOIN pour ON reservation_nuit.ID_nuit = pour.ID_nuit INNER JOIN planning ON pour.ID_planning = planning.ID_planning INNER JOIN concerner ON concerner.ID_planning = planning.ID_planning WHERE effectuer.ID_user = ?";
 
-		$reservation->query($sql, array($id_user));
-	}
-    
-    public function deleteCascadeDay($id_user)
-	{
-		$reservation = new reservationDayModel();
+        $reservation->query($sql, array($id_user));
+    }
 
-		$sql = "DELETE reservation_day, effectuer, pour, planning, concerner FROM reservation_day 
+    public function deleteCascadeDay($id_user)
+    {
+        $reservation = new reservationDayModel();
+
+        $sql = "DELETE reservation_day, effectuer, pour, planning, concerner FROM reservation_day 
 		INNER JOIN effectuer ON effectuer.ID_day = reservation_day.ID_day INNER JOIN pour ON reservation_day.ID_day = pour.ID_day INNER JOIN planning ON pour.ID_planning = planning.ID_planning INNER JOIN concerner ON concerner.ID_planning = planning.ID_planning WHERE effectuer.ID_user = ?";
 
-		$reservation->query($sql, array($id_user));
-	}
+        $reservation->query($sql, array($id_user));
+    }
 
     public function profil()
     {

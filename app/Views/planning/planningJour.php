@@ -1,7 +1,18 @@
 <?php include("modal/modalPlanning.php"); ?>
 
 <div class="container-fluid mt-3 mb-3">
-    <h1>Planning du Jour</h1>
+    <!-- <h1>Planning du Jour</h1> -->
+
+    <h1>
+        <div class="d-flex align-items-center">
+            <div class="flex-shrink-0">
+                <i class="fas fa-calendar-check"></i>
+            </div>
+            <div class="flex-grow-1 ms-3">
+                Planning du Jour
+            </div>
+        </div>
+    </h1>
 </div>
 
 <script>

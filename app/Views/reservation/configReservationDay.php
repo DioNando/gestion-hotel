@@ -3,7 +3,18 @@
 <?php include("assets/toast/myToast.php"); ?>
 
 <div class="container-fluid mt-3 mb-3">
-    <h1>Liste des réservations day use</h1>
+    <!-- <h1>Liste des réservations day use</h1> -->
+
+    <h1>
+        <div class="d-flex align-items-center">
+            <div class="flex-shrink-0">
+                <i class="fas fa-calendar-day"></i>
+            </div>
+            <div class="flex-grow-1 ms-3">
+                Liste des réservations day use
+            </div>
+        </div>
+    </h1>
 </div>
 
 <div class="container-fluid">
@@ -21,12 +32,12 @@
     <table class="table table-hover table-striped table-light" id="result">
         <thead>
             <tr>
-                <th scope="col">Identification</th>
-                <th scope="col">Heure d'arrivée</th>
-                <th scope="col">Heure de départ</th>
-                <th scope="col">Durée</th>
+                <th scope="col"><i class="fab fa-slack-hash"></i></th>
+                <th scope="col" class="text-end">Heure d'arrivée</th>
+                <th scope="col" class="text-end">Heure de départ</th>
+                <th scope="col" class="text-end">Durée</th>
                 <th scope="col">Détails</th>
-                <th scope="col">Client</th>
+                <th scope="col" class="text-start">Client</th>
                 <th scope="col">Info réservation</th>
                 <th scope="col">Actions</th>
             </tr>
@@ -38,29 +49,29 @@
             ?>
                     <tr>
                         <th scope="row"> <?php echo ($reservation['ID_day']) ?> </th>
-                        <td> <?php echo ($reservation['heure_arrive']); ?> </td>
-                        <td> <?php echo ($reservation['heure_depart']); ?> </td>
-                        <td> <?php echo ($reservation['duree_day'] . 'h');?> </td>
+                        <td class="text-end"> <?php echo ($reservation['heure_arrive']); ?> </td>
+                        <td class="text-end"> <?php echo ($reservation['heure_depart']); ?> </td>
+                        <td class="text-end"> <?php echo ($reservation['duree_day'] . 'h'); ?> </td>
                         <td>
                             <div class="center">
                                 <div>
-                                    <button type="button" class="btn btn-outline-primary btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalReservationInfo" onclick="infoSupplementaireDay('<?php echo $reservation['ID_day']; ?>', 'infoDetails')"><img src="assets/icons/info-circle-fill.svg" alt="Info"></button>
+                                    <button type="button" class="btn btn-outline-primary btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalReservationInfo" onclick="infoSupplementaireDay('<?php echo $reservation['ID_day']; ?>', 'infoDetails')"><i class="fas fa-money-check"></i></button>
                                 </div>
                             </div>
                         </td>
-                        <td><b> <?php echo ($reservation['nom_client_day']); ?> </b></td>
+                        <td class="text-start"><b> <?php echo ($reservation['nom_client_day']); ?> </b></td>
                         <td>
                             <div class="center">
                                 <div>
-                                    <button type="button" class="btn btn-outline-success btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalReservationInfoDay" onclick="infoSupplementaireDay('<?php echo $reservation['ID_day']; ?>', 'infoDay')"><img src="assets/icons/stickies-fill.svg" alt="Info"></button>
+                                    <button type="button" class="btn btn-outline-success btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalReservationInfoDay" onclick="infoSupplementaireDay('<?php echo $reservation['ID_day']; ?>', 'infoDay')"><i class="fas fa-users-cog"></i></button>
                                 </div>
                             </div>
                         </td>
                         <td>
                             <div class="center">
                                 <div>
-                                    <button type="button" class="btn btn-outline-warning btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalReservationUpdate" onclick="infoSupplementaireDay('<?php echo $reservation['ID_day']; ?>', 'updateDay')"><img src="assets/icons/pencil-fill.svg" alt="Modifier"></button>
-                                    <button type="button" class="btn btn-outline-danger btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalReservationDelete" onclick="deleteData('<?php echo $reservation['ID_day']; ?>')"><img src="assets/icons/eraser-fill.svg" alt="Supprimer"></button>
+                                    <button type="button" class="btn btn-outline-warning btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalReservationUpdate" onclick="infoSupplementaireDay('<?php echo $reservation['ID_day']; ?>', 'updateDay')"><i class="fas fa-pencil-alt"></i></button>
+                                    <button type="button" class="btn btn-outline-danger btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalReservationDelete" onclick="deleteData('<?php echo $reservation['ID_day']; ?>')"><i class="fas fa-trash-alt"></i></button>
                                 </div>
                             </div>
                         </td>
@@ -83,4 +94,4 @@
     </table>
 
 
-    </div>
+</div>

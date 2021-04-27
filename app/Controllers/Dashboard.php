@@ -16,6 +16,7 @@ class Dashboard extends BaseController
 		session();
 		$data['detailsNuit'] = $this->infoDetailsNuit();
 		$data['detailsDay'] = $this->infoDetailsDay();
+		$data['nombresNuitDay'] = $this->nombreReservationMois();
 		$data['user'] = $this->readUser(session()->get('nom_user'));
 		echo view('templates/header');
 		echo view('dashboard/dashboard', $data);
@@ -42,7 +43,7 @@ class Dashboard extends BaseController
 	{
 		$data = [];
 		$reservations = new effectuerModel();
-		$data = $reservations->join('user', 'effectuer.ID_user = user.ID_user')->join('reservation_nuit', 'effectuer.ID_nuit = reservation_nuit.ID_nuit')->join('client', 'reservation_nuit.ID_client = client.ID_client')->join('pour', 'pour.ID_nuit = reservation_nuit.ID_nuit')->join('planning', 'pour.ID_planning = planning.ID_planning')->findAll();
+		$data = $reservations->where('fin_sejour >= CONVERT(CURDATE(), DATE) AND debut_sejour < CONVERT(CURDATE() + 1, DATE)')->join('user', 'effectuer.ID_user = user.ID_user')->join('reservation_nuit', 'effectuer.ID_nuit = reservation_nuit.ID_nuit')->join('client', 'reservation_nuit.ID_client = client.ID_client')->join('pour', 'pour.ID_nuit = reservation_nuit.ID_nuit')->join('planning', 'pour.ID_planning = planning.ID_planning')->findAll();
 		return $data;
 	}
 
@@ -50,9 +51,18 @@ class Dashboard extends BaseController
 	{
 		$data = [];
 		$reservations = new effectuerModel();
-		$data = $reservations->join('user', 'effectuer.ID_user = user.ID_user')->join('reservation_day', 'effectuer.ID_day = reservation_day.ID_day')->join('pour', 'pour.ID_day = reservation_day.ID_day')->join('planning', 'pour.ID_planning = planning.ID_planning')->findAll();
+		$data = $reservations->where('DAY(debut_sejour) = DAY(CURDATE())')->join('user', 'effectuer.ID_user = user.ID_user')->join('reservation_day', 'effectuer.ID_day = reservation_day.ID_day')->join('pour', 'pour.ID_day = reservation_day.ID_day')->join('planning', 'pour.ID_planning = planning.ID_planning')->findAll();
 		return $data;
 	}
+
+	public function nombreReservationMois()
+    {
+        $data = [];
+        $reservations = new effectuerModel();
+		$data['nbrNuit'] = $reservations->where('MONTH(debut_sejour) = MONTH(CURDATE())')->join('user', 'effectuer.ID_user = user.ID_user')->join('reservation_nuit', 'effectuer.ID_nuit = reservation_nuit.ID_nuit')->join('client', 'reservation_nuit.ID_client = client.ID_client')->join('pour', 'pour.ID_nuit = reservation_nuit.ID_nuit')->join('planning', 'pour.ID_planning = planning.ID_planning')->findAll();
+		$data['nbrDay'] = $reservations->where('MONTH(debut_sejour) = MONTH(CURDATE())')->join('user', 'effectuer.ID_user = user.ID_user')->join('reservation_day', 'effectuer.ID_day = reservation_day.ID_day')->join('pour', 'pour.ID_day = reservation_day.ID_day')->join('planning', 'pour.ID_planning = planning.ID_planning')->findAll();
+		return count($data['nbrDay']) + count($data['nbrNuit']);
+    }
 
 	public function etatFinancier()
 	{

@@ -2,7 +2,17 @@
 
 <div class="container-fluid mt-3 mb-3">
 
-    <h1>Statistique</h1>
+    <!-- <h1>Statistique</h1> -->
+    <h1>
+        <div class="d-flex align-items-center">
+            <div class="flex-shrink-0">
+                <i class="fas fa-chart-pie"></i>
+            </div>
+            <div class="flex-grow-1 ms-3">
+                Statistique
+            </div>
+        </div>
+    </h1>
 
 </div>
 

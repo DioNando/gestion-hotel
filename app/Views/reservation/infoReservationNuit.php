@@ -1,24 +1,24 @@
 <table class="table table-hover table-striped table-light">
     <thead>
         <tr>
-            <th scope="col">Type de réservation</th>
+            <th scope="col" class="text-start">Type de réservation</th>
             <th scope="col">Nombre de personne</th>
-            <th scope="col">Remarque</th>
-            <th scope="col">Date de réservation</th>
+            <th scope="col" class="text-start">Remarque</th>
+            <th scope="col" class="text-start">Date de réservation</th>
             <!-- <th scope="col">Utilisateur</th> -->
-            <th scope="col">Dernière modification</th>
+            <th scope="col" class="text-start">Dernière modification</th>
             <!-- <th scope="col">Utilisateur</th> -->
         </tr>
     </thead>
     <tbody class="align-middle">
 
         <tr>
-            <td> <?php echo ($info['type_reservation']); ?> </td>
-            <td> <?php echo ($info['nbr_personne']); ?> </td>
+            <td class="text-start"> <?php echo ($info['type_reservation']); ?> </td>
+            <td class="text-center"> <?php echo ($info['nbr_personne']); ?> </td>
             <td> <?php echo ($info['remarque_reservation']); ?> </td>
-            <td> <?php echo ($info['date_reservation_nuit'] . ' par ' . $info['nom_user']); ?> </td>
+            <td class="text-start"> <?php echo ($info['date_reservation_nuit'] . ' par ' . $info['nom_user']); ?> </td>
             <!-- <td> <?php echo ($info['nom_user']); ?> </td> -->
-            <td> <?php echo ($info['date_modification_nuit']. ' par ' . $info['nom_user_modif']); ?> </td>
+            <td class="text-start"> <?php echo ($info['date_modification_nuit']. ' par ' . $info['nom_user_modif']); ?> </td>
             <!-- <td> <?php echo ($info['nom_user_modif']); ?> </td> -->
         </tr>
 

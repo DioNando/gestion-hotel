@@ -75,7 +75,6 @@
                                 <input class="form-control me-2" type="search" name="element_recherche" id="search" placeholder="Nom du client" aria-label="Search" autocomplete="off">
                             </div>
                             
-                            <hr>
                             <div class="d-grid gap-2 mt-3">
                                 <button class="btn btn-outline-primary" type="submit" name="btn_recherche">Rechercher</button>
                             </div>

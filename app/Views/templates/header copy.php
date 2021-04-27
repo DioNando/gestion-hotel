@@ -187,6 +187,7 @@
     <?php if (session()->get('isLoggedIn')) : ?>
         <div class="container-fluid">
             <!--Sidebar debut-->
+        <!-- <div class="collapse navbar-collapse navbar-ex1-collapse"> -->
             <div class="row menu-parent">
                 <div class="col-2 menu">
 
@@ -346,7 +347,7 @@
 
                 </div>
                 <!--Sidebar fin-->
-
+                
                 <div class="col main">
 
                 <?php endif ?>

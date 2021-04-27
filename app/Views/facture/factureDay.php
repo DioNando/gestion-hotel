@@ -98,18 +98,18 @@
                     <thead>
                         <tr>
                             <th scope="col">N°Chambre</th>
-                            <th scope="col">Durée</th>
-                            <th scope="col">Prix Unitaire</th>
-                            <th scope="col">Montant</th>
+                            <th scope="col" class="text-end">Durée</th>
+                            <th scope="col" class="text-end">Prix Unitaire</th>
+                            <th scope="col" class="text-end">Montant</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php foreach ($details as $detail) { ?>
                             <tr>
                                 <th> <?php echo ($detail['ID_chambre']); ?> </th>
-                                <td scope="row"> <?php echo ($detail['duree_day'] . 'h'); ?> </td>
-                                <td> <?php echo number_format($detail['tarif_chambre'], 2, ',', ' ')  . ' Ar' ?> </td>
-                                <td> <?php echo number_format($detail['tarif_chambre'] * $detail['duree_day'], 2, ',', ' ') . ' Ar' ?> </td>
+                                <td scope="row" class="text-end"> <?php echo ($detail['duree_day'] . 'h'); ?> </td>
+                                <td class="text-end"> <?php echo number_format($detail['tarif_chambre'], 2, ',', ' ')  . ' Ar' ?> </td>
+                                <td class="text-end"> <?php echo number_format($detail['tarif_chambre'] * $detail['duree_day'], 2, ',', ' ') . ' Ar' ?> </td>
 
                             </tr>
                         <?php } ?>

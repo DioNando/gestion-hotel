@@ -1,3 +1,5 @@
+<?php include("assets/toast/myToast.php"); ?>
+
 <div class="container">
     <div class="container-fluid bg-light formulaire">
         <h1 class="center">RESERVATION DAY USE</h1>

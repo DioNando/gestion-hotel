@@ -3,7 +3,18 @@
 <div class="container-fluid mt-3 mb-3">
 
     <?php if (session()->get('isUser') == 'Administrateur') : ?>
-        <h1>Etat financier</h1>
+        <!-- <h1>Etat financier</h1> -->
+
+        <h1>
+            <div class="d-flex align-items-center">
+                <div class="flex-shrink-0">
+                    <i class="fas fa-file-invoice-dollar"></i>
+                </div>
+                <div class="flex-grow-1 ms-3">
+                    Etat financier
+                </div>
+            </div>
+        </h1>
 
         <!--DASHBOARD USER-->
     <?php else : ?>
@@ -61,8 +72,8 @@
 <script>
     $(document).ready(function() {
         $(".show-toast").click(function() {
-        $("#myToast").toast('show');
-            
+            $("#myToast").toast('show');
+
         });
     });
 </script>
@@ -80,9 +91,9 @@
             <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
         <!-- <div class="toast-body"> -->
-            <div class="toast-body alert alert-success alert-toast" role="alert">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Extionem laborum optio voluptate nobis harum minima alias!
-            </div>
+        <div class="toast-body alert alert-success alert-toast" role="alert">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Extionem laborum optio voluptate nobis harum minima alias!
+        </div>
         <!-- </div> -->
     </div>
 </div>

@@ -2,7 +2,18 @@
 <?php include("assets/toast/myToast.php"); ?>
 
 <div class="container-fluid mt-3 mb-3">
-    <h1>Type de réservation</h1>
+    <!-- <h1>Type de réservation</h1> -->
+
+    <h1>
+        <div class="d-flex align-items-center">
+            <div class="flex-shrink-0">
+                <i class="fas fa-tags"></i>
+            </div>
+            <div class="flex-grow-1 ms-3">
+                Type de réservation
+            </div>
+        </div>
+    </h1>
 </div>
 
 <div class="container">
@@ -12,7 +23,9 @@
             <div class="d-grid gap-2">
                 <!-- <a class="btn btn-primary mt-3 mb-3" data-bs-toggle="modal" data-bs-target="#modalNouveauClient">Nouveau client</a> -->
                 <div class="card" style="width: 100%;">
-                    <a data-bs-toggle="modal" data-bs-target="#modalNouveauClient"><img src="assets/images/reservation1.png" class="card-img-top" alt="..."></a>
+                    <a data-bs-toggle="modal" data-bs-target="#modalNouveauClient">
+                        <img src="assets/images/reservation1.png" class="card-img-top" alt="...">
+                    </a>
                     <div class="card-body">
                         <h5 class="card-title">Nuitée</h5>
                         <p class="card-text">Enregistrement d'un nouveau client pour une réservation d'une à plusieurs nuits.</p>

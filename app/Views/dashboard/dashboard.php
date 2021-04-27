@@ -3,12 +3,29 @@
 
 <div class="container-fluid mt-3 mb-3">
 
-    <?php if (session()->get('isUser') == 'Administrateur') : ?>
-        <h1>Tableau de bord, <?= session()->get('nom_user') ?></h1>
-
+    <?php if (session()->get('isUser') == 'Administrateur' || session()->get('isUser') == 'Contrôleur') : ?>
+        <h1>
+            <div class="d-flex align-items-center">
+                <div class="flex-shrink-0">
+                    <i class="fas fa-user-cog"></i>
+                </div>
+                <div class="flex-grow-1 ms-3">
+                    Tableau de bord, <?= session()->get('nom_user') ?>
+                </div>
+            </div>
+        </h1>
         <!--DASHBOARD USER-->
     <?php else : ?>
-        <h1>Tableau de bord, <?= session()->get('nom_user') ?></h1>
+        <h1>
+            <div class="d-flex align-items-center">
+                <div class="flex-shrink-0">
+                    <i class="fas fa-user-friends"></i>
+                </div>
+                <div class="flex-grow-1 ms-3">
+                    Tableau de bord, <?= session()->get('nom_user') ?>
+                </div>
+            </div>
+        </h1>
 
     <?php endif ?>
 
@@ -22,6 +39,7 @@
         var calendar = new FullCalendar.Calendar(calendarEl, {
             // height: "100%",
             // themeSystem: 'bootstrap',
+
             locale: 'fr',
             initialView: 'listWeek',
             headerToolbar: {
@@ -88,19 +106,25 @@
                 datasets: [{
                     label: "Statut des chambres",
                     backgroundColor: ["#6190E8", "#c1e6ff", "#ff7c1f"],
-                    data: data
-                }]
+                    data: data,
+                    borderWidth: false,
+                }],
             },
             options: {
                 responsive: true,
                 title: {
-                    display: true,
+                    display: false,
                     text: 'Disponibilité des chambres'
                 },
                 legend: {
                     display: true,
                     position: 'top',
-                    // align: 'start'
+                    align: 'start',
+                    labels: {
+                        boxWidth: 50,
+                        usePointStyle: true,
+                        pointStyle: 'cross',
+                    }
                 },
             }
         });
@@ -133,7 +157,7 @@
         console.log(data2);
 
         new Chart(document.getElementById("myChart4"), {
-            type: 'line',
+            type: 'bar',
             data: {
                 labels: labels.sort(),
                 // labels: ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'],
@@ -144,42 +168,50 @@
                     data: data1,
                     // data: ['5', '2', '2', '4', '0', '6', '1'],
                     // fill: false,
-                    borderColor: '#ff7c1f',
-                    backgroundColor: 'rgba(255, 152, 79, 0.5)',
-                    borderWidth: 4,
+                    // borderColor: '#ff7c1f',
+                    // backgroundColor: 'rgba(255, 152, 79, 0.5)',
+                    backgroundColor: '#ff7c1f',
+                    // borderWidth: 4,
+                    borderWidth: false,
                     radius: 1,
                     tension: 0,
+                    barThickness: 7,
                 }, {
                     label: "Day Use",
                     data: data2,
                     // data: ['1', '2', '0', '2', '7', '1', '5'],
                     // fill: false,
-                    borderColor: '#6190E8',
-                    backgroundColor: 'rgba(140, 180, 255, 0.5)',
-                    borderWidth: 4,
+                    // borderColor: '#6190E8',
+                    // backgroundColor: 'rgba(140, 180, 255, 0.5)',
+                    backgroundColor: '#6190E8',
+                    // borderWidth: 4,
+                    borderWidth: false,
                     radius: 1,
                     tension: 0,
+                    barThickness: 7,
                 }, ]
             },
             options: {
                 title: {
-                    display: true,
+                    display: false,
                     text: 'Tendance des reservations'
                 },
                 responsive: true,
                 legend: {
                     display: true,
                     position: 'top',
-                    align: 'end'
+                    align: 'end',
                 },
                 scales: {
                     xAxes: [{
+                        display: false,
                         stacked: true,
                         ticks: {
                             beginAtZero: true
                         }
                     }],
                     yAxes: [{
+                        display: false,
                         stacked: true,
                         ticks: {
                             beginAtZero: true
@@ -252,24 +284,41 @@
             <!-- <div class="container"> -->
             <div class="row gx-3" style="height: 100%;">
                 <div class="col-12">
-                    <div class="p-3 border bg-light bg-dashboard height-dashboard center"><canvas id="myChart2"></canvas></div>
-                </div>
-                <div class="col-4 mt-3">
-                    <div class="p-3 border bg-light bg-dashboard bg-dash1 height-dashboard center">
-                        <h5>Réservations :
-                            <?php echo (count($detailsNuit) + count($detailsDay)) ?></h5>
+                    <div class="p-3 border bg-light bg-dashboard height-dashboard">
+                        <h4>
+                            <div class="row">
+                                <div class="col text-start">Disponibilité des chambres</div>
+                                <div class="col-1 center"><i class="fas fa-house-user"></i></div>
+                            </div>
+                        </h4>
+                        <canvas id="myChart2"></canvas>
                     </div>
                 </div>
                 <div class="col-4 mt-3">
-                    <div class="p-3 border bg-light bg-dashboard bg-dash2 height-dashboard center">
-                        <h5>Nuitée :
-                            <?php echo (count($detailsNuit)) ?></h5>
+                    <div class="p-3 border bg-light bg-dashboard bg-dash1 height-dashboard container-fluid center">
+                        <div>
+                            <span class="center mb-2" style="font-size: 2.5rem;"><i class="fas fa-tags"></i></span>
+                            <h5 class="center">Réservations :
+                                <?php echo ($nombresNuitDay) ?></h5>
+                        </div>
                     </div>
                 </div>
                 <div class="col-4 mt-3">
-                    <div class="p-3 border bg-light bg-dashboard bg-dash3 height-dashboard center">
-                        <h5>Day Use :
-                            <?php echo (count($detailsDay)) ?></h5>
+                    <div class="p-3 border bg-light bg-dashboard bg-dash2 height-dashboard container-fluid center">
+                        <div style="color: white;">
+                            <span class="center mb-2" style="font-size: 2.5rem;"><i class="fas fa-moon"></i></span>
+                            <h5 class="center">Nuitée :
+                                <?php echo (count($detailsNuit)) ?></h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4 mt-3">
+                    <div class="p-3 border bg-light bg-dashboard bg-dash3 height-dashboard container-fluid center">
+                        <div style="color: black;">
+                            <span class="center mb-2" style="font-size: 2.5rem;"><i class="fas fa-sun"></i></span>
+                            <h5 class="center">Day Use :
+                                <?php echo (count($detailsDay)) ?></h5>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -284,39 +333,29 @@
             <!-- <div class="container"> -->
             <div class="row gx-3 height-dashboard">
                 <div class="col-6">
-                    <div class="p-3 border bg-light bg-dashboard height-dashboard">
-                        <h3>
-                            <div id="heure_jour"></div>
-                        </h3>
-                        <a href="dashboard">
-                            <div class="center"><img src="assets/images/logo-hotel.png" style="width: 70%;"></div>
-                        </a>
+                    <div class="p-3 border bg-light bg-dashboard height-dashboard container-fluid center">
+                        <div>
+                            <h3>
+                                <div id="heure_jour"></div>
+                            </h3>
+                            <a href="dashboard">
+                                <div class="center"><img src="assets/images/logo-hotel.png" style="width: 70%;"></div>
+                            </a>
+                        </div>
                     </div>
                 </div>
                 <div class="col-6">
-                    <div class="p-3 border bg-light bg-dashboard height-dashboard">
-                        <a href="dashboard">
-                            <div class="center"><img src="assets/images/admin.png" style="width: 70%;"></div>
-                        </a>
-                        <div class="container">
-                            <!-- <table class="table table-light">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Nom</th>
-                                        <th scope="col">Prénom</th>
-                                        <th scope="col">Droit</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="align-middle">
-                                    <td><?php echo ($user['nom_user']) ?></td>
-                                    <td><?php echo ($user['prenom_user']) ?></td>
-                                    <td><?php echo ($user['droit_user']) ?></td>
-                                </tbody>
-                            </table> -->
-                            <h5>
-                                <?php echo ($user['nom_user']) . ' ' . $user['prenom_user'] . ',' ?>
-                                <?php echo ($user['droit_user']) ?><br>
-                            </h5>
+                    <div class="p-3 border bg-light bg-dashboard height-dashboard container-fluid center">
+                        <div>
+                            <a href="dashboard">
+                                <div class="center"><img src="assets/images/admin.png" style="width: 70%;"></div>
+                            </a>
+                            <div class="container">
+                                <h5>
+                                    <?php echo ($user['nom_user']) . ' ' . $user['prenom_user'] . ',' ?>
+                                    <?php echo ($user['droit_user']) ?><br>
+                                </h5>
+                            </div>
                         </div>
 
                     </div>
@@ -325,7 +364,15 @@
             <!-- </div> -->
         </div>
         <div class="col-lg-6 col-sm-12">
-            <div class="p-3 border bg-light bg-dashboard center"><canvas id="myChart4"></canvas></div>
+            <div class="p-3 border bg-light bg-dashboard">
+                <h4>
+                    <div class="row">
+                        <div class="col text-start">Tendance des réservations</div>
+                        <div class="col-1 center"><i class="fas fa-tag"></i></div>
+                    </div>
+                </h4>
+                <canvas id="myChart4"></canvas>
+            </div>
         </div>
     </div>
 </div>

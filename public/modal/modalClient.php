@@ -16,7 +16,7 @@
 </div>
 
 <div class="modal fade" id="modalCardexUpdate" tabindex="-1" aria-labelledby="#" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title" id="#">Modification</h4>

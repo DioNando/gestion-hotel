@@ -195,6 +195,7 @@ class ReservationDay extends BaseController
 
 		$reservations = new effectuerModel();
 		$data['reservations'] = $reservations->select(['*', 'DATE_FORMAT(heure_arrive, "%H:%i") AS heure_arrive', 'DATE_FORMAT(heure_depart, "%H:%i") AS heure_depart'])->join('user', 'effectuer.ID_user = user.ID_user')->join('reservation_day', 'effectuer.ID_day = reservation_day.ID_day')->join('pour', 'pour.ID_day = reservation_day.ID_day')->join('planning', 'pour.ID_planning = planning.ID_planning')->orderBy('reservation_day.ID_day', 'desc')->findAll();
+		$data['total'] = count($data['reservations']);
 		return $data;
 	}
 

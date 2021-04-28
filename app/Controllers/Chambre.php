@@ -103,6 +103,11 @@ class Chambre extends BaseController
 		$data = [
             'chambres' => $chambres->paginate(10, 'paginationResult'),
             'pager' => $chambres->pager,
+            'total' => count($chambres->findAll()),
+            'total_all' => count($chambres->findAll()),
+            'libre' => count($chambres->where('statut_chambre', 'Libre')->findAll()),
+            'enAttente' => count($chambres->where('statut_chambre', 'En attente')->findAll()),
+            'occupee' => count($chambres->where('statut_chambre', 'Occupée')->findAll()),
         ];
         return $data;
     }
@@ -153,6 +158,11 @@ class Chambre extends BaseController
         $data = [
             'chambres' => $chambres->like('statut_chambre', $element_recherche, 'both')->orLike('tarif_chambre', $element_recherche, 'both')->paginate(10, 'paginationResult'),
             'pager' => $chambres->pager,
+            'total' => count($chambres->like('tarif_chambre', $element_recherche, 'both')->orLike('statut_chambre', $element_recherche, 'both')->findAll()),
+            'total_all' => count($chambres->findAll()),
+            'libre' => count($chambres->where('statut_chambre', 'Libre')->findAll()),
+            'enAttente' => count($chambres->where('statut_chambre', 'En attente')->findAll()),
+            'occupee' => count($chambres->where('statut_chambre', 'Occupée')->findAll()),
         ];
         return $data;
 	}

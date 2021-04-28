@@ -3,10 +3,10 @@
 <?php include("modal/modalNouveau.php"); ?>
 <?php include("assets/toast/myToast.php"); ?>
 
-<div class="container-fluid mt-3 mb-3">
+<div class="container-fluid mt-3 mb-3 row">
     <!-- <h1>Liste des chambres</h1> -->
 
-    <h1>
+    <h1 class="col">
         <div class="d-flex align-items-center">
             <div class="flex-shrink-0">
                 <i class="fas fa-clipboard-list"></i>
@@ -16,9 +16,21 @@
             </div>
         </div>
     </h1>
+
+    <h1 class="col-auto">
+        <div class="d-flex align-items-center">
+            <div class="flex-shrink-0">
+                <i class="fab fa-slack-hash"></i>
+            </div>
+            <div class="flex-grow-1 ms-3">
+                <?php echo ('Total : ' . $total) ?> </div>
+        </div>
+    </h1>
 </div>
 
 <div class="container-fluid">
+
+
     <?php include("search/recherche.php"); ?>
     <!-- <?php if (session()->get('success')) : ?>
         <div class="alert alert-success" role="alert">
@@ -59,7 +71,17 @@
                         <th scope="row"> <?php echo ($chambre['ID_chambre']) ?> </th>
                         <td> <?php echo ($chambre['description_chambre']) ?> </td>
                         <td class="text-end"> <?php echo number_format($chambre['tarif_chambre'], '2', ',', ' ') . ' Ar' ?> </td>
-                        <td> <?php echo ($chambre['statut_chambre']) ?> </td>
+                        <td>
+                            <div class="row">
+                                <div class="col-1 ms-2 center">
+                                    <?php if ($chambre['statut_chambre'] == 'Libre') echo ('<i class="fas fa-check text-success"></i>') ?>
+                                    <?php if ($chambre['statut_chambre'] == 'En attente') echo ('<i class="fas fa-exclamation-triangle text-danger"></i>') ?>
+                                    <?php if ($chambre['statut_chambre'] == 'Occupée') echo ('<i class="fas fa-house-user text-info"></i>') ?>
+                                </div>
+                                <div class="col text-start"><?php echo ($chambre['statut_chambre']) ?></div>
+                            </div>
+
+                        </td>
                         <?php if (session()->get('isUser') == 'Administrateur') : ?>
                             <td>
                                 <div class="center">
@@ -89,6 +111,44 @@
         </tbody>
     </table>
 
-    <?= $pager->links('paginationResult', 'pagination') ?>
+    <div class="row mb-4">
+        <div class="col"><?= $pager->links('paginationResult', 'pagination') ?></div>
+        <div class="col-auto center">
+            <div class="d-flex align-items-center">
+                <div class="flex-shrink-0">
+                    <i class="fab fa-slack-hash"></i>
+                </div>
+                <div class="flex-grow-1 ms-2">
+                    <?php echo ('Total : ' . $total_all) ?> </div>
+            </div>
+        </div>
+        <div class="col-auto center">
+            <div class="d-flex align-items-center">
+                <div class="flex-shrink-0">
+                    <i class="fas fa-check text-success"></i>
+                </div>
+                <div class="flex-grow-1 ms-2">
+                    <?php echo ('Libre : ' . $libre) ?> </div>
+            </div>
+        </div>
+        <div class="col-auto center">
+            <div class="d-flex align-items-center">
+                <div class="flex-shrink-0">
+                    <i class="fas fa-exclamation-triangle text-danger"></i>
+                </div>
+                <div class="flex-grow-1 ms-2">
+                    <?php echo ('En attente : ' . $enAttente) ?> </div>
+            </div>
+        </div>
+        <div class="col-auto center">
+            <div class="d-flex align-items-center">
+                <div class="flex-shrink-0">
+                    <i class="fas fa-house-user text-info"></i>
+                </div>
+                <div class="flex-grow-1 ms-2">
+                    <?php echo ('Occupée : ' . $occupee) ?> </div>
+            </div>
+        </div>
+    </div>
 
 </div>

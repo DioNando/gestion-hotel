@@ -84,21 +84,25 @@ class Client extends BaseController
 		$data = [
 			'clients' => $clients->orderBy('ID_client', 'desc')->paginate(20, 'paginationResult'),
 			'pager' => $clients->pager,
+			'total' => count($clients->findAll()),
+			'total_all' => count($clients->findAll()),
 		];
-
 		return $data;
 	}
-
+	
 	public function search($element_recherche)
 	{
 		$data = [];
 		$clients = new clientModel();
 		// $data['clients'] = $clients->where('nom_client', $nom_client)->find();
-
+		
 		$data = [
 			'clients' => $clients->like('nom_client', $element_recherche, 'both')->orLike('prenom_client', $element_recherche, 'both')->paginate(20, 'paginationResult'),
 			'pager' => $clients->pager,
+			'total' => count($clients->like('nom_client', $element_recherche, 'both')->orLike('prenom_client', $element_recherche, 'both')->findAll()),
+			'total_all' => count($clients->findAll()),
 		];
+
 		return $data;
 	}
 

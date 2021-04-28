@@ -315,6 +315,7 @@ class ReservationNuit extends BaseController
 		$data = [];
 		$reservations = new effectuerModel();
 		$data['reservations'] = $reservations->select(['*', 'DATE_FORMAT(debut_sejour, "%d %b %Y") AS debut_sejour', 'DATE_FORMAT(fin_sejour, "%d %b %Y") AS fin_sejour'])->join('user', 'effectuer.ID_user = user.ID_user')->join('reservation_nuit', 'effectuer.ID_nuit = reservation_nuit.ID_nuit')->join('client', 'reservation_nuit.ID_client = client.ID_client')->join('pour', 'pour.ID_nuit = reservation_nuit.ID_nuit')->join('planning', 'pour.ID_planning = planning.ID_planning')->orderBy('reservation_nuit.ID_nuit', 'desc')->findAll();
+		$data['total'] = count($data['reservations']);
 		return $data;
 	}
 

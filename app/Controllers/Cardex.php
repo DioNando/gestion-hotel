@@ -51,21 +51,29 @@ class Cardex extends BaseController
 		// $data['clients'] = $clients->orderBy('ID_client', 'asc')->findAll();
 
 		$data = [
-			'clients' => $clients->paginate(20, 'paginationResult'),
+			'clients' => $clients->join('cardex', 'cardex.ID_client = client.ID_client')->paginate(20, 'paginationResult'),
 			'pager' => $clients->pager,
+			'total' => count($clients->join('cardex', 'cardex.ID_client = client.ID_client')->findAll()),
+			'total_all' => count($clients->join('cardex', 'cardex.ID_client = client.ID_client')->findAll()),
+			'cardex_vide' => count($clients->where('etat_cardex', 0)->join('cardex', 'cardex.ID_client = client.ID_client')->findAll()),
+			'cardex_rempli' => count($clients->where('etat_cardex', 1)->join('cardex', 'cardex.ID_client = client.ID_client')->findAll()),
 		];
 		return $data;
 	}
-
+	
 	public function search($element_recherche)
 	{
 		$data = [];
 		$clients = new clientModel();
 		// $data['clients'] = $clients->like('nom_client', $element_recherche, 'both')->orLike('prenom_client', $element_recherche, 'both')->find();
-
+		
 		$data = [
-			'clients' => $clients->like('nom_client', $element_recherche, 'both')->orLike('prenom_client', $element_recherche, 'both')->paginate(20, 'paginationResult'),
+			'clients' => $clients->join('cardex', 'cardex.ID_client = client.ID_client')->like('nom_client', $element_recherche, 'both')->orLike('prenom_client', $element_recherche, 'both')->paginate(20, 'paginationResult'),
 			'pager' => $clients->pager,
+			'total' => count($clients->join('cardex', 'cardex.ID_client = client.ID_client')->like('nom_client', $element_recherche, 'both')->orLike('prenom_client', $element_recherche, 'both')->findAll()),
+			'total_all' => count($clients->join('cardex', 'cardex.ID_client = client.ID_client')->findAll()),
+			'cardex_vide' => count($clients->where('etat_cardex', 0)->join('cardex', 'cardex.ID_client = client.ID_client')->findAll()),
+			'cardex_rempli' => count($clients->where('etat_cardex', 1)->join('cardex', 'cardex.ID_client = client.ID_client')->findAll()),	
 		];
 		return $data;
 	}
@@ -110,6 +118,7 @@ class Cardex extends BaseController
 						'date_delivrance' => $_POST['date_delivrance'],
 						'lieu_delivrance' => $_POST['lieu_delivrance'],
 						'date_fin_validite' => $_POST['date_fin_validite'],
+						'etat_cardex' => 1,
 					];
 
 					$clients->set($data);

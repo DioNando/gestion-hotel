@@ -2,10 +2,10 @@
 <?php include("modal/modalClient.php"); ?>
 <?php include("assets/toast/myToast.php"); ?>
 
-<div class="container-fluid mt-3 mb-3">
+<div class="container-fluid mt-3 mb-3 row">
     <!-- <h1>Fiche Cardex</h1> -->
 
-    <h1>
+    <h1 class="col">
         <div class="d-flex align-items-center">
             <div class="flex-shrink-0">
                 <i class="far fa-id-card"></i>
@@ -13,6 +13,17 @@
             <div class="flex-grow-1 ms-3">
                 Fiche Cardex
             </div>
+        </div>
+    </h1>
+
+
+    <h1 class="col-auto">
+        <div class="d-flex align-items-center">
+            <div class="flex-shrink-0">
+                <i class="fas fa-exclamation-triangle text-danger"></i>
+            </div>
+            <div class="flex-grow-1 ms-3">
+                <?php echo ('En attente : ' . $cardex_vide) ?> </div>
         </div>
     </h1>
 </div>
@@ -36,6 +47,7 @@
                 <th scope="col" class="text-start">Nom</th>
                 <th scope="col" class="text-start">Prénom</th>
                 <th scope="col">Historique</th>
+                <th scope="col">Validation</th>
                 <th scope="col">Modifier</th>
                 <th scope="col">Fiche Cardex</th>
             </tr>
@@ -58,6 +70,14 @@
                                 </div>
                             </div>
                         </td>
+                        <td class="text-center"> <?php if ($client['etat_cardex']) : { ?>
+                                    <i class="fas fa-check text-info"></i>
+                                <?php }
+                                                    else : { ?>
+                                    <i class="fas fa-exclamation-triangle text-danger"></i>
+                            <?php }
+                                                    endif ?>
+                        </td>
                         <td>
                             <div class="center">
                                 <div>
@@ -79,9 +99,9 @@
                 ?>
                 <tr>
                     <?php if (session()->get('isUser') == 'Administrateur') : ?>
-                        <td colspan="6">Tableau vide.</td>
+                        <td colspan="7">Tableau vide.</td>
                     <?php else : ?>
-                        <td colspan="6">Tableau vide.</td>
+                        <td colspan="7">Tableau vide.</td>
                     <?php endif; ?>
                 </tr>
             <?php
@@ -90,6 +110,35 @@
         </tbody>
     </table>
 
-    <?= $pager->links('paginationResult', 'pagination') ?>
+    <div class="row mb-4">
+        <div class="col"><?= $pager->links('paginationResult', 'pagination') ?></div>
+        <div class="col-auto center">
+            <div class="d-flex align-items-center">
+                <div class="flex-shrink-0">
+                    <i class="fab fa-slack-hash"></i>
+                </div>
+                <div class="flex-grow-1 ms-2">
+                    <?php echo ('Total : ' . $total_all) ?> </div>
+            </div>
+        </div>
+        <div class="col-auto center">
+            <div class="d-flex align-items-center">
+                <div class="flex-shrink-0">
+                    <i class="fas fa-check text-info"></i>
+                </div>
+                <div class="flex-grow-1 ms-2">
+                    <?php echo ('Rempli : ' . $cardex_rempli) ?> </div>
+            </div>
+        </div>
+        <div class="col-auto center">
+            <div class="d-flex align-items-center">
+                <div class="flex-shrink-0">
+                    <i class="fas fa-exclamation-triangle text-danger"></i>
+                </div>
+                <div class="flex-grow-1 ms-2">
+                    <?php echo ('En attente : ' . $cardex_vide) ?> </div>
+            </div>
+        </div>
+    </div>
 
 </div>

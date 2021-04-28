@@ -200,8 +200,8 @@
                                     </div>
                                 </button>
                             </h2>
-                            <!-- <div id="flush-collapse1" class="accordion-collapse collapse" aria-labelledby="flush-heading1" data-bs-parent="#accordionMenu"> -->
-                            <div id="flush-collapse1" class="accordion-collapse" aria-labelledby="flush-heading1" data-bs-parent="#accordionMenu">
+                            <div id="flush-collapse1" class="accordion-collapse collapse" aria-labelledby="flush-heading1" data-bs-parent="#accordionMenu">
+                            <!-- <div id="flush-collapse1" class="accordion-collapse" aria-labelledby="flush-heading1" data-bs-parent="#accordionMenu"> -->
                                 <div class="accordion-body">
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
@@ -243,8 +243,8 @@
                                     </div>
                                 </button>
                             </h2>
-                            <!-- <div id="flush-collapse2" class="accordion-collapse collapse" aria-labelledby="flush-heading2" data-bs-parent="#accordionMenu"> -->
-                            <div id="flush-collapse2" class="accordion-collapse" aria-labelledby="flush-heading2" data-bs-parent="#accordionMenu">
+                            <div id="flush-collapse2" class="accordion-collapse collapse" aria-labelledby="flush-heading2" data-bs-parent="#accordionMenu">
+                            <!-- <div id="flush-collapse2" class="accordion-collapse" aria-labelledby="flush-heading2" data-bs-parent="#accordionMenu"> -->
                                 <div class="accordion-body">
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
@@ -278,8 +278,8 @@
                                     </div>
                                 </button>
                             </h2>
-                            <!-- <div id="flush-collapse3" class="accordion-collapse collapse" aria-labelledby="flush-heading3" data-bs-parent="#accordionMenu"> -->
-                            <div id="flush-collapse3" class="accordion-collapse" aria-labelledby="flush-heading3" data-bs-parent="#accordionMenu">
+                            <div id="flush-collapse3" class="accordion-collapse collapse" aria-labelledby="flush-heading3" data-bs-parent="#accordionMenu">
+                            <!-- <div id="flush-collapse3" class="accordion-collapse" aria-labelledby="flush-heading3" data-bs-parent="#accordionMenu"> -->
                                 <div class="accordion-body">
                                     <ul class="nav flex-column">
                                         <li class="nav-item">

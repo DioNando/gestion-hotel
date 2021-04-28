@@ -126,6 +126,11 @@ class User extends BaseController
         $data = [
             'users' => $users->paginate(10, 'paginationResult'),
             'pager' => $users->pager,
+            'total' => count($users->findAll()),
+            'total_all' => count($users->findAll()),
+            'administrateur' => count($users->where('droit_user', 'Administrateur')->findAll()),
+            'controleur' => count($users->where('droit_user', 'Contrôleur')->findAll()),
+            'utilisateur' => count($users->where('droit_user', 'Utilisateur')->findAll()),
         ];
 
         return $data;
@@ -294,6 +299,11 @@ class User extends BaseController
         $data = [
             'users' => $users->like('nom_user', $element_recherche, 'both')->orLike('prenom_user', $element_recherche, 'both')->paginate(10, 'paginationResult'),
             'pager' => $users->pager,
+            'total' => count($users->like('nom_user', $element_recherche, 'both')->orLike('prenom_user', $element_recherche, 'both')->findAll()),
+            'total_all' => count($users->findAll()),
+            'administrateur' => count($users->where('droit_user', 'Administrateur')->findAll()),
+            'controleur' => count($users->where('droit_user', 'Contrôleur')->findAll()),
+            'utilisateur' => count($users->where('droit_user', 'Utilisateur')->findAll()),
         ];
         return $data;
     }

@@ -3,10 +3,10 @@
 <?php include("modal/modalNouveau.php"); ?>
 <?php include("assets/toast/myToast.php"); ?>
 
-<div class="container-fluid mt-3 mb-3">
+<div class="container-fluid mt-3 mb-3 row">
     <!-- <h1>Liste des clients</h1> -->
 
-    <h1>
+    <h1 class="col">
         <div class="d-flex align-items-center">
             <div class="flex-shrink-0">
                 <i class="fas fa-address-book"></i>
@@ -14,6 +14,16 @@
             <div class="flex-grow-1 ms-3">
                 Liste des clients
             </div>
+        </div>
+    </h1>
+
+    <h1 class="col-auto">
+        <div class="d-flex align-items-center">
+            <div class="flex-shrink-0">
+                <i class="fab fa-slack-hash"></i>
+            </div>
+            <div class="flex-grow-1 ms-3">
+                <?php echo ('Total : ' . $total) ?> </div>
         </div>
     </h1>
 </div>
@@ -84,6 +94,17 @@
         </tbody>
     </table>
 
-    <?= $pager->links('paginationResult', 'pagination') ?>
+    <div class="row mb-4">
+        <div class="col"><?= $pager->links('paginationResult', 'pagination') ?></div>
+        <div class="col-auto center">
+            <div class="d-flex align-items-center">
+                <div class="flex-shrink-0">
+                    <i class="fab fa-slack-hash"></i>
+                </div>
+                <div class="flex-grow-1 ms-2">
+                    <?php echo ('Total : ' . $total_all) ?> </div>
+            </div>
+        </div>
+    </div>
 
 </div>

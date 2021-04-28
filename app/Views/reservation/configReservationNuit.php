@@ -2,10 +2,10 @@
 <?php include("modal/modalReservationNuit.php"); ?>
 <?php include("assets/toast/myToast.php"); ?>
 
-<div class="container-fluid mt-3 mb-3">
+<div class="container-fluid mt-3 mb-3 row">
     <!-- <h1>Liste des réservations nuitées</h1> -->
 
-    <h1>
+    <h1 class="col">
         <div class="d-flex align-items-center">
             <div class="flex-shrink-0">
                 <i class="fas fa-calendar-week"></i>
@@ -13,6 +13,16 @@
             <div class="flex-grow-1 ms-3">
                 Liste des réservations nuitées
             </div>
+        </div>
+    </h1>
+
+    <h1 class="col-auto">
+        <div class="d-flex align-items-center">
+            <div class="flex-shrink-0">
+                <i class="fab fa-slack-hash"></i>
+            </div>
+            <div class="flex-grow-1 ms-3">
+                <?php echo ('Total : ' . $total) ?> </div>
         </div>
     </h1>
 </div>

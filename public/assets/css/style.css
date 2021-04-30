@@ -2,10 +2,14 @@
 
 :root {
   --blanc: #ffffff;
-  --chambreLibre: #ff7c1f;
+  --chambreLibre: #198754;
+  --chambreOccupee: #6c757d;
+  --chambreAttente: #dc3545;
+  --chambreReservation: #0d6efd;
+  /* --chambreLibre: #ff7c1f;
   --chambreOccupee: #c1e6ff;
   --chambreAttente: #067eed;
-  --chambreReservation: #84ff3d;
+  --chambreReservation: #84ff3d; */
   --primaryColor: #6190e8;
   --headerColor: #136a8a;
   --secondaryColor: #067eed;
@@ -33,7 +37,7 @@
 
 body {
   font-family: "Helvetica";
-  background-image: url("#");
+  background-image: url("../images/background6.png");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
@@ -41,11 +45,13 @@ body {
   /* background-color: var(--primaryColor); */
 }
 
-body::-webkit-scrollbar, .modal-scroll::-webkit-scrollbar {
+body::-webkit-scrollbar,
+.modal-scroll::-webkit-scrollbar {
   display: none; /* Hide scrollbar for Chrome, Safari and Opera */
 }
 
-body, .modal-scroll {
+body,
+.modal-scroll {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
@@ -95,16 +101,32 @@ footer {
 
 .headerMenu {
   /* color: var(--borderColor); */
-  color: #212529;
+  color: var(--blanc);
 }
 
 .headerMenu:hover {
-  color: var(--blanc);
+  /* color: var(--blanc); */
+  color: #212529;
   transition-duration: 0.3s;
 }
 
 .card {
-  background-color: var(--sidebarColor);
+  /* background-color: var(--sidebarColor); */
+  border: none;
+  background: rgba(255, 255, 255, 0.25) !important;
+  backdrop-filter: blur(8.5px);
+  -webkit-backdrop-filter: blur(8.5px);
+}
+
+.page-link:focus {
+  box-shadow: none;
+}
+
+.modal-content, .page-link {
+  border: none;
+  background: rgba(255, 255, 255, 0.795) !important;
+  backdrop-filter: blur(8.5px);
+  -webkit-backdrop-filter: blur(8.5px);
 }
 
 .card-img-top {
@@ -121,6 +143,15 @@ footer {
   opacity: 1;
 }
 
+.border {
+  border: none !important;
+}
+
+.accordion-button {
+  border: none;
+  /* border-right: 1px var(--borderColor); */
+}
+
 .accordion-button:focus {
   border: none;
   background-color: var(--primaryColor);
@@ -128,11 +159,26 @@ footer {
   box-shadow: none;
 }
 
+.accordion-item:first-of-type .accordion-button {
+  /* border-top-left-radius: .25rem; */
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-top: none;
+}
+
+.accordion-item:last-of-type .accordion-button,
+.accordion-item:last-of-type .accordion-button.collapsed {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  border-bottom: none;
+}
+
 .accordion-button:not(.collapsed) {
   color: var(--blanc);
   background-color: var(--primaryColor);
-  border-top: 1px solid var(--borderColor);
-  border-bottom: 1px solid var(--borderColor);
+  /* border-bottom-width: 0; */
+  /* border-top: 1px solid var(--borderColor); */
+  /* border-bottom: 1px solid var(--borderColor); */
 }
 
 .center {
@@ -146,18 +192,21 @@ footer {
   margin-bottom: 1rem;
   padding-top: 0.5rem;
   padding-bottom: 1rem;
-  border: 1px solid var(--borderColor);
+  /* border: 1px solid var(--borderColor); */
   border-radius: 0.5rem;
+  background: rgba(255, 255, 255, 0.25) !important;
+  backdrop-filter: blur(8.5px);
+  -webkit-backdrop-filter: blur(8.5px);
 }
 
 .formulaire-login {
   background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(5px);
   /* background: rgba(255, 255, 255, 0.150); */
   width: 35%;
   margin-top: 7vh;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
-  backdrop-filter: blur(5px);
+  /* box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%); */
   border: none;
 }
 
@@ -172,15 +221,18 @@ footer {
 
 .menu {
   /* background: var(--primaryColor); */
-  background: var(--sidebarColor);
+  /* background: var(--sidebarColor); */
   /* background-image: linear-gradient(to top, #136a8a , #267871); */
-  height: auto;
-  border-right: 1px solid var(--borderColor);
+  background: rgba(255, 255, 255, 0.25) !important;
+  /* backdrop-filter: blur(8.5px);
+  -webkit-backdrop-filter: blur(8.5px);
+  height: auto; */
+  /* border-right: 1px solid var(--borderColor); */
 }
 
-/* .accordion-button {
-  color: var(--blanc);
-} */
+.accordion-collapse {
+  border: none;
+}
 
 .accordion-button::after,
 .accordion-button:not(.collapsed)::after {
@@ -191,6 +243,7 @@ footer {
 .navbar-toggler-icon {
   background-image: url("../icons/menu1.png");
 }
+
 .navbar-toggler:focus {
   box-shadow: none;
 }
@@ -243,6 +296,11 @@ footer {
   margin-bottom: 0;
 }
 
+.form-check div label,
+.form-check input {
+  cursor: pointer;
+}
+
 .form-check-input[type="checkbox"] {
   background: var(--chambreLibre);
   border-radius: 50px;
@@ -272,9 +330,18 @@ footer {
   height: 100%;
 }
 
+.table {
+  background: rgba(255, 255, 255, 0.25) !important;
+  backdrop-filter: blur(8.5px);
+  -webkit-backdrop-filter: blur(8.5px);
+}
+
 .bg-dashboard {
   border-radius: 0.5rem;
-  background: var(--sidebarColor) !important;
+  /* background: var(--sidebarColor) !important; */
+  background: rgba(255, 255, 255, 0.25) !important;
+  backdrop-filter: blur(8.5px);
+  -webkit-backdrop-filter: blur(8.5px);
 }
 /* #calendar {
  

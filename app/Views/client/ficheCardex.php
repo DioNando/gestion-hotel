@@ -40,7 +40,7 @@
             <?= session()->get('delete') ?>
         </div>
     <?php endif; ?> -->
-    <table class="table table-hover table-striped table-light">
+    <table class="table table-hover table-striped">
         <thead>
             <tr>
                 <th scope="col"><i class="fab fa-slack-hash"></i></th>
@@ -66,7 +66,8 @@
                         <td>
                             <div class="center">
                                 <div>
-                                    <button type="button" class="btn btn-outline-secondary btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalInfoHistorique" onclick="infoHistorique('<?php echo $client['ID_client']; ?>' , 'historique')"><i class="fas fa-history"></i></button>
+                                    <!-- <button type="button" class="btn btn-outline-secondary btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalInfoHistorique" onclick="infoHistorique('<?php echo $client['ID_client']; ?>' , 'historique')"><i class="fas fa-history"></i></button> -->
+                                    <button type="button" class="btn btn-outline-secondary btn-icon btn-sm" onclick="openNav('<?php echo $client['ID_client']; ?>' , 'historique')"><i class="fas fa-history"></i></button>
                                 </div>
                             </div>
                         </td>

@@ -47,7 +47,7 @@
             <?= session()->get('delete') ?>
         </div>
     <?php endif; ?> -->
-    <table class="table table-hover table-striped table-light" id="result">
+    <table class="table table-hover table-striped" id="result">
         <thead>
             <tr>
                 <th scope="col"><i class="fab fa-slack-hash"></i></th>
@@ -70,13 +70,13 @@
                     <tr>
                         <th scope="row"> <?php echo ($chambre['ID_chambre']) ?> </th>
                         <td> <?php echo ($chambre['description_chambre']) ?> </td>
-                        <td class="text-end"> <?php echo number_format($chambre['tarif_chambre'], '2', ',', ' ') . ' Ar' ?> </td>
+                        <td class="text-end"> <?php echo number_format($chambre['tarif_chambre'], '0', '', ' ') . ' Ar' ?> </td>
                         <td>
                             <div class="row">
                                 <div class="col-1 ms-2 center">
-                                    <?php if ($chambre['statut_chambre'] == 'Libre') echo ('<i class="fas fa-check text-success"></i>') ?>
+                                    <?php if ($chambre['statut_chambre'] == 'Libre') echo ('<i class="fas fa-tag text-success"></i>') ?>
                                     <?php if ($chambre['statut_chambre'] == 'En attente') echo ('<i class="fas fa-exclamation-triangle text-danger"></i>') ?>
-                                    <?php if ($chambre['statut_chambre'] == 'Occupée') echo ('<i class="fas fa-house-user text-info"></i>') ?>
+                                    <?php if ($chambre['statut_chambre'] == 'Occupée') echo ('<i class="fas fa-house-user text-secondary"></i>') ?>
                                 </div>
                                 <div class="col text-start"><?php echo ($chambre['statut_chambre']) ?></div>
                             </div>
@@ -111,7 +111,51 @@
         </tbody>
     </table>
 
-    <div class="row mb-4">
+
+
+    <script>
+        let dataChambre = <?php echo ($jsonChambre) ?>;
+        let obj = JSON.stringify(dataChambre);
+
+        function chambreJSON() {
+            $(document).ready(function() {
+                $.ajax({
+                    url: 'saveTarif',
+                    type: 'POST',
+                    dataType: 'JSON',
+                    data: {
+                        dataJSON: obj,
+                    },
+
+                    success: function(result) {
+                        console.log(result);
+                    },
+                    error: function() {
+                        alert('Erreur');
+                    },
+                })
+            });
+        }
+    </script>
+
+
+
+    <!-- <form action="saveTarif" method="post"> -->
+    <div class="container-fluid p-0 d-flex justify-content-end">
+        <button class="btn btn-primary me-0" onclick="chambreJSON()" name="btn_saveTarif">
+            <div class="d-flex align-items-center">
+                <div class="flex-shrink-0">
+                    <i class="fas fa-save"></i>
+                </div>
+                <div class="flex-grow-1 ms-2">
+                    Sauvegarder
+                </div>
+            </div>
+        </button>
+    </div>
+    <!-- </form> -->
+
+    <div class="row mb-4 mt-3">
         <div class="col"><?= $pager->links('paginationResult', 'pagination') ?></div>
         <div class="col-auto center">
             <div class="d-flex align-items-center">
@@ -125,7 +169,7 @@
         <div class="col-auto center">
             <div class="d-flex align-items-center">
                 <div class="flex-shrink-0">
-                    <i class="fas fa-check text-success"></i>
+                    <i class="fas fa-tag text-success"></i>
                 </div>
                 <div class="flex-grow-1 ms-2">
                     <?php echo ('Libre : ' . $libre) ?> </div>
@@ -143,7 +187,7 @@
         <div class="col-auto center">
             <div class="d-flex align-items-center">
                 <div class="flex-shrink-0">
-                    <i class="fas fa-house-user text-info"></i>
+                    <i class="fas fa-house-user text-secondary"></i>
                 </div>
                 <div class="flex-grow-1 ms-2">
                     <?php echo ('Occupée : ' . $occupee) ?> </div>

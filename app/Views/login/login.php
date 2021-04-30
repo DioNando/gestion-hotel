@@ -2,8 +2,8 @@
 
 <div class="container">
     <div class="container-fluid formulaire formulaire-login">
-        <span class="center mb-2"><img src="assets/images/login4.png"></span>
-        <h1 class="center" style="color: white;">SE CONNECTER</h1>
+        <span class="center mb-2"><img src="assets/images/group1.png"></span>
+        <h1 class="center">SE CONNECTER</h1>
         <form action="" method="post">
             <div class="form-group mt-3">
                 <input type="text" class="form-control" name="nom_user" id="nom_user" autocomplete="off" placeholder="Nom d'utilisateur">

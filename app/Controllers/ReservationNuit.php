@@ -314,8 +314,27 @@ class ReservationNuit extends BaseController
 	{
 		$data = [];
 		$reservations = new effectuerModel();
-		$data['reservations'] = $reservations->select(['*', 'DATE_FORMAT(debut_sejour, "%d %b %Y") AS debut_sejour', 'DATE_FORMAT(fin_sejour, "%d %b %Y") AS fin_sejour'])->join('user', 'effectuer.ID_user = user.ID_user')->join('reservation_nuit', 'effectuer.ID_nuit = reservation_nuit.ID_nuit')->join('client', 'reservation_nuit.ID_client = client.ID_client')->join('pour', 'pour.ID_nuit = reservation_nuit.ID_nuit')->join('planning', 'pour.ID_planning = planning.ID_planning')->orderBy('reservation_nuit.ID_nuit', 'desc')->findAll();
-		$data['total'] = count($data['reservations']);
+		// $data['reservations'] = $reservations->select(['*', 'DATE_FORMAT(debut_sejour, "%d %b %Y") AS debut_sejour', 'DATE_FORMAT(fin_sejour, "%d %b %Y") AS fin_sejour'])->join('user', 'effectuer.ID_user = user.ID_user')->join('reservation_nuit', 'effectuer.ID_nuit = reservation_nuit.ID_nuit')->join('client', 'reservation_nuit.ID_client = client.ID_client')->join('pour', 'pour.ID_nuit = reservation_nuit.ID_nuit')->join('planning', 'pour.ID_planning = planning.ID_planning')->orderBy('reservation_nuit.ID_nuit', 'desc')->findAll();
+		// $data['total'] = count($data['reservations']);
+		
+		$data = [
+            'reservations' => $reservations->select(['*', 'DATE_FORMAT(debut_sejour, "%d %b %Y") AS debut_sejour', 'DATE_FORMAT(fin_sejour, "%d %b %Y") AS fin_sejour',
+			'(CASE 
+					WHEN debut_sejour > CURDATE() AND fin_sejour > CURDATE() THEN "1"
+					WHEN fin_sejour >= CURDATE() AND debut_sejour < CURDATE() + 1 THEN "2"
+					WHEN fin_sejour < CURDATE() THEN "3"
+				END) AS etat'
+			
+			])->join('user', 'effectuer.ID_user = user.ID_user')->join('reservation_nuit', 'effectuer.ID_nuit = reservation_nuit.ID_nuit')->join('etat', 'etat.ID_etat_reservation = reservation_nuit.ID_etat_reservation')->join('client', 'reservation_nuit.ID_client = client.ID_client')->join('pour', 'pour.ID_nuit = reservation_nuit.ID_nuit')->join('planning', 'pour.ID_planning = planning.ID_planning')->orderBy('reservation_nuit.ID_nuit', 'desc')->paginate(20, 'paginationResult'),
+            'pager' => $reservations->pager,
+            'total' => count($reservations->join('reservation_nuit', 'effectuer.ID_nuit = reservation_nuit.ID_nuit')->findAll()),
+            'total_all' => count($reservations->join('reservation_nuit', 'effectuer.ID_nuit = reservation_nuit.ID_nuit')->findAll()),
+			'enAttente' => count($reservations->where('debut_sejour > CURDATE() AND fin_sejour > CURDATE()')->join('reservation_nuit', 'effectuer.ID_nuit = reservation_nuit.ID_nuit')->join('pour', 'pour.ID_nuit = reservation_nuit.ID_nuit')->join('planning', 'pour.ID_planning = planning.ID_planning')->findAll()),
+			'enCours' => count($reservations->where('fin_sejour >= CURDATE() AND debut_sejour < CURDATE() + 1')->join('reservation_nuit', 'effectuer.ID_nuit = reservation_nuit.ID_nuit')->join('pour', 'pour.ID_nuit = reservation_nuit.ID_nuit')->join('planning', 'pour.ID_planning = planning.ID_planning')->findAll()),
+			'termine' => count($reservations->where('fin_sejour < CURDATE()')->join('reservation_nuit', 'effectuer.ID_nuit = reservation_nuit.ID_nuit')->join('pour', 'pour.ID_nuit = reservation_nuit.ID_nuit')->join('planning', 'pour.ID_planning = planning.ID_planning')->findAll()),
+		];
+		
+		
 		return $data;
 	}
 
@@ -414,8 +433,8 @@ class ReservationNuit extends BaseController
 		$reservation = new reservationNuitModel();
 		// $reservation->delete(['ID_nuit' => $_POST['ID_nuit']]);
 
-		$sql = "DELETE reservation_nuit, pour, planning, concerner FROM reservation_nuit 
-		INNER JOIN pour ON reservation_nuit.ID_nuit = pour.ID_nuit INNER JOIN planning ON pour.ID_planning = planning.ID_planning INNER JOIN concerner ON concerner.ID_planning = planning.ID_planning WHERE reservation_nuit.ID_nuit = ?";
+		$sql = "DELETE reservation_nuit, pour, planning, concerner, effectuer FROM reservation_nuit 
+		INNER JOIN effectuer ON reservation_nuit.ID_nuit = effectuer.ID_nuit INNER JOIN pour ON reservation_nuit.ID_nuit = pour.ID_nuit INNER JOIN planning ON pour.ID_planning = planning.ID_planning INNER JOIN concerner ON concerner.ID_planning = planning.ID_planning WHERE reservation_nuit.ID_nuit = ?";
 
 		$reservation->query($sql, array($_POST['ID_nuit']));
 

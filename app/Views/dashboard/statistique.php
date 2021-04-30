@@ -16,19 +16,21 @@
 
 </div>
 
-<div class="container">
+<div class="container mb-4">
+    <h5 class="mt-5">En cours de développement...</h5>
+    <h6 class="mt-3">Test librairie ChartJS</h6>
     <div class="row g-2">
         <div class="col-lg-6 col-sm-12">
-            <div class="p-3 border bg-light"><canvas id="myChart1"></canvas></div>
+            <div class="p-3"><canvas id="myChart1"></canvas></div>
         </div>
         <div class="col-lg-6 col-sm-12">
-            <div class="p-3 border bg-light"><canvas id="myChart2"></canvas></div>
+            <div class="p-3"><canvas id="myChart2"></canvas></div>
         </div>
         <div class="col-lg-6 col-sm-12">
-            <div class="p-3 border bg-light"><canvas id="myChart3"></canvas></div>
+            <div class="p-3"><canvas id="myChart3"></canvas></div>
         </div>
         <div class="col-lg-6 col-sm-12">
-            <div class="p-3 border bg-light"><canvas id="myChart4"></canvas></div>
+            <div class="p-3"><canvas id="myChart4"></canvas></div>
         </div>
     </div>
 </div>
@@ -59,20 +61,31 @@
 
 <script>
     new Chart(document.getElementById('myChart2'), {
-        type: 'doughnut',
+        type: 'pie',
         data: {
             labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
             datasets: [{
                 label: "Population (millions)",
                 backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
-                data: [2478, 5267, 734, 784, 433]
+                data: [2478, 5267, 734, 784, 433],
+                borderWidth: false,
             }]
         },
         options: {
             title: {
                 display: true,
                 text: 'Predicted world population (millions) in 2050'
-            }
+            },
+            legend: {
+                display: true,
+                position: 'bottom',
+                align: 'center',
+                labels: {
+                    boxWidth: 50,
+                    usePointStyle: true,
+                    pointStyle: 'cross',
+                }
+            },
         }
     });
 </script>

@@ -2,7 +2,16 @@
 
 <div class="container">
     <div class="container-fluid bg-light formulaire">
-        <h1 class="center">FACTURATION NUITEE</h1>
+        <h1 class="center mt-3 mb-3">
+            <div class="d-flex align-items-center">
+                <div class="flex-grow-1 me-3">
+                    Facturation nuitée
+                </div>
+                <div class="flex-shrink-0">
+                    <i class="fas fa-moon"></i>
+                </div>
+            </div>
+        </h1>
         <form action="facture" method="post">
             <div class="row">
                 <!-- <div class="col-12">
@@ -126,10 +135,10 @@
                         <?php foreach ($details as $detail) { ?>
                             <tr>
                                 <th> <?php echo ($detail['ID_chambre']) ?> </th>
-                                <td class="text-end"> <?php echo number_format($detail['tarif_chambre'], 2, ',', ' ')  . ' Ar' ?> </td>
+                                <td class="text-end"> <?php echo number_format($detail['tarif_chambre'], '0', '', ' ')  . ' Ar' ?> </td>
                                 <td scope="row" class="text-center"> <?php echo ($detail['nbr_nuit']) ?> </td>
                                 <td class="text-center"> <?php echo ('0'); ?> </td>
-                                <td class="text-end"> <?php echo number_format($detail['tarif_chambre'] * $detail['nbr_nuit'], 2, ',', ' ') . ' Ar' ?> </td>
+                                <td class="text-end"> <?php echo number_format($detail['tarif_chambre'] * $detail['nbr_nuit'], '0', '', ' ') . ' Ar' ?> </td>
                             </tr>
                         <?php } ?>
                     </tbody>
@@ -140,28 +149,28 @@
 
                     <tr>
                         <td class="text-end">Sous-total</td>
-                        <td class="text-center"><?php echo number_format($total, 2, ',', ' ') . ' Ar' ?></td>
+                        <td class="text-center"><?php echo number_format($total, '0', '', ' ') . ' Ar' ?></td>
                     </tr>
                     <tr>
                         <td class="text-end">Remise (<?php echo ($facture['remise']) . ' %' ?>)</td>
-                        <td class="text-center"> <?php echo number_format($remise, 2, ',', ' ') . ' Ar' ?> </td>
+                        <td class="text-center"> <?php echo number_format($remise, '0', '', ' ') . ' Ar' ?> </td>
                     </tr>
                     <?php if (session()->get('offert') == 0) : { ?>
                             <tr>
                                 <td class="text-end">Total</td>
-                                <td class="text-center"><b> <?php echo number_format($total - $remise, 2, ',', ' ') . ' Ar' ?> </b></td>
+                                <td class="text-center"><b> <?php echo number_format($total - $remise, '0', '', ' ') . ' Ar' ?> </b></td>
                             </tr>
                         <?php }
                     else : {  ?>
                             <tr>
                                 <td class="text-end">Sejour offert</td>
-                                <td class="text-end"><b> <?php echo number_format(0, 2, ',', ' ') . ' Ar' ?> </b></td>
+                                <td class="text-end"><b> <?php echo number_format(0, '0', '', ' ') . ' Ar' ?> </b></td>
                             </tr>
                     <?php }
                     endif ?>
                     <!-- <tr>
                         <td class="text-end">Solde Dû</td>
-                        <td class="text-center"><b> <?php echo number_format($reste, 2, ',', ' ') . ' Ar' ?> </b></td>
+                        <td class="text-center"><b> <?php echo number_format($reste, '0', '', ' ') . ' Ar' ?> </b></td>
                     </tr> -->
                 </table>
 
@@ -172,7 +181,7 @@
                 </div>
                 <div class="col-12 col-sm-6">
                     <div class="d-grid gap-2 mt-3">
-                        <button type="submit" class="btn btn-secondary" name="btn_imprimer">Imprimer</button>
+                        <button type="submit" class="btn btn-secondary" name="btn_imprimer" onclick="genPDF()" disabled>Imprimer</button>
                     </div>
                 </div>
 
@@ -192,4 +201,20 @@
 <script>
     var dateDebut = new Date();
     document.getElementById('dateDebutSejour').valueAsDate = dateDebut;
+
+    function genPDF() {
+
+        // html2canvas($('#facturePDF'), {
+        //     onrendered: function(canvas) {
+        //         var img = canvas.toDataURL()
+        //         var doc = new jsPDF;
+        //         doc.addImage(img, 'PNG', 20, 20);
+        //         doc.save('Facture.pdf');
+        //     }
+        // });
+
+        var doc = new jsPDF;
+        doc.fromHTML($('#facturePDF').get(0), 20, 20);
+        doc.save('Facture.pdf');
+    }
 </script>

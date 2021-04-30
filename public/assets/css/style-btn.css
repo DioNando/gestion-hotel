@@ -28,23 +28,84 @@ background: linear-gradient(to right, #a7bfe8, #6190e8); */
 } */
 
 .bg-dash2 {
-    background: linear-gradient(to right, #4b79a1, #283e51) !important;
+  background: linear-gradient(to right, #4b79a1, #283e51) !important;
+  /* background: rgba(28, 149, 255, 0.603) !important;
+  backdrop-filter: blur(8.5px);
+  -webkit-backdrop-filter: blur(8.5px); */
 }
 
 .bg-dash3 {
-    background: linear-gradient(to right, #ff5f6d, #ffc371) !important;
+  background: linear-gradient(to right, #ff5f6d, #ffc371) !important;
+  /* background: rgba(255, 100, 28, 0.603) !important;
+  backdrop-filter: blur(8.5px);
+  -webkit-backdrop-filter: blur(8.5px); */
 }
 
 .fc .fc-toolbar.fc-header-toolbar {
-    margin-bottom: 1rem;
+  margin-bottom: 1rem;
 }
 
 .fc .fc-button-primary {
-    background-color: var(--color-success);
-    border: none;
+  background-color: var(--color-success);
+  border: none;
 }
 
-.fc-list-event-title a, .fc-list-event-time, .fc-event-title, .fc-event-time {
-    cursor: default;
+.fc-list-event-title a,
+.fc-list-event-time,
+.fc-event-title,
+.fc-event-time {
+  cursor: default;
 }
 
+.btn-close:focus {
+  box-shadow: none;
+  border: none;
+}
+
+.accordion-hotel:first-of-type .accordion-button {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.sideNav {
+  height: 100%;
+  width: 25rem;
+  position: fixed;
+  z-index: 2;
+  display: none;
+  top: 0;
+  right: 0;
+  /* background-color: var(--bg-light); */
+  background: rgba(255, 255, 255, 0.25) !important;
+  backdrop-filter: blur(8.5px);
+  -webkit-backdrop-filter: blur(8.5px);
+  /* border-left: 1px solid var(--border-light); */
+  overflow-x: hidden;
+}
+
+.checkChambre {
+  background-color: var(--blanc);
+  border: 1px solid var(--border-light) !important;
+}
+
+.chambre-toast {
+  border: none;
+  box-shadow: none;
+  width: 350px;
+  max-width: none;
+}
+
+/* .form-control {
+  border-radius: 0;
+  border: none;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.form-control:disabled, .form-control[readonly] {
+  background-color: transparent;
+} */
+
+@media screen and (max-height: 450px) {
+  .sideNav {padding-top: 15px;}
+  .sideNav a {font-size: 18px;}
+}

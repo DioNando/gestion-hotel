@@ -28,18 +28,10 @@
     <?php if (!session()->get('isLoggedIn')) : ?>
         <style>
             body {
-                /* background-image: url("assets/images/background1.png"); */
-                /* background-image: linear-gradient(30deg, #6f84fa , #f37f7f); */
-                /* background-image: linear-gradient(30deg, #136a8a, #267871); */
-                /* 
-                background: #2193b0;
-                background: -webkit-linear-gradient(to left, #6dd5ed, #2193b0);
-                background: linear-gradient(to left, #6dd5ed, #2193b0); */
-
-                background: #6190E8;
+                /* background: #6190E8;
                 background: -webkit-linear-gradient(to right, #A7BFE8, #6190E8);
-                background: linear-gradient(to right, #A7BFE8, #6190E8);
-
+                background: linear-gradient(to right, #A7BFE8, #6190E8); */
+                background-image: url("assets/images/background7.png");
             }
         </style>
     <?php endif ?>
@@ -67,6 +59,7 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle headerMenu" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Tableau de bord</a>
                                 <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="dashboard">Accueil</a></li>
                                     <li><a class="dropdown-item" href="etatFinancier">Etat financier</a></li>
                                     <li><a class="dropdown-item" href="statistique">Statistique</a></li>
                                 </ul>
@@ -124,6 +117,7 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle headerMenu" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Tableau de bord</a>
                                 <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="dashboard">Accueil</a></li>
                                     <li><a class="dropdown-item" href="etatFinancier">Etat financier</a></li>
                                     <li><a class="dropdown-item" href="statistique">Statistique</a></li>
                                 </ul>
@@ -190,19 +184,18 @@
             <div class="row menu-parent">
                 <div class="col-2 menu">
 
-                    <div class="accordion accordion-flush" id="accordionMenu">
+                    <div class="accordion" id="accordionMenu">
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="flush-heading1">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse1" aria-expanded="false" aria-controls="flush-collapse1">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse1" aria-expanded="true" aria-controls="flush-collapse1">
                                     <div class="row">
                                         <div class="col-1 ms-2 center"><i class="fas fa-calendar-alt"></i></div>
                                         <div class="col text-start">Réservation</div>
                                     </div>
                                 </button>
                             </h2>
-                            <div id="flush-collapse1" class="accordion-collapse collapse" aria-labelledby="flush-heading1" data-bs-parent="#accordionMenu">
-                            <!-- <div id="flush-collapse1" class="accordion-collapse" aria-labelledby="flush-heading1" data-bs-parent="#accordionMenu"> -->
-                                <div class="accordion-body">
+                            <div id="flush-collapse1" class="accordion-collapse collapse show" aria-labelledby="flush-heading1" data-bs-parent="#accordionMenu">
+                                <div class="accordion-body py-1">
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
                                             <a class="nav-link" href="configReservationNuit">
@@ -236,16 +229,15 @@
                         </div>
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="flush-heading2">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse2" aria-expanded="false" aria-controls="flush-collapse2">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse2" aria-expanded="true" aria-controls="flush-collapse2">
                                     <div class="row">
                                         <div class="col-1 ms-2 center"><i class="fas fa-users"></i></div>
                                         <div class="col text-start">Client</div>
                                     </div>
                                 </button>
                             </h2>
-                            <div id="flush-collapse2" class="accordion-collapse collapse" aria-labelledby="flush-heading2" data-bs-parent="#accordionMenu">
-                            <!-- <div id="flush-collapse2" class="accordion-collapse" aria-labelledby="flush-heading2" data-bs-parent="#accordionMenu"> -->
-                                <div class="accordion-body">
+                            <div id="flush-collapse2" class="accordion-collapse collapse show" aria-labelledby="flush-heading2" data-bs-parent="#accordionMenu">
+                                <div class="accordion-body py-1">
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
                                             <a class="nav-link" href="configClient">
@@ -271,16 +263,15 @@
                         </div>
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="flush-heading3">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse3" aria-expanded="false" aria-controls="flush-collapse3">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse3" aria-expanded="true" aria-controls="flush-collapse3">
                                     <div class="row">
                                         <div class="col-1 ms-2 center"><i class="fas fa-home"></i></div>
                                         <div class="col text-start">Chambre</div>
                                     </div>
                                 </button>
                             </h2>
-                            <div id="flush-collapse3" class="accordion-collapse collapse" aria-labelledby="flush-heading3" data-bs-parent="#accordionMenu">
-                            <!-- <div id="flush-collapse3" class="accordion-collapse" aria-labelledby="flush-heading3" data-bs-parent="#accordionMenu"> -->
-                                <div class="accordion-body">
+                            <div id="flush-collapse3" class="accordion-collapse collapse show" aria-labelledby="flush-heading3" data-bs-parent="#accordionMenu">
+                                <div class="accordion-body py-1">
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
                                             <a class="nav-link" href="configChambre">
@@ -290,6 +281,7 @@
                                                 </div>
                                             </a>
                                         </li>
+
                                         <?php if (session()->get('isUser') == 'Administrateur') : ?>
                                             <li class="nav-item">
                                                 <a class="nav-link" href="addChambre">
@@ -300,10 +292,12 @@
                                                 </a>
                                             </li>
                                         <?php endif; ?>
+
                                     </ul>
                                 </div>
                             </div>
                         </div>
+                       
                         <!-- <div class="accordion-item">
                             <h2 class="accordion-header" id="flush-heading4">
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse4" aria-expanded="false" aria-controls="flush-collapse4">

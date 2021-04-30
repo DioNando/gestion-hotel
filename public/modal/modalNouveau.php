@@ -11,16 +11,16 @@
 
                 <form action="" method="post">
                     <div class="form-group">
-                        <label class="form-label" for="">Nom</label>
+                        <label class="form-label" for="nom_user">Nom</label>
                         <input type="text" class="form-control" name="nom_user" id="">
                     </div>
-                    <div class="form-group">
-                        <label class="form-label" for="">Nom</label>
+                    <div class="form-group mt-2">
+                        <label class="form-label" for="prenom_user">Prénom</label>
                         <input type="text" class="form-control" name="prenom_user" id="">
                     </div>
 
                     <div class="form-group mt-2">
-                        <label class="form-label" for="">Mot de passe</label>
+                        <label class="form-label" for="mdp_user">Mot de passe</label>
                         <input type="password" class="form-control" name="mdp_user" id="">
                     </div>
                     <div class="form-group mt-2">
@@ -99,8 +99,8 @@
                         <input type="text" class="form-control" name="description_chambre" id="description_chambre">
                     </div>
                     <div class="form-group mt-2">
-                        <label class="form-label" for="">Tarif par nuit</label>
-                        <input type="number" class="form-control" name="tarif_chambre" id="" min="1" placeholder="ariary">
+                        <label class="form-label" for="tarif_chambre">Tarif par nuit</label>
+                        <input type="number" class="form-control" name="tarif_chambre" id="tarif_chambre" min="1" placeholder="ariary">
                     </div>
 
 

@@ -2,7 +2,16 @@
 
 <div class="container">
     <div class="container-fluid bg-light formulaire">
-        <h1 class="center">FACTURATION DAY USE</h1>
+        <h1 class="center mt-3 mb-3">
+            <div class="d-flex align-items-center">
+                <div class="flex-grow-1 me-3">
+                    Facturation day use
+                </div>
+                <div class="flex-shrink-0">
+                    <i class="fas fa-sun"></i>
+                </div>
+            </div>
+        </h1>
         <form action="facture" method="post">
             <div class="row">
                 <div class="col-12">
@@ -108,8 +117,8 @@
                             <tr>
                                 <th> <?php echo ($detail['ID_chambre']); ?> </th>
                                 <td scope="row" class="text-end"> <?php echo ($detail['duree_day'] . 'h'); ?> </td>
-                                <td class="text-end"> <?php echo number_format($detail['tarif_chambre'], 2, ',', ' ')  . ' Ar' ?> </td>
-                                <td class="text-end"> <?php echo number_format($detail['tarif_chambre'] * $detail['duree_day'], 2, ',', ' ') . ' Ar' ?> </td>
+                                <td class="text-end"> <?php echo number_format($detail['tarif_chambre'], '0', '', ' ')  . ' Ar' ?> </td>
+                                <td class="text-end"> <?php echo number_format($detail['tarif_chambre'] * $detail['duree_day'], '0', '', ' ') . ' Ar' ?> </td>
 
                             </tr>
                         <?php } ?>
@@ -121,14 +130,13 @@
 
                     <tr>
                         <td class="text-end">Total</td>
-                        <td class="text-center"><b> <?php echo number_format($total, 2, ',', ' ') . ' Ar' ?> </b></td>
+                        <td class="text-center"><b> <?php echo number_format($total, '0', '', ' ') . ' Ar' ?> </b></td>
                     </tr>
                     <!-- <tr>
                         <td class="text-end">Solde Dû</td>
-                        <td class="text-center"><b> <?php echo number_format($reste, 2, ',', ' ') . ' Ar' ?> </b></td>
+                        <td class="text-center"><b> <?php echo number_format($reste, '0', '', ' ') . ' Ar' ?> </b></td>
                     </tr> -->
                 </table>
-
                 <div class="col-12 col-sm-6">
                     <div class="d-grid gap-2 mt-3">
                         <button type="submit" class="btn btn-primary" name="btn_facture_day">Sauvegarder</button>
@@ -136,7 +144,7 @@
                 </div>
                 <div class="col-12 col-sm-6">
                     <div class="d-grid gap-2 mt-3">
-                        <button type="submit" class="btn btn-secondary" name="btn_arrive">Imprimer</button>
+                        <button type="submit" class="btn btn-secondary" name="btn_imprimer" onclick="genPDF()" disabled>Imprimer</button>
                     </div>
                 </div>
 
@@ -155,5 +163,21 @@
 
 <script>
     var dateDebut = new Date();
-    document.getElementById('dateFacturation').valueAsDate = dateDebut; 
+    document.getElementById('dateFacturation').valueAsDate = dateDebut;
+
+    function genPDF() {
+
+        // html2canvas($('#facturePDF'), {
+        //     onrendered: function(canvas) {
+        //         var img = canvas.toDataURL()
+        //         var doc = new jsPDF;
+        //         doc.addImage(img, 'PNG', 20, 20);
+        //         doc.save('Facture.pdf');
+        //     }
+        // });
+
+        var doc = new jsPDF;
+        doc.fromHTML($('#facturePDF').get(0), 20, 20);
+        doc.save('Facture.pdf');
+    }
 </script>

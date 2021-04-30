@@ -123,19 +123,19 @@
 </script>
 
 <div class="container-fluid" id="tabPlanningJour">
-    <table class="table table-hover table-striped table-light">
+    <table class="table table-hover table-striped">
         <thead>
             <tr>
                 <th scope="col">N° des chambres</th>
                 <th scope="col">Motif</th>
-                <th scope="col">Client</th>
-                <th scope="col">Date d'arrivé</th>
-                <th scope="col">Date départ</th>
+                <th scope="col" class="text-start">Client</th>
+                <th scope="col" class="text-end">Date d'arrivé</th>
+                <th scope="col" class="text-end">Date départ</th>
                 <th scope="col">Durée</th>
-                <th scope="col">Commentaire</th>
-                <th scope="col">Montant</th>
-                <th scope="col">Surplus</th>
-                <th scope="col">Total</th>
+                <th scope="col" class="text-start">Commentaire</th>
+                <th scope="col" class="text-end">Montant</th>
+                <th scope="col" class="text-end">Surplus</th>
+                <th scope="col" class="text-end">Total</th>
             </tr>
         </thead>
         <tbody class="align-middle">
@@ -146,15 +146,19 @@
 
                     <tr>
                         <th scope="row"><?php echo ($planning['ID_chambre']); ?></th>
-                        <td><?php echo ($planning['motif']); ?></td>
+                        <!-- <td class="text-start"><?php echo ($planning['motif']); ?></td> -->
+                        <td class="text-center">
+                            <?php if ($planning['motif'] == 'Nuitée') echo ('<i class="fas fa-moon text-dark"></i>') ?>
+                            <?php if ($planning['motif'] == 'Day use') echo ('<i class="fas fa-sun text-secondary"></i>') ?>
+                        </td>
                         <td><?php echo ($planning['nom']); ?></td>
-                        <td><?php echo ($planning['debut']); ?></td>
-                        <td><?php echo ($planning['fin']); ?></td>
-                        <td><?php echo ($planning['duree']); ?></td>
+                        <td class="text-end"><?php echo ($planning['debut']); ?></td>
+                        <td class="text-end"><?php echo ($planning['fin']); ?></td>
+                        <td class="text-center"><?php echo ($planning['duree']); ?></td>
                         <td><?php echo ($planning['commentaire']); ?></td>
-                        <td><?php echo number_format($planning['montant'], '2', ',', ' ') . ' Ar'; ?></td>
-                        <td><?php echo ($planning['surplus']); ?></td>
-                        <td><?php echo number_format($planning['total'], '2', ',', ' ') . ' Ar'; ?></td>
+                        <td class="text-end"><?php echo number_format($planning['montant'], '0', '', ' ') . ' Ar'; ?></td>
+                        <td class="text-end"><?php echo number_format($planning['surplus'], '0', '', ' ') . ' Ar'; ?></td>
+                        <td class="text-end"><?php echo number_format($planning['total'], '0', '', ' ') . ' Ar'; ?></td>
 
                     <?php
                 }

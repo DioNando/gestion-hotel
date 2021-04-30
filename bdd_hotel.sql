@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mer. 28 avr. 2021 à 11:07
+-- Généré le : ven. 30 avr. 2021 à 21:26
 -- Version du serveur :  8.0.21
 -- Version de PHP : 7.3.21
 
@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `cardex` (
   `etat_cardex` tinyint(1) NOT NULL,
   PRIMARY KEY (`ID_cardex`),
   KEY `ID_client` (`ID_client`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `cardex`
@@ -67,7 +67,9 @@ INSERT INTO `cardex` (`ID_cardex`, `date_naissance`, `lieu_naissance`, `pere_cli
 (12, '0000-00-00', '', '', '', '', '', '', '', '', '0000-00-00', '', '0000-00-00', 113, 0),
 (14, '0000-00-00', '', '', '', '', '', '', '', '', '0000-00-00', '', '0000-00-00', 115, 0),
 (15, '0000-00-00', '', '', '', '', '', '', '', '', '0000-00-00', '', '0000-00-00', 116, 0),
-(16, '2021-04-29', '', '', '', '', '', '', '', '', '0000-00-00', '', '0000-00-00', 117, 1);
+(16, '2021-04-29', '', '', '', '', '', '', '', '', '0000-00-00', '', '0000-00-00', 117, 1),
+(17, '0000-00-00', '', '', '', '', '', '', '', '', '0000-00-00', '', '0000-00-00', 118, 1),
+(18, '0000-00-00', '', '', '', '', '', '', '', '', '0000-00-00', '', '0000-00-00', 119, 0);
 
 -- --------------------------------------------------------
 
@@ -89,21 +91,21 @@ CREATE TABLE IF NOT EXISTS `chambre` (
 --
 
 INSERT INTO `chambre` (`ID_chambre`, `description_chambre`, `tarif_chambre`, `statut_chambre`) VALUES
-(1, 'Lit double', 20000, 'Libre'),
-(2, '', 15000, 'Libre'),
-(3, '', 17000, 'Libre'),
+(1, 'Lit double', 20000, 'En attente'),
+(2, '', 15000, 'Occupée'),
+(3, '', 17000, 'Occupée'),
 (4, 'Avec Wifi', 5000, 'Occupée'),
-(5, '', 12000, 'Libre'),
-(6, 'Lit simple', 5000, 'En attente'),
-(7, 'Eau chaude', 15000, 'Libre'),
+(5, '', 12000, 'En attente'),
+(6, 'Lit simple', 4999, 'Occupée'),
+(7, 'Eau chaude', 15000, 'Occupée'),
 (8, '', 18500, 'En attente'),
-(9, '', 30000, 'En attente'),
-(10, '', 25000, 'Libre'),
-(11, '', 5000, 'Libre'),
+(9, '', 29999, 'Occupée'),
+(10, '', 25000, 'En attente'),
+(11, '', 5000, 'En attente'),
 (12, '', 7500, 'Occupée'),
 (13, '', 6000, 'En attente'),
 (14, '', 4000, 'Occupée'),
-(15, '', 4500, 'Libre'),
+(15, '', 4500, 'Occupée'),
 (16, '', 3000, 'Occupée'),
 (17, '', 5500, 'Occupée'),
 (18, '', 8000, 'Libre'),
@@ -114,7 +116,7 @@ INSERT INTO `chambre` (`ID_chambre`, `description_chambre`, `tarif_chambre`, `st
 (23, '', 777, 'Occupée'),
 (24, '', 888, 'Occupée'),
 (25, '', 4000, 'Libre'),
-(26, 'Eau chaude', 5000, 'Libre'),
+(26, 'Eau chaude', 5000, 'Occupée'),
 (27, 'Eau froide', 1000, 'En attente');
 
 -- --------------------------------------------------------
@@ -130,7 +132,7 @@ CREATE TABLE IF NOT EXISTS `client` (
   `prenom_client` varchar(50) NOT NULL,
   `telephone_client` tinytext NOT NULL,
   PRIMARY KEY (`ID_client`)
-) ENGINE=InnoDB AUTO_INCREMENT=118 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=120 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `client`
@@ -190,7 +192,7 @@ INSERT INTO `client` (`ID_client`, `nom_client`, `prenom_client`, `telephone_cli
 (76, 'zgjekmgj', 'fkfeef', ''),
 (77, 'Jimbo', 'Chum', ''),
 (79, 'Orion', 'Star', '+1 (639) 525-2201'),
-(80, 'Viande', 'Cuit', '+1 (639) 525-2201'),
+(80, 'Bran', 'J', '+1 (639) 525-2201'),
 (81, 'Jerry', 'Holmes', '+1 (639) 525-2201'),
 (82, 'Basta', 'Puma', '+1 (911) 472-9306'),
 (84, 'Gun', 'B', '+1 (324) 236-9796'),
@@ -204,7 +206,6 @@ INSERT INTO `client` (`ID_client`, `nom_client`, `prenom_client`, `telephone_cli
 (97, 'Cardio', 'Pop', ''),
 (98, 'Rom', 'Ram', ''),
 (99, 'Tsunami', 'Bra', ''),
-(100, 'ddd', 'fdfd', ''),
 (102, 'Dua', 'Lipa', ''),
 (104, 'Rome', 'Toma', '321548'),
 (105, 'Marc', 'Murc', '+1 (324) 236-9796'),
@@ -216,9 +217,11 @@ INSERT INTO `client` (`ID_client`, `nom_client`, `prenom_client`, `telephone_cli
 (111, 'Steve', 'Brad', '45687'),
 (112, 'Khalid', 'Wiz', '147'),
 (113, 'Eva', 'Ivo', '15916'),
-(115, 'Tamo', 'A', '4273727'),
+(115, 'Emo', 'A', '4273727'),
 (116, 'Kimi', 'Kama', '456498'),
-(117, 'Sas', 'Uke', '+1 (911) 472-9306');
+(117, 'Gia', 'Der', '+1 (911) 472-9306'),
+(118, 'Seth', 'Cu', '56484848'),
+(119, 'Alain', 'Red', '2191191981');
 
 -- --------------------------------------------------------
 
@@ -239,24 +242,33 @@ CREATE TABLE IF NOT EXISTS `concerner` (
 
 INSERT INTO `concerner` (`ID_chambre`, `ID_planning`) VALUES
 (1, 45),
+(1, 74),
+(1, 78),
 (2, 45),
-(2, 55),
 (2, 57),
 (2, 58),
 (2, 64),
-(4, 55),
+(2, 71),
 (4, 66),
-(5, 8),
+(5, 73),
+(5, 79),
 (6, 13),
 (6, 45),
-(6, 67),
+(6, 72),
 (7, 6),
 (7, 65),
+(7, 74),
+(7, 75),
 (8, 65),
+(8, 80),
+(9, 69),
 (10, 53),
+(10, 73),
 (11, 52),
+(11, 74),
 (13, 6),
 (15, 53),
+(15, 77),
 (16, 54),
 (17, 9),
 (21, 6),
@@ -278,7 +290,7 @@ CREATE TABLE IF NOT EXISTS `connexion` (
   `etat_connexion` tinyint(1) NOT NULL,
   PRIMARY KEY (`ID_connexion`),
   KEY `ID_user` (`ID_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=126 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=158 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `connexion`
@@ -399,7 +411,39 @@ INSERT INTO `connexion` (`ID_connexion`, `date_connexion`, `ID_user`, `etat_conn
 (122, '2021-04-28 08:33:43', 1, 0),
 (123, '2021-04-28 08:33:59', 1, 0),
 (124, '2021-04-28 08:34:25', 30, 0),
-(125, '2021-04-28 08:35:00', 1, 1);
+(125, '2021-04-28 08:35:00', 1, 1),
+(126, '2021-04-28 15:31:46', 1, 1),
+(127, '2021-04-28 15:43:27', 1, 0),
+(128, '2021-04-28 17:12:42', 1, 1),
+(129, '2021-04-29 08:29:30', 1, 1),
+(130, '2021-04-29 12:03:39', 1, 1),
+(131, '2021-04-29 14:17:34', 1, 1),
+(132, '2021-04-29 15:54:47', 1, 1),
+(133, '2021-04-29 17:12:23', 1, 1),
+(134, '2021-04-29 17:14:02', 1, 0),
+(135, '2021-04-29 18:51:41', 1, 1),
+(136, '2021-04-29 20:12:03', 1, 1),
+(137, '2021-04-29 21:13:47', 1, 1),
+(138, '2021-04-29 22:06:37', 1, 1),
+(139, '2021-04-29 22:08:40', 1, 1),
+(140, '2021-04-29 22:29:41', 1, 1),
+(141, '2021-04-29 23:00:17', 1, 1),
+(142, '2021-04-29 23:23:40', 1, 1),
+(143, '2021-04-29 23:30:26', 1, 0),
+(144, '2021-04-30 00:07:04', 1, 1),
+(145, '2021-04-30 00:19:51', 1, 0),
+(146, '2021-04-30 08:32:35', 1, 1),
+(147, '2021-04-30 08:53:18', 1, 0),
+(148, '2021-04-30 10:40:12', 1, 1),
+(149, '2021-04-30 11:24:06', 1, 0),
+(150, '2021-04-30 13:46:02', 1, 0),
+(151, '2021-04-30 17:28:29', 1, 1),
+(152, '2021-04-30 22:13:03', 1, 1),
+(153, '2021-04-30 22:55:33', 1, 1),
+(154, '2021-04-30 23:53:12', 1, 0),
+(155, '2021-05-01 00:20:31', 1, 0),
+(156, '2021-05-01 00:25:37', 53, 0),
+(157, '2021-05-01 00:25:45', 54, 0);
 
 -- --------------------------------------------------------
 
@@ -425,7 +469,6 @@ INSERT INTO `effectuer` (`ID_user`, `ID_nuit`, `ID_day`, `nom_user_modif`) VALUE
 (1, 0, 12, 'Dio'),
 (1, 0, 13, 'Dio'),
 (1, 0, 14, 'Dio'),
-(1, 0, 15, 'Dio'),
 (1, 0, 16, 'Dio'),
 (1, 0, 18, 'Dio'),
 (1, 0, 19, 'Dio'),
@@ -442,6 +485,12 @@ INSERT INTO `effectuer` (`ID_user`, `ID_nuit`, `ID_day`, `nom_user_modif`) VALUE
 (1, 0, 30, 'Dio'),
 (1, 0, 31, 'Dio'),
 (1, 0, 32, 'Dio'),
+(1, 0, 33, 'Dio'),
+(1, 0, 34, 'Dio'),
+(1, 0, 36, 'Dio'),
+(1, 0, 37, 'Dio'),
+(1, 0, 38, 'Dio'),
+(1, 0, 39, 'Dio'),
 (1, 5, 0, 'Dio'),
 (1, 6, 0, 'Dio'),
 (1, 7, 0, 'Dio'),
@@ -479,7 +528,11 @@ INSERT INTO `effectuer` (`ID_user`, `ID_nuit`, `ID_day`, `nom_user_modif`) VALUE
 (1, 46, 0, 'Dio'),
 (1, 47, 0, 'Dio'),
 (1, 48, 0, 'Dio'),
-(1, 49, 0, 'Dio');
+(1, 50, 0, 'Dio'),
+(1, 51, 0, 'Dio'),
+(1, 53, 0, 'Dio'),
+(1, 54, 0, 'Dio'),
+(1, 55, 0, 'Dio');
 
 -- --------------------------------------------------------
 
@@ -519,7 +572,7 @@ CREATE TABLE IF NOT EXISTS `facture_day` (
   `ID_day` int NOT NULL,
   PRIMARY KEY (`ID_facture_day`),
   KEY `ID_day` (`ID_day`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `facture_day`
@@ -531,7 +584,12 @@ INSERT INTO `facture_day` (`ID_facture_day`, `date_facture_day`, `type_payement_
 (9, '2021-04-23 08:51:14', 'Airtel Money', 27),
 (10, '2021-04-23 14:08:14', 'Espece', 28),
 (13, '2021-04-27 14:52:30', 'Espece', 31),
-(14, '2021-04-27 22:24:42', 'Espece', 32);
+(14, '2021-04-27 22:24:42', 'Espece', 32),
+(16, '2021-04-28 14:47:36', '', 34),
+(18, '2021-04-29 09:47:32', 'Espece', 36),
+(19, '2021-04-29 10:21:10', '', 37),
+(20, '2021-04-29 19:09:04', 'Espece', 38),
+(21, '2021-04-30 08:41:04', 'Espece', 39);
 
 -- --------------------------------------------------------
 
@@ -549,18 +607,21 @@ CREATE TABLE IF NOT EXISTS `facture_nuit` (
   `ID_nuit` int NOT NULL,
   PRIMARY KEY (`ID_facture_nuit`),
   KEY `ID_nuit` (`ID_nuit`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `facture_nuit`
 --
 
 INSERT INTO `facture_nuit` (`ID_facture_nuit`, `offert`, `remise`, `type_payement_nuit`, `ID_nuit`) VALUES
-(24, 0, 7, 'VISA', 41),
 (26, 0, 0, '', 43),
 (27, 0, 0, '', 44),
 (31, 0, 12, 'Espece', 48),
-(32, 0, 8, 'Espece', 49);
+(33, 0, 5, 'VISA', 50),
+(34, 0, 0, 'Espece', 51),
+(36, 0, 0, 'Espece', 53),
+(37, 0, 10, 'Espece', 54),
+(38, 0, 10, 'Espece', 55);
 
 -- --------------------------------------------------------
 
@@ -574,7 +635,7 @@ CREATE TABLE IF NOT EXISTS `historique` (
   `ID_chambre_ancien` int NOT NULL,
   `tarif_chambre_ancien` int NOT NULL,
   PRIMARY KEY (`ID_historique`)
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `historique`
@@ -602,7 +663,16 @@ INSERT INTO `historique` (`ID_historique`, `ID_chambre_ancien`, `tarif_chambre_a
 (28, 2, 15000),
 (29, 7, 15000),
 (30, 8, 18500),
-(31, 6, 5000);
+(31, 6, 5000),
+(32, 5, 12000),
+(33, 10, 25000),
+(34, 1, 20000),
+(35, 7, 15000),
+(36, 11, 5000),
+(37, 8, 18500),
+(38, 1, 20000),
+(39, 5, 12000),
+(40, 8, 18500);
 
 -- --------------------------------------------------------
 
@@ -619,7 +689,7 @@ CREATE TABLE IF NOT EXISTS `planning` (
   `heure_depart` time NOT NULL,
   `motif` tinytext NOT NULL,
   PRIMARY KEY (`ID_planning`)
-) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=81 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `planning`
@@ -627,7 +697,6 @@ CREATE TABLE IF NOT EXISTS `planning` (
 
 INSERT INTO `planning` (`ID_planning`, `debut_sejour`, `fin_sejour`, `heure_arrive`, `heure_depart`, `motif`) VALUES
 (6, '2021-04-15', '2021-04-15', '11:37:00', '16:37:00', 'Day use'),
-(8, '2021-04-15', '2021-04-15', '11:46:00', '14:46:00', 'Day use'),
 (9, '2021-04-15', '2021-04-15', '14:33:00', '16:33:00', 'Day use'),
 (10, '2021-04-15', '2021-04-15', '14:34:00', '17:34:00', 'Day use'),
 (13, '2021-04-16', '2021-04-16', '09:38:00', '12:38:00', 'Day use'),
@@ -645,13 +714,21 @@ INSERT INTO `planning` (`ID_planning`, `debut_sejour`, `fin_sejour`, `heure_arri
 (52, '2021-04-22', '2021-04-22', '13:25:00', '15:25:00', 'Day use'),
 (53, '2021-04-23', '2021-04-23', '09:00:00', '11:51:00', 'Day use'),
 (54, '2021-04-23', '2021-04-23', '17:08:00', '19:08:00', 'Day use'),
-(55, '2021-04-27', '2021-05-09', '00:00:00', '00:00:00', 'Nuitée'),
-(57, '2021-04-23', '2021-04-29', '00:00:00', '00:00:00', 'Nuitée'),
-(58, '2021-04-23', '2021-04-28', '00:00:00', '00:00:00', 'Nuitée'),
+(57, '2021-04-23', '2021-04-28', '00:00:00', '00:00:00', 'Nuitée'),
+(58, '2021-04-23', '2021-04-29', '00:00:00', '00:00:00', 'Nuitée'),
 (64, '2021-04-27', '2021-04-27', '14:52:00', '17:52:00', 'Day use'),
-(65, '2021-04-29', '2021-05-06', '00:00:00', '00:00:00', 'Nuitée'),
+(65, '2021-04-30', '2021-05-06', '00:00:00', '00:00:00', 'Nuitée'),
 (66, '2021-04-27', '2021-04-27', '22:24:00', '01:24:00', 'Day use'),
-(67, '2021-04-29', '2021-05-04', '00:00:00', '00:00:00', 'Nuitée');
+(69, '2021-04-28', '2021-04-28', '16:47:00', '18:47:00', 'Day use'),
+(71, '2021-04-29', '2021-04-29', '13:49:00', '15:47:00', 'Day use'),
+(72, '2021-04-29', '2021-04-29', '19:23:00', '22:49:00', 'Day use'),
+(73, '2021-04-29', '2021-05-01', '00:00:00', '00:00:00', 'Nuitée'),
+(74, '2021-05-01', '2021-05-04', '00:00:00', '00:00:00', 'Nuitée'),
+(75, '2021-04-29', '2021-04-29', '20:08:00', '01:08:00', 'Day use'),
+(77, '2021-04-30', '2021-04-30', '10:40:00', '12:40:00', 'Day use'),
+(78, '2021-04-30', '2021-05-07', '00:00:00', '00:00:00', 'Nuitée'),
+(79, '2021-05-01', '2021-05-05', '00:00:00', '00:00:00', 'Nuitée'),
+(80, '2021-04-30', '2021-05-04', '00:00:00', '00:00:00', 'Nuitée');
 
 -- --------------------------------------------------------
 
@@ -673,20 +750,27 @@ CREATE TABLE IF NOT EXISTS `pour` (
 
 INSERT INTO `pour` (`ID_planning`, `ID_nuit`, `ID_day`) VALUES
 (6, 0, 13),
-(8, 0, 15),
 (9, 0, 16),
 (13, 0, 18),
 (45, 0, 23),
 (52, 0, 26),
 (53, 0, 27),
 (54, 0, 28),
-(55, 41, 0),
 (57, 43, 0),
 (58, 44, 0),
 (64, 0, 31),
 (65, 48, 0),
 (66, 0, 32),
-(67, 49, 0);
+(69, 0, 34),
+(71, 0, 36),
+(72, 0, 37),
+(73, 50, 0),
+(74, 51, 0),
+(75, 0, 38),
+(77, 0, 39),
+(78, 53, 0),
+(79, 54, 0),
+(80, 55, 0);
 
 -- --------------------------------------------------------
 
@@ -703,7 +787,7 @@ CREATE TABLE IF NOT EXISTS `reservation_day` (
   `date_modification_day` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `commentaire_day` mediumtext NOT NULL,
   PRIMARY KEY (`ID_day`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `reservation_day`
@@ -712,7 +796,6 @@ CREATE TABLE IF NOT EXISTS `reservation_day` (
 INSERT INTO `reservation_day` (`ID_day`, `nom_client_day`, `duree_day`, `date_reservation_day`, `commentaire_day`) VALUES
 (10, 'Aya', 5, '2021-04-14 11:18:46', ''),
 (13, 'Louis', 5, '2021-04-15 11:38:13', ''),
-(15, 'Carl', 3, '2021-04-15 11:46:57', ''),
 (16, 'fzfz', 2, '2021-04-15 14:34:17', ''),
 (17, 'raaa', 3, '2021-04-15 14:34:51', ''),
 (18, 'Jhon', 3, '2021-04-16 09:38:24', ''),
@@ -721,7 +804,12 @@ INSERT INTO `reservation_day` (`ID_day`, `nom_client_day`, `duree_day`, `date_re
 (27, 'Big', 3, '2021-04-23 08:51:14', ''),
 (28, 'Ace', 2, '2021-04-23 14:08:14', ''),
 (31, 'Mei', 3, '2021-04-27 14:52:30', ''),
-(32, 'Nar', 3, '2021-04-27 22:24:42', '');
+(32, 'Nar', 3, '2021-04-27 22:24:42', ''),
+(34, 'Curt', 2, '2021-04-28 14:47:36', ''),
+(36, 'Alpa', 2, '2021-04-29 09:47:32', 'La réservation a été repoussé'),
+(37, 'Yaq', 3, '2021-04-29 10:21:10', ''),
+(38, 'Tyy', 5, '2021-04-29 19:09:04', ''),
+(39, 'Bob', 2, '2021-04-30 08:41:04', '');
 
 -- --------------------------------------------------------
 
@@ -747,18 +835,21 @@ CREATE TABLE IF NOT EXISTS `reservation_nuit` (
   PRIMARY KEY (`ID_nuit`),
   KEY `ID_client` (`ID_client`),
   KEY `ID_etat_reservation` (`ID_etat_reservation`)
-) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `reservation_nuit`
 --
 
 INSERT INTO `reservation_nuit` (`ID_nuit`, `nbr_personne`, `nbr_nuit`, `type_reservation`, `ID_client`, `ID_etat_reservation`, `remarque_reservation`, `date_reservation_nuit`, `venant_de`, `allant_a`, `mode_transport`, `commentaire_nuit`) VALUES
-(41, 2, 12, 'Mail', 111, 2, '', '2021-04-23 14:55:10', '', '', 'Autre', ''),
-(43, 1, 6, 'Réception', 113, 1, '', '2021-04-23 22:00:40', '', '', 'Autre', ''),
-(44, 1, 5, 'Réception', 113, 1, '', '2021-04-23 22:01:52', '', '', 'Autre', ''),
-(48, 3, 7, 'Réception', 116, 3, 'Test 2', '2021-04-27 14:53:25', '', '', 'Moto', ''),
-(49, 2, 5, 'Réception', 117, 1, 'WYD', '2021-04-27 22:25:33', '', '', 'Avion', '');
+(43, 1, 5, 'Réception', 113, 1, '', '2021-04-23 22:00:40', '', '', 'Autre', ''),
+(44, 1, 6, 'Réception', 113, 4, '', '2021-04-23 22:01:52', '', '', 'Autre', ''),
+(48, 3, 6, 'Réception', 116, 2, 'Test 2', '2021-04-27 14:53:25', '', '', 'Moto', ''),
+(50, 3, 2, 'Téléphone', 116, 1, 'Cocktail offert', '2021-04-29 15:14:12', '', '', '', ''),
+(51, 3, 3, 'Réception', 118, 2, 'Cafetiere', '2021-04-29 19:00:10', '', '', '', ''),
+(53, 2, 7, 'Réception', 118, 4, '', '2021-04-30 08:51:58', '', '', '', ''),
+(54, 4, 4, 'Réception', 116, 4, '', '2021-04-30 11:44:11', '', '', '', ''),
+(55, 3, 4, 'Réception', 119, 1, 'Retard', '2021-04-30 17:34:35', '', '', 'Avion', '');
 
 -- --------------------------------------------------------
 
@@ -798,7 +889,16 @@ INSERT INTO `stocker` (`ID_historique`, `ID_client`, `ID_reservation`) VALUES
 (28, 113, 47),
 (29, 116, 48),
 (30, 116, 48),
-(31, 117, 49);
+(31, 117, 49),
+(32, 116, 50),
+(33, 116, 50),
+(34, 118, 51),
+(35, 118, 51),
+(36, 118, 51),
+(37, 116, 52),
+(38, 118, 53),
+(39, 116, 54),
+(40, 119, 55);
 
 -- --------------------------------------------------------
 
@@ -814,7 +914,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `droit_user` tinytext NOT NULL,
   `mdp_user` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`ID_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `user`
@@ -847,7 +947,9 @@ INSERT INTO `user` (`ID_user`, `nom_user`, `prenom_user`, `droit_user`, `mdp_use
 (49, 'test', 'test', 'Utilisateur', '$2y$10$lDGqVPMYyDBoEqICZOmhN.eyU17hEuqpecvF1LVShCcqz8sx7kE6y'),
 (50, 'Light', 'Dark', 'Utilisateur', '$2y$10$vWhcnRg7vN1VE5JzH6KqWOy0qlOuKKt4rAnUeXEmD4pbS/cCC8B.y'),
 (51, 'Mel', 'On', 'Controleur', '$2y$10$uVcF6TDkc8qRvTmbR2UYNepvfeecph/sYrLziealspiQ6srZijrqC'),
-(52, 'TTT', '420', 'Controleur', '$2y$10$Y5naOp7Zd10IdBuKtqbWaeayynM/X6/MT94nUkDyYeyqVA4g0X1Re');
+(52, 'TTT', '420', 'Controleur', '$2y$10$Y5naOp7Zd10IdBuKtqbWaeayynM/X6/MT94nUkDyYeyqVA4g0X1Re'),
+(53, 'Admin', 'Admin', 'Administrateur', '$2y$10$5BVZO38/Oabv7OyIptKyNOfAupvE2sB.Rpyu06L/6bNJf8ivxjAaG'),
+(54, 'Simple', 'Uti', 'Utilisateur', '$2y$10$0ExO4rk.tRucZ9DU8/Nj0./13gBoTlb19iAhf2qTKHthITAN02pMi');
 
 --
 -- Contraintes pour les tables déchargées

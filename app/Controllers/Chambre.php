@@ -101,13 +101,14 @@ class Chambre extends BaseController
         // $data['chambres'] = $chambres->findAll();
       
 		$data = [
-            'chambres' => $chambres->paginate(10, 'paginationResult'),
+            'chambres' => $chambres->paginate(15, 'paginationResult'),
             'pager' => $chambres->pager,
             'total' => count($chambres->findAll()),
             'total_all' => count($chambres->findAll()),
             'libre' => count($chambres->where('statut_chambre', 'Libre')->findAll()),
             'enAttente' => count($chambres->where('statut_chambre', 'En attente')->findAll()),
             'occupee' => count($chambres->where('statut_chambre', 'Occupée')->findAll()),
+            'jsonChambre' => json_encode($chambres->findAll()),
         ];
         return $data;
     }
@@ -156,7 +157,7 @@ class Chambre extends BaseController
 		$chambres = new chambreModel();
         // $data['chambres'] = $chambres->like('tarif_chambre', $element_recherche, 'both')->orLike('statut_chambre', $element_recherche, 'both')->find();
         $data = [
-            'chambres' => $chambres->like('statut_chambre', $element_recherche, 'both')->orLike('tarif_chambre', $element_recherche, 'both')->paginate(10, 'paginationResult'),
+            'chambres' => $chambres->like('statut_chambre', $element_recherche, 'both')->orLike('tarif_chambre', $element_recherche, 'both')->paginate(15, 'paginationResult'),
             'pager' => $chambres->pager,
             'total' => count($chambres->like('tarif_chambre', $element_recherche, 'both')->orLike('statut_chambre', $element_recherche, 'both')->findAll()),
             'total_all' => count($chambres->findAll()),
@@ -166,4 +167,23 @@ class Chambre extends BaseController
         ];
         return $data;
 	}
+
+    public function saveTarif()
+    {
+        $data = [];
+        if (isset($_POST['dataJSON'])) {
+            $obj = json_decode($_POST['dataJSON'], true);
+
+            foreach($obj as $element) {
+                $data = [
+                    'ID_chambre' => $element['ID_chambre'],
+                    'description_chambre' => $element['description_chambre'],
+                    'statut_chambre' => $element['statut_chambre'],
+                    'tarif_chambre' => $element['tarif_chambre'],
+                ];
+            };
+
+            return json_encode($data);
+        }
+    }
 }

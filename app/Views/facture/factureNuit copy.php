@@ -31,7 +31,7 @@
                 <div class="col-12 col-sm-6 mt-2">
                     <div class="form-group">
                         <label for="nbr_personne" class="form-label">Nombre de personne</label>
-                        <input type="number" class="form-control" id="#" name="nbr_personne" value="1" min="1">
+                        <input type="number" class="form-control" id="nbr_personne" name="nbr_personne" value="1" min="1">
                     </div>
                 </div>
                 <div class="col-12 col-sm-6 mt-2">

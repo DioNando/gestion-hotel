@@ -75,7 +75,7 @@ $reste = $total - $total;
 
 <hr>
 
-<table class="table table-hover table-striped table-light mb-0">
+<table class="table table-hover table-striped mb-0">
 <thead>
         <tr>
             <th scope="col">Nuitée</th>
@@ -92,25 +92,25 @@ $reste = $total - $total;
                 <th scope="row"> <?php echo ($detail['nbr_nuit']); ?> </th>
                 <td class="text-end"> <?php echo ($detail['debut_sejour']); ?> </td>
                 <td class="text-center"> <?php echo ($detail['ID_chambre']); ?> </td>
-                <td class="text-end"> <?php echo number_format($detail['tarif_chambre'], '2', ',', ' ') . ' Ar'; ?> </td>
+                <td class="text-end"> <?php echo number_format($detail['tarif_chambre'], '0', '', ' ') . ' Ar'; ?> </td>
                 <td class="text-center"> <?php echo ('0'); ?> </td>
-                <td class="text-end"> <?php echo number_format($detail['tarif_chambre'] * $detail['nbr_nuit'], '2', ',', ' ') . ' Ar'; ?> </td>
+                <td class="text-end"> <?php echo number_format($detail['tarif_chambre'] * $detail['nbr_nuit'], '0', '', ' ') . ' Ar'; ?> </td>
             </tr>
         <?php } ?>
 
 
         <tr>
             <td colspan="5">TOTAL (sans <?php echo ($detail['remise'] . '% de remise)'); ?> </td>
-            <td class="text-end"><b> <?php echo number_format($total, '2', ',', ' ') . ' Ar'; ?> </b></td>
+            <td class="text-end"><b> <?php echo number_format($total, '0', '', ' ') . ' Ar'; ?> </b></td>
         </tr>
         <tr>
             <td colspan="3">Payement du <?php echo ($detail['date_facture_nuit']); ?></td>
             <td colspan="2"><?php echo ($detail['type_payement_nuit']); ?></td>
-            <td class="text-end"> <?php echo number_format($montant, '2', ',', ' ') . ' Ar'; ?> </td>
+            <td class="text-end"> <?php echo number_format($montant, '0', '', ' ') . ' Ar'; ?> </td>
         </tr>
         <tr>
             <td colspan="5">RESTE A PAYER</td>
-            <td class="text-end"><b> <?php echo number_format($reste, '2', ',', ' ') . ' Ar'; ?> </b></td>
+            <td class="text-end"><b> <?php echo number_format($reste, '0', '', ' ') . ' Ar'; ?> </b></td>
         </tr>
     </tbody>
 </table>

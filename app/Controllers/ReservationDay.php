@@ -194,8 +194,27 @@ class ReservationDay extends BaseController
 		$data = [];
 
 		$reservations = new effectuerModel();
-		$data['reservations'] = $reservations->select(['*', 'DATE_FORMAT(heure_arrive, "%H:%i") AS heure_arrive', 'DATE_FORMAT(heure_depart, "%H:%i") AS heure_depart'])->join('user', 'effectuer.ID_user = user.ID_user')->join('reservation_day', 'effectuer.ID_day = reservation_day.ID_day')->join('pour', 'pour.ID_day = reservation_day.ID_day')->join('planning', 'pour.ID_planning = planning.ID_planning')->orderBy('reservation_day.ID_day', 'desc')->findAll();
-		$data['total'] = count($data['reservations']);
+		// $data['reservations'] = $reservations->select(['*', 'DATE_FORMAT(heure_arrive, "%H:%i") AS heure_arrive', 'DATE_FORMAT(heure_depart, "%H:%i") AS heure_depart'])->join('user', 'effectuer.ID_user = user.ID_user')->join('reservation_day', 'effectuer.ID_day = reservation_day.ID_day')->join('pour', 'pour.ID_day = reservation_day.ID_day')->join('planning', 'pour.ID_planning = planning.ID_planning')->orderBy('reservation_day.ID_day', 'desc')->findAll();
+		// $data['total'] = count($data['reservations']);
+
+		$data = [
+			'reservations' => $reservations->select([
+				'*', 'DATE_FORMAT(heure_arrive, "%H:%i") AS heure_arrive', 'DATE_FORMAT(heure_depart, "%H:%i") AS heure_depart',
+				'(CASE 
+					WHEN heure_depart > NOW() AND heure_arrive > NOW() AND debut_sejour = CURDATE() THEN "1"
+					WHEN heure_depart >= NOW() AND heure_arrive < NOW() AND debut_sejour = CURDATE() OR (heure_depart < heure_arrive AND debut_sejour = CURDATE()) THEN "2"
+					WHEN fin_sejour < CURDATE() OR heure_arrive < NOW() THEN "3"
+				END) AS etat'
+			])
+				->join('user', 'effectuer.ID_user = user.ID_user')->join('reservation_day', 'effectuer.ID_day = reservation_day.ID_day')->join('pour', 'pour.ID_day = reservation_day.ID_day')->join('planning', 'pour.ID_planning = planning.ID_planning')->orderBy('reservation_day.ID_day', 'desc')->paginate(20, 'paginationResult'),
+			'pager' => $reservations->pager,
+			'total' => count($reservations->join('reservation_day', 'effectuer.ID_day = reservation_day.ID_day')->findAll()),
+			'total_all' => count($reservations->join('reservation_day', 'effectuer.ID_day = reservation_day.ID_day')->findAll()),
+			'enAttente' => count($reservations->where('heure_depart > NOW() AND heure_arrive > NOW()')->where('debut_sejour = CURDATE()')->join('reservation_day', 'effectuer.ID_day = reservation_day.ID_day')->join('pour', 'pour.ID_day = reservation_day.ID_day')->join('planning', 'pour.ID_planning = planning.ID_planning')->findAll()),
+			'enCours' => count($reservations->where('heure_depart >= NOW() AND heure_arrive < NOW()')->where('debut_sejour = CURDATE()')->join('reservation_day', 'effectuer.ID_day = reservation_day.ID_day')->join('pour', 'pour.ID_day = reservation_day.ID_day')->join('planning', 'pour.ID_planning = planning.ID_planning')->findAll()),
+			'termine' => count($reservations->where('fin_sejour < CURDATE() OR heure_arrive < NOW()')->join('reservation_day', 'effectuer.ID_day = reservation_day.ID_day')->join('pour', 'pour.ID_day = reservation_day.ID_day')->join('planning', 'pour.ID_planning = planning.ID_planning')->findAll()),
+		];
+
 		return $data;
 	}
 
@@ -274,7 +293,8 @@ class ReservationDay extends BaseController
 		// $planning->delete(['ID_planning' => $reservation['ID_planning']]);
 		// $concerner->delete(['ID_planning' => $reservation['ID_planning']]);
 
-		$sql = "DELETE reservation_day, pour, planning, concerner FROM reservation_day INNER JOIN pour ON reservation_day.ID_day = pour.ID_day INNER JOIN planning ON pour.ID_planning = planning.ID_planning INNER JOIN concerner ON concerner.ID_planning = planning.ID_planning WHERE reservation_day.ID_day = ?";
+		$sql = "DELETE reservation_day, pour, planning, concerner, effectuer FROM reservation_day 
+		INNER JOIN effectuer ON reservation_day.ID_day = effectuer.ID_day INNER JOIN pour ON reservation_day.ID_day = pour.ID_day INNER JOIN planning ON pour.ID_planning = planning.ID_planning INNER JOIN concerner ON concerner.ID_planning = planning.ID_planning WHERE reservation_day.ID_day = ?";
 
 		$reservation->query($sql, array($_POST['ID_day']));
 

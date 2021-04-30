@@ -23,6 +23,7 @@ class App extends BaseConfig
 	 *
 	 * @var string
 	 */
+	// public $baseURL = 'http://stage.inovatic.mg/hote';
 	public $baseURL = 'http://localhost:8080/';
 
 	/**

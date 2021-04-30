@@ -36,6 +36,7 @@ $routes->get('/', 'Home::index', ['filter' => 'noauth']);
 $routes->match(['get','post'], 'profil', 'User::profil', ['filter' => 'auth']);
 $routes->match(['get','post'], 'addUser', 'User::addUser', ['filter' => 'isadmin']);
 $routes->match(['get','post'], 'addChambre', 'Chambre::addChambre', ['filter' => 'isadmin']);
+$routes->post('saveTarif', 'Chambre::saveTarif', ['filter' => 'auth']);
 $routes->match(['get','post'], 'addClient', 'Client::addClient', ['filter' => 'auth']);
 $routes->match(['get','post'], 'accueilClient', 'ReservationNuit::accueilClient', ['filter' => 'auth']);
 $routes->match(['get','post'], 'reservationNuit', 'ReservationNuit::addReservationNuit', ['filter' => 'auth']);

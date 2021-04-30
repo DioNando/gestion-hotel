@@ -1,8 +1,17 @@
 <?php include("assets/toast/myToast.php"); ?>
 
 <div class="container">
-    <div class="container-fluid bg-light formulaire">
-        <h1 class="center">RESERVATION NUITEE</h1>
+    <div class="container-fluid formulaire">
+        <h1 class="center mt-3 mb-3">
+            <div class="d-flex align-items-center">
+                <div class="flex-grow-1 me-3">
+                    Réservation nuitée
+                </div>
+                <div class="flex-shrink-0">
+                    <i class="fas fa-moon"></i>
+                </div>
+            </div>
+        </h1>
         <form action="" method="post">
             <div class="row">
                 <div class="col-12">
@@ -13,7 +22,8 @@
                     <?php endif; ?> -->
                 </div>
 
-               
+
+
 
                 <div class="col-12 col-sm-4">
                     <div class="form-group">
@@ -36,7 +46,7 @@
                 <div class="col-12 col-sm-3 mt-2">
                     <div class="form-group">
                         <label for="nbr_personne" class="form-label">Nombre de personne</label>
-                        <input type="number" class="form-control" id="#" name="nbr_personne" value="1" min="1">
+                        <input type="number" class="form-control" id="nbr_personne" name="nbr_personne" value="1" min="1">
                     </div>
                 </div>
                 <div class="col-12 col-sm-3 mt-2">
@@ -108,13 +118,13 @@
                     <div class="p-2 border checkChambre">
 
                         <div class="form-check">
-                            <input class="form-check-input checkRadio" type="radio" name="ancien_nouveau_tarif" id="ancien_tarif">
+                            <input class="form-check-input checkRadio" type="radio" name="ancien_nouveau_tarif" id="ancien_tarif" disabled>
                             <label class="form-check-label align-middle" for="ancien_tarif">
                                 Ancien tarif
                             </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input checkRadio" type="radio" name="ancien_nouveau_tarif" id="nouveau_tarif" checked>
+                            <input class="form-check-input checkRadio" type="radio" name="ancien_nouveau_tarif" id="nouveau_tarif" checked disabled>
                             <label class="form-check-label align-middle" for="nouveau_tarif">
                                 Nouveau tarif
                             </label>
@@ -140,25 +150,68 @@
                     </div>
                 </div>
 
+
+
                 <!--Checkbox-->
                 <h3 class="center mt-3 mb-3">Chambres disponible</h3>
                 <div class="container">
                     <div class="row row-cols-1 row-cols-lg-5 g-2 g-lg-3">
                         <?php foreach ($chambres as $chambre) { ?>
                             <div class="col">
-                                <div class="p-2 border checkChambre">
+                                <div class="p-2 border checkChambre chambre<?php echo ($chambre['ID_chambre']) ?>">
                                     <div class="form-check">
                                         <input class="form-check-input <?php if ($chambre['statut_chambre'] == 'En attente') echo ('checkBoxAttente');
                                                                         elseif ($chambre['statut_chambre'] == 'Occupée') echo ('checkBoxOccupee'); ?>" type="checkbox" name="ID_chambre[]" value="<?php echo ($chambre['ID_chambre']) ?>" <?php if ($chambre['statut_chambre'] == 'Occupée') echo ('disabled') ?> id="checkbox_chambre <?php echo ($chambre['ID_chambre']) ?>">
-                                        <label class="form-check-label align-middle" for="checkbox_chambre <?php echo ($chambre['ID_chambre']) ?>"><?php echo ($chambre['ID_chambre']) . ' : ' . number_format($chambre['tarif_chambre'], '2', ',', ' ') . ' Ar' ?></label>
+                                        <!-- <label class="form-check-label align-middle" for="checkbox_chambre <?php echo ($chambre['ID_chambre']) ?>"><?php echo ($chambre['ID_chambre']) . ' : ' . number_format($chambre['tarif_chambre'], '0', '', ' ') . ' Ar' ?>
+                                        </label> -->
+                                        <div class="row">
+                                            <label class="col form-check-label align-middle" for="checkbox_chambre <?php echo ($chambre['ID_chambre']) ?>"><?php echo ($chambre['ID_chambre']) . ' : ' . number_format($chambre['tarif_chambre'], '0', '', ' ') . ' Ar' ?>
+                                            </label>
+                                            <label class="col-auto form-check-label center" for="checkbox_chambre <?php echo ($chambre['ID_chambre']) ?>">
+                                                <?php if ($chambre['statut_chambre'] == 'Libre') echo ('<i class="fas fa-tag text-success"></i>') ?>
+                                                <?php if ($chambre['statut_chambre'] == 'En attente') echo ('<i class="fas fa-exclamation-triangle text-danger"></i>') ?>
+                                                <?php if ($chambre['statut_chambre'] == 'Occupée') echo ('<i class="fas fa-house-user text-secondary"></i>') ?>
+                                            </label>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+
+                            <!-- <script>
+                                $(document).ready(function() {
+                                    $(".chambre<?php echo ($chambre['ID_chambre']) ?>").hover(function() {
+                                        $("#maChambre<?php echo ($chambre['ID_chambre']) ?>").toast('show');
+                                    });
+                                });
+                            </script>
+
+                            <div class="position-fixed bottom-0 start-0 p-3" style="z-index: 5">
+                                <div id="maChambre<?php echo ($chambre['ID_chambre']) ?>" class="toast hide chambre-toast" role="alert" aria-live="assertive" aria-atomic="true">
+                                    <div class="toast-header">
+                                        <strong class="me-auto">
+                                            <div class="row">
+                                                <div class="col-1 ms-2 center">
+                                                    <?php if ($chambre['statut_chambre'] == 'Libre') echo ('<i class="fas fa-tag text-success"></i>') ?>
+                                                    <?php if ($chambre['statut_chambre'] == 'En attente') echo ('<i class="fas fa-exclamation-triangle text-danger"></i>') ?>
+                                                    <?php if ($chambre['statut_chambre'] == 'Occupée') echo ('<i class="fas fa-house-user text-secondary"></i>') ?>
+                                                </div>
+                                                <div class="col text-start">Chambre n ° <?php echo ($chambre['ID_chambre']) ?></div>
+                                            </div>
+                                        </strong>
+                                        <small><?php echo $chambre['statut_chambre'] ?></small>
+                                        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                                    </div>
+                                    <div class="toast-body">
+                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate quisquam <br> blanditiis minima? Ab at, velit vero architecto quisquam voluptas autem placeat quam! Facilis eveniet velit nobis debitis quia dolores doloremque?
+                                    </div>
+                                </div>
+                            </div> -->
+
                         <?php } ?>
                     </div>
                 </div>
 
-                <div class="col-12 col-sm-6">
+                <!-- <div class="col-12 col-sm-6">
                     <div class="d-grid gap-2 mt-3">
                         <button type="submit" class="btn btn-primary" name="btn_attente">En attente</button>
                     </div>
@@ -167,6 +220,29 @@
                     <div class="d-grid gap-2 mt-3">
                         <button type="submit" class="btn btn-primary" name="btn_arrive">Arrivé</button>
                     </div>
+                </div> -->
+
+                <div class="container-fluid d-flex justify-content-end">
+                    <button type="submit" class="btn btn-primary mx-2" name="btn_attente">
+                        <div class="d-flex align-items-center">
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-user-slash"></i>
+                            </div>
+                            <div class="flex-grow-1 ms-2">
+                                En attente
+                            </div>
+                        </div>
+                    </button>
+                    <button type="submit" class="btn btn-primary mx-2" name="btn_arrive">
+                        <div class="d-flex align-items-center">
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="flex-grow-1 ms-2">
+                                Arrivé
+                            </div>
+                        </div>
+                    </button>
                 </div>
 
                 <?php
@@ -208,3 +284,7 @@
         document.getElementById('nbr_nuit').value = diff.day;
     }
 </script>
+
+
+
+

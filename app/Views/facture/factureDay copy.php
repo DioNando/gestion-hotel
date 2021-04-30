@@ -65,7 +65,7 @@
                 <div class="col-12 mt-2">
                     <div class="form-group">
                         <label for="nom_user" class="form-label">Fait par :</label>
-                        <input type="text" class="form-control" id="#" name="nom_user" value="<?= session()->get('nom_user') ?>" readonly>
+                        <input type="text" class="form-control" id="nom_user" name="nom_user" value="<?= session()->get('nom_user') ?>" readonly>
                     </div>
                 </div>
                 <!-- FACTURE DEBUT -->

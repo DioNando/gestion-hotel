@@ -28,7 +28,7 @@ class Planning extends BaseController
             foreach ($planningNuit as $row) {
                 $data[] = array(
                     'id' => $row['ID_planning'],
-                    'title' => $row['nom_client'] . ' ' . $row['prenom_client'] . ' : ' . $row['nbr_nuit'] . ' ' . $row['motif'],
+                    'title' => $row['nom_client'] . ' ' . $row['prenom_client'] . ' : ' . $row['nbr_nuit'] . ' nuitées',
                     'start' => $row['debut_sejour'] . ' ' . $row['heure_arrive'],
                     'end' => $row['fin_sejour'] . ' ' . $row['heure_depart'],
                     'allDay' => 'false',
@@ -43,7 +43,7 @@ class Planning extends BaseController
             foreach ($planningDay as $row) {
                 $data[] = array(
                     'id' => $row['ID_planning'],
-                    'title' => $row['nom_client_day'] . ' : ' . $row['duree_day'] . 'h ' . $row['motif'],
+                    'title' => $row['nom_client_day'] . ' : ' . $row['duree_day'] . 'h ',
                     'start' => $row['debut_sejour'] . ' ' . $row['heure_arrive'],
                     'end' => $row['fin_sejour'] . ' ' . $row['heure_depart'],
                     'backgroundColor' => '#84ff3d',
@@ -137,7 +137,7 @@ class Planning extends BaseController
     {
         $data = [];
         $pour = new pourModel();
-        $tabPlanningDay = $pour->select(['*', 'DATE_FORMAT(heure_arrive, "%H:%i") AS heure_arrive', 'DATE_FORMAT(heure_depart, "%H:%i") AS heure_depart', '(tarif_chambre * duree_day) AS total'])->where('fin_sejour >= CONVERT(CURDATE(), DATE) AND debut_sejour < CONVERT(CURDATE() + 1, DATE)')->join('planning', 'pour.ID_planning = planning.ID_planning')->join('reservation_day', 'pour.ID_day = reservation_day.ID_day')->join('concerner', 'concerner.ID_planning = planning.ID_planning')->join('chambre', 'concerner.ID_chambre = chambre.ID_chambre')->groupBy('chambre.ID_chambre')->findAll();
+        $tabPlanningDay = $pour->select(['*', 'DATE_FORMAT(heure_arrive, "%H:%i") AS heure_arrive', 'DATE_FORMAT(heure_depart, "%H:%i") AS heure_depart', '(tarif_chambre * duree_day) AS total'])->where('debut_sejour = CURDATE()')->join('planning', 'pour.ID_planning = planning.ID_planning')->join('reservation_day', 'pour.ID_day = reservation_day.ID_day')->join('concerner', 'concerner.ID_planning = planning.ID_planning')->join('chambre', 'concerner.ID_chambre = chambre.ID_chambre')->groupBy('chambre.ID_chambre')->findAll();
 
         foreach ($tabPlanningDay as $row) {
             $data[] = array(
@@ -162,7 +162,7 @@ class Planning extends BaseController
     {
         $data = [];
         $pour = new pourModel();
-        $tabPlanningNuit = $pour->select(['*', 'DATE_FORMAT(debut_sejour, "%d %b %Y") AS debut_sejour', 'DATE_FORMAT(fin_sejour, "%d %b %Y") AS fin_sejour', '(tarif_chambre * nbr_nuit) AS total'])->where('fin_sejour >= CONVERT(CURDATE(), DATE) AND debut_sejour < CONVERT(CURDATE() + 1, DATE)')->join('planning', 'pour.ID_planning = planning.ID_planning')->join('reservation_nuit', 'pour.ID_nuit = reservation_nuit.ID_nuit')->join('client', 'reservation_nuit.ID_client = client.ID_client')->join('concerner', 'concerner.ID_planning = planning.ID_planning')->join('chambre', 'concerner.ID_chambre = chambre.ID_chambre')->groupBy('chambre.ID_chambre')->findAll();
+        $tabPlanningNuit = $pour->select(['*', 'DATE_FORMAT(debut_sejour, "%d %b %Y") AS debut_sejour', 'DATE_FORMAT(fin_sejour, "%d %b %Y") AS fin_sejour', '(tarif_chambre * nbr_nuit) AS total'])->where('fin_sejour >= CURDATE() AND debut_sejour < CURDATE() + 1')->join('planning', 'pour.ID_planning = planning.ID_planning')->join('reservation_nuit', 'pour.ID_nuit = reservation_nuit.ID_nuit')->join('client', 'reservation_nuit.ID_client = client.ID_client')->join('concerner', 'concerner.ID_planning = planning.ID_planning')->join('chambre', 'concerner.ID_chambre = chambre.ID_chambre')->groupBy('chambre.ID_chambre')->findAll();
 
         foreach ($tabPlanningNuit as $row) {
             $data[] = array(
@@ -172,7 +172,7 @@ class Planning extends BaseController
                 'nom' => $row['nom_client'],
                 'debut' => $row['debut_sejour'],
                 'fin' => $row['fin_sejour'],
-                'duree' => $row['nbr_nuit'],
+                'duree' => $row['nbr_nuit'] . ' nuitées',
                 'commentaire' => $row['commentaire_nuit'],
                 'montant' => $row['tarif_chambre'],
                 'surplus' => '0',

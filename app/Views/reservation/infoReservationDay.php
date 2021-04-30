@@ -1,4 +1,4 @@
-<table class="table table-hover table-striped table-light">
+<table class="table table-hover table-striped">
         <thead>
             <tr>
                 <th scope="col" class="text-start">Date de réservation</th>

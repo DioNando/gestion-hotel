@@ -22,7 +22,7 @@
                         </div>
                         <div class="col-12 mt-2">
                             <div class="form-group">
-                                <label for="tarif_chambre" class="form-label">Tarif</label>
+                                <label for="inputTarif_chambre" class="form-label">Tarif</label>
                                 <input type="number" class="form-control" id="inputTarif_chambre" name="tarif_chambre">
                             </div>
                         </div>

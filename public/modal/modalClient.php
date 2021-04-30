@@ -67,12 +67,10 @@
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <!-- <h4 class="modal-title" id="#">Fiche cardex</h4> -->
+                <h4 class="modal-title" id="#">Fiche cardex</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body" id="modalCardex">
-
-
 
 
             </div>
@@ -82,18 +80,42 @@
 </div>
 
 
+<div id="historiqueNav" class="sideNav">
+    <div id="modalHistorique">
+
+
+    </div>
+</div>
+
+<script>
+    function openNav(ID_client, type) {
+        infoHistorique(ID_client, type);
+        // document.getElementById("historiqueNav").style.width = "500px";
+        $('#historiqueNav').hide('50');
+        $('#historiqueNav').show('50');
+    }
+
+    function closeNav() {
+        // document.getElementById("historiqueNav").style.width = "0";
+        $('#historiqueNav').hide('100');
+    }
+</script>
+
+
+
+
 <div class="modal fade" id="modalInfoHistorique" tabindex="-1" aria-labelledby="#" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title" id="#">Historique de réservation</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body" id="modalHistorique">
+            <!-- <div class="modal-body" id="modalHistorique">
 
 
 
-            </div>
+            </div> -->
 
         </div>
     </div>

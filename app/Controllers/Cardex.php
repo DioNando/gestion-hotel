@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\models\clientModel;
+use App\models\reservationNuitModel;
 use App\models\cardexModel;
 
 class Cardex extends BaseController
@@ -17,7 +18,7 @@ class Cardex extends BaseController
 			}
 			if ($_POST['type'] == 'historique') {
 				$data = [];
-				// $data['client'] = $this->ficheCardex($_POST['ID_client']);
+				$data = $this->historique($_POST['ID_client']);
 				echo view('client\historique', $data);
 				return ($data);
 			}
@@ -84,6 +85,21 @@ class Cardex extends BaseController
 		$clients = new clientModel();
 		$data = $clients->where('client.ID_client', $ID_client)->join('cardex', 'cardex.ID_client = client.ID_client')->first();
 		return $data;
+	}
+
+	public function historique($ID_client)
+	{
+		$data = [];
+		$reservations = new reservationNuitModel();
+		$clients = new clientModel();
+		$client = $clients->where('ID_client', $ID_client)->first();
+		$data = [
+			
+			'infos' => $reservations->select(['*', 'DATE_FORMAT(date_reservation_nuit, "%d %b %Y") AS date_reservation_nuit', 'DATE_FORMAT(debut_sejour, "%d %b %Y") AS debut_sejour', 'DATE_FORMAT(fin_sejour, "%d %b %Y") AS fin_sejour', 'DATE_FORMAT(date_facture_nuit, "%d %b %Y à %H:%i") AS date_facture_nuit'])->where('reservation_nuit.ID_client', $ID_client)->join('facture_nuit', 'facture_nuit.ID_nuit = reservation_nuit.ID_nuit')->join('client', 'client.ID_client = reservation_nuit.ID_client')->join('cardex', 'cardex.ID_client = client.ID_client')->join('pour', 'pour.ID_nuit = reservation_nuit.ID_nuit')->join('planning', 'pour.ID_planning = planning.ID_planning')->join('concerner', 'concerner.ID_planning = planning.ID_planning')->join('chambre', 'concerner.ID_chambre = chambre.ID_chambre')->groupBy('reservation_nuit.ID_nuit')->findAll(),
+			'nom' => $client['nom_client'],
+			'prenom' => $client['prenom_client'],
+		];
+			return $data;
 	}
 
 	public function update()

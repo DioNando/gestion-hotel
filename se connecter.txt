@@ -1,0 +1,5 @@
+Nom : admin
+Mdp : 1234
+
+Nom : simple
+Mdp : 1234

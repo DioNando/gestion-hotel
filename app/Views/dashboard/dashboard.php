@@ -83,7 +83,6 @@
                         }
                     })
                     $('#modalPlanning').modal('show');
-
                 });
             }
         });
@@ -232,6 +231,7 @@
             },
 
             success: function(data) {
+
                 planningDisplay(data);
             }
         })
@@ -248,7 +248,9 @@
                 },
 
                 success: function(result) {
-                    chart1Display(result);
+                    $(document).ready(function() {
+                        chart1Display(result);
+                    });
                 }
             })
         }
@@ -263,7 +265,10 @@
                 },
 
                 success: function(result) {
-                    chart2Display(result);
+                    $(document).ready(function() {
+                        chart2Display(result);
+                    });
+                   
                 }
             })
         }
@@ -272,10 +277,19 @@
 
 <script>
     window.onload = function chargementPage() {
-        calendrierData();
-        chartData('chart1');
-        chartData('chart2');
+        $(document).ready(function() {
+            calendrierData();
+            chartData('chart1');
+            chartData('chart2');
+
+        });
     }
+
+    // window.onload = function chargementPage() {
+    //     calendrierData();
+    //     chartData('chart1');
+    //     chartData('chart2');
+    // }
 </script>
 
 <div class="container-fluid mb-4">
@@ -298,14 +312,14 @@
                     <div class="p-3 border bg-light bg-dashboard bg-dash1 height-dashboard container-fluid center">
                         <div>
                             <span class="center mb-2" style="font-size: 2.5rem;"><i class="fas fa-tags"></i></span>
-                            <h5 class="center">Réservations :
+                            <h5 class="center">Mensuelles :
                                 <?php echo ($nombresNuitDay) ?></h5>
                         </div>
                     </div>
                 </div>
                 <div class="col-4 mt-3">
                     <div class="p-3 border bg-light bg-dashboard bg-dash2 height-dashboard container-fluid center">
-                        <div style="color: white;">
+                        <div class="text-light">
                             <span class="center mb-2" style="font-size: 2.5rem;"><i class="fas fa-moon"></i></span>
                             <h5 class="center">Nuitée :
                                 <?php echo (count($detailsNuit)) ?></h5>
@@ -367,7 +381,7 @@
             <div class="p-3 border bg-light bg-dashboard">
                 <h4>
                     <div class="row">
-                        <div class="col text-start">Tendance des réservations</div>
+                        <div class="col text-start">En fonction de la semaine</div>
                         <div class="col-1 center"><i class="fas fa-tag"></i></div>
                     </div>
                 </h4>

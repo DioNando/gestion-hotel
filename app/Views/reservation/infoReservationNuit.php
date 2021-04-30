@@ -1,4 +1,4 @@
-<table class="table table-hover table-striped table-light">
+<table class="table table-hover table-striped">
     <thead>
         <tr>
             <th scope="col" class="text-start">Type de réservation</th>
@@ -27,10 +27,10 @@
 
 
 <div class="accordion" id="accordionExample">
-    <div class="accordion-item">
+    <div class="accordion-item accordion-hotel">
         <h5 class="accordion-header" id="headingOne">
             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                Fiche d'hôtel
+                <h3>Fiche d'hôtel</h3>
             </button>
         </h5>
         <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">

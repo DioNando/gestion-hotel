@@ -42,13 +42,13 @@
 
 
 
-    <table class="table table-hover table-striped table-light" id="result">
+    <table class="table table-hover table-striped" id="result">
         <thead>
             <tr>
                 <th scope="col"><i class="fab fa-slack-hash"></i></th>
                 <th scope="col" class="text-end">Debut séjour</th>
                 <th scope="col" class="text-end">Fin séjour</th>
-                <th scope="col">Nuitées</th>
+                <th scope="col" class="text-end">Nuitées</th>
                 <th scope="col">Détails</th>
                 <th scope="col">Info client</th>
                 <th scope="col">Info réservation</th>
@@ -66,7 +66,17 @@
                         <th scope="row"> <?php echo ($reservation['ID_nuit']) ?> </th>
                         <td class="text-end"> <?php echo ($reservation['debut_sejour']); ?> </td>
                         <td class="text-end"> <?php echo ($reservation['fin_sejour']); ?> </td>
-                        <th> <?php echo ($reservation['nbr_nuit']); ?> </th>
+                        <td class="text-end">
+                            <div class="row">
+                                <div class="col"><strong><?php echo ($reservation['nbr_nuit']); ?></strong></div>
+                                <div class="col-1 ms-2 center">
+                                    <?php if ($reservation['etat'] == 1) echo ('<i class="fas fa-hourglass-start text-danger"></i>') ?>
+                                    <?php if ($reservation['etat'] == 2) echo ('<i class="fas fa-hourglass-half text-primary"></i>') ?>
+                                    <?php if ($reservation['etat'] == 3) echo ('<i class="fas fa-hourglass-end text-secondary"></i>') ?>
+                                </div>
+                            </div>
+
+                        </td>
                         <td>
                             <div class="center">
                                 <div>
@@ -79,12 +89,20 @@
                                 <div>
                                     <button type="button" class="btn btn-outline-secondary btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalReservationInfoClient" id="infoClient" onclick="infoSupplementaireNuit('<?php echo $reservation['ID_nuit']; ?>', 'infoClient')"><i class="fas fa-user"></i></button>
                                 </div>
+                                <div>
+                                    <?php if ($reservation['ID_etat_reservation'] == 1 || $reservation['ID_etat_reservation'] == 4) echo ('<i class="fas fa-check text-secondary mx-3"></i>') ?>
+                                    <?php if ($reservation['ID_etat_reservation'] == 2 || $reservation['ID_etat_reservation'] == 3) echo ('<i class="fas fa-exclamation-triangle text-danger mx-3"></i>') ?>
+                                </div>
                             </div>
                         </td>
                         <td>
                             <div class="center">
                                 <div>
                                     <button type="button" class="btn btn-outline-success btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalReservationInfoNuit" id="infoReservation" onclick="infoSupplementaireNuit('<?php echo $reservation['ID_nuit']; ?>', 'infoNuit')"><i class="fas fa-users-cog"></i></button>
+                                </div>
+                                <div>
+                                    <?php if ($reservation['ID_etat_reservation'] == 1 || $reservation['ID_etat_reservation'] == 2) echo ('<i class="fas fa-check text-secondary mx-3"></i>') ?>
+                                    <?php if ($reservation['ID_etat_reservation'] == 3 || $reservation['ID_etat_reservation'] == 4) echo ('<i class="fas fa-exclamation-triangle text-danger mx-3"></i>') ?>
                                 </div>
                             </div>
                         </td>
@@ -113,5 +131,45 @@
             ?>
         </tbody>
     </table>
+
+    <div class="row mb-4">
+        <div class="col"><?= $pager->links('paginationResult', 'pagination') ?></div>
+        <div class="col-auto center">
+            <div class="d-flex align-items-center">
+                <div class="flex-shrink-0">
+                    <i class="fab fa-slack-hash"></i>
+                </div>
+                <div class="flex-grow-1 ms-2">
+                    <?php echo ('Total : ' . $total_all) ?> </div>
+            </div>
+        </div>
+        <div class="col-auto center">
+            <div class="d-flex align-items-center">
+                <div class="flex-shrink-0">
+                    <i class="fas fa-hourglass-start text-danger"></i>
+                </div>
+                <div class="flex-grow-1 ms-2">
+                    <?php echo ('En attente : ' . $enAttente) ?> </div>
+            </div>
+        </div>
+        <div class="col-auto center">
+            <div class="d-flex align-items-center">
+                <div class="flex-shrink-0">
+                    <i class="fas fa-hourglass-half text-primary"></i>
+                </div>
+                <div class="flex-grow-1 ms-2">
+                    <?php echo ('En cours : ' . $enCours) ?> </div>
+            </div>
+        </div>
+        <div class="col-auto center">
+            <div class="d-flex align-items-center">
+                <div class="flex-shrink-0">
+                    <i class="fas fa-hourglass-end text-secondary"></i>
+                </div>
+                <div class="flex-grow-1 ms-2">
+                    <?php echo ('Terminé : ' . $termine) ?> </div>
+            </div>
+        </div>
+    </div>
 
 </div>

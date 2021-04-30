@@ -42,10 +42,6 @@
     </div>
 <?php endif; ?>
 
-
-
-
-
 <?php if (isset($validation)) : ?>
     <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 5">
         <div id="myToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
@@ -81,6 +77,43 @@
         </div>
     </div>
 <?php endif; ?>
+
+
+<?php if (isset($chambres)) {
+    foreach ($chambres as $chambre) { ?>
+        <script>
+            $(document).ready(function() {
+                $(".chambre<?php echo ($chambre['ID_chambre']) ?>").hover(function() {
+                    $("#maChambre<?php echo ($chambre['ID_chambre']) ?>").toast('show');
+                }, function() {
+                    $("#maChambre<?php echo ($chambre['ID_chambre']) ?>").toast('hide', 0);
+                });
+            });
+        </script>
+
+        <div class="position-fixed top-0 end-0 p-3" style="z-index: 5">
+            <div id="maChambre<?php echo ($chambre['ID_chambre']) ?>" class="toast hide chambre-toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <strong class="me-auto">
+                        <div class="row">
+                            <div class="col-1 ms-2 center">
+                                <?php if ($chambre['statut_chambre'] == 'Libre') echo ('<i class="fas fa-tag text-success"></i>') ?>
+                                <?php if ($chambre['statut_chambre'] == 'En attente') echo ('<i class="fas fa-exclamation-triangle text-danger"></i>') ?>
+                                <?php if ($chambre['statut_chambre'] == 'Occupée') echo ('<i class="fas fa-house-user text-secondary"></i>') ?>
+                            </div>
+                            <div class="col text-start">Chambre n ° <?php echo ($chambre['ID_chambre']) ?></div>
+                        </div>
+                    </strong>
+                    <small><?php echo $chambre['statut_chambre'] ?></small>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    <?php echo ($chambre['description_chambre']) ?>
+                </div>
+            </div>
+        </div>
+<?php }
+} ?>
 
 
 

@@ -18,7 +18,7 @@
             <td> <?php echo ($info['remarque_reservation']); ?> </td>
             <td class="text-start"> <?php echo ($info['date_reservation_nuit'] . ' par ' . $info['nom_user']); ?> </td>
             <!-- <td> <?php echo ($info['nom_user']); ?> </td> -->
-            <td class="text-start"> <?php echo ($info['date_modification_nuit']. ' par ' . $info['nom_user_modif']); ?> </td>
+            <td class="text-start"> <?php echo ($info['date_modification_nuit'] . ' par ' . $info['nom_user_modif']); ?> </td>
             <!-- <td> <?php echo ($info['nom_user_modif']); ?> </td> -->
         </tr>
 
@@ -34,11 +34,8 @@
             </button>
         </h5>
         <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-            <div class="accordion-body">
-
-
-
-                <div id="ficheCardex">
+            <div class="accordion-body pb-0">
+          <div id="ficheCardex">
 
                     <h3 class="center">REPOBLIKAN'I MADAGASIKARA</h3>
 
@@ -88,7 +85,7 @@
 <button class="btn btn-outline-secondary" type="submit">Exporter</button>
 </div> -->
 
-                <div class="row">
+                <!-- <div class="row">
                     <div class="col-6">
                         <div class="d-grid gap-2">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
@@ -99,10 +96,32 @@
                             <button type="submit" class="btn btn-primary" id="btnExport" name="btn_exportation" onclick="genPDF('<?php echo $info['ID_client']; ?>' , '<?php echo $info['nom_client']; ?>')">Exporter</button>
                         </div>
                     </div>
+                </div> -->
+
+                <div class="container">
+                    <div class="row center mx-2">
+                        <button class="col-4 mx-3 center btn btn-secondary" type="button" data-bs-dismiss="modal">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-shrink-0">
+                                    <i class="fas fa-times"></i>
+                                </div>
+                                <div class="flex-grow-1 ms-2">
+                                    Annuler
+                                </div>
+                            </div>
+                        </button>
+                        <button class="col-4 mx-3 center btn btn-primary" type="submit" class="btn btn-primary" id="btnExport" name="btn_exportation" onclick="genPDF('<?php echo $info['ID_client']; ?>' , '<?php echo $info['nom_client']; ?>')">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-shrink-0">
+                                    <i class="fas fa-print"></i>
+                                </div>
+                                <div class="flex-grow-1 ms-2">
+                                    Exporter
+                                </div>
+                            </div>
+                        </button>
+                    </div>
                 </div>
-
-
-
 
 
             </div>

@@ -3,13 +3,9 @@
 <div class="container">
     <div class="container-fluid formulaire">
         <h1 class="center mt-3 mb-3">
-            <div class="d-flex align-items-center">
-                <div class="flex-grow-1 me-3">
-                    Réservation day use
-                </div>
-                <div class="flex-shrink-0">
-                    <i class="fas fa-sun"></i>
-                </div>
+        <div class="row container-fluid">
+                <div class="col text-start">Réservation day use</div>
+                <div class="col-1 center"><i class="fas fa-calendar-day"></i></div>
             </div>
         </h1>
         <form action="" method="post">
@@ -76,8 +72,8 @@
                                             <label class="col form-check-label align-middle" for="checkbox_chambre <?php echo ($chambre['ID_chambre']) ?>"><?php echo ($chambre['ID_chambre']) . ' : ' . number_format($chambre['tarif_chambre'], '0', '', ' ') . ' Ar' ?>
                                             </label>
                                             <label class="col-auto form-check-label center" for="checkbox_chambre <?php echo ($chambre['ID_chambre']) ?>">
-                                                <?php if ($chambre['statut_chambre'] == 'Libre') echo ('<i class="fas fa-tag text-success"></i>') ?>
-                                                <?php if ($chambre['statut_chambre'] == 'En attente') echo ('<i class="fas fa-exclamation-triangle text-danger"></i>') ?>
+                                                <?php if ($chambre['statut_chambre'] == 'Libre') echo ('<i class="fas fa-tag text-secondary"></i>') ?>
+                                                <?php if ($chambre['statut_chambre'] == 'En attente') echo ('<i class="fas fa-exclamation-triangle text-secondary"></i>') ?>
                                                 <?php if ($chambre['statut_chambre'] == 'Occupée') echo ('<i class="fas fa-house-user text-secondary"></i>') ?>
                                             </label>
                                         </div>
@@ -96,7 +92,7 @@
                     <button type="submit" class="btn btn-primary mx-2" name="btn_validation">
                         <div class="d-flex align-items-center">
                             <div class="flex-shrink-0">
-                                <i class="fas fa-user"></i>
+                                <i class="fas fa-check"></i>
                             </div>
                             <div class="flex-grow-1 ms-2">
                                 Valider

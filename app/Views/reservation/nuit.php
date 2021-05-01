@@ -3,13 +3,9 @@
 <div class="container">
     <div class="container-fluid formulaire">
         <h1 class="center mt-3 mb-3">
-            <div class="d-flex align-items-center">
-                <div class="flex-grow-1 me-3">
-                    Réservation nuitée
-                </div>
-                <div class="flex-shrink-0">
-                    <i class="fas fa-moon"></i>
-                </div>
+            <div class="row container-fluid">
+                <div class="col text-start">Réservation nuitée</div>
+                <div class="col-1 center"><i class="fas fa-calendar-week"></i></div>
             </div>
         </h1>
         <form action="" method="post">
@@ -168,8 +164,8 @@
                                             <label class="col form-check-label align-middle" for="checkbox_chambre <?php echo ($chambre['ID_chambre']) ?>"><?php echo ($chambre['ID_chambre']) . ' : ' . number_format($chambre['tarif_chambre'], '0', '', ' ') . ' Ar' ?>
                                             </label>
                                             <label class="col-auto form-check-label center" for="checkbox_chambre <?php echo ($chambre['ID_chambre']) ?>">
-                                                <?php if ($chambre['statut_chambre'] == 'Libre') echo ('<i class="fas fa-tag text-success"></i>') ?>
-                                                <?php if ($chambre['statut_chambre'] == 'En attente') echo ('<i class="fas fa-exclamation-triangle text-danger"></i>') ?>
+                                                <?php if ($chambre['statut_chambre'] == 'Libre') echo ('<i class="fas fa-tag text-secondary"></i>') ?>
+                                                <?php if ($chambre['statut_chambre'] == 'En attente') echo ('<i class="fas fa-exclamation-triangle text-secondary"></i>') ?>
                                                 <?php if ($chambre['statut_chambre'] == 'Occupée') echo ('<i class="fas fa-house-user text-secondary"></i>') ?>
                                             </label>
                                         </div>
@@ -191,8 +187,8 @@
                                         <strong class="me-auto">
                                             <div class="row">
                                                 <div class="col-1 ms-2 center">
-                                                    <?php if ($chambre['statut_chambre'] == 'Libre') echo ('<i class="fas fa-tag text-success"></i>') ?>
-                                                    <?php if ($chambre['statut_chambre'] == 'En attente') echo ('<i class="fas fa-exclamation-triangle text-danger"></i>') ?>
+                                                    <?php if ($chambre['statut_chambre'] == 'Libre') echo ('<i class="fas fa-tag text-secondary"></i>') ?>
+                                                    <?php if ($chambre['statut_chambre'] == 'En attente') echo ('<i class="fas fa-exclamation-triangle text-secondary"></i>') ?>
                                                     <?php if ($chambre['statut_chambre'] == 'Occupée') echo ('<i class="fas fa-house-user text-secondary"></i>') ?>
                                                 </div>
                                                 <div class="col text-start">Chambre n ° <?php echo ($chambre['ID_chambre']) ?></div>
@@ -284,7 +280,3 @@
         document.getElementById('nbr_nuit').value = diff.day;
     }
 </script>
-
-
-
-

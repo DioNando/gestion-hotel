@@ -2,7 +2,7 @@
 
 <div class="container">
     <div class="container-fluid formulaire formulaire-login">
-        <span class="center mb-2"><img src="assets/images/group1.png"></span>
+        <span class="center mb-2"><img src="assets/images/login1.png"></span>
         <h1 class="center">SE CONNECTER</h1>
         <form action="" method="post">
             <div class="form-group mt-3">

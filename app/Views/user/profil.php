@@ -4,11 +4,7 @@
         <form action="" method="post">
             <div class="row">
                 <div class="col-12">
-                    <?php if (session()->get('success')) : ?>
-                        <div class="alert alert-success" role="alert">
-                            <?= session()->get('success') ?>
-                        </div>
-                    <?php endif; ?>
+                   
                 </div>
                 <div class="col-12 col-sm-6">
                     <div class="form-group">
@@ -40,20 +36,8 @@
                         <input type="password" class="form-control" id="mdp_user_confirm" name="mdp_user_confirm">
                     </div>
                 </div> -->
-                <div class="col-12 col-sm-12">
-                    <div class="d-grid gap-2 mt-3">
-                        <button type="submit" class="btn btn-primary" name="btn_modification_profil">Modification</button>
-                    </div>
-                </div>
+             
 
-                <?php
-                if (isset($validation)) : ?>
-                    <div class="col-12 mt-3">
-                        <div class="alert alert-danger" role="alert">
-                            <?= $validation->listErrors() ?>
-                        </div>
-                    </div>
-                <?php endif ?>
 
             </div>
         </form>

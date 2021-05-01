@@ -3,13 +3,9 @@
 <div class="container">
     <div class="container-fluid bg-light formulaire">
         <h1 class="center mt-3 mb-3">
-            <div class="d-flex align-items-center">
-                <div class="flex-grow-1 me-3">
-                    Facturation nuitée
-                </div>
-                <div class="flex-shrink-0">
-                    <i class="fas fa-moon"></i>
-                </div>
+            <div class="row container-fluid">
+                <div class="col text-start">Facturation nuitée</div>
+                <div class="col-1 center"><i class="fas fa-calendar-week"></i></div>
             </div>
         </h1>
         <form action="facture" method="post">
@@ -174,7 +170,7 @@
                     </tr> -->
                 </table>
 
-                <div class="col-12 col-sm-6">
+                <!-- <div class="col-12 col-sm-6">
                     <div class="d-grid gap-2 mt-3">
                         <button type="submit" class="btn btn-primary" name="btn_facture_nuit">Sauvegarder</button>
                     </div>
@@ -183,6 +179,29 @@
                     <div class="d-grid gap-2 mt-3">
                         <button type="submit" class="btn btn-secondary" name="btn_imprimer" onclick="genPDF()" disabled>Imprimer</button>
                     </div>
+                </div> -->
+ 
+                <div class="container-fluid d-flex justify-content-end mt-3">
+                    <button type="submit" class="btn btn-primary mx-2" name="btn_facture_nuit">
+                        <div class="d-flex align-items-center">
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-save"></i>
+                            </div>
+                            <div class="flex-grow-1 ms-2">
+                                Sauvegarder
+                            </div>
+                        </div>
+                    </button>
+                    <button type="submit" class="btn btn-secondary mx-2" name="btn_imprimer" onclick="genPDF()" disabled>
+                        <div class="d-flex align-items-center">
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-print"></i>
+                            </div>
+                            <div class="flex-grow-1 ms-2">
+                                Imprimer
+                            </div>
+                        </div>
+                    </button>
                 </div>
 
                 <?php

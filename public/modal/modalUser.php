@@ -32,12 +32,38 @@
                         <input type="text" class="form-control" id="inputIDdel" name="ID_user" readonly>
                     </div>
 
-                    <div class="d-grid gap-2 mt-4">
+                    <!-- <div class="d-grid gap-2 mt-4">
                         <button type="submit" class="btn btn-danger" id="btnDelete" name="btn_suppression">Effacer</button>
                     </div>
 
                     <div class="d-grid gap-2 mt-3">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                    </div> -->
+
+                    <hr class="my-3">
+                    <div class="container">
+                        <div class="row center mx-2">
+                            <button class="col-4 mx-2 center btn btn-secondary" type="button" data-bs-dismiss="modal">
+                                <div class="d-flex align-items-center">
+                                    <div class="flex-shrink-0">
+                                        <i class="fas fa-times"></i>
+                                    </div>
+                                    <div class="flex-grow-1 ms-2">
+                                        Annuler
+                                    </div>
+                                </div>
+                            </button>
+                            <button class="col-4 mx-2 center btn btn-danger" type="submit" id="btnDelete" name="btn_suppression">
+                                <div class="d-flex align-items-center">
+                                    <div class="flex-shrink-0">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </div>
+                                    <div class="flex-grow-1 ms-2">
+                                        Effacer
+                                    </div>
+                                </div>
+                            </button>
+                        </div>
                     </div>
                 </form>
             </div>

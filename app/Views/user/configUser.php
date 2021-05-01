@@ -82,7 +82,7 @@
                             <td>
                                 <div class="center">
                                     <div>
-                                        <button type="button" class="btn btn-outline-warning btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalUserUpdate" onclick="updateUser('<?php echo $user['ID_user']; ?>' , 'update')"><i class="fas fa-pencil-alt"></i></button>
+                                        <button type="button" class="btn btn-outline-dark btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalUserUpdate" onclick="updateUser('<?php echo $user['ID_user']; ?>' , 'update')"><i class="fas fa-pencil-alt"></i></button>
                                         <button type="button" class="btn btn-outline-danger btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalUserDelete" onclick="deleteData('<?php echo $user['ID_user']; ?>')"><i class="fas fa-trash-alt"></i></button>
                                         <!-- <button type="button" class="btn btn-outline-success btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalUserInfo" onclick="infoData('<?php echo $user['ID_user']; ?>')"><i class="fas fa-info"></i></button> -->
                                     </div>

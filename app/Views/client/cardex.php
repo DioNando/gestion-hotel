@@ -1,3 +1,4 @@
+<div class="container">
 <div id="ficheCardex">
 
     <h3 class="center"><?php echo ('Cardex ' . $client['nom_client']) . ' ' . $client[('prenom_client')] ?></h3>
@@ -23,9 +24,9 @@
     <p>Date de délivrance : <?php echo ($client['date_delivrance']) ?> </p>
     <p>Lieu de délivrance : <?php echo ($client['lieu_delivrance']) ?> </p>
     <p>Date fin de validité : <?php echo ($client['date_fin_validite']) ?> </p>
-   
 
-<!-- 
+
+    <!-- 
     <div class="row mt-4 mb-5">
         <div class="col-6">Signature du déclarant</div>
         <div class="col-6">
@@ -36,10 +37,7 @@
 </div>
 
 <hr>
-<!-- <div class="center">
-    <button class="btn btn-outline-secondary" type="submit">Exporter</button>
-</div> -->
-<div class="row">
+<!-- <div class="row">
     <div class="col-6">
         <div class="d-grid gap-2">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
@@ -50,12 +48,31 @@
             <button type="submit" class="btn btn-primary" id="btnExport" name="btn_exportation" onclick="genPDF('<?php echo $client['ID_client']; ?>' , '<?php echo $client['nom_client']; ?>')">Exporter</button>
         </div>
     </div>
-</div>
-
-<!-- <div class="d-grid gap-2 mt-4">
-    <button type="submit" class="btn btn-primary" id="btnExport" name="btn_exportation" onclick="genPDF('<?php echo $client['ID_client']; ?>' , '<?php echo $client['nom_client']; ?>')">Exporter</button>
-</div>
-
-<div class="d-grid gap-2 mt-3">
-    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
 </div> -->
+
+<div class="container">
+    <div class="row center mx-2">
+        <button class="col-4 mx-3 center btn btn-secondary" type="button" data-bs-dismiss="modal">
+            <div class="d-flex align-items-center">
+                <div class="flex-shrink-0">
+                    <i class="fas fa-times"></i>
+                </div>
+                <div class="flex-grow-1 ms-2">
+                    Annuler
+                </div>
+            </div>
+        </button>
+        <button class="col-4 mx-3 center btn btn-primary" type="submit" class="btn btn-primary" id="btnExport" name="btn_exportation" onclick="genPDF('<?php echo $client['ID_client']; ?>' , '<?php echo $client['nom_client']; ?>')">
+            <div class="d-flex align-items-center">
+                <div class="flex-shrink-0">
+                    <i class="fas fa-print"></i>
+                </div>
+                <div class="flex-grow-1 ms-2">
+                    Exporter
+                </div>
+            </div>
+        </button>
+    </div>
+</div>
+
+</div>

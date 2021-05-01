@@ -13,8 +13,8 @@
     </div> -->
 
 <?php if (session()->get('update') || session()->get('delete') || session()->get('success')) : ?>
-    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 5">
-        <div id="myToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="position-fixed bottom-0 end-0 p-4" style="z-index: 5">
+        <div id="myToast" class="toast hide border" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="toast-header">
                 <!-- <img src="assets/icons/stickies-fill.svg" class="me-2" alt="..."> -->
                 <strong class="me-auto">Réussi</strong>
@@ -43,8 +43,8 @@
 <?php endif; ?>
 
 <?php if (isset($validation)) : ?>
-    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 5">
-        <div id="myToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="position-fixed bottom-0 end-0 p-4" style="z-index: 5">
+        <div id="myToast" class="toast hide border" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="toast-header">
                 <!-- <img src="assets/icons/stickies-fill.svg" class="me-2" alt="..."> -->
                 <strong class="me-auto">Erreur</strong>
@@ -61,8 +61,8 @@
 <?php endif; ?>
 
 <?php if (isset($validation_recherche)) : ?>
-    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 5">
-        <div id="myToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="position-fixed bottom-0 end-0 p-4" style="z-index: 5">
+        <div id="myToast" class="toast hide border" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="toast-header">
                 <!-- <img src="assets/icons/stickies-fill.svg" class="me-2" alt="..."> -->
                 <strong class="me-auto">Erreur</strong>
@@ -91,14 +91,14 @@
             });
         </script>
 
-        <div class="position-fixed top-0 end-0 p-3" style="z-index: 5">
+        <div class="position-fixed top-0 end-0 p-4" style="z-index: 5">
             <div id="maChambre<?php echo ($chambre['ID_chambre']) ?>" class="toast hide chambre-toast" role="alert" aria-live="assertive" aria-atomic="true">
                 <div class="toast-header">
                     <strong class="me-auto">
                         <div class="row">
                             <div class="col-1 ms-2 center">
-                                <?php if ($chambre['statut_chambre'] == 'Libre') echo ('<i class="fas fa-tag text-success"></i>') ?>
-                                <?php if ($chambre['statut_chambre'] == 'En attente') echo ('<i class="fas fa-exclamation-triangle text-danger"></i>') ?>
+                                <?php if ($chambre['statut_chambre'] == 'Libre') echo ('<i class="fas fa-tag text-secondary"></i>') ?>
+                                <?php if ($chambre['statut_chambre'] == 'En attente') echo ('<i class="fas fa-exclamation-triangle text-secondary"></i>') ?>
                                 <?php if ($chambre['statut_chambre'] == 'Occupée') echo ('<i class="fas fa-house-user text-secondary"></i>') ?>
                             </div>
                             <div class="col text-start">Chambre n ° <?php echo ($chambre['ID_chambre']) ?></div>

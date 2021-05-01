@@ -72,7 +72,7 @@
                             </div>
                         </td>
                         <td class="text-center"> <?php if ($client['etat_cardex']) : { ?>
-                                    <i class="fas fa-check text-info"></i>
+                                    <i class="fas fa-check text-secondary"></i>
                                 <?php }
                                                     else : { ?>
                                     <i class="fas fa-exclamation-triangle text-danger"></i>
@@ -82,14 +82,14 @@
                         <td>
                             <div class="center">
                                 <div>
-                                    <button type="button" class="btn btn-outline-warning btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalCardexUpdate" onclick="updateCardex('<?php echo $client['ID_client']; ?>' , 'update')"><i class="fas fa-pencil-alt"></i></button>
+                                    <button type="button" class="btn btn-outline-dark btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalCardexUpdate" onclick="updateCardex('<?php echo $client['ID_client']; ?>' , 'update')"><i class="fas fa-pencil-alt"></i></button>
                                 </div>
                             </div>
                         </td>
                         <td>
                             <div class="center">
                                 <div>
-                                    <button type="button" class="btn btn-outline-success btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalFicheCardex" onclick="infoFicheCardex('<?php echo $client['ID_client']; ?>', 'cardex')"><i class="far fa-id-card"></i></button>
+                                    <button type="button" class="btn btn-outline-primary btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalFicheCardex" onclick="infoFicheCardex('<?php echo $client['ID_client']; ?>', 'cardex')"><i class="far fa-id-card"></i></button>
                                 </div>
                             </div>
                         </td>
@@ -125,7 +125,7 @@
         <div class="col-auto center">
             <div class="d-flex align-items-center">
                 <div class="flex-shrink-0">
-                    <i class="fas fa-check text-info"></i>
+                    <i class="fas fa-check text-secondary"></i>
                 </div>
                 <div class="flex-grow-1 ms-2">
                     <?php echo ('Rempli : ' . $cardex_rempli) ?> </div>

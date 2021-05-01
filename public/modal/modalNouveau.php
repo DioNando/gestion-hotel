@@ -32,8 +32,20 @@
                         </select>
                     </div>
                     <hr>
-                    <div class="d-grid gap-2 mt-3">
+                    <!-- <div class="d-grid gap-2 mt-3">
                         <button type="submit" class="btn btn-primary" name="btn_enregistrer">Valider</button>
+                    </div> -->
+                    <div class="container-fluid p-0 d-flex justify-content-end">
+                        <button class="btn btn-primary me-0" onclick="chambreJSON()" name="btn_enregistrer">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-shrink-0">
+                                    <i class="fas fa-save"></i>
+                                </div>
+                                <div class="flex-grow-1 ms-2">
+                                    Sauvegarder
+                                </div>
+                            </div>
+                        </button>
                     </div>
                 </form>
             </div>
@@ -113,8 +125,17 @@
                         </select>
                     </div>
                     <hr>
-                    <div class="d-grid gap-2 mt-3">
-                        <button type="submit" class="btn btn-primary" name="btn_enregistrer">Valider</button>
+                    <div class="container-fluid p-0 d-flex justify-content-end">
+                        <button class="btn btn-primary me-0" onclick="chambreJSON()" name="btn_enregistrer">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-shrink-0">
+                                    <i class="fas fa-save"></i>
+                                </div>
+                                <div class="flex-grow-1 ms-2">
+                                    Sauvegarder
+                                </div>
+                            </div>
+                        </button>
                     </div>
                     <?php
                     if (isset($validation)) : ?>

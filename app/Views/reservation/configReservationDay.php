@@ -65,8 +65,8 @@
                             <div class="row">
                                 <div class="col"><?php echo ($reservation['duree_day'] . 'h'); ?></div>
                                 <div class="col-1 ms-2 center">
-                                    <?php if ($reservation['etat'] == 1) echo ('<i class="fas fa-hourglass-start text-danger"></i>') ?>
-                                    <?php if ($reservation['etat'] == 2) echo ('<i class="fas fa-hourglass-half text-primary"></i>') ?>
+                                    <?php if ($reservation['etat'] == 1) echo ('<i class="fas fa-hourglass-start text-primary"></i>') ?>
+                                    <?php if ($reservation['etat'] == 2) echo ('<i class="fas fa-hourglass-half text-success"></i>') ?>
                                     <?php if ($reservation['etat'] == 3) echo ('<i class="fas fa-hourglass-end text-secondary"></i>') ?>
                                 </div>
                             </div>
@@ -84,14 +84,14 @@
                         <td>
                             <div class="center">
                                 <div>
-                                    <button type="button" class="btn btn-outline-success btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalReservationInfoDay" onclick="infoSupplementaireDay('<?php echo $reservation['ID_day']; ?>', 'infoDay')"><i class="fas fa-users-cog"></i></button>
+                                    <button type="button" class="btn btn-outline-secondary btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalReservationInfoDay" onclick="infoSupplementaireDay('<?php echo $reservation['ID_day']; ?>', 'infoDay')"><i class="fas fa-users-cog"></i></button>
                                 </div>
                             </div>
                         </td>
                         <td>
                             <div class="center">
                                 <div>
-                                    <button type="button" class="btn btn-outline-warning btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalReservationUpdate" onclick="infoSupplementaireDay('<?php echo $reservation['ID_day']; ?>', 'updateDay')"><i class="fas fa-pencil-alt"></i></button>
+                                    <button type="button" class="btn btn-outline-dark btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalReservationUpdate" onclick="infoSupplementaireDay('<?php echo $reservation['ID_day']; ?>', 'updateDay')"><i class="fas fa-pencil-alt"></i></button>
                                     <button type="button" class="btn btn-outline-danger btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalReservationDelete" onclick="deleteData('<?php echo $reservation['ID_day']; ?>')"><i class="fas fa-trash-alt"></i></button>
                                 </div>
                             </div>
@@ -128,7 +128,7 @@
         <div class="col-auto center">
             <div class="d-flex align-items-center">
                 <div class="flex-shrink-0">
-                    <i class="fas fa-hourglass-start text-danger"></i>
+                    <i class="fas fa-hourglass-start text-primary"></i>
                 </div>
                 <div class="flex-grow-1 ms-2">
                     <?php echo ('En attente : ' . $enAttente) ?> </div>
@@ -137,7 +137,7 @@
         <div class="col-auto center">
             <div class="d-flex align-items-center">
                 <div class="flex-shrink-0">
-                    <i class="fas fa-hourglass-half text-primary"></i>
+                    <i class="fas fa-hourglass-half text-success"></i>
                 </div>
                 <div class="flex-grow-1 ms-2">
                     <?php echo ('En cours : ' . $enCours) ?> </div>

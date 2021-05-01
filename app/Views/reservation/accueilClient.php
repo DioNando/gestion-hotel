@@ -27,8 +27,8 @@
                         <img src="assets/images/reservation1.png" class="card-img-top" alt="...">
                     </a>
                     <div class="card-body">
-                        <h5 class="card-title">Nuitée</h5>
-                        <p class="card-text">Enregistrement d'un nouveau client pour une réservation d'une à plusieurs nuits.</p>
+                        <!-- <h5 class="card-title">Nuitée</h5> -->
+                        <!-- <p class="card-text">Enregistrement d'un nouveau client pour une réservation d'une à plusieurs nuits.</p> -->
                         <a class="btn btn-primary col-12 center" data-bs-toggle="modal" data-bs-target="#modalNouveauClient">
                             <div class="d-flex align-items-center">
                                 <div class="flex-shrink-0">
@@ -49,8 +49,8 @@
                 <div class="card" style="width: 100%;">
                     <a data-bs-toggle="modal" data-bs-target="#modalAncienClient"><img src="assets/images/reservation2.png" class="card-img-top" alt="..."></a>
                     <div class="card-body">
-                        <h5 class="card-title">Nuitée</h5>
-                        <p class="card-text">Recherche d'un ancien client à partir de son nom pour une réservation d'une à plusieurs nuits.</p>
+                        <!-- <h5 class="card-title">Nuitée</h5> -->
+                        <!-- <p class="card-text">Recherche d'un ancien client à partir de son nom pour une réservation d'une à plusieurs nuits.</p> -->
                         <a class="btn btn-primary col-12 center" data-bs-toggle="modal" data-bs-target="#modalAncienClient">
                             <div class="d-flex align-items-center">
                                 <div class="flex-shrink-0">
@@ -71,8 +71,8 @@
                 <div class="card" style="width: 100%;">
                     <a href="reservationDay"><img src="assets/images/reservation3.png" class="card-img-top" alt="..."></a>
                     <div class="card-body">
-                        <h5 class="card-title">Journée</h5>
-                        <p class="card-text">Réservation d'une chambre pour une durée de moins de 24h ou une utilisation day use.</p>
+                        <!-- <h5 class="card-title">Journée</h5> -->
+                        <!-- <p class="card-text">Réservation d'une chambre pour une durée de moins de 24h ou une utilisation day use.</p> -->
                         <a href="reservationDay" class="btn btn-primary col-12 center">
                             <div class="d-flex align-items-center">
                                 <div class="flex-shrink-0">

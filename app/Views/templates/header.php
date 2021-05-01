@@ -31,7 +31,7 @@
                 /* background: #6190E8;
                 background: -webkit-linear-gradient(to right, #A7BFE8, #6190E8);
                 background: linear-gradient(to right, #A7BFE8, #6190E8); */
-                background-image: url("assets/images/background7.png");
+                background-image: url("assets/images/background8");
             }
         </style>
     <?php endif ?>
@@ -56,28 +56,33 @@
                     </a>
                     <div class="collapse navbar-collapse" id="navBarHeader">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li class="nav-item dropdown">
+                            <li class="nav-item dropdown btn-hover">
                                 <a class="nav-link dropdown-toggle headerMenu" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Tableau de bord</a>
-                                <ul class="dropdown-menu">
+                                <ul class="dropdown-menu border">
                                     <li><a class="dropdown-item" href="dashboard">Accueil</a></li>
                                     <li><a class="dropdown-item" href="etatFinancier">Etat financier</a></li>
                                     <li><a class="dropdown-item" href="statistique">Statistique</a></li>
                                 </ul>
                             </li>
-                            <li class="nav-item dropdown">
+                            <li class="nav-item dropdown btn-hover">
                                 <a class="nav-link dropdown-toggle headerMenu" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Planning</a>
-                                <ul class="dropdown-menu">
+                                <ul class="dropdown-menu border">
                                     <li><a class="dropdown-item" href="planningJour">Planning du jour</a></li>
                                     <li><a class="dropdown-item" href="planningMois">Planning du mois</a></li>
                                 </ul>
                             </li>
-                            <li class="nav-item"><a class="nav-link headerMenu" href="accueilClient">Réservation</a></li>
-                            <li class="nav-item"><a class="nav-link headerMenu" href="ficheCardex">Fiche cardex</a></li>
+                            <li class="nav-item btn-hover"><a class="nav-link headerMenu" href="accueilClient">Réservation</a></li>
+                            <li class="nav-item btn-hover"><a class="nav-link headerMenu" href="ficheCardex">Fiche cardex</a></li>
                         </ul>
-                        <ul class="navbar-nav my-2 my-lg-0">
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle headerMenu" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Paramètres</a>
-                                <ul class="dropdown-menu dropdown-taille dropdown-menu-lg-end">
+                        <ul class="navbar-nav my-2 my-lg-0 me-2">
+                            <li class="nav-item dropdown btn-hover">
+                                <a class="nav-link dropdown-toggle dropdown-toggle-cog headerMenu" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">
+                                    <div class="row">
+                                        <div class="col pe-2">Paramètres</div>
+                                        <div class="col-auto center ps-1"><i class="fas fa-cog"></i></div>
+                                    </div>
+                                </a>
+                                <ul class="dropdown-menu border dropdown-taille dropdown-menu-lg-end">
                                     <li><a class="dropdown-item" href="profil">Profil</a></li>
                                     <li><a class="dropdown-item" href="configUser">Utilisateur</a></li>
                                     <li><a class="dropdown-item" href="configAdmin">Administrateur</a></li>
@@ -168,7 +173,7 @@
                     <div class="navbar-collapse">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li></li>
-                            <li class="nav-item"><a class="nav-link" style="color: white;" id="connexion" href="index.php">Connexion</a></li>
+                            <li class="nav-item"><a class="nav-link text-dark" id="connexion" href="index.php">Connexion</a></li>
                         </ul>
                     </div>
                 </div>
@@ -297,7 +302,7 @@
                                 </div>
                             </div>
                         </div>
-                       
+
                         <!-- <div class="accordion-item">
                             <h2 class="accordion-header" id="flush-heading4">
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse4" aria-expanded="false" aria-controls="flush-collapse4">

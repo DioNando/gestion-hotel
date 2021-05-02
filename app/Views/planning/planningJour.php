@@ -1,4 +1,5 @@
 <?php include("modal/modalPlanning.php"); ?>
+<?php include("assets/toast/myToast.php"); ?>
 
 <div class="container-fluid mt-3 mb-3">
     <!-- <h1>Planning du Jour</h1> -->

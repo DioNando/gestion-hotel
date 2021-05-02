@@ -1,4 +1,4 @@
-<form action="#" method="post">
+<form action="updateClient" method="post">
     <div class="row">
         <div class="col-12">
             <div class="form-group">

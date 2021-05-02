@@ -31,7 +31,7 @@
                 /* background: #6190E8;
                 background: -webkit-linear-gradient(to right, #A7BFE8, #6190E8);
                 background: linear-gradient(to right, #A7BFE8, #6190E8); */
-                background-image: url("assets/images/background8");
+                background-image: url("assets/images/background8.png");
             }
         </style>
     <?php endif ?>

@@ -32,9 +32,9 @@ class Planning extends BaseController
                     'start' => $row['debut_sejour'] . ' ' . $row['heure_arrive'],
                     'end' => $row['fin_sejour'] . ' ' . $row['heure_depart'],
                     'allDay' => 'false',
-                    'backgroundColor' => '#ff7c1f',
-                    'textColor' => 'black',
-                    'borderColor' => '#ff7c1f',
+                    'backgroundColor' => '#0d6efd',
+                    'textColor' => 'white',
+                    'borderColor' => '#0d6efd',
                     'ID_reservation' => $row['ID_nuit'],
                     'motif' => $row['motif'],
                 );
@@ -46,9 +46,9 @@ class Planning extends BaseController
                     'title' => $row['nom_client_day'] . ' : ' . $row['duree_day'] . 'h ',
                     'start' => $row['debut_sejour'] . ' ' . $row['heure_arrive'],
                     'end' => $row['fin_sejour'] . ' ' . $row['heure_depart'],
-                    'backgroundColor' => '#84ff3d',
-                    'textColor' => 'black',
-                    'borderColor' => '#84ff3d',
+                    'backgroundColor' => '#dc3545',
+                    'textColor' => 'white',
+                    'borderColor' => '#dc3545',
                     'ID_reservation' => $row['ID_day'],
                     'motif' => $row['motif'],
                 );
@@ -150,8 +150,8 @@ class Planning extends BaseController
                 'duree' => $row['duree_day'] . 'h',
                 'commentaire' => $row['commentaire_day'],
                 'montant' => $row['tarif_chambre'],
-                'surplus' => '0',
-                'total' => $row['total'],
+                'surplus' => $row['lit_sup'] * $row['tarif_lit_sup'],
+                'total' => $row['total'] + $row['lit_sup'] * $row['tarif_lit_sup'],
             );
         }
 
@@ -175,8 +175,8 @@ class Planning extends BaseController
                 'duree' => $row['nbr_nuit'] . ' nuitées',
                 'commentaire' => $row['commentaire_nuit'],
                 'montant' => $row['tarif_chambre'],
-                'surplus' => '0',
-                'total' => $row['total'],
+                'surplus' => $row['lit_sup'] * $row['tarif_lit_sup'],
+                'total' => $row['total'] + $row['lit_sup'] * $row['tarif_lit_sup'],
             );
         }
 

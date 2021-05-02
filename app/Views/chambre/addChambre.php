@@ -8,8 +8,10 @@
                 </div>
             <?php endif; ?>
             <div class="form-group">
-                <label class="form-label" for="description_chambre">Description</label>
-                <input type="text" class="form-control" name="description_chambre" id="description_chambre">
+                <!-- <label class="form-label" for="description_chambre">Description</label>
+                <input type="text" class="form-control" name="description_chambre" id="description_chambre"> -->
+                <label for="descri_chambre" class="form-label">Description de la chambre</label>
+                <textarea class="form-control" id="descri_chambre" name="description_chambre" rows="2"></textarea>
             </div>
             <div class="form-group mt-2">
                 <label class="form-label" for="tarif_chambre">Tarif par nuit</label>

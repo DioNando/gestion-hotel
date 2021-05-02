@@ -367,9 +367,9 @@
                                 </thead>
                                 <tbody class="align-middle">
                                     <?php
-                                    if (count($plannings) > 0) {
+                                    if (count($chambres) > 0) {
 
-                                        foreach ($plannings as $chambre) {
+                                        foreach ($chambres as $chambre) {
 
                                     ?>
                                             <tr>
@@ -383,7 +383,7 @@
                                                             <?php if ($chambre['statut_chambre'] == 'En attente') echo ('<i class="fas fa-exclamation-triangle text-danger"></i>') ?>
                                                             <?php if ($chambre['statut_chambre'] == 'Occupée') echo ('<i class="fas fa-house-user text-secondary"></i>') ?>
                                                         </div>
-                                                        <div class="col text-start"><?php echo ($chambre['nom']) ?></div>
+                                                        <div class="col text-start"><?php echo ($chambre['statut_chambre']) ?></div>
                                                     </div>
 
                                                 </td>
@@ -392,12 +392,12 @@
                                                         <div class="center">
                                                             <div>
                                                                 <?php if ($chambre['statut_chambre'] == 'Libre') { ?>
-                                                                    <button disabled type="button" class="btn btn-outline-dark btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalChambreUpdate" onclick="updateChambreReservation('<?php echo $chambre['ID_chambre']; ?>', '<?php echo $chambre['ID_planning']; ?>', 'update')"><i class="fas fa-bed"></i></button>
-                                                                    <!-- <button disabled type="button" class="btn btn-outline-secondary btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalChambreInfo" onclick="infoData('<?php echo $chambre['ID_chambre']; ?>')"><i class="fas fa-user"></i></button> -->
+                                                                    <button disabled type="button" class="btn btn-outline-dark btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalChambreUpdate" onclick="updateChambreReservation('<?php echo $chambre['ID_chambre']; ?>' ,'update')"><i class="fas fa-pencil-alt"></i></button>
+                                                                    <button disabled type="button" class="btn btn-outline-secondary btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalChambreInfo" onclick="infoData('<?php echo $chambre['ID_chambre']; ?>')"><i class="fas fa-user"></i></button>
                                                                 <?php  } ?>
                                                                 <?php if ($chambre['statut_chambre'] == 'En attente' || $chambre['statut_chambre'] == 'Occupée') { ?>
-                                                                    <button type="button" class="btn btn-outline-dark btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalChambreUpdateReservation" onclick="updateChambreReservation('<?php echo $chambre['ID_chambre']; ?>', '<?php echo $chambre['ID_planning']; ?>', 'update')"><i class="fas fa-bed"></i></button>
-                                                                    <!-- <button type="button" class="btn btn-outline-secondary btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalChambreInfo" onclick="infoData('<?php echo $chambre['ID_chambre']; ?>')"><i class="fas fa-user"></i></button> -->
+                                                                    <button type="button" class="btn btn-outline-dark btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalChambreUpdateReservation" onclick="updateChambreReservation('<?php echo $chambre['ID_chambre']; ?>' ,'update')"><i class="fas fa-pencil-alt"></i></button>
+                                                                    <button type="button" class="btn btn-outline-secondary btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalChambreInfo" onclick="infoData('<?php echo $chambre['ID_chambre']; ?>')"><i class="fas fa-user"></i></button>
                                                                 <?php  } ?>
                                                             </div>
                                                         </div>

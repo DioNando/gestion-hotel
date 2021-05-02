@@ -3,23 +3,30 @@
 namespace App\Controllers;
 
 use App\models\chambreModel;
+use App\models\concernerModel;
 
 class Chambre extends BaseController
 {
     public function index()
     {
-
+        if (isset($_POST['type']) == 'update') {
+            $data['info'] = $this->infoUpdate($_POST['ID_chambre']);
+            echo view('chambre\updateChambre', $data);
+            return ($data);
+        }
         if (isset($_POST['btn_enregistrer'])) {
             $this->create();
             return redirect()->to('configChambre');
-        } elseif (isset($_POST['btn_modification'])) {
+        }
+        if (isset($_POST['btn_modification'])) {
             $this->update();
             return redirect()->to('configChambre');
-        } elseif (isset($_POST['btn_suppression'])) {
+        }
+        if (isset($_POST['btn_suppression'])) {
             $this->delete();
             return redirect()->to('configChambre');
         }
-        if (isset($_POST['btn_recherche']) AND $_POST['element_recherche'] != NULL) {
+        if (isset($_POST['btn_recherche']) and $_POST['element_recherche'] != NULL) {
             $data = $this->search($_POST['element_recherche']);
             echo view('templates\header');
             echo view('chambre\configChambre', $data);
@@ -99,8 +106,8 @@ class Chambre extends BaseController
         $data = [];
         $chambres = new chambreModel();
         // $data['chambres'] = $chambres->findAll();
-      
-		$data = [
+
+        $data = [
             'chambres' => $chambres->paginate(15, 'paginationResult'),
             'pager' => $chambres->pager,
             'total' => count($chambres->findAll()),
@@ -120,7 +127,7 @@ class Chambre extends BaseController
 
         if (isset($_POST['btn_modification'])) : {
                 $rules = [
-                    'tarif_chambre' => 'required',
+                    'tarif_chambre' => 'required|is_natural',
                 ];
 
                 if (!$this->validate($rules)) {
@@ -143,6 +150,53 @@ class Chambre extends BaseController
         endif;
     }
 
+    public function updateChambreReservation()
+    {
+        $concerner = new concernerModel();
+        $data['info'] = $concerner->where('ID_planning', $_POST['ID_planning'])->where('concerner.ID_chambre', $_POST['ID_chambre'])->join('chambre', 'concerner.ID_chambre = chambre.ID_chambre')->first();
+        echo view('chambre\updateChambreReservation', $data);
+        return ($data);
+    }
+
+    public function addBed()
+    {
+        $data = [];
+        helper('form');
+
+        if (isset($_POST['btn_modification'])) : {
+                $rules = [
+                    'lit_sup' => 'required|is_natural',
+                    'tarif_lit_sup' => 'required|is_natural',
+                ];
+
+                if (!$this->validate($rules)) {
+                    $data['validation'] = $this->validator;
+                } else {
+                    $concerner = new concernerModel();
+                    $data = [
+                        'lit_sup' => $_POST['lit_sup'],
+                        'tarif_lit_sup' => $_POST['tarif_lit_sup'],
+                    ];
+
+                    $concerner->set($data);
+                    $concerner->where('ID_planning', $_POST['ID_planning'])->where('ID_chambre', $_POST['ID_chambre']);
+                    $concerner->update();
+                    $session = session();
+                    $session->setFlashdata('update', 'Lit supplémentaire ajouté');
+                    return redirect()->to('planningJour');
+                }
+            }
+        endif;
+    }
+
+    public function infoUpdate($ID_chambre)
+    {
+        $data = [];
+        $chambres = new chambreModel();
+        $data = $chambres->where('ID_chambre', $ID_chambre)->first();
+        return $data;
+    }
+
     public function delete()
     {
         $chambres = new chambreModel();
@@ -152,9 +206,9 @@ class Chambre extends BaseController
     }
 
     public function search($element_recherche)
-	{
-		$data = [];
-		$chambres = new chambreModel();
+    {
+        $data = [];
+        $chambres = new chambreModel();
         // $data['chambres'] = $chambres->like('tarif_chambre', $element_recherche, 'both')->orLike('statut_chambre', $element_recherche, 'both')->find();
         $data = [
             'chambres' => $chambres->like('statut_chambre', $element_recherche, 'both')->orLike('tarif_chambre', $element_recherche, 'both')->paginate(15, 'paginationResult'),
@@ -166,7 +220,7 @@ class Chambre extends BaseController
             'occupee' => count($chambres->where('statut_chambre', 'Occupée')->findAll()),
         ];
         return $data;
-	}
+    }
 
     public function saveTarif()
     {
@@ -174,7 +228,7 @@ class Chambre extends BaseController
         if (isset($_POST['dataJSON'])) {
             $obj = json_decode($_POST['dataJSON'], true);
 
-            foreach($obj as $element) {
+            foreach ($obj as $element) {
                 $data = [
                     'ID_chambre' => $element['ID_chambre'],
                     'description_chambre' => $element['description_chambre'],

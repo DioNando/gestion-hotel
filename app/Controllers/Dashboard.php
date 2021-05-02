@@ -7,7 +7,9 @@ use App\models\adminModel;
 use App\models\clientModel;
 use App\models\chambreModel;
 use App\models\reservationNuitModel;
+use App\models\reservationDayModel;
 use App\models\effectuerModel;
+use App\models\pourModel;
 
 class Dashboard extends BaseController
 {
@@ -18,6 +20,11 @@ class Dashboard extends BaseController
 		$data['detailsDay'] = $this->infoDetailsDay();
 		$data['nombresNuitDay'] = $this->nombreReservationMois();
 		$data['user'] = $this->readUser(session()->get('nom_user'));
+		$data['chambres'] = $this->readChambre();
+		$data['day'] = $this->readDay();
+        $data['nuit'] = $this->readNuit();
+        $data['plannings'] = array_merge($data['nuit'], $data['day']);
+	
 		echo view('templates/header');
 		echo view('dashboard/dashboard', $data);
 		echo view('templates/footer');
@@ -36,6 +43,16 @@ class Dashboard extends BaseController
 		$data = [];
 		$user = new userModel();
 		$data = $user->where('nom_user', $nom_user)->first();
+		return $data;
+	}
+
+	
+	public function readChambre()
+	{
+		$data = [];
+		$chambres = new chambreModel();
+		// $data = $clients->orderBy('ID_client', 'desc')->limit(10)->find();
+		$data = $chambres->findAll();
 		return $data;
 	}
 
@@ -77,4 +94,54 @@ class Dashboard extends BaseController
 		echo view('dashboard/statistique');
 		echo view('templates/footer');
 	}
+
+	function readDay()
+    {
+        $data = [];
+        $pour = new pourModel();
+        $tabPlanningDay = $pour->select(['*', 'DATE_FORMAT(heure_arrive, "%H:%i") AS heure_arrive', 'DATE_FORMAT(heure_depart, "%H:%i") AS heure_depart', '(tarif_chambre * duree_day) AS total'])->where('debut_sejour = CURDATE()')->join('planning', 'pour.ID_planning = planning.ID_planning')->join('reservation_day', 'pour.ID_day = reservation_day.ID_day')->join('concerner', 'concerner.ID_planning = planning.ID_planning')->join('chambre', 'concerner.ID_chambre = chambre.ID_chambre')->groupBy('chambre.ID_chambre')->findAll();
+
+        foreach ($tabPlanningDay as $row) {
+            $data[] = array(
+                'ID_chambre' => $row['ID_chambre'],
+                'ID_reservation' => $row['ID_day'],
+                'ID_planning' => $row['ID_planning'],
+                'motif' => $row['motif'],
+                'nom' => $row['nom_client_day'],
+                'description_chambre' => $row['description_chambre'],
+                'tarif_chambre' => $row['tarif_chambre'],
+                'statut_chambre' => $row['statut_chambre'],
+                'commentaire' => $row['commentaire_day'],
+                'surplus' => $row['lit_sup'] * $row['tarif_lit_sup'],
+                'total' => $row['total'],
+            );
+        }
+
+        return $data;
+    }
+
+    function readNuit()
+    {
+        $data = [];
+        $pour = new pourModel();
+        $tabPlanningNuit = $pour->select(['*', 'DATE_FORMAT(debut_sejour, "%d %b %Y") AS debut_sejour', 'DATE_FORMAT(fin_sejour, "%d %b %Y") AS fin_sejour', '(tarif_chambre * nbr_nuit) AS total'])->where('fin_sejour >= CURDATE() AND debut_sejour < CURDATE() + 1')->join('planning', 'pour.ID_planning = planning.ID_planning')->join('reservation_nuit', 'pour.ID_nuit = reservation_nuit.ID_nuit')->join('client', 'reservation_nuit.ID_client = client.ID_client')->join('concerner', 'concerner.ID_planning = planning.ID_planning')->join('chambre', 'concerner.ID_chambre = chambre.ID_chambre')->groupBy('chambre.ID_chambre')->findAll();
+
+        foreach ($tabPlanningNuit as $row) {
+            $data[] = array(
+                'ID_chambre' => $row['ID_chambre'],
+                'ID_reservation' => $row['ID_nuit'],
+                'ID_planning' => $row['ID_planning'],
+                'motif' => $row['motif'],
+                'nom' => $row['nom_client'],
+                'description_chambre' => $row['description_chambre'],
+                'tarif_chambre' => $row['tarif_chambre'],
+                'statut_chambre' => $row['statut_chambre'],
+                'commentaire' => $row['commentaire_nuit'],
+                'surplus' => $row['lit_sup'] * $row['tarif_lit_sup'],
+                'total' => $row['total'],
+            );
+        }
+
+        return $data;
+    }
 }

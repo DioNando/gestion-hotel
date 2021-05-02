@@ -41,96 +41,97 @@
     <?php endif; ?> -->
 
 
+    <div class="overflow-auto">
+        <table class="table table-hover table-striped" id="result">
+            <thead>
+                <tr>
+                    <th scope="col"><i class="fab fa-slack-hash"></i></th>
+                    <th scope="col" class="text-end">Debut séjour</th>
+                    <th scope="col" class="text-end">Fin séjour</th>
+                    <th scope="col" class="text-end">Nuitées</th>
+                    <th scope="col">Détails</th>
+                    <th scope="col">Info client</th>
+                    <th scope="col">Info réservation</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="align-middle">
+                <?php
+                if (count($reservations) > 0) {
 
-    <table class="table table-hover table-striped" id="result">
-        <thead>
-            <tr>
-                <th scope="col"><i class="fab fa-slack-hash"></i></th>
-                <th scope="col" class="text-end">Debut séjour</th>
-                <th scope="col" class="text-end">Fin séjour</th>
-                <th scope="col" class="text-end">Nuitées</th>
-                <th scope="col">Détails</th>
-                <th scope="col">Info client</th>
-                <th scope="col">Info réservation</th>
-                <th scope="col">Actions</th>
-            </tr>
-        </thead>
-        <tbody class="align-middle">
-            <?php
-            if (count($reservations) > 0) {
+                    foreach ($reservations as $reservation) {
 
-                foreach ($reservations as $reservation) {
+                ?>
+                        <tr>
+                            <th scope="row"> <?php echo ($reservation['ID_nuit']) ?> </th>
+                            <td class="text-end"> <?php echo ($reservation['debut_sejour']); ?> </td>
+                            <td class="text-end"> <?php echo ($reservation['fin_sejour']); ?> </td>
+                            <td class="text-end">
+                                <div class="row">
+                                    <div class="col"><strong><?php echo ($reservation['nbr_nuit']); ?></strong></div>
+                                    <div class="col-1 ms-2 center">
+                                        <?php if ($reservation['etat'] == 1) echo ('<i class="fas fa-hourglass-start text-primary"></i>') ?>
+                                        <?php if ($reservation['etat'] == 2) echo ('<i class="fas fa-hourglass-half text-success"></i>') ?>
+                                        <?php if ($reservation['etat'] == 3) echo ('<i class="fas fa-hourglass-end text-secondary"></i>') ?>
+                                    </div>
+                                </div>
 
-            ?>
+                            </td>
+                            <td>
+                                <div class="center">
+                                    <div>
+                                        <button type="button" class="btn btn-outline-primary btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalReservationInfo" id="infoDetails" onclick="infoSupplementaireNuit('<?php echo $reservation['ID_nuit']; ?>', 'infoDetails')"><i class="fas fa-money-check"></i></button>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="center">
+                                    <div>
+                                        <button type="button" class="btn btn-outline-secondary btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalReservationInfoClient" id="infoClient" onclick="infoSupplementaireNuit('<?php echo $reservation['ID_nuit']; ?>', 'infoClient')"><i class="fas fa-user"></i></button>
+                                    </div>
+                                    <div>
+                                        <?php if ($reservation['ID_etat_reservation'] == 1 || $reservation['ID_etat_reservation'] == 4) echo ('<i class="fas fa-check text-secondary mx-3"></i>') ?>
+                                        <?php if ($reservation['ID_etat_reservation'] == 2 || $reservation['ID_etat_reservation'] == 3) echo ('<i class="fas fa-exclamation-triangle text-danger mx-3"></i>') ?>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="center">
+                                    <div>
+                                        <button type="button" class="btn btn-outline-secondary btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalReservationInfoNuit" id="infoReservation" onclick="infoSupplementaireNuit('<?php echo $reservation['ID_nuit']; ?>', 'infoNuit')"><i class="fas fa-users-cog"></i></button>
+                                    </div>
+                                    <div>
+                                        <?php if ($reservation['ID_etat_reservation'] == 1 || $reservation['ID_etat_reservation'] == 2) echo ('<i class="fas fa-check text-secondary mx-3"></i>') ?>
+                                        <?php if ($reservation['ID_etat_reservation'] == 3 || $reservation['ID_etat_reservation'] == 4) echo ('<i class="fas fa-exclamation-triangle text-danger mx-3"></i>') ?>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="center">
+                                    <div>
+                                        <button type="button" class="btn btn-outline-dark btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalReservationUpdate" onclick="infoSupplementaireNuit('<?php echo $reservation['ID_nuit']; ?>', 'updateNuit')"><i class="fas fa-pencil-alt"></i></button>
+                                        <button type="button" class="btn btn-outline-danger btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalReservationDelete" onclick="deleteData('<?php echo $reservation['ID_nuit']; ?>')"><i class="fas fa-trash-alt"></i></button>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    <?php
+                    }
+                } else {
+                    ?>
                     <tr>
-                        <th scope="row"> <?php echo ($reservation['ID_nuit']) ?> </th>
-                        <td class="text-end"> <?php echo ($reservation['debut_sejour']); ?> </td>
-                        <td class="text-end"> <?php echo ($reservation['fin_sejour']); ?> </td>
-                        <td class="text-end">
-                            <div class="row">
-                                <div class="col"><strong><?php echo ($reservation['nbr_nuit']); ?></strong></div>
-                                <div class="col-1 ms-2 center">
-                                    <?php if ($reservation['etat'] == 1) echo ('<i class="fas fa-hourglass-start text-primary"></i>') ?>
-                                    <?php if ($reservation['etat'] == 2) echo ('<i class="fas fa-hourglass-half text-success"></i>') ?>
-                                    <?php if ($reservation['etat'] == 3) echo ('<i class="fas fa-hourglass-end text-secondary"></i>') ?>
-                                </div>
-                            </div>
-
-                        </td>
-                        <td>
-                            <div class="center">
-                                <div>
-                                    <button type="button" class="btn btn-outline-primary btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalReservationInfo" id="infoDetails" onclick="infoSupplementaireNuit('<?php echo $reservation['ID_nuit']; ?>', 'infoDetails')"><i class="fas fa-money-check"></i></button>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="center">
-                                <div>
-                                    <button type="button" class="btn btn-outline-secondary btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalReservationInfoClient" id="infoClient" onclick="infoSupplementaireNuit('<?php echo $reservation['ID_nuit']; ?>', 'infoClient')"><i class="fas fa-user"></i></button>
-                                </div>
-                                <div>
-                                    <?php if ($reservation['ID_etat_reservation'] == 1 || $reservation['ID_etat_reservation'] == 4) echo ('<i class="fas fa-check text-secondary mx-3"></i>') ?>
-                                    <?php if ($reservation['ID_etat_reservation'] == 2 || $reservation['ID_etat_reservation'] == 3) echo ('<i class="fas fa-exclamation-triangle text-danger mx-3"></i>') ?>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="center">
-                                <div>
-                                    <button type="button" class="btn btn-outline-secondary btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalReservationInfoNuit" id="infoReservation" onclick="infoSupplementaireNuit('<?php echo $reservation['ID_nuit']; ?>', 'infoNuit')"><i class="fas fa-users-cog"></i></button>
-                                </div>
-                                <div>
-                                    <?php if ($reservation['ID_etat_reservation'] == 1 || $reservation['ID_etat_reservation'] == 2) echo ('<i class="fas fa-check text-secondary mx-3"></i>') ?>
-                                    <?php if ($reservation['ID_etat_reservation'] == 3 || $reservation['ID_etat_reservation'] == 4) echo ('<i class="fas fa-exclamation-triangle text-danger mx-3"></i>') ?>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="center">
-                                <div>
-                                    <button type="button" class="btn btn-outline-dark btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalReservationUpdate" onclick="infoSupplementaireNuit('<?php echo $reservation['ID_nuit']; ?>', 'updateNuit')"><i class="fas fa-pencil-alt"></i></button>
-                                    <button type="button" class="btn btn-outline-danger btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalReservationDelete" onclick="deleteData('<?php echo $reservation['ID_nuit']; ?>')"><i class="fas fa-trash-alt"></i></button>
-                                </div>
-                            </div>
-                        </td>
+                        <?php if (session()->get('isUser') == 'Administrateur') : ?>
+                            <td colspan="8">Tableau vide.</td>
+                        <?php else : ?>
+                            <td colspan="8">Tableau vide.</td>
+                        <?php endif; ?>
                     </tr>
                 <?php
                 }
-            } else {
                 ?>
-                <tr>
-                    <?php if (session()->get('isUser') == 'Administrateur') : ?>
-                        <td colspan="8">Tableau vide.</td>
-                    <?php else : ?>
-                        <td colspan="8">Tableau vide.</td>
-                    <?php endif; ?>
-                </tr>
-            <?php
-            }
-            ?>
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+    </div>
 
     <div class="row mb-4">
         <div class="col"><?= $pager->links('paginationResult', 'pagination') ?></div>

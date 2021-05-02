@@ -1,7 +1,7 @@
 <?php
 $total = 0;
 foreach ($details as $detail) {
-    $total = $total + ($detail['tarif_chambre'] * $detail['nbr_nuit']);
+    $total = $total + ($detail['tarif_chambre'] * $detail['nbr_nuit'] + $detail['lit_sup'] * $detail['tarif_lit_sup']);
 }
 $montant = $total - $detail['remise'] * $total / 100;
 $reste = $total - $total;
@@ -25,8 +25,8 @@ $reste = $total - $total;
                 <td class="text-end"> <?php echo ($detail['debut_sejour']); ?> </td>
                 <td class="text-center"> <?php echo ($detail['ID_chambre']); ?> </td>
                 <td class="text-end"> <?php echo number_format($detail['tarif_chambre'], '0', '', ' ') . ' Ar'; ?> </td>
-                <td class="text-center"> <?php echo ('0'); ?> </td>
-                <td class="text-end"> <?php echo number_format($detail['tarif_chambre'] * $detail['nbr_nuit'], '0', '', ' ') . ' Ar'; ?> </td>
+                <td class="text-center"> <?php echo number_format($detail['lit_sup'] * $detail['tarif_lit_sup'], '0', '', ' ') . ' Ar'; ?> </td>
+                <td class="text-end"> <?php echo number_format($detail['tarif_chambre'] * $detail['nbr_nuit'] + $detail['lit_sup'] * $detail['tarif_lit_sup'], '0', '', ' ') . ' Ar'; ?> </td>
             </tr>
         <?php } ?>
 

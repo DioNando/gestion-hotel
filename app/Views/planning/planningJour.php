@@ -1,5 +1,6 @@
 <?php include("modal/modalPlanning.php"); ?>
 <?php include("assets/toast/myToast.php"); ?>
+<?php include("modal/modalChambre.php"); ?>
 
 <div class="container-fluid mt-3 mb-3">
     <!-- <h1>Planning du Jour</h1> -->
@@ -26,7 +27,7 @@
             locale: 'fr',
             initialView: 'listWeek',
             headerToolbar: {
-                left: 'listWeek,timeGridWeek,timeGridDay',
+                left: 'listWeek,timeGridWeek,dayGridMonth',
                 center: 'title',
                 right: 'today prev,next',
             },
@@ -123,7 +124,7 @@
     }
 </script>
 
-<div class="container-fluid" id="tabPlanningJour">
+<div class="container-fluid" id="tabPlanningJour" style="overflow-x:auto;">
     <table class="table table-hover table-striped">
         <thead>
             <tr>
@@ -146,7 +147,17 @@
                 foreach ($plannings as $planning) { ?>
 
                     <tr>
-                        <th scope="row"><?php echo ($planning['ID_chambre']); ?></th>
+                        <th scope="row">
+                            <div class="row">
+                                <div class="col d-flex justify-content-start center ms-4"><?php echo ($planning['ID_chambre']); ?></div>
+                                <div class="col d-flex justify-content-end center me-4">
+                                    <?php if ($planning['statut_chambre'] == 'Libre') { ?><button type="button" class="btn btn-outline-success btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalChambreUpdate" onclick="updateChambre('<?php echo $planning['ID_chambre']; ?>' ,'update')"><i class="fas fa-tag"></i></button><?php } ?>
+                                    <?php if ($planning['statut_chambre'] == 'En attente') { ?><button type="button" class="btn btn-outline-danger btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalChambreUpdate" onclick="updateChambre('<?php echo $planning['ID_chambre']; ?>' ,'update')"><i class="fas fa-exclamation-triangle"></i></button><?php } ?>
+                                    <?php if ($planning['statut_chambre'] == 'Occupée') { ?><button type="button" class="btn btn-outline-secondary btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalChambreUpdate" onclick="updateChambre('<?php echo $planning['ID_chambre']; ?>' ,'update')"><i class="fas fa-house-user"></i></button><?php } ?>
+                                </div>
+                            </div>
+
+                        </th>
                         <!-- <td class="text-start"><?php echo ($planning['motif']); ?></td> -->
                         <td class="text-center">
                             <?php if ($planning['motif'] == 'Nuitée') echo ('<i class="fas fa-moon text-dark"></i>') ?>
@@ -158,7 +169,24 @@
                         <td class="text-center"><?php echo ($planning['duree']); ?></td>
                         <td><?php echo ($planning['commentaire']); ?></td>
                         <td class="text-end"><?php echo number_format($planning['montant'], '0', '', ' ') . ' Ar'; ?></td>
-                        <td class="text-end"><?php echo number_format($planning['surplus'], '0', '', ' ') . ' Ar'; ?></td>
+                        <td class="text-end">
+
+
+                            <div class="row">
+                                <div class="col d-flex align-items-center justify-content-end"> <?php echo number_format($planning['surplus'], '0', '', ' ') . ' Ar'; ?></div>
+                                <div class="col-1 center">
+                                    <?php if ($planning['statut_chambre'] == 'Libre') { ?>
+                                        <button disabled type="button" class="btn btn-outline-dark btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalChambreUpdate" onclick="updateChambreReservation('<?php echo $planning['ID_chambre']; ?>', '<?php echo $planning['ID_planning']; ?>', 'update')"><i class="fas fa-bed"></i></button>
+                                        <!-- <button disabled type="button" class="btn btn-outline-secondary btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalChambreInfo" onclick="infoData('<?php echo $planning['ID_chambre']; ?>')"><i class="fas fa-user"></i></button> -->
+                                    <?php  } ?>
+                                    <?php if ($planning['statut_chambre'] == 'En attente' || $planning['statut_chambre'] == 'Occupée') { ?>
+                                        <button type="button" class="btn btn-outline-dark btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalChambreUpdateReservation" onclick="updateChambreReservation('<?php echo $planning['ID_chambre']; ?>', '<?php echo $planning['ID_planning']; ?>', 'update')"><i class="fas fa-bed"></i></button>
+                                        <!-- <button type="button" class="btn btn-outline-secondary btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalChambreInfo" onclick="infoData('<?php echo $planning['ID_chambre']; ?>')"><i class="fas fa-user"></i></button> -->
+                                    <?php  } ?>
+                                </div>
+                            </div>
+
+                        </td>
                         <td class="text-end"><?php echo number_format($planning['total'], '0', '', ' ') . ' Ar'; ?></td>
 
                     <?php
@@ -178,6 +206,30 @@
         </tbody>
     </table>
 
+</div>
+
+
+<h3 class="center mb-3">Chambres disponible</h3>
+<div class="container mb-3">
+    <div class="row row-cols-1 row-cols-lg-6 row-cols-sm-3 g-3">
+        <?php foreach ($chambres as $chambre) { ?>
+            <div class="col">
+                <div class="p-2 border checkChambre checkChambre-radius chambre<?php echo ($chambre['ID_chambre']) ?>">
+                    <div class="row">
+                        <label class="col form-check-label align-middle ms-3" for="checkbox_chambre <?php echo ($chambre['ID_chambre']) ?>"><?php echo ($chambre['ID_chambre']) ?>
+                        </label>
+                        <!-- <label class="col form-check-label align-middle" for="checkbox_chambre <?php echo ($chambre['ID_chambre']) ?>"><?php echo ($chambre['ID_chambre']) . ' : ' . number_format($chambre['tarif_chambre'], '0', '', ' ') . ' Ar' ?>
+                                            </label> -->
+                        <label class="col-auto form-check-label center me-3" for="checkbox_chambre <?php echo ($chambre['ID_chambre']) ?>">
+                            <?php if ($chambre['statut_chambre'] == 'Libre') echo ('<i class="fas fa-tag text-success"></i>') ?>
+                            <?php if ($chambre['statut_chambre'] == 'En attente') echo ('<i class="fas fa-exclamation-triangle text-danger"></i>') ?>
+                            <?php if ($chambre['statut_chambre'] == 'Occupée') echo ('<i class="fas fa-house-user text-secondary"></i>') ?>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        <?php } ?>
+    </div>
 </div>
 
 <div class="container-fluid mb-4" id='calendar'></div>

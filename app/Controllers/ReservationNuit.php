@@ -11,10 +11,12 @@ use App\models\reservationDayModel;
 use App\models\concernerModel;
 use App\models\effectuerModel;
 use App\models\planningModel;
+use App\models\archiveModel;
 use App\models\pourModel;
 use App\models\factureNuitModel;
 use App\models\historiqueModel;
 use App\models\stockerModel;
+use App\models\relierModel;
 
 class ReservationNuit extends BaseController
 {
@@ -36,6 +38,10 @@ class ReservationNuit extends BaseController
 		}
 		if (isset($_POST['infoDetails'])) {
 			$data['details'] = $this->infoDetails($_POST['ID_nuit']);
+			$factures = new factureNuitModel();
+			$reservation = new reservationNuitModel();
+			$data['info'] = $reservation->where('reservation_nuit.ID_nuit', $_POST['ID_nuit'])->join('client', 'client.ID_client = reservation_nuit.ID_client')->join('effectuer', 'effectuer.ID_nuit = reservation_nuit.ID_nuit')->join('user', 'effectuer.ID_user = user.ID_user')->first();
+			$data['facture'] = $factures->where('ID_nuit', $_POST['ID_nuit'])->first();
 			echo view('reservation\infoNuitDetails', $data);
 			return ($data);
 		}
@@ -69,7 +75,7 @@ class ReservationNuit extends BaseController
 					'nom_client' => 'required|min_length[1]',
 					'prenom_client' => 'required|min_length[1]',
 					// 'telephone_client' => 'required',
-					'nbr_nuit' => 'is_natural',
+					'nbr_nuit' => 'is_natural_no_zero',
 					'ID_chambre' => 'required',
 				];
 
@@ -97,6 +103,8 @@ class ReservationNuit extends BaseController
 					// $historique = new historiqueModel();
 					$reservations = new reservationNuitModel();
 					$planning = new planningModel();
+					$archives = new archiveModel();
+					$archive = $archives->orderBy('ID_archive', 'desc')->first();
 					$facture = new factureNuitModel();
 
 					$newData = [
@@ -123,13 +131,14 @@ class ReservationNuit extends BaseController
 					// 	'ID_client' => $client['ID_client'],
 					// 	'ID_nuit' => $id,
 					// ];
-					
+
 					// $historique->insert($dataHistorique);
 
 					$newDataFacture = [
 						'offert' => $_POST['offert_sejour'],
 						'remise' => $_POST['remise'],
 						'ID_nuit' => $id,
+						'type_payement_nuit' => 'Autre',
 					];
 
 					$facture->save($newDataFacture);
@@ -147,24 +156,28 @@ class ReservationNuit extends BaseController
 						'ID_nuit' => $id,
 						'ID_planning' => $id_planning,
 						'ID_facture_nuit' => $id_facture,
+						'ID_archive' => $archive['ID_archive'],
 					];
 
 					$this->addEffectuer($id, $user['ID_user']);
-					$this->addStocker($client['ID_client'], $id);
+					// $this->addStocker($client['ID_client'], $id);
 					$this->addPour($id, $id_planning);
-					$this->addConcerner($id_planning);
+					$this->addConcerner($id_planning, $archive['ID_archive']);
 
 					$session = session();
 					$session->set($newData);
 					$session->setFlashdata('success', 'Réservation réussie');
 					// return redirect()->to('reservationNuit');
-					return redirect()->to('factureNuit');
+					return redirect()->to('configReservationNuit');
 				}
 			}
 		endif;
 
-		$chambres = new chambreModel();
-		$data['chambres'] = $chambres->findAll();
+		$chambres = new relierModel();
+		$archives = new archiveModel();
+		$archive = $archives->orderBy('ID_archive', 'desc')->first();
+
+		$data['chambres'] = $chambres->where('relier.ID_archive', $archive['ID_archive'])->join('archive', 'relier.ID_archive =  archive.ID_archive')->join('chambre', 'relier.ID_chambre = chambre.ID_chambre')->findAll();
 		echo view('templates\header');
 		echo view('reservation\nuit', $data);
 		echo view('templates\footer');
@@ -207,41 +220,42 @@ class ReservationNuit extends BaseController
 		$pour->save($newData);
 	}
 
-	public function addStocker($ID_client, $ID_reservation)
-	{
-		$historique = new historiqueModel();
-		$stocker = new stockerModel();
-		$chambres = new chambreModel();
+	// public function addStocker($ID_client, $ID_reservation)
+	// {
+	// 	$historique = new historiqueModel();
+	// 	$stocker = new stockerModel();
+	// 	$chambres = new chambreModel();
 
-		foreach ($_POST['ID_chambre'] as $valeur) {
-			$chambre = $chambres->where('ID_chambre', $valeur)->first();
-			$newHistorique = [
-				'ID_chambre_ancien' => $chambre['ID_chambre'],
-				'tarif_chambre_ancien' => $chambre['tarif_chambre'],
-			];
-			$historique->save($newHistorique);
+	// 	foreach ($_POST['ID_chambre'] as $valeur) {
+	// 		$chambre = $chambres->where('ID_chambre', $valeur)->first();
+	// 		$newHistorique = [
+	// 			'ID_chambre_ancien' => $chambre['ID_chambre'],
+	// 			'tarif_chambre_ancien' => $chambre['tarif_chambre'],
+	// 		];
+	// 		$historique->save($newHistorique);
 
-			$ID_historique = $historique->getInsertID();
-			
-			$newData = [
-				'ID_historique' => $ID_historique,
-				'ID_client' => $ID_client,
-				'ID_reservation' => $ID_reservation,
-			];
+	// 		$ID_historique = $historique->getInsertID();
 
-			$stocker->save($newData);
-		}
-	}
+	// 		$newData = [
+	// 			'ID_historique' => $ID_historique,
+	// 			'ID_client' => $ID_client,
+	// 			'ID_reservation' => $ID_reservation,
+	// 		];
 
-	public function addConcerner($ID_planning)
+	// 		$stocker->save($newData);
+	// 	}
+	// }
+
+	public function addConcerner($ID_planning, $ID_archive)
 	{
 		$concerner = new concernerModel();
 		$chambres = new chambreModel();
 		if (isset($_POST['ID_chambre'])) {
 			foreach ($_POST['ID_chambre'] as $valeur) {
 				$newData = [
-					'ID_chambre' => $valeur,
 					'ID_planning' => $ID_planning,
+					'ID_archive' => $ID_archive,
+					'ID_chambre' => $valeur,
 					'statut_chambre' => 'En attente',
 				];
 				$chambres->set($newData);
@@ -316,25 +330,26 @@ class ReservationNuit extends BaseController
 		$reservations = new effectuerModel();
 		// $data['reservations'] = $reservations->select(['*', 'DATE_FORMAT(debut_sejour, "%d %b %Y") AS debut_sejour', 'DATE_FORMAT(fin_sejour, "%d %b %Y") AS fin_sejour'])->join('user', 'effectuer.ID_user = user.ID_user')->join('reservation_nuit', 'effectuer.ID_nuit = reservation_nuit.ID_nuit')->join('client', 'reservation_nuit.ID_client = client.ID_client')->join('pour', 'pour.ID_nuit = reservation_nuit.ID_nuit')->join('planning', 'pour.ID_planning = planning.ID_planning')->orderBy('reservation_nuit.ID_nuit', 'desc')->findAll();
 		// $data['total'] = count($data['reservations']);
-		
+
 		$data = [
-            'reservations' => $reservations->select(['*', 'DATE_FORMAT(debut_sejour, "%d %b %Y") AS debut_sejour', 'DATE_FORMAT(fin_sejour, "%d %b %Y") AS fin_sejour',
-			'(CASE 
+			'reservations' => $reservations->select([
+				'*', 'DATE_FORMAT(debut_sejour, "%d %b %Y") AS debut_sejour', 'DATE_FORMAT(fin_sejour, "%d %b %Y") AS fin_sejour',
+				'(CASE 
 					WHEN debut_sejour > CURDATE() AND fin_sejour > CURDATE() THEN "1"
 					WHEN fin_sejour >= CURDATE() AND debut_sejour < CURDATE() + 1 THEN "2"
 					WHEN fin_sejour < CURDATE() THEN "3"
 				END) AS etat'
-			
+
 			])->join('user', 'effectuer.ID_user = user.ID_user')->join('reservation_nuit', 'effectuer.ID_nuit = reservation_nuit.ID_nuit')->join('etat', 'etat.ID_etat_reservation = reservation_nuit.ID_etat_reservation')->join('client', 'reservation_nuit.ID_client = client.ID_client')->join('pour', 'pour.ID_nuit = reservation_nuit.ID_nuit')->join('planning', 'pour.ID_planning = planning.ID_planning')->orderBy('reservation_nuit.ID_nuit', 'desc')->paginate(20, 'paginationResult'),
-            'pager' => $reservations->pager,
-            'total' => count($reservations->join('reservation_nuit', 'effectuer.ID_nuit = reservation_nuit.ID_nuit')->findAll()),
-            'total_all' => count($reservations->join('reservation_nuit', 'effectuer.ID_nuit = reservation_nuit.ID_nuit')->findAll()),
+			'pager' => $reservations->pager,
+			'total' => count($reservations->join('reservation_nuit', 'effectuer.ID_nuit = reservation_nuit.ID_nuit')->findAll()),
+			'total_all' => count($reservations->join('reservation_nuit', 'effectuer.ID_nuit = reservation_nuit.ID_nuit')->findAll()),
 			'enAttente' => count($reservations->where('debut_sejour > CURDATE() AND fin_sejour > CURDATE()')->join('reservation_nuit', 'effectuer.ID_nuit = reservation_nuit.ID_nuit')->join('pour', 'pour.ID_nuit = reservation_nuit.ID_nuit')->join('planning', 'pour.ID_planning = planning.ID_planning')->findAll()),
 			'enCours' => count($reservations->where('fin_sejour >= CURDATE() AND debut_sejour < CURDATE() + 1')->join('reservation_nuit', 'effectuer.ID_nuit = reservation_nuit.ID_nuit')->join('pour', 'pour.ID_nuit = reservation_nuit.ID_nuit')->join('planning', 'pour.ID_planning = planning.ID_planning')->findAll()),
 			'termine' => count($reservations->where('fin_sejour < CURDATE()')->join('reservation_nuit', 'effectuer.ID_nuit = reservation_nuit.ID_nuit')->join('pour', 'pour.ID_nuit = reservation_nuit.ID_nuit')->join('planning', 'pour.ID_planning = planning.ID_planning')->findAll()),
 		];
-		
-		
+
+
 		return $data;
 	}
 
@@ -359,14 +374,17 @@ class ReservationNuit extends BaseController
 	{
 		$data = [];
 		$reservations = new pourModel();
-		$data = $reservations->select(['*', 'DATE_FORMAT(debut_sejour, "%d %b %Y") AS debut_sejour', 'DATE_FORMAT(fin_sejour, "%d %b %Y") AS fin_sejour', 'DATE_FORMAT(date_facture_nuit, "%d %b %Y à %H:%i") AS date_facture_nuit'])->where('pour.ID_nuit', $ID_nuit)->join('reservation_nuit', 'pour.ID_nuit = reservation_nuit.ID_nuit')->join('etat', 'etat.ID_etat_reservation = reservation_nuit.ID_etat_reservation')->join('facture_nuit', 'facture_nuit.ID_nuit = reservation_nuit.ID_nuit')->join('planning', 'pour.ID_planning = planning.ID_planning')->join('concerner', 'concerner.ID_planning = planning.ID_planning')->join('chambre', 'concerner.ID_chambre = chambre.ID_chambre')->groupBy('concerner.ID_chambre')->find();
+		$archives = new archiveModel();
+        $archive = $archives->where('etat_archive', 1)->orderBy('ID_archive', 'desc')->first();
+
+		$data = $reservations->select(['*', 'DATE_FORMAT(debut_sejour, "%d %b %Y") AS debut_sejour', 'DATE_FORMAT(fin_sejour, "%d %b %Y") AS fin_sejour', 'DATE_FORMAT(date_facture_nuit, "%d %b %Y à %H:%i") AS date_facture_nuit'])->where('pour.ID_nuit', $ID_nuit)->join('reservation_nuit', 'pour.ID_nuit = reservation_nuit.ID_nuit')->join('etat', 'etat.ID_etat_reservation = reservation_nuit.ID_etat_reservation')->join('facture_nuit', 'facture_nuit.ID_nuit = reservation_nuit.ID_nuit')->join('planning', 'pour.ID_planning = planning.ID_planning')->join('concerner', 'concerner.ID_planning = planning.ID_planning')->join('chambre', 'concerner.ID_chambre = chambre.ID_chambre')->join('relier', 'relier.ID_chambre = chambre.ID_chambre')->join('archive', 'relier.ID_archive = archive.ID_archive')->where('archive.ID_archive', $archive['ID_archive'])->find();
 		return $data;
 	}
 
 	public function search($element_recherche)
 	{
 		$clients = new clientModel();
-		$client = $clients->like('nom_client', $element_recherche, 'both')->orLike('prenom_client', $element_recherche, 'both')->first();
+		$client = $clients->like('CONCAT(nom_client, " ", prenom_client)', $element_recherche, 'both')->orLike('nom_client', $element_recherche, 'both')->orLike('prenom_client', $element_recherche, 'both')->join('cardex', 'cardex.ID_client = client.ID_client')->orderby('cardex.ID_client', 'asc')->first();
 
 
 		$newData = [
@@ -444,9 +462,9 @@ class ReservationNuit extends BaseController
 
 	private function etat($etat_client, $confirmation_reservation)
 	{
-		if($etat_client == 1 AND $confirmation_reservation == 1) return 1;
-		if($etat_client == 0 AND $confirmation_reservation == 1) return 2;
-		if($etat_client == 0 AND $confirmation_reservation == 0) return 3;
-		if($etat_client == 1 AND $confirmation_reservation == 0) return 4;
+		if ($etat_client == 1 and $confirmation_reservation == 1) return 1;
+		if ($etat_client == 0 and $confirmation_reservation == 1) return 2;
+		if ($etat_client == 0 and $confirmation_reservation == 0) return 3;
+		if ($etat_client == 1 and $confirmation_reservation == 0) return 4;
 	}
 }

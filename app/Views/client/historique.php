@@ -42,7 +42,7 @@
                         </h2>
                         <div id="flush-collapseOne<?php echo ($info['ID_nuit']) ?>" class="accordion-collapse collapse" aria-labelledby="flush-headingOne<?php echo ($info['ID_nuit']) ?>" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body">
-                                Du : <?php echo ($info['fin_sejour']) ?> au : <?php echo ($info['debut_sejour']) ?>
+                                Du : <?php echo ($info['debut_sejour']) ?> au : <?php echo ($info['fin_sejour']) ?>
                             </div>
                         </div>
                     </div>
@@ -51,13 +51,19 @@
                             <button class="accordion-button py-2 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo<?php echo ($info['ID_nuit']) ?>" aria-expanded="false" aria-controls="flush-collapseTwo<?php echo ($info['ID_nuit']) ?>">
                                 <div class="row">
                                     <div class="col-1 ms-2 center"><i class="fas fa-moon"></i></div>
-                                    <div class="col text-start">Réservation n ° <?php echo ($info['ID_nuit']) ?></div>
+                                    <div class="col text-start">Réservation n ° <?php echo ($info['ID_nuit']) . ' de ' . $info['nbr_nuit'] . ' nuit' ?></div>
                                 </div>
                             </button>
                         </h2>
                         <div id="flush-collapseTwo<?php echo ($info['ID_nuit']) ?>" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo<?php echo ($info['ID_nuit']) ?>" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body">
-                                Chambres n ° : <?php echo ($info['ID_chambre']) ?>
+                                <div>Pour <?php echo ($info['nbr_personne']) ?> personne(s)</div>
+                                <?php foreach ($chambres as $chambre) {
+                                    if ($chambre['ID_planning'] == $info['ID_planning']) { ?>
+                                        <div>Chambres n ° : <?php echo ($chambre['ID_chambre']) ?></div>
+                                <?php }
+                                } ?>
+
                             </div>
                         </div>
                     </div>
@@ -75,7 +81,14 @@
                                 Facture n ° : <?php echo ($info['ID_facture_nuit']) ?><br>
                                 Du : <?php echo ($info['date_facture_nuit']) ?><br>
                                 Remise : <?php echo ($info['remise']) . '%' ?><br>
-                                Payement : <?php echo ($info['type_payement_nuit']) ?>
+                                Payement : <?php echo ($info['type_payement_nuit']); $total = 0; ?>
+                                <?php foreach ($chambres as $chambre) {
+                                    if ($chambre['ID_planning'] == $info['ID_planning']) {
+                                        $total = $total + $chambre['tarif_chambre'] * $info['nbr_nuit'];
+                                ?>
+                                <?php }
+                                } ?>
+                                <div><b> Total : <?php echo number_format($total - $total * $info['remise'] / 100, '0', '', ' ')  . ' Ar' ?></b></div>
                             </div>
                         </div>
                     </div>
@@ -85,7 +98,8 @@
             <?php }
         }
     else : { ?>
-            <div class="center fixed-bottom mb-5" onclick="closeNav()">
+            <!-- <div class="center fixed-bottom mb-5" onclick="closeNav()"> -->
+            <div class="center" onclick="closeNav()">
                 <div>
                     <div class="mb-4 mt-2">
                         <div class="center"><i style="font-size: 5rem;" class="far fa-calendar-times"></i></div>

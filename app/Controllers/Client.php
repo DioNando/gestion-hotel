@@ -97,13 +97,24 @@ class Client extends BaseController
 		// $data['clients'] = $clients->where('nom_client', $nom_client)->find();
 		
 		$data = [
-			'clients' => $clients->like('nom_client', $element_recherche, 'both')->orLike('prenom_client', $element_recherche, 'both')->paginate(20, 'paginationResult'),
+			'clients' => $clients->like('CONCAT(nom_client, " ", prenom_client)', $_POST['element_recherche'], 'both')->orLike('nom_client', $element_recherche, 'both')->orLike('prenom_client', $element_recherche, 'both')->paginate(20, 'paginationResult'),
 			'pager' => $clients->pager,
 			'total' => count($clients->like('nom_client', $element_recherche, 'both')->orLike('prenom_client', $element_recherche, 'both')->findAll()),
 			'total_all' => count($clients->findAll()),
 		];
 
 		return $data;
+	}
+
+	public function liveSearch()
+	{
+		$data = [];
+		$clients = new clientModel();		
+		$data = [
+			'clients' => $clients->like('CONCAT(nom_client, " ", prenom_client)', $_POST['element_recherche'], 'both')->orLike('nom_client', $_POST['element_recherche'], 'both')->orLike('prenom_client', $_POST['element_recherche'], 'both')->join('cardex', 'cardex.ID_client = client.ID_client')->orderby('cardex.ID_client', 'asc')->limit(10)->find(),
+			// 'clients' => $clients->like('CONCAT(nom_client, " ", prenom_client)', $_POST['element_recherche'], 'both')->orLike('nom_client', $_POST['element_recherche'], 'both')->orLike('prenom_client', $_POST['element_recherche'], 'both')->join('cardex', 'cardex.ID_client = client.ID_client')->limit(5)->find(),
+		];
+		return json_encode($data);
 	}
 
 	public function update()

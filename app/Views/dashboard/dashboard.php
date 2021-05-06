@@ -2,7 +2,6 @@
 <?php include("modal/modalPlanning.php"); ?>
 <?php include("modal/modalChambre.php"); ?>
 
-
 <div class="container-fluid mt-3 mb-3">
 
     <?php if (session()->get('isUser') == 'Administrateur' || session()->get('isUser') == 'Contrôleur') : ?>
@@ -134,58 +133,33 @@
 
 
     function chart2Display(result) {
-        let data1 = result.map(function(e) {
-            if (e.motif == 'Nuitée')
-                return e.reservation;
-            else
-                return null;
+        let data0 = result[0].map(function(e) {
+            return e.reservation;
         });
-        let data2 = result.map(function(e) {
-            if (e.motif == 'Day use')
-                return e.reservation;
-            else
-                return null;
+        let data1 = result[1].map(function(e) {
+            return e.reservation;
         });
-
-        let labels = result.map(function(e) {
-            return e.week;
+        let label0 = result[0].map(function(e) {
+            return e.id;
+        });
+        let label1 = result[1].map(function(e) {
+            return e.id;
         });
 
-        // console.log(result[0].week);
-
-        console.log(result);
-        console.log(data1);
-        console.log(data2);
+        console.log(result[0]);
+        console.log(result[1]);
+        console.log(result[2]);
 
         new Chart(document.getElementById("myChart4"), {
             type: 'bar',
             data: {
-                labels: labels.sort(),
-                // labels: ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'],
-                // labels: ['1', '2', '3', '4', '5', '6', '7'],
-                // labels: [0, 1, 2, 3, 4, 5, 6],
+
+                labels: label1,
+
                 datasets: [{
-                    label: "Nuitée",
+                    label: "day use",
                     data: data1,
-                    // data: ['5', '2', '2', '4', '0', '6', '1'],
-                    // fill: false,
-                    // borderColor: '#ff7c1f',
-                    // backgroundColor: 'rgba(255, 152, 79, 0.5)',
-                    backgroundColor: '#ff7c1f',
-                    // borderWidth: 4,
-                    borderWidth: false,
-                    radius: 1,
-                    tension: 0,
-                    barThickness: 7,
-                }, {
-                    label: "Day Use",
-                    data: data2,
-                    // data: ['1', '2', '0', '2', '7', '1', '5'],
-                    // fill: false,
-                    // borderColor: '#6190E8',
-                    // backgroundColor: 'rgba(140, 180, 255, 0.5)',
                     backgroundColor: '#6190E8',
-                    // borderWidth: 4,
                     borderWidth: false,
                     radius: 1,
                     tension: 0,
@@ -205,7 +179,53 @@
                 },
                 scales: {
                     xAxes: [{
+                        display: true,
+                        stacked: true,
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }],
+                    yAxes: [{
                         display: false,
+                        stacked: true,
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            },
+        });
+
+        new Chart(document.getElementById("myChart5"), {
+            type: 'bar',
+            data: {
+                labels: label0,
+                datasets: [{
+                        label: "nuitées",
+                        data: data0,
+                        backgroundColor: '#ff7c1f',
+                        borderWidth: false,
+                        radius: 1,
+                        tension: 0,
+                        barThickness: 7,
+                    },
+
+                ]
+            },
+            options: {
+                title: {
+                    display: false,
+                    text: 'Tendance des reservations'
+                },
+                responsive: true,
+                legend: {
+                    display: true,
+                    position: 'top',
+                    align: 'end',
+                },
+                scales: {
+                    xAxes: [{
+                        display: true,
                         stacked: true,
                         ticks: {
                             beginAtZero: true
@@ -283,9 +303,24 @@
             calendrierData();
             chartData('chart1');
             chartData('chart2');
-
         });
+
+        $('#myChart4').hide();
+        // $('#myChart5').hide();
     }
+
+
+
+    $(document).ready(function() {
+        $('#sun').click(function() {
+            $('#myChart5').hide(250);
+            $('#myChart4').show(250);
+        })
+        $('#moon').click(function() {
+            $('#myChart4').hide(250);
+            $('#myChart5').show(250);
+        })
+    });
 
     // window.onload = function chargementPage() {
     //     calendrierData();
@@ -322,7 +357,7 @@
                 <div class="col-4 mt-3">
                     <div class="p-3 border bg-light bg-dashboard bg-dash2 height-dashboard container-fluid center">
                         <div class="text-light">
-                            <span class="center mb-2" style="font-size: 2.5rem;"><i class="fas fa-moon"></i></span>
+                            <span class="center mb-2" style="font-size: 2.5rem;"><i id="moon" class="fas fa-moon"></i></span>
                             <h5 class="center">Nuitée :
                                 <?php echo (count($detailsNuit)) ?></h5>
                         </div>
@@ -331,7 +366,7 @@
                 <div class="col-4 mt-3">
                     <div class="p-3 border bg-light bg-dashboard bg-dash3 height-dashboard container-fluid center">
                         <div style="color: black;">
-                            <span class="center mb-2" style="font-size: 2.5rem;"><i class="fas fa-sun"></i></span>
+                            <span class="center mb-2" style="font-size: 2.5rem;"><i id="sun" class="fas fa-sun"></i></span>
                             <h5 class="center">Day Use :
                                 <?php echo (count($detailsDay)) ?></h5>
                         </div>
@@ -410,9 +445,9 @@
                                         ?>
                                         <tr>
                                             <?php if (session()->get('isUser') == 'Administrateur') : ?>
-                                                <td colspan="5">Tableau vide.</td>
+                                                <td colspan="3">Tableau vide.</td>
                                             <?php else : ?>
-                                                <td colspan="4">Tableau vide.</td>
+                                                <td colspan="3">Tableau vide.</td>
                                             <?php endif; ?>
                                         </tr>
                                     <?php
@@ -467,7 +502,14 @@
                         <div class="col-1 center"><i class="fas fa-tag"></i></div>
                     </div>
                 </h4>
-                <canvas id="myChart4"></canvas>
+                <!-- <div class="container-fluid d-flex justify-content-evenly row g-2">
+                        <canvas class="bg-dark col-6" id="myChart4"></canvas>
+                        <canvas class="bg-dark col-6" id="myChart5"></canvas>
+                    </div> -->
+                <div>
+                    <canvas class="mt-3" id="myChart4"></canvas>
+                    <canvas class="mt-3" id="myChart5"></canvas>
+                </div>
             </div>
         </div>
     </div>

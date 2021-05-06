@@ -40,7 +40,7 @@
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
                     </div> -->
 
-                    <hr class="my-3">
+                    <!-- <hr class="my-3"> -->
                     <div class="container">
                         <div class="row center mx-2">
                             <button class="col-4 mx-2 center btn btn-secondary" type="button" data-bs-dismiss="modal">

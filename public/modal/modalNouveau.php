@@ -12,20 +12,20 @@
                 <form action="" method="post">
                     <div class="form-group">
                         <label class="form-label" for="nom_user">Nom</label>
-                        <input type="text" class="form-control" name="nom_user" id="">
+                        <input type="text" class="form-control" name="nom_user" id="nom_user">
                     </div>
                     <div class="form-group mt-2">
                         <label class="form-label" for="prenom_user">Prénom</label>
-                        <input type="text" class="form-control" name="prenom_user" id="">
+                        <input type="text" class="form-control" name="prenom_user" id="prenom_user">
                     </div>
 
                     <div class="form-group mt-2">
                         <label class="form-label" for="mdp_user">Mot de passe</label>
-                        <input type="password" class="form-control" name="mdp_user" id="">
+                        <input type="password" class="form-control" name="mdp_user" id="mdp_user">
                     </div>
                     <div class="form-group mt-2">
-                        <label class="form-label" for="">Droit d'accès</label>
-                        <select class="form-select" name="droit_user">
+                        <label class="form-label" for="droit_user">Droit d'accès</label>
+                        <select class="form-select" name="droit_user" id="droit_user">
                             <option selected value="Utilisateur">Utilisateur</option>
                             <option value="Controleur">Contrôleur</option>
                             <option value="Administrateur">Administrateur</option>
@@ -36,13 +36,13 @@
                         <button type="submit" class="btn btn-primary" name="btn_enregistrer">Valider</button>
                     </div> -->
                     <div class="container-fluid p-0 d-flex justify-content-end">
-                        <button class="btn btn-primary me-0" onclick="chambreJSON()" name="btn_enregistrer">
+                        <button class="btn btn-primary me-0" name="btn_enregistrer">
                             <div class="d-flex align-items-center">
                                 <div class="flex-shrink-0">
                                     <i class="fas fa-save"></i>
                                 </div>
                                 <div class="flex-grow-1 ms-2">
-                                    Sauvegarder
+                                    Enregistrer
                                 </div>
                             </div>
                         </button>
@@ -115,13 +115,13 @@
                     </div>
                     <div class="form-group mt-2">
                         <label class="form-label" for="tarif_chambre">Tarif par nuit</label>
-                        <input type="number" class="form-control" name="tarif_chambre" id="tarif_chambre" min="1" placeholder="ariary">
+                        <input type="number" class="form-control" name="tarif_temp" id="tarif_chambre" min="1" placeholder="ariary">
                     </div>
 
 
                     <div class="form-group mt-2">
-                        <label class="form-label" for="">Statut chambre</label>
-                        <select class="form-select" name="statut_chambre">
+                        <label class="form-label" for="statut_chambre">Statut chambre</label>
+                        <select class="form-select" name="statut_chambre" id="statut_chambre">
                             <option selected value="Libre">Libre</option>
                             <option value="Occupée">Occupée</option>
                             <option value="En attente">En attente</option>
@@ -129,13 +129,13 @@
                     </div>
                     <hr>
                     <div class="container-fluid p-0 d-flex justify-content-end">
-                        <button class="btn btn-primary me-0" onclick="chambreJSON()" name="btn_enregistrer">
+                        <button class="btn btn-primary me-0" name="btn_enregistrer">
                             <div class="d-flex align-items-center">
                                 <div class="flex-shrink-0">
                                     <i class="fas fa-save"></i>
                                 </div>
                                 <div class="flex-grow-1 ms-2">
-                                    Sauvegarder
+                                    Enregistrer
                                 </div>
                             </div>
                         </button>

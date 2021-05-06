@@ -42,14 +42,7 @@
                 <input type="text" class="form-control" name="total_lit" value="<?php echo ($info['lit_sup']) * ($info['tarif_lit_sup']) ?>" readonly>
             </div>
         </div> -->
-        <div class="form-group mt-2">
-            <label class="form-label" for="statut_chambre">Statut chambre</label>
-            <select class="form-select" id="statut_chambre" name="statut_chambre">
-                <option <?php if ($info['statut_chambre'] == 'Libre') echo ('selected'); ?> value="Libre">Libre</option>
-                <option <?php if ($info['statut_chambre'] == 'En attente') echo ('selected'); ?> value="En attente">En attente</option>
-                <option <?php if ($info['statut_chambre'] == 'Occupée') echo ('selected'); ?> value="Occupée">Occupée</option>
-            </select>
-        </div>
+        
 
         <!-- <div class="d-grid gap-2 mt-4">
                             <button type="submit" class="btn btn-primary" id="btnSubmit" name="btn_modification">Modifier</button>

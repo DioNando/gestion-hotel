@@ -12,7 +12,9 @@ use App\models\effectuerModel;
 use App\models\factureNuitModel;
 use App\models\factureDayModel;
 use App\models\planningModel;
+use App\models\archiveModel;
 use App\models\pourModel;
+use App\models\relierModel;
 
 class ReservationDay extends BaseController
 {
@@ -28,6 +30,10 @@ class ReservationDay extends BaseController
 		}
 		if (isset($_POST['infoDetails'])) {
 			$data = $this->infoDetails($_POST['ID_day']);
+			$factures = new factureDayModel();
+			$reservation = new reservationDayModel();
+			$data['info'] = $reservation->where('reservation_day.ID_day', $_POST['ID_day'])->join('effectuer', 'effectuer.ID_day = reservation_day.ID_day')->join('user', 'effectuer.ID_user = user.ID_user')->first();
+			$data['facture'] = $factures->where('ID_day', $_POST['ID_day'])->first();
 			echo view('reservation\infoDayDetails', $data);
 			return ($data);
 		}
@@ -73,6 +79,8 @@ class ReservationDay extends BaseController
 					$user = $users->where('nom_user', $_POST['nom_user'])->first();
 					$reservations = new reservationDayModel();
 					$planning = new planningModel();
+					$archives = new archiveModel();
+					$archive = $archives->orderBy('ID_archive', 'desc')->first();
 					$facture = new factureDayModel();
 
 					$newData = [
@@ -97,6 +105,7 @@ class ReservationDay extends BaseController
 
 					$newDataFacture = [
 						'ID_day' => $id,
+						'type_payement_day' => 'Autre',
 					];
 
 					$facture->save($newDataFacture);
@@ -109,24 +118,28 @@ class ReservationDay extends BaseController
 						'ID_user' => $user['ID_user'],
 						'ID_day' => $id,
 						'ID_planning' => $id_planning,
+						'ID_archive' => $archive['ID_archive'],
 						'ID_facture_day' => $id_facture,
 					];
 
 					$this->addEffectuer($id, $user['ID_user']);
 					$this->addPour($id, $id_planning);
-					$this->addConcerner($id_planning);
+					$this->addConcerner($id_planning, $archive['ID_archive']);
 
 					$session = session();
 					$session->set($newData);
 					$session->setFlashdata('success', 'Réservation réussie');
 					// return redirect()->to('reservationDay');
-					return redirect()->to('factureDay');
+					return redirect()->to('configReservationDay');
 				}
 			}
 		endif;
 
-		$chambres = new chambreModel();
-		$data['chambres'] = $chambres->findAll();
+		$chambres = new relierModel();
+		$archives = new archiveModel();
+		$archive = $archives->orderBy('ID_archive', 'desc')->first();
+
+		$data['chambres'] = $chambres->where('relier.ID_archive', $archive['ID_archive'])->join('archive', 'relier.ID_archive =  archive.ID_archive')->join('chambre', 'relier.ID_chambre = chambre.ID_chambre')->findAll();
 		echo view('templates\header');
 		echo view('reservation\day', $data);
 		echo view('templates\footer');
@@ -169,15 +182,16 @@ class ReservationDay extends BaseController
 		$pour->save($newData);
 	}
 
-	public function addConcerner($ID_planning)
+	public function addConcerner($ID_planning, $ID_archive)
 	{
 		$concerner = new concernerModel();
 		$chambres = new chambreModel();
 		if (isset($_POST['ID_chambre'])) {
 			foreach ($_POST['ID_chambre'] as $valeur) {
 				$newData = [
-					'ID_chambre' => $valeur,
 					'ID_planning' => $ID_planning,
+					'ID_archive' => $ID_archive,
+					'ID_chambre' => $valeur,
 					'statut_chambre' => 'Occupée',
 				];
 
@@ -230,9 +244,11 @@ class ReservationDay extends BaseController
 	{
 		$data = [];
 		$reservations = new pourModel();
+		$archives = new archiveModel();
+        $archive = $archives->where('etat_archive', 1)->orderBy('ID_archive', 'desc')->first();
 		// $data = $reservations->where('pour.ID_day', $ID_day)->join('planning', 'pour.ID_day = planning.ID_day')->join('reservation_day', 'pour.ID_day = reservation_day.ID_day')->join('concerner', 'concerner.ID_planning = planning.ID_planning')->join('concerner', 'concerner.ID_chambre = chambre.ID_chambre')->groupBy('chambre.ID_chambre')->first();
 		// $data['details'] = $reservations->where('pour.ID_day', $ID_day)->join('reservation_day', 'pour.ID_day = reservation_day.ID_day')->join('planning', 'pour.ID_planning = planning.ID_planning')->join('concerner', 'concerner.ID_planning = planning.ID_planning')->join('concerner', 'concerner.ID_chambre = chambre.ID_chambre')->groupBy('chambre.ID_chambre')->findAll();
-		$data['details'] = $reservations->select(['*', 'DATE_FORMAT(date_facture_day, "%d %b %Y à %H:%i") AS date_facture_day'])->where('pour.ID_day', $ID_day)->join('reservation_day', 'pour.ID_day = reservation_day.ID_day')->join('facture_day', 'facture_day.ID_day = reservation_day.ID_day')->join('planning', 'pour.ID_planning = planning.ID_planning')->join('concerner', 'concerner.ID_planning = planning.ID_planning')->join('chambre', 'concerner.ID_chambre = chambre.ID_chambre')->groupBy('concerner.ID_chambre')->find();
+		$data['details'] = $reservations->select(['*', 'DATE_FORMAT(date_facture_day, "%d %b %Y à %H:%i") AS date_facture_day'])->where('pour.ID_day', $ID_day)->join('reservation_day', 'pour.ID_day = reservation_day.ID_day')->join('facture_day', 'facture_day.ID_day = reservation_day.ID_day')->join('planning', 'pour.ID_planning = planning.ID_planning')->join('concerner', 'concerner.ID_planning = planning.ID_planning')->join('chambre', 'concerner.ID_chambre = chambre.ID_chambre')->join('relier', 'relier.ID_chambre = chambre.ID_chambre')->join('archive', 'relier.ID_archive = archive.ID_archive')->where('archive.ID_archive', $archive['ID_archive'])->find();
 		// $data['total'] = $reservations->select()->where('pour.ID_day', $ID_day)->join('reservation_day', 'pour.ID_day = reservation_day.ID_day')->join('planning', 'pour.ID_planning = planning.ID_planning')->join('concerner', 'concerner.ID_planning = planning.ID_planning')->join('chambre', 'concerner.ID_chambre = chambre.ID_chambre')->groupBy('concerner.ID_chambre')->find();
 		return $data;
 	}

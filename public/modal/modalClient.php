@@ -55,7 +55,7 @@
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
                     </div> -->
 
-                    <hr class="my-3">
+                    <!-- <hr class="my-3"> -->
                     <div class="container">
                         <div class="row center mx-2">
                             <button class="col-4 mx-2 center btn btn-secondary" type="button" data-bs-dismiss="modal">
@@ -110,21 +110,23 @@
 <div id="historiqueNav" class="sideNav">
     <div id="modalHistorique">
 
-
     </div>
 </div>
 
 <script>
     function openNav(ID_client, type) {
         infoHistorique(ID_client, type);
-        // document.getElementById("historiqueNav").style.width = "500px";
-        $('#historiqueNav').hide('50');
-        $('#historiqueNav').show('50');
+        // $('#modalHistorique').fadeOut();
+        // $('#historiqueNav').fadeOut();
+        $('#historiqueNav').slideDown('100');
+        // $('#modalHistorique').fadeIn();
+        $('#modalHistorique').fadeIn();
     }
-
+    
     function closeNav() {
-        // document.getElementById("historiqueNav").style.width = "0";
-        $('#historiqueNav').hide('100');
+        $('#modalHistorique').fadeOut();
+        // $('#historiqueNav').fadeOut();
+        $('#historiqueNav').slideUp('100');
     }
 </script>
 

@@ -1,6 +1,6 @@
 <form action="#" method="post">
     <div class="row">
-        <div class="col-12">
+        <div class="col-12" style="display: none;">
             <div class="form-group">
                 <label for="ID_day" class="form-label">Identification</label>
                 <input type="text" id="ID_day" class="form-control" value="<?php echo ($info['ID_day']) ?>" name="ID_day" readonly>

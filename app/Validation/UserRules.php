@@ -2,8 +2,8 @@
 
 namespace App\Validation;
 
-use App\models\userModel;
-use App\models\clientModel;
+use App\Models\userModel;
+use App\Models\clientModel;
 
 class UserRules
 {
@@ -12,6 +12,7 @@ class UserRules
         $model = new userModel();
         $user = $model->where('nom_user', $data['nom_user']) 
                       ->first();
+        // $user = $model->like('CONCAT(nom_user, " ", prenom_user)', $data['nom_user'], 'both')->orLike('nom_user', $data['nom_user'], 'both')->orLike('prenom_user', $data['nom_user'], 'both')->first();
 
         if (!$user)
             return false;
@@ -21,10 +22,9 @@ class UserRules
     public function validateClient(string $nom_client)
     {
         $model = new clientModel();
-        $user = $model->where('nom_client', $nom_client) 
-                      ->first();
+        $client = $model->like('CONCAT(nom_client, " ", prenom_client)', $nom_client, 'both')->orLike('nom_client', $nom_client, 'both')->orLike('prenom_client', $nom_client, 'both')->first();
                       
-        if (!$user)
+        if (!$client)
             return false;
     }
 }

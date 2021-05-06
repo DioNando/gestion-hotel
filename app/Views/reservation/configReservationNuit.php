@@ -50,7 +50,7 @@
                     <th scope="col" class="text-end">Fin séjour</th>
                     <th scope="col" class="text-end">Nuitées</th>
                     <th scope="col">Détails</th>
-                    <th scope="col">Info client</th>
+                    <th scope="col" class="text-start">Etat client</th>
                     <th scope="col">Info réservation</th>
                     <th scope="col">Actions</th>
                 </tr>
@@ -68,7 +68,7 @@
                             <td class="text-end"> <?php echo ($reservation['fin_sejour']); ?> </td>
                             <td class="text-end">
                                 <div class="row">
-                                    <div class="col"><strong><?php echo ($reservation['nbr_nuit']); ?></strong></div>
+                                    <div class="col"><?php echo ($reservation['nbr_nuit']) . ' nuitées'; ?></div>
                                     <div class="col-1 ms-2 center">
                                         <?php if ($reservation['etat'] == 1) echo ('<i class="fas fa-hourglass-start text-primary"></i>') ?>
                                         <?php if ($reservation['etat'] == 2) echo ('<i class="fas fa-hourglass-half text-success"></i>') ?>
@@ -85,13 +85,23 @@
                                 </div>
                             </td>
                             <td>
-                                <div class="center">
-                                    <div>
+                                <div>
+                                    <!-- <div>
                                         <button type="button" class="btn btn-outline-secondary btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalReservationInfoClient" id="infoClient" onclick="infoSupplementaireNuit('<?php echo $reservation['ID_nuit']; ?>', 'infoClient')"><i class="fas fa-user"></i></button>
                                     </div>
-                                    <div>
+                                    <div class="center me-1">
                                         <?php if ($reservation['ID_etat_reservation'] == 1 || $reservation['ID_etat_reservation'] == 4) echo ('<i class="fas fa-check text-secondary mx-3"></i>') ?>
                                         <?php if ($reservation['ID_etat_reservation'] == 2 || $reservation['ID_etat_reservation'] == 3) echo ('<i class="fas fa-exclamation-triangle text-danger mx-3"></i>') ?>
+                                    </div>
+                                    <div><?php echo ($reservation['nom_client']); ?></div> -->
+
+                                    <div class="row">
+                                        <div class="col-1 me-2 center">
+                                            <?php if ($reservation['ID_etat_reservation'] == 1 || $reservation['ID_etat_reservation'] == 4) echo ('<i class="fas fa-check text-secondary mx-3"></i>') ?>
+                                            <?php if ($reservation['ID_etat_reservation'] == 2 || $reservation['ID_etat_reservation'] == 3) echo ('<i class="fas fa-exclamation-triangle text-danger mx-3"></i>') ?>
+
+                                        </div>
+                                        <div class="col"><?php echo ($reservation['nom_client'] . ' ' . $reservation['prenom_client']); ?></div>
                                     </div>
                                 </div>
                             </td>

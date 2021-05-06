@@ -4,6 +4,8 @@ namespace App\Controllers;
 
 use App\models\chambreModel;
 use App\models\concernerModel;
+use App\models\relierModel;
+use App\models\archiveModel;
 
 class Chambre extends BaseController
 {
@@ -14,17 +16,13 @@ class Chambre extends BaseController
             echo view('chambre\updateChambre', $data);
             return ($data);
         }
-        if (isset($_POST['btn_enregistrer'])) {
-            $this->create();
-            return redirect()->to('configChambre');
-        }
         if (isset($_POST['btn_modification'])) {
             $this->update();
-            return redirect()->to('configChambre');
+            return redirect()->to('configTarif');
         }
         if (isset($_POST['btn_suppression'])) {
             $this->delete();
-            return redirect()->to('configChambre');
+            return redirect()->to('configTarif');
         }
         if (isset($_POST['btn_recherche']) and $_POST['element_recherche'] != NULL) {
             $data = $this->search($_POST['element_recherche']);
@@ -39,6 +37,25 @@ class Chambre extends BaseController
         }
     }
 
+    public function configTarif()
+    {
+        if (isset($_POST['btn_enregistrer'])) {
+            $this->create();
+            return redirect()->to('configTarif');
+        }
+        if (isset($_POST['btn_recherche']) and $_POST['element_recherche'] != NULL) {
+            $data = $this->searchTarif($_POST['element_recherche']);
+            echo view('templates\header');
+            echo view('chambre\configTarif', $data);
+            echo view('templates\footer');
+        } else {
+            $data = $this->readTarif();
+            echo view('templates\header');
+            echo view('chambre\configTarif', $data);
+            echo view('templates\footer');
+        }
+    }
+
     public function create()
     {
         $data = [];
@@ -46,7 +63,7 @@ class Chambre extends BaseController
 
         if (isset($_POST['btn_enregistrer'])) : {
                 $rules = [
-                    'tarif_chambre' => 'required',
+                    'tarif_temp' => 'required',
                 ];
 
                 if (!$this->validate($rules)) {
@@ -54,15 +71,16 @@ class Chambre extends BaseController
                 } else {
                     $chambres = new chambreModel();
                     $newData = [
+                        'tarif_ancien' => $_POST['tarif_temp'],
+                        'tarif_temp' => 0,
+                        // 'tarif_temp' => $_POST['tarif_temp'],
                         'description_chambre' => $_POST['description_chambre'],
-                        'tarif_chambre' => $_POST['tarif_chambre'],
                         'statut_chambre' => $_POST['statut_chambre'],
                     ];
 
-                    $chambres->set($newData);
-                    $chambres->insert();
+                    $chambres->save($newData);
                     $session = session();
-                    $session->setFlashdata('success', 'L\'utilisateur a été ajouté avec succès');
+                    $session->setFlashdata('success', 'La chambre a été ajouté avec succès');
                 }
             }
         endif;
@@ -75,7 +93,7 @@ class Chambre extends BaseController
 
         if (isset($_POST['btn_enregistrer'])) : {
                 $rules = [
-                    'tarif_chambre' => 'required',
+                    'tarif_temp' => 'required',
                 ];
 
                 if (!$this->validate($rules)) {
@@ -83,12 +101,15 @@ class Chambre extends BaseController
                 } else {
                     $chambres = new chambreModel();
                     $newData = [
+                        'tarif_ancien' => $_POST['tarif_temp'],
+                        'tarif_temp' => 0,
+                        // 'tarif_temp' => $_POST['tarif_temp'],
                         'description_chambre' => $_POST['description_chambre'],
-                        'tarif_chambre' => $_POST['tarif_chambre'],
                         'statut_chambre' => $_POST['statut_chambre'],
                     ];
 
                     $chambres->save($newData);
+
                     $session = session();
                     $session->setFlashdata('success', 'Création réussie');
                     return redirect()->to('configChambre');
@@ -105,10 +126,39 @@ class Chambre extends BaseController
     {
         $data = [];
         $chambres = new chambreModel();
-        // $data['chambres'] = $chambres->findAll();
+        $relier = new relierModel();
+        $archives = new archiveModel();
+        $archive = $archives->orderBy('ID_archive', 'desc')->first();
+
+        // $archive = $archives->orderBy('ID_archive', 'desc')->first();
 
         $data = [
-            'chambres' => $chambres->paginate(15, 'paginationResult'),
+            'chambres' => $relier->where('relier.ID_archive', $archive['ID_archive'])->join('archive', 'relier.ID_archive =  archive.ID_archive')->join('chambre', 'relier.ID_chambre = chambre.ID_chambre')->paginate(15, 'paginationResult'),
+            'pager' => $relier->pager,
+            'total' => count($relier->join('archive', 'relier.ID_archive =  archive.ID_archive')->join('chambre', 'relier.ID_chambre = chambre.ID_chambre')->where('relier.ID_archive', $archive['ID_archive'])->findAll()),
+            'total_all' => count($relier->join('archive', 'relier.ID_archive =  archive.ID_archive')->join('chambre', 'relier.ID_chambre = chambre.ID_chambre')->where('relier.ID_archive', $archive['ID_archive'])->findAll()),
+            'libre' => count($relier->where('relier.ID_archive', $archive['ID_archive'])->join('archive', 'relier.ID_archive =  archive.ID_archive')->join('chambre', 'relier.ID_chambre = chambre.ID_chambre')->where('statut_chambre', 'Libre')->findAll()),
+            'enAttente' => count($relier->where('relier.ID_archive', $archive['ID_archive'])->join('archive', 'relier.ID_archive =  archive.ID_archive')->join('chambre', 'relier.ID_chambre = chambre.ID_chambre')->where('statut_chambre', 'En attente')->findAll()),
+            'occupee' => count($relier->where('relier.ID_archive', $archive['ID_archive'])->join('archive', 'relier.ID_archive =  archive.ID_archive')->join('chambre', 'relier.ID_chambre = chambre.ID_chambre')->where('statut_chambre', 'Occupée')->findAll()),
+            'jsonChambre' => json_encode($chambres->findAll()),
+            // 'jsonChambre' => json_encode($relier->where('relier.ID_archive', $archive['ID_archive'])->join('archive', 'relier.ID_archive =  archive.ID_archive')->join('chambre', 'relier.ID_chambre = chambre.ID_chambre')->findAll()),
+        ];
+        return $data;
+    }
+
+    public function readTarif()
+    {
+        $data = [];
+        $chambres = new chambreModel();
+        $relier = new relierModel();
+        $archives = new archiveModel();
+        $archive = $archives->orderBy('ID_archive', 'desc')->first();
+
+        // $archive = $archives->orderBy('ID_archive', 'desc')->first();
+
+        $data = [
+            // 'chambres' => $relier->where('relier.ID_archive', $archive['ID_archive'])->join('archive', 'relier.ID_archive =  archive.ID_archive')->join('chambre', 'relier.ID_chambre = chambre.ID_chambre')->paginate(15, 'paginationResult'),
+            'temps' => $chambres->paginate(15, 'paginationResult'),
             'pager' => $chambres->pager,
             'total' => count($chambres->findAll()),
             'total_all' => count($chambres->findAll()),
@@ -116,6 +166,7 @@ class Chambre extends BaseController
             'enAttente' => count($chambres->where('statut_chambre', 'En attente')->findAll()),
             'occupee' => count($chambres->where('statut_chambre', 'Occupée')->findAll()),
             'jsonChambre' => json_encode($chambres->findAll()),
+            // 'jsonChambre' => json_encode($relier->where('relier.ID_archive', $archive['ID_archive'])->join('archive', 'relier.ID_archive =  archive.ID_archive')->join('chambre', 'relier.ID_chambre = chambre.ID_chambre')->findAll()),
         ];
         return $data;
     }
@@ -127,7 +178,8 @@ class Chambre extends BaseController
 
         if (isset($_POST['btn_modification'])) : {
                 $rules = [
-                    'tarif_chambre' => 'required|is_natural',
+                    // 'tarif_chambre' => 'required|is_natural',
+                    'statut_chambre' => 'required',
                 ];
 
                 if (!$this->validate($rules)) {
@@ -136,7 +188,7 @@ class Chambre extends BaseController
                     $chambres = new chambreModel();
                     $data = [
                         'description_chambre' => $_POST['description_chambre'],
-                        'tarif_chambre' => $_POST['tarif_chambre'],
+                        'tarif_temp' => $_POST['tarif_temp'],
                         'statut_chambre' => $_POST['statut_chambre'],
                     ];
 
@@ -153,7 +205,10 @@ class Chambre extends BaseController
     public function updateChambreReservation()
     {
         $concerner = new concernerModel();
-        $data['info'] = $concerner->where('ID_planning', $_POST['ID_planning'])->where('concerner.ID_chambre', $_POST['ID_chambre'])->join('chambre', 'concerner.ID_chambre = chambre.ID_chambre')->first();
+        $archives = new archiveModel();
+        $archive = $archives->where('etat_archive', 1)->orderBy('ID_archive', 'desc')->first();
+
+        $data['info'] = $concerner->where('ID_planning', $_POST['ID_planning'])->where('concerner.ID_chambre', $_POST['ID_chambre'])->join('chambre', 'concerner.ID_chambre = chambre.ID_chambre')->join('relier', 'relier.ID_chambre = chambre.ID_chambre')->join('archive', 'relier.ID_archive = archive.ID_archive')->where('archive.ID_archive', $archive['ID_archive'])->first();
         echo view('chambre\updateChambreReservation', $data);
         return ($data);
     }
@@ -209,15 +264,46 @@ class Chambre extends BaseController
     {
         $data = [];
         $chambres = new chambreModel();
+        $archives = new archiveModel();
+        $relier = new relierModel();
+        $archive = $archives->where('etat_archive', 1)->orderBy('ID_archive', 'desc')->first();
+
         // $data['chambres'] = $chambres->like('tarif_chambre', $element_recherche, 'both')->orLike('statut_chambre', $element_recherche, 'both')->find();
         $data = [
-            'chambres' => $chambres->like('statut_chambre', $element_recherche, 'both')->orLike('tarif_chambre', $element_recherche, 'both')->paginate(15, 'paginationResult'),
+            // 'chambres' => $chambres->like('statut_chambre', $element_recherche, 'both')->orLike('tarif_chambre', $element_recherche, 'both')->paginate(15, 'paginationResult'),
+            'chambres' => $relier->join('archive', 'relier.ID_archive =  archive.ID_archive')->join('chambre', 'relier.ID_chambre = chambre.ID_chambre')->like('statut_chambre', $element_recherche, 'both')->orLike('tarif_chambre', $element_recherche, 'both')->where('archive.ID_archive', $archive['ID_archive'])->paginate(15, 'paginationResult'),
+            // 'temps' => $chambres->findAll(),
+            'pager' => $relier->pager,
+            // 'total' => count($relier->join('archive', 'relier.ID_archive =  archive.ID_archive')->join('chambre', 'relier.ID_chambre = chambre.ID_chambre')->like('statut_chambre', $element_recherche, 'both')->orLike('tarif_chambre', $element_recherche, 'both')->where('relier.ID_archive', $archive['ID_archive'])->findAll()),
+            'total' => count($relier->join('chambre', 'relier.ID_chambre = chambre.ID_chambre')->like('statut_chambre', $element_recherche, 'both')->orLike('tarif_chambre', $element_recherche, 'both')->where('relier.ID_archive', $archive['ID_archive'])->findAll()),
+            'total_all' => count($relier->where('relier.ID_archive', $archive['ID_archive'])->join('chambre', 'relier.ID_chambre = chambre.ID_chambre')->findAll()),
+            'libre' => count($relier->where('relier.ID_archive', $archive['ID_archive'])->join('chambre', 'relier.ID_chambre = chambre.ID_chambre')->where('statut_chambre', 'Libre')->findAll()),
+            'enAttente' => count($relier->where('relier.ID_archive', $archive['ID_archive'])->join('chambre', 'relier.ID_chambre = chambre.ID_chambre')->where('statut_chambre', 'En attente')->findAll()),
+            'occupee' => count($relier->where('relier.ID_archive', $archive['ID_archive'])->join('chambre', 'relier.ID_chambre = chambre.ID_chambre')->where('statut_chambre', 'Occupée')->findAll()),
+            'jsonChambre' => json_encode($chambres->findAll()),
+        ];
+        return $data;
+    }
+
+    public function searchTarif($element_recherche)
+    {
+        $data = [];
+        $chambres = new chambreModel();
+        $archives = new archiveModel();
+        $relier = new relierModel();
+        $archive = $archives->where('etat_archive', 1)->orderBy('ID_archive', 'desc')->first();
+
+        $data = [
+            // 'chambres' => $chambres->like('statut_chambre', $element_recherche, 'both')->orLike('tarif_chambre', $element_recherche, 'both')->paginate(15, 'paginationResult'),
+            'temps' => $chambres->like('statut_chambre', $element_recherche, 'both')->orLike('tarif_temp', $element_recherche, 'both')->orLike('tarif_ancien', $element_recherche, 'both')->paginate(15, 'paginationResult'),
+            // 'temps' => $chambres->findAll(),
             'pager' => $chambres->pager,
-            'total' => count($chambres->like('tarif_chambre', $element_recherche, 'both')->orLike('statut_chambre', $element_recherche, 'both')->findAll()),
+            'total' => count($chambres->findAll()),
             'total_all' => count($chambres->findAll()),
             'libre' => count($chambres->where('statut_chambre', 'Libre')->findAll()),
             'enAttente' => count($chambres->where('statut_chambre', 'En attente')->findAll()),
             'occupee' => count($chambres->where('statut_chambre', 'Occupée')->findAll()),
+            'jsonChambre' => json_encode($chambres->findAll()),
         ];
         return $data;
     }
@@ -227,17 +313,52 @@ class Chambre extends BaseController
         $data = [];
         if (isset($_POST['dataJSON'])) {
             $obj = json_decode($_POST['dataJSON'], true);
+            $archive = new archiveModel();
+            $relier = new relierModel();
+            $chambres = new chambreModel();
+            $data = [
+                'etat_archive' => 0,
+            ];
+
+            $archive->set($data);
+            $archive->where('etat_archive', 1);
+            $archive->update();
+
+            $data = [
+                'etat_archive' => 1,
+            ];
+
+            $archive->save($data);
+            $ID_archive = $archive->getInsertID();
+
 
             foreach ($obj as $element) {
-                $data = [
-                    'ID_chambre' => $element['ID_chambre'],
-                    'description_chambre' => $element['description_chambre'],
-                    'statut_chambre' => $element['statut_chambre'],
-                    'tarif_chambre' => $element['tarif_chambre'],
-                ];
-            };
+                if ($element['tarif_temp'] != 0) {
+                    $data = [
+                        'ID_chambre' => $element['ID_chambre'],
+                        'ID_archive' => $ID_archive,
+                        'tarif_chambre' => $element['tarif_temp'],
+                    ];
+                    $relier->save($data);
 
-            return json_encode($data);
+                    $dataOld = [
+                        'tarif_ancien' => $element['tarif_temp'],
+                        'tarif_temp' => 0,
+                    ];
+                    $chambres->set($dataOld);
+                    $chambres->where('ID_chambre', $element['ID_chambre']);
+                    $chambres->update();
+                } else {
+
+                    $data = [
+                        'ID_chambre' => $element['ID_chambre'],
+                        'ID_archive' => $ID_archive,
+                        'tarif_chambre' => $element['tarif_ancien'],
+                    ];
+                    $relier->save($data);
+                }
+            };
+            return 1;
         }
     }
 }

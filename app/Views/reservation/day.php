@@ -60,10 +60,10 @@
                 <!--Checkbox-->
                 <h3 class="center mt-3 mb-3">Chambres disponible</h3>
                 <div class="container">
-                    <div class="row row-cols-1 row-cols-lg-5 g-2 g-lg-3">
+                    <div class="row row-cols-1 row-cols-lg-5 g-3 g-lg-3">
                         <?php foreach ($chambres as $chambre) { ?>
                             <div class="col">
-                                <div class="p-2 border checkChambre chambre<?php echo ($chambre['ID_chambre']) ?>">
+                                <div class="p-2 border checkChambre checkChambre-radius chambre<?php echo ($chambre['ID_chambre']) ?>">
                                     <div class="form-check">
                                         <input class="form-check-input <?php if ($chambre['statut_chambre'] == 'En attente') echo ('checkBoxAttente');
                                                                         elseif ($chambre['statut_chambre'] == 'Occupée') echo ('checkBoxOccupee'); ?>" type="checkbox" name="ID_chambre[]" value="<?php echo ($chambre['ID_chambre']) ?>" <?php if ($chambre['statut_chambre'] == 'Occupée') echo ('disabled') ?> id="checkbox_chambre <?php echo ($chambre['ID_chambre']) ?>">

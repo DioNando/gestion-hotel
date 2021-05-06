@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="#">Modification</h4>
+                <h4 class="modal-title">Modification</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body" id="modalUpdateChambre">
@@ -14,10 +14,10 @@
 </div>
 
 <div class="modal fade" id="modalChambreUpdateReservation" tabindex="-1" aria-labelledby="#" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="#">Modification</h4>
+                <h4 class="modal-title">Ajout d'un lit supplémentaire</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body" id="modalUpdateChambreReservation">
@@ -39,7 +39,7 @@
             </div>
             <div class="modal-body">
                 <p>Voulez-vous vraiment effacer la ligne <b id="innerIDdel"></b> ?</p>
-                <form action="#" method="post">
+                <form action="deleteChambre" method="post">
                     <div class="mb-2" style="display: none;">
                         <label for="ID_chambre" class="form-label">Identification</label>
                         <input type="text" class="form-control" id="inputIDdel" name="ID_chambre" readonly>
@@ -54,7 +54,7 @@
                     </div> -->
 
                     <div class="container">
-                        <hr class="my-3">
+                        <!-- <hr class="my-3"> -->
                         <div class="row center mx-2">
                             <button class="col-4 mx-2 center btn btn-secondary" type="button" data-bs-dismiss="modal">
                                 <div class="d-flex align-items-center">
@@ -79,6 +79,51 @@
                         </div>
                     </div>
                 </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- SAUVEGARDER NOUVEAU TARIF -->
+
+<div class="modal fade" id="modalTarifSave" tabindex="-1" aria-labelledby="#" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="#">Sauvegarder</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Enregistrer les nouveaux tarifs ?</p>
+                <!-- <form action="#" method="post"> -->
+
+                    <div class="container">
+                        <!-- <hr class="my-3"> -->
+                        <div class="row center mx-2">
+                            <button class="col-4 mx-2 center btn btn-secondary" type="button" data-bs-dismiss="modal">
+                                <div class="d-flex align-items-center">
+                                    <div class="flex-shrink-0">
+                                        <i class="fas fa-times"></i>
+                                    </div>
+                                    <div class="flex-grow-1 ms-2">
+                                        Annuler
+                                    </div>
+                                </div>
+                            </button>
+                            <button class="col-4 mx-2 center btn btn-primary" type="button" onclick="chambreJSON()" name="btn_saveTarif">
+                                <div class="d-flex align-items-center">
+                                    <div class="flex-shrink-0">
+                                        <i class="fas fa-save"></i>
+                                    </div>
+                                    <div class="flex-grow-1 ms-2">
+                                        Sauvegarder
+                                    </div>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                <!-- </form> -->
             </div>
 
         </div>

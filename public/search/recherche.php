@@ -8,7 +8,7 @@ $page = $_SERVER['REQUEST_URI'];
     <div class="container-fluid px-0">
 
         <?php if (session()->get('isUser') == 'Administrateur') : ?>
-            <?php if ($page == '/hotel/public/configChambre') { ?>
+            <?php if ($page == '/hotel/public/configTarif') { ?>
                 <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalNouveauChambre" name="btn_nouveau">
                     <div class="d-flex align-items-center">
                         <div class="flex-shrink-0">

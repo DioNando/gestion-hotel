@@ -26,6 +26,9 @@ class Home extends BaseController
 
 					$user = $users->where('nom_user', $_POST['nom_user'])
 						->first();
+
+						// $user = $users->like('CONCAT(nom_user, " ", prenom_user)', $_POST['nom_user'], 'both')->orLike('nom_user', $_POST['nom_user'], 'both')->orLike('prenom_user', $_POST['nom_user'], 'both')->first();
+
 					
 					$data = [
 						'ID_user' => $user['ID_user'],

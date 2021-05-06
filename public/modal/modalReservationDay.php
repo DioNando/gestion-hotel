@@ -41,7 +41,7 @@
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
                     </div> -->
 
-                    <hr class="my-3">
+                    <!-- <hr class="my-3"> -->
                     <div class="container">
                         <div class="row center mx-2">
                             <button class="col-4 mx-2 center btn btn-secondary" type="button" data-bs-dismiss="modal">
@@ -76,7 +76,7 @@
 <!-- INFO -->
 
 <div class="modal fade" id="modalReservationInfo" tabindex="-1" aria-labelledby="#" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title" id="#">Détails</h4>

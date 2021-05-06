@@ -5,6 +5,8 @@ namespace App\Controllers;
 use App\models\clientModel;
 use App\models\reservationNuitModel;
 use App\models\cardexModel;
+use App\models\pourModel;
+use App\models\archiveModel;
 
 class Cardex extends BaseController
 {
@@ -69,7 +71,7 @@ class Cardex extends BaseController
 		// $data['clients'] = $clients->like('nom_client', $element_recherche, 'both')->orLike('prenom_client', $element_recherche, 'both')->find();
 		
 		$data = [
-			'clients' => $clients->join('cardex', 'cardex.ID_client = client.ID_client')->like('nom_client', $element_recherche, 'both')->orLike('prenom_client', $element_recherche, 'both')->paginate(20, 'paginationResult'),
+			'clients' => $clients->join('cardex', 'cardex.ID_client = client.ID_client')->like('CONCAT(nom_client, " ", prenom_client)', $_POST['element_recherche'], 'both')->orLike('nom_client', $element_recherche, 'both')->orLike('prenom_client', $element_recherche, 'both')->paginate(20, 'paginationResult'),
 			'pager' => $clients->pager,
 			'total' => count($clients->join('cardex', 'cardex.ID_client = client.ID_client')->like('nom_client', $element_recherche, 'both')->orLike('prenom_client', $element_recherche, 'both')->findAll()),
 			'total_all' => count($clients->join('cardex', 'cardex.ID_client = client.ID_client')->findAll()),
@@ -96,6 +98,7 @@ class Cardex extends BaseController
 		$data = [
 			
 			'infos' => $reservations->select(['*', 'DATE_FORMAT(date_reservation_nuit, "%d %b %Y") AS date_reservation_nuit', 'DATE_FORMAT(debut_sejour, "%d %b %Y") AS debut_sejour', 'DATE_FORMAT(fin_sejour, "%d %b %Y") AS fin_sejour', 'DATE_FORMAT(date_facture_nuit, "%d %b %Y à %H:%i") AS date_facture_nuit'])->where('reservation_nuit.ID_client', $ID_client)->join('facture_nuit', 'facture_nuit.ID_nuit = reservation_nuit.ID_nuit')->join('client', 'client.ID_client = reservation_nuit.ID_client')->join('cardex', 'cardex.ID_client = client.ID_client')->join('pour', 'pour.ID_nuit = reservation_nuit.ID_nuit')->join('planning', 'pour.ID_planning = planning.ID_planning')->join('concerner', 'concerner.ID_planning = planning.ID_planning')->join('chambre', 'concerner.ID_chambre = chambre.ID_chambre')->groupBy('reservation_nuit.ID_nuit')->findAll(),
+			'chambres' => $reservations->select(['*', 'DATE_FORMAT(date_reservation_nuit, "%d %b %Y") AS date_reservation_nuit', 'DATE_FORMAT(debut_sejour, "%d %b %Y") AS debut_sejour', 'DATE_FORMAT(fin_sejour, "%d %b %Y") AS fin_sejour', 'DATE_FORMAT(date_facture_nuit, "%d %b %Y à %H:%i") AS date_facture_nuit'])->where('reservation_nuit.ID_client', $ID_client)->join('facture_nuit', 'facture_nuit.ID_nuit = reservation_nuit.ID_nuit')->join('client', 'client.ID_client = reservation_nuit.ID_client')->join('cardex', 'cardex.ID_client = client.ID_client')->join('pour', 'pour.ID_nuit = reservation_nuit.ID_nuit')->join('planning', 'pour.ID_planning = planning.ID_planning')->join('concerner', 'concerner.ID_planning = planning.ID_planning')->join('chambre', 'concerner.ID_chambre = chambre.ID_chambre')->join('relier', 'relier.ID_chambre = chambre.ID_chambre')->join('archive', 'relier.ID_archive = concerner.ID_archive')->groupBy('chambre.ID_chambre')->findAll(),
 			'nom' => $client['nom_client'],
 			'prenom' => $client['prenom_client'],
 		];
@@ -160,4 +163,5 @@ class Cardex extends BaseController
 		$data = $clients->where('client.ID_client', $ID_client)->join('cardex', 'cardex.ID_client = client.ID_client')->first();
 		return $data;
 	}
+
 }

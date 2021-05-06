@@ -89,6 +89,10 @@ background: linear-gradient(to right, #a7bfe8, #6190e8); */
   border: 1px solid var(--border-light) !important;
 }
 
+.checkChambre-radius {
+  border-radius: 10px;
+}
+
 .chambre-toast {
   border: none;
   box-shadow: none;

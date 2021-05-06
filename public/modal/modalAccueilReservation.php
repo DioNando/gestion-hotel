@@ -38,7 +38,7 @@
                                     <i class="fas fa-save"></i>
                                 </div>
                                 <div class="flex-grow-1 ms-2">
-                                    Sauvegarder
+                                    Enregistrer
                                 </div>
                             </div>
                         </button>
@@ -82,7 +82,7 @@
                     <?php endif; ?>
                     <div class="row">
                         <div class="col pe-2">
-                            <input class="col form-control me-0" type="search" name="element_recherche" id="search" placeholder="Nom du client" aria-label="Search" autocomplete="off">
+                            <input class="col form-control me-0" type="search" name="element_recherche" id="search" placeholder="Nom du client" aria-label="Search" autocomplete="off" onkeyup="liveSearch(this.value)">
                         </div>
                         <div class="col-auto ps-2">
                             <button class="col-auto btn btn-outline-primary ms-0" type="submit" name="btn_recherche">
@@ -98,6 +98,12 @@
                         </div>
                     </div>
 
+                    <div class="col-12 mt-3" id="div-resultSearch">
+                        <div class="div mb-0" id="resultSearch" role="alert">
+
+                        </div>
+                    </div>
+
                     <?php
                     if (isset($validation_recherche)) : ?>
                         <div class="col-12 mt-3">
@@ -106,6 +112,8 @@
                             </div>
                         </div>
                     <?php endif ?>
+
+
                 </form>
                 <!-- </div> -->
                 <!-- </div> -->
@@ -115,3 +123,40 @@
         </div>
     </div>
 </div>
+
+<script>
+    window.onload = function chargementPage() {
+        $(document).ready(function() {
+            $('#div-resultSearch').hide();
+        });
+    }
+
+    function liveSearch(element) {
+        $(document).ready(function() {
+            $.ajax({
+                url: 'liveSearch',
+                type: 'POST',
+                dataType: 'JSON',
+                data: {
+                    element_recherche: element,
+                },
+
+                success: function(result) {
+                    $('.nom_result').remove();
+                    for (var i = 0; i < result.clients.length; i++) {
+                        var myP = document.createElement('div');
+                        myP.className = 'nom_result bg-light my-1 p-2 ps-3 rounded-1';
+                        myP.id = 'result_name' + [i];
+                        myP.textContent = result.clients[i].nom_client + ' ' + result.clients[i].prenom_client;
+                        $('#resultSearch').append(myP);
+                        $('#div-resultSearch').show();
+                    }
+
+                    if(element == '') {
+                        $('#div-resultSearch').hide();
+                    }
+                }
+            })
+        });
+    }
+</script>

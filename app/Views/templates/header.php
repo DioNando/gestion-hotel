@@ -286,6 +286,14 @@
                                                 </div>
                                             </a>
                                         </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="configTarif">
+                                                <div class="row">
+                                                    <div class="col-1 ms-2 center"><i class="fas fa-comments-dollar"></i></div>
+                                                    <div class="col text-start">Tarif</div>
+                                                </div>
+                                            </a>
+                                        </li>
 
                                         <?php if (session()->get('isUser') == 'Administrateur') : ?>
                                             <li class="nav-item">

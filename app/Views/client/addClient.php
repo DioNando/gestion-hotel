@@ -30,7 +30,7 @@
                             <i class="fas fa-save"></i>
                         </div>
                         <div class="flex-grow-1 ms-2">
-                            Sauvegarder
+                            Enregistrer
                         </div>
                     </div>
                 </button>

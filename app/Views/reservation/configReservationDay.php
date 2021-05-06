@@ -71,7 +71,7 @@
                                 </div>
                             </div>
 
-                            
+        
                         </td>
                         <td>
                             <div class="center">
@@ -80,7 +80,7 @@
                                 </div>
                             </div>
                         </td>
-                        <td class="text-start"><b> <?php echo ($reservation['nom_client_day']); ?> </b></td>
+                        <td class="text-start"><?php echo ($reservation['nom_client_day']); ?></td>
                         <td>
                             <div class="center">
                                 <div>

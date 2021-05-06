@@ -8,21 +8,21 @@
                 </div>
             <?php endif; ?>
             <div class="form-group">
-                <label class="form-label" for="">Nom</label>
-                <input type="text" class="form-control" name="nom_user" id="">
+                <label class="form-label" for="nom_user">Nom</label>
+                <input type="text" class="form-control" name="nom_user" id="nom_user">
             </div>
             <div class="form-group">
-                <label class="form-label" for="">Nom</label>
-                <input type="text" class="form-control" name="prenom_user" id="">
+                <label class="form-label" for="prenom_user">Prenom</label>
+                <input type="text" class="form-control" name="prenom_user" id="prenom_user">
             </div>
 
             <div class="form-group mt-2">
-                <label class="form-label" for="">Mot de passe</label>
-                <input type="password" class="form-control" name="mdp_user" id="">
+                <label class="form-label" for="mdp_user">Mot de passe</label>
+                <input type="password" class="form-control" name="mdp_user" id="mdp_user">
             </div>
             <div class="form-group mt-2">
-                <label class="form-label" for="">Droit d'accès</label>
-                <select class="form-select" name="droit_user">
+                <label class="form-label" for="droit_user">Droit d'accès</label>
+                <select class="form-select" name="droit_user" id="droit_user">
                     <option selected value="Utilisateur">Utilisateur</option>
                     <option value="Controleur">Contrôleur</option>
                     <option value="Administrateur">Administrateur</option>

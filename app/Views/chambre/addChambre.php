@@ -15,7 +15,7 @@
             </div>
             <div class="form-group mt-2">
                 <label class="form-label" for="tarif_chambre">Tarif par nuit</label>
-                <input type="number" class="form-control" name="tarif_chambre" id="tarif_chambre" placeholder="ariary">
+                <input type="number" class="form-control" name="tarif_temp" id="tarif_chambre" placeholder="ariary">
             </div>
             <div class="form-group mt-2">
                 <label class="form-label" for="">Statut chambre</label>
@@ -37,7 +37,7 @@
                             <i class="fas fa-save"></i>
                         </div>
                         <div class="flex-grow-1 ms-2">
-                            Sauvegarder
+                            Enregistrer
                         </div>
                     </div>
                 </button>

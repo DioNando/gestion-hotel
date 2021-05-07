@@ -2,19 +2,19 @@
 
 namespace App\Controllers;
 
-use App\models\clientModel;
-use App\models\userModel;
-use App\models\chambreModel;
-use App\models\reservationNuitModel;
-use App\models\reservationDayModel;
-use App\models\concernerModel;
-use App\models\effectuerModel;
-use App\models\factureNuitModel;
-use App\models\factureDayModel;
-use App\models\planningModel;
-use App\models\archiveModel;
-use App\models\pourModel;
-use App\models\relierModel;
+use App\Models\clientModel;
+use App\Models\userModel;
+use App\Models\chambreModel;
+use App\Models\reservationNuitModel;
+use App\Models\reservationDayModel;
+use App\Models\concernerModel;
+use App\Models\effectuerModel;
+use App\Models\factureNuitModel;
+use App\Models\factureDayModel;
+use App\Models\planningModel;
+use App\Models\archiveModel;
+use App\Models\pourModel;
+use App\Models\relierModel;
 
 class ReservationDay extends BaseController
 {
@@ -33,7 +33,7 @@ class ReservationDay extends BaseController
 			$factures = new factureDayModel();
 			$reservation = new reservationDayModel();
 			$data['info'] = $reservation->where('reservation_day.ID_day', $_POST['ID_day'])->join('effectuer', 'effectuer.ID_day = reservation_day.ID_day')->join('user', 'effectuer.ID_user = user.ID_user')->first();
-			$data['facture'] = $factures->where('ID_day', $_POST['ID_day'])->first();
+			$data['facture'] = $factures->select(['*', 'CONVERT(date_facture_day, DATE) AS date_facture_day'])->where('ID_day', $_POST['ID_day'])->first();
 			echo view('reservation\infoDayDetails', $data);
 			return ($data);
 		}

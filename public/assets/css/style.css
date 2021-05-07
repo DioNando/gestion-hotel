@@ -98,7 +98,6 @@ footer {
   /* background: var(--primaryColor); */
   background: linear-gradient(to left, #a7bfe8, #6190e8);
   box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
-
 }
 
 .headerMenu {
@@ -123,7 +122,8 @@ footer {
   box-shadow: none;
 }
 
-.modal-content, .page-link {
+.modal-content,
+.page-link {
   border: none;
   background: rgba(255, 255, 255, 0.795) !important;
   backdrop-filter: blur(8.5px);
@@ -206,10 +206,28 @@ footer {
   backdrop-filter: blur(5px);
   /* background: rgba(255, 255, 255, 0.150); */
   width: 35%;
-  margin-top: 7vh;
+  margin-top: 15vh;
+  padding-top: 6rem;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
   border: none;
+}
+
+.sideNavLogin {
+  height: 100%;
+  width: 30rem;
+  position: fixed;
+  z-index: 2;
+  /* display: none; */
+  top: 0;
+  right: 0;
+  /* background-color: var(--bg-light); */
+  background: rgba(255, 255, 255, 0.25) !important;
+  box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
+  backdrop-filter: blur(8.5px);
+  -webkit-backdrop-filter: blur(8.5px);
+  /* border-left: 1px solid var(--border-light); */
+  overflow-y: none;
 }
 
 .menu-parent {
@@ -346,7 +364,6 @@ footer {
   background: rgba(255, 255, 255, 0.25) !important;
   backdrop-filter: blur(8.5px);
   -webkit-backdrop-filter: blur(8.5px);
-
 }
 /* #calendar {
  
@@ -409,12 +426,33 @@ footer {
   .waves {
     display: none;
   }
+
+  .sideNavLogin {
+    width: 50%;
+  }
 }
 
 @media screen and (max-width: 800px) {
   .formulaire-login {
     width: 95%;
     border-radius: 0;
+  }
+
+  .sideNavLogin {
+    width: 100%;
+    background-color: var(--sidebarColor) !important;
+    box-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .sideNavLogin h1 {
+    color: var(--chambreOccupee) !important;
+  }
+
+  .img-login img {
+    -webkit-filter: drop-shadow(0px 2px 4px #a0a0a02f);
+    filter: drop-shadow(0px 2px 4px #83838341);
   }
 
   #connexion {

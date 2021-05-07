@@ -24,6 +24,7 @@
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
             // themeSystem: 'bootstrap',
+            schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
             locale: 'fr',
             initialView: 'listWeek',
             headerToolbar: {
@@ -151,9 +152,9 @@
                             <div class="row">
                                 <div class="col d-flex justify-content-start center ms-4"><?php echo ($planning['ID_chambre']); ?></div>
                                 <div class="col d-flex justify-content-end center me-4">
-                                    <?php if ($planning['statut_chambre'] == 'Libre') { ?><button type="button" class="btn btn-outline-success btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalChambreUpdate" onclick="updateChambre('<?php echo $planning['ID_chambre']; ?>' ,'update')"><i class="fas fa-tag"></i></button><?php } ?>
-                                    <?php if ($planning['statut_chambre'] == 'En attente') { ?><button type="button" class="btn btn-outline-danger btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalChambreUpdate" onclick="updateChambre('<?php echo $planning['ID_chambre']; ?>' ,'update')"><i class="fas fa-exclamation-triangle"></i></button><?php } ?>
-                                    <?php if ($planning['statut_chambre'] == 'Occupée') { ?><button type="button" class="btn btn-outline-secondary btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalChambreUpdate" onclick="updateChambre('<?php echo $planning['ID_chambre']; ?>' ,'update')"><i class="fas fa-house-user"></i></button><?php } ?>
+                                    <?php if ($planning['statut_chambre'] == 'Libre') { ?><button type="button" class="btn btn-outline-success btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalChambreUpdate" onclick="updateStatut('<?php echo $planning['ID_chambre']; ?>' ,'update')"><i class="fas fa-tag"></i></button><?php } ?>
+                                    <?php if ($planning['statut_chambre'] == 'En attente') { ?><button type="button" class="btn btn-outline-danger btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalChambreUpdate" onclick="updateStatut('<?php echo $planning['ID_chambre']; ?>' ,'update')"><i class="fas fa-exclamation-triangle"></i></button><?php } ?>
+                                    <?php if ($planning['statut_chambre'] == 'Occupée') { ?><button type="button" class="btn btn-outline-secondary btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalChambreUpdate" onclick="updateStatut('<?php echo $planning['ID_chambre']; ?>' ,'update')"><i class="fas fa-house-user"></i></button><?php } ?>
                                 </div>
                             </div>
 
@@ -209,8 +210,8 @@
 </div>
 
 
-<h3 class="center mb-3">Chambres disponible</h3>
 <div class="container mb-3">
+<h3 class="mb-3 mx-5">Etat des chambres</h3>
     <div class="row row-cols-1 row-cols-lg-6 row-cols-sm-3 g-3">
         <?php foreach ($chambres as $chambre) { ?>
             <div class="col">

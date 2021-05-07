@@ -2,11 +2,11 @@
 
 namespace App\Controllers;
 
-use App\models\clientModel;
-use App\models\reservationNuitModel;
-use App\models\cardexModel;
-use App\models\pourModel;
-use App\models\archiveModel;
+use App\Models\clientModel;
+use App\Models\reservationNuitModel;
+use App\Models\cardexModel;
+use App\Models\pourModel;
+use App\Models\archiveModel;
 
 class Cardex extends BaseController
 {

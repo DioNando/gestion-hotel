@@ -56,7 +56,7 @@
                         <div class="mb-1 row">
                             <label for="#" class="col-sm-2 col-form-label">Par</label>
                             <div class="col-sm-10">
-                                <input type="text" readonly class="form-control-plaintext" id="#" value="<?php echo ($info['nom_user']) ?>" readonly>
+                                <input type="text" readonly class="form-control-plaintext" id="#" value="<?php echo ($info['nom_user']) ?>" name="nom_user" readonly>
                             </div>
                         </div>
                     </div>
@@ -77,8 +77,9 @@
 
             <div class="col-12 col-sm-6 mt-2 mb-2 text-center">
                 <div class="form-group">
-                    <label for="debut_sejour" class="form-label">Date de facturation</label>
-                    <input type="date" class="form-control" id="dateFacturation" name="debut_sejour">
+                    <label for="date_facture_day" class="form-label">Date de facturation</label>
+                    <!-- <input type="date" class="form-control" id="dateFacturation" name="debut_sejour"> -->
+                    <input type="date" class="form-control" value="<?php echo($facture['date_facture_day']) ?>" name="date_facture_day">
                 </div>
             </div>
             <div class="col-12 col-sm-6 mt-2 mb-2 text-center">

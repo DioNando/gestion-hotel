@@ -2,16 +2,16 @@
 
 namespace App\Controllers;
 
-use App\models\userModel;
-use App\models\adminModel;
-use App\models\clientModel;
-use App\models\chambreModel;
-use App\models\reservationNuitModel;
-use App\models\reservationDayModel;
-use App\models\effectuerModel;
-use App\models\pourModel;
-use App\models\archiveModel;
-use App\models\relierModel;
+use App\Models\userModel;
+use App\Models\adminModel;
+use App\Models\clientModel;
+use App\Models\chambreModel;
+use App\Models\reservationNuitModel;
+use App\Models\reservationDayModel;
+use App\Models\effectuerModel;
+use App\Models\pourModel;
+use App\Models\archiveModel;
+use App\Models\relierModel;
 
 class Dashboard extends BaseController
 {

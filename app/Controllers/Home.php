@@ -2,8 +2,8 @@
 
 namespace App\Controllers;
 
-use App\models\userModel;
-use App\models\connexionModel;
+use App\Models\userModel;
+use App\Models\connexionModel;
 
 class Home extends BaseController
 {
@@ -24,10 +24,10 @@ class Home extends BaseController
 					$users = new userModel();
 					$connexion = new connexionModel();
 
-					$user = $users->where('nom_user', $_POST['nom_user'])
-						->first();
+					// $user = $users->where('nom_user', $_POST['nom_user'])
+					// 	->first();
 
-						// $user = $users->like('CONCAT(nom_user, " ", prenom_user)', $_POST['nom_user'], 'both')->orLike('nom_user', $_POST['nom_user'], 'both')->orLike('prenom_user', $_POST['nom_user'], 'both')->first();
+						$user = $users->like('CONCAT(nom_user, " ", prenom_user)', $_POST['nom_user'], 'both')->orLike('nom_user', $_POST['nom_user'], 'both')->orLike('prenom_user', $_POST['nom_user'], 'both')->first();
 
 					
 					$data = [

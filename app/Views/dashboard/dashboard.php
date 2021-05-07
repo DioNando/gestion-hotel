@@ -40,7 +40,7 @@
         var calendar = new FullCalendar.Calendar(calendarEl, {
             // height: "100%",
             // themeSystem: 'bootstrap',
-
+            schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
             locale: 'fr',
             initialView: 'listWeek',
             headerToolbar: {
@@ -313,12 +313,12 @@
 
     $(document).ready(function() {
         $('#sun').click(function() {
-            $('#myChart5').hide(250);
-            $('#myChart4').show(250);
+            $('#myChart5').hide('250');
+            $('#myChart4').show('250');
         })
         $('#moon').click(function() {
-            $('#myChart4').hide(250);
-            $('#myChart5').show(250);
+            $('#myChart4').hide('250');
+            $('#myChart5').show('250');
         })
     });
 
@@ -479,7 +479,7 @@
                                 <div id="heure_jour"></div>
                             </h3>
                             <a href="dashboard">
-                                <div class="center"><img src="assets/images/logo-hotel.png" style="width: 70%;"></div>
+                                <div class="center mt-2 mb-4"><img src="assets/images/admin.png" style="width: 70%;"></div>
                             </a>
                             <div class="container">
                                 <h5>

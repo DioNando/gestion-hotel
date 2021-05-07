@@ -2,9 +2,9 @@
 
 namespace App\Controllers;
 
-use App\models\clientModel;
-use App\models\cardexModel;
-use App\models\reservationNuitModel;
+use App\Models\clientModel;
+use App\Models\cardexModel;
+use App\Models\reservationNuitModel;
 
 class Client extends BaseController
 {

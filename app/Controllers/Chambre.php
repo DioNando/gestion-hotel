@@ -2,10 +2,10 @@
 
 namespace App\Controllers;
 
-use App\models\chambreModel;
-use App\models\concernerModel;
-use App\models\relierModel;
-use App\models\archiveModel;
+use App\Models\chambreModel;
+use App\Models\concernerModel;
+use App\Models\relierModel;
+use App\Models\archiveModel;
 
 class Chambre extends BaseController
 {
@@ -202,6 +202,36 @@ class Chambre extends BaseController
         endif;
     }
 
+    public function updateStatut()
+    {
+        if (isset($_POST['btn_modification'])) {
+            $rules = [
+                // 'tarif_chambre' => 'required|is_natural',
+                'statut_chambre' => 'required',
+            ];
+
+            if (!$this->validate($rules)) {
+                $data['validation'] = $this->validator;
+            } else {
+                $chambres = new chambreModel();
+                $data = [
+                    'statut_chambre' => $_POST['statut_chambre'],
+                ];
+
+                $chambres->set($data);
+                $chambres->where('ID_chambre', $_POST['ID_chambre']);
+                $chambres->update();
+                $session = session();
+                $session->setFlashdata('update', 'La ligne a été modifié avec succès');
+                return redirect()->to('planningJour');
+            }
+        } else {
+            $data['info'] = $this->infoUpdate($_POST['ID_chambre']);
+            echo view('chambre\updateStatut', $data);
+            return ($data);
+        }
+    }
+
     public function updateChambreReservation()
     {
         $concerner = new concernerModel();
@@ -298,7 +328,7 @@ class Chambre extends BaseController
             'temps' => $chambres->like('statut_chambre', $element_recherche, 'both')->orLike('tarif_temp', $element_recherche, 'both')->orLike('tarif_ancien', $element_recherche, 'both')->paginate(15, 'paginationResult'),
             // 'temps' => $chambres->findAll(),
             'pager' => $chambres->pager,
-            'total' => count($chambres->findAll()),
+            'total' => count($chambres->like('statut_chambre', $element_recherche, 'both')->orLike('tarif_temp', $element_recherche, 'both')->orLike('tarif_ancien', $element_recherche, 'both')->findAll()),
             'total_all' => count($chambres->findAll()),
             'libre' => count($chambres->where('statut_chambre', 'Libre')->findAll()),
             'enAttente' => count($chambres->where('statut_chambre', 'En attente')->findAll()),

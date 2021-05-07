@@ -81,7 +81,8 @@
                                 Facture n ° : <?php echo ($info['ID_facture_nuit']) ?><br>
                                 Du : <?php echo ($info['date_facture_nuit']) ?><br>
                                 Remise : <?php echo ($info['remise']) . '%' ?><br>
-                                Payement : <?php echo ($info['type_payement_nuit']); $total = 0; ?>
+                                Payement : <?php echo ($info['type_payement_nuit']);
+                                            $total = 0; ?>
                                 <?php foreach ($chambres as $chambre) {
                                     if ($chambre['ID_planning'] == $info['ID_planning']) {
                                         $total = $total + $chambre['tarif_chambre'] * $info['nbr_nuit'];
@@ -98,15 +99,20 @@
             <?php }
         }
     else : { ?>
-            <!-- <div class="center fixed-bottom mb-5" onclick="closeNav()"> -->
-            <div class="center" onclick="closeNav()">
+            <div class="center fixed-bottom mb-5 histo-close" onclick="closeNav()">
+                <!-- <div class="center" onclick="closeNav()"> -->
                 <div>
+                    <div class="container center mb-4">
+                        <h3>
+                            Historique vide
+                        </h3>
+                    </div>
                     <div class="mb-4 mt-2">
                         <div class="center"><i style="font-size: 5rem;" class="far fa-calendar-times"></i></div>
                     </div>
                     <div class="container center">
                         <h3>
-                            Vide
+                            Fermer
                         </h3>
                     </div>
                 </div>

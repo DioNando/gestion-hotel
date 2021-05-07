@@ -2,9 +2,9 @@
 
 namespace App\Controllers;
 
-use App\models\userModel;
-use App\models\reservationNuitModel;
-use App\models\reservationDayModel;
+use App\Models\userModel;
+use App\Models\reservationNuitModel;
+use App\Models\reservationDayModel;
 
 class User extends BaseController
 {

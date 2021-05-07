@@ -104,9 +104,9 @@
                         <td>
                             <div class="row">
                                 <div class="col-1 ms-2 center">
-                                    <?php if ($chambre['statut_chambre'] == 'Libre') { ?><button type="button" class="btn btn-outline-success btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalChambreUpdate" onclick="updateChambre('<?php echo $chambre['ID_chambre']; ?>' ,'update')"><i class="fas fa-tag"></i></button><?php } ?>
-                                    <?php if ($chambre['statut_chambre'] == 'En attente') { ?><button type="button" class="btn btn-outline-danger btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalChambreUpdate" onclick="updateChambre('<?php echo $chambre['ID_chambre']; ?>' ,'update')"><i class="fas fa-exclamation-triangle"></i></button><?php } ?>
-                                    <?php if ($chambre['statut_chambre'] == 'Occupée') { ?><button type="button" class="btn btn-outline-secondary btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalChambreUpdate" onclick="updateChambre('<?php echo $chambre['ID_chambre']; ?>' ,'update')"><i class="fas fa-house-user"></i></button><?php } ?>
+                                    <?php if ($chambre['statut_chambre'] == 'Libre') { ?><button type="button" class="btn btn-outline-success btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalChambreUpdate" onclick="updateStatut('<?php echo $chambre['ID_chambre']; ?>' ,'update')"><i class="fas fa-tag"></i></button><?php } ?>
+                                    <?php if ($chambre['statut_chambre'] == 'En attente') { ?><button type="button" class="btn btn-outline-danger btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalChambreUpdate" onclick="updateStatut('<?php echo $chambre['ID_chambre']; ?>' ,'update')"><i class="fas fa-exclamation-triangle"></i></button><?php } ?>
+                                    <?php if ($chambre['statut_chambre'] == 'Occupée') { ?><button type="button" class="btn btn-outline-secondary btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalChambreUpdate" onclick="updateStatut('<?php echo $chambre['ID_chambre']; ?>' ,'update')"><i class="fas fa-house-user"></i></button><?php } ?>
 
 
 
@@ -168,8 +168,6 @@
         let dataChambre = <?php echo ($jsonChambre) ?>;
         let obj = JSON.stringify(dataChambre);
 
-        console.log(dataChambre);
-
         function chambreJSON() {
             $(document).ready(function() {
                 $.ajax({
@@ -198,18 +196,7 @@
 
 
     <!-- <form action="saveTarif" method="post"> -->
-    <div class="container-fluid p-0 d-flex justify-content-end">
-        <button class="btn btn-primary me-0" data-bs-toggle="modal" data-bs-target="#modalTarifSave">
-            <div class="d-flex align-items-center">
-                <div class="flex-shrink-0">
-                    <i class="fas fa-save"></i>
-                </div>
-                <div class="flex-grow-1 ms-2">
-                    Sauvegarder
-                </div>
-            </div>
-        </button>
-    </div>
+
     <!-- </form> -->
 
     <div class="row mb-4 mt-3">

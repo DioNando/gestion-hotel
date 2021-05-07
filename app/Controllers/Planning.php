@@ -2,17 +2,17 @@
 
 namespace App\Controllers;
 
-use App\models\clientModel;
-use App\models\userModel;
-use App\models\planningModel;
-use App\models\pourModel;
-use App\models\chambreModel;
-use App\models\concernerModel;
-use App\models\reservationNuitModel;
-use App\models\reservationDayModel;
-use App\models\effectuerModel;
-use App\models\archiveModel;
-use App\models\relierModel;
+use App\Models\clientModel;
+use App\Models\userModel;
+use App\Models\planningModel;
+use App\Models\pourModel;
+use App\Models\chambreModel;
+use App\Models\concernerModel;
+use App\Models\reservationNuitModel;
+use App\Models\reservationDayModel;
+use App\Models\effectuerModel;
+use App\Models\archiveModel;
+use App\Models\relierModel;
 
 class Planning extends BaseController
 {
@@ -190,12 +190,15 @@ class Planning extends BaseController
         $data = [];
         helper(['form']);
 
-        $chambres = new chambreModel();
-        $data['chambres'] = $chambres->where('MONTH(debut_sejour) = MONTH(CURDATE())')->join('concerner', 'concerner.ID_chambre = chambre.ID_chambre')->join('planning', 'concerner.ID_planning = planning.ID_planning')->join('pour', 'pour.ID_planning = planning.ID_planning')->findAll();
-        // $data['chambres'] = $chambres->where('MONTH(debut_sejour) >= MONTH(CURDATE()) + 1 AND MONTH(debut_sejour) < MONTH(CURDATE()) + 2')->join('concerner', 'concerner.ID_chambre = chambre.ID_chambre')->join('planning', 'concerner.ID_planning = planning.ID_planning')->findAll();
-        // $data['chambres'] = $chambres->where('fin_sejour >= CONVERT(CURDATE(), DATE) AND debut_sejour < CONVERT(CURDATE() + 5, DATE)')->join('concerner', 'concerner.ID_chambre = chambre.ID_chambre')->join('planning', 'concerner.ID_planning = planning.ID_planning')->findAll();
-        // $data['chambres'] = $chambres->where('fin_sejour >= CONVERT(CURDATE(), DATE) AND debut_sejour < CONVERT(CURDATE() + 17, DATE)')->join('concerner', 'concerner.ID_chambre = chambre.ID_chambre')->join('planning', 'concerner.ID_planning = planning.ID_planning')->groupBy('chambre.ID_chambre')->findAll();
+        // $chambres = new chambreModel();
+        // $data['chambres'] = $chambres->where('MONTH(debut_sejour) = MONTH(CURDATE())')->join('concerner', 'concerner.ID_chambre = chambre.ID_chambre')->join('planning', 'concerner.ID_planning = planning.ID_planning')->join('pour', 'pour.ID_planning = planning.ID_planning')->findAll();
+      
+        $pour = new pourModel();
+        $archives = new archiveModel();
+        $archive = $archives->where('etat_archive', 1)->orderBy('ID_archive', 'desc')->first();
 
+        $data['chambres'] = $pour->where('MONTH(debut_sejour) = MONTH(CURDATE())')->join('planning', 'pour.ID_planning = planning.ID_planning')->join('concerner', 'concerner.ID_planning = planning.ID_planning')->join('chambre', 'concerner.ID_chambre = chambre.ID_chambre')->join('relier', 'relier.ID_chambre = chambre.ID_chambre')->join('archive', 'relier.ID_archive = archive.ID_archive')->where('relier.ID_archive', $archive['ID_archive'])->findAll();
+      
         echo view('templates\header');
         echo view('planning\planningMois', $data);
         echo view('templates\footer');
@@ -206,7 +209,6 @@ class Planning extends BaseController
         $data = [];
         $pour = new pourModel();
         $archives = new archiveModel();
-        $relier = new relierModel();
         $archive = $archives->where('etat_archive', 1)->orderBy('ID_archive', 'desc')->first();
 
         $tabPlanningDay = $pour->select(['*', 'DATE_FORMAT(heure_arrive, "%H:%i") AS heure_arrive', 'DATE_FORMAT(heure_depart, "%H:%i") AS heure_depart', '(tarif_chambre * duree_day) AS total'])->where('debut_sejour = CURDATE()')->join('planning', 'pour.ID_planning = planning.ID_planning')->join('reservation_day', 'pour.ID_day = reservation_day.ID_day')->join('concerner', 'concerner.ID_planning = planning.ID_planning')->join('chambre', 'concerner.ID_chambre = chambre.ID_chambre')->join('relier', 'relier.ID_chambre = chambre.ID_chambre')->join('archive', 'relier.ID_archive = archive.ID_archive')->where('relier.ID_archive', $archive['ID_archive'])->findAll();
@@ -298,6 +300,8 @@ class Planning extends BaseController
         return $data;
     }
 
+// AFFICHAGE RESOURCE
+
     public function planningChambre()
     {
         $data = [];
@@ -315,20 +319,40 @@ class Planning extends BaseController
             foreach ($tabChambres as $row) {
                 $resources[] = array(
                     'id' => $row['ID_chambre'],
-                    'title' => 'Chambres n ° ' . $row['ID_chambre'],
+                    'title' => $row['ID_chambre'],
                 );
             }
 
             // $tabPlanning = $planning->where('relier.ID_archive', $archive['ID_archive'])->join('concerner', 'concerner.ID_planning = planning.ID_planning')->join('chambre', 'concerner.ID_chambre = chambre.ID_chambre')->join('relier', 'relier.ID_chambre = chambre.ID_chambre')->join('archive', 'relier.ID_archive =  archive.ID_archive')->findAll();
-            $tabPlanning = $planning->join('concerner', 'concerner.ID_planning = planning.ID_planning')->findAll();
-            foreach ($tabPlanning as $row) {
+            $tabPlanningNuit = $planning->join('concerner', 'concerner.ID_planning = planning.ID_planning')->join('pour', 'pour.ID_planning = planning.ID_planning')->join('reservation_nuit', 'pour.ID_nuit = reservation_nuit.ID_nuit')->findAll();
+            foreach ($tabPlanningNuit as $row) {
                 $events[] = array(
                     'id' => $row['ID_chambre'] . $row['ID_planning'],
                     'resourceId' => $row['ID_chambre'],
+                    'title' => $row['motif'],
                     'start' => $row['debut_sejour'] . ' ' . $row['heure_arrive'],
                     'end' => $row['fin_sejour'] . ' ' . $row['heure_depart'],
+                    'allDay' => 'false',
+                    'backgroundColor' => '#0d6efd',
+                    'textColor' => 'white',
+                    'borderColor' => '#0d6efd',
                 );
             }
+
+            $tabPlanningDay = $planning->join('concerner', 'concerner.ID_planning = planning.ID_planning')->join('pour', 'pour.ID_planning = planning.ID_planning')->join('reservation_day', 'pour.ID_day = reservation_day.ID_day')->findAll();
+            foreach ($tabPlanningDay as $row) {
+                $events[] = array(
+                    'id' => $row['ID_chambre'] . $row['ID_planning'],
+                    'resourceId' => $row['ID_chambre'],
+                    // 'title' => $row['motif'],
+                    'start' => $row['debut_sejour'] . ' ' . $row['heure_arrive'],
+                    'end' => $row['fin_sejour'] . ' ' . $row['heure_depart'],
+                    'backgroundColor' => '#dc3545',
+                    'textColor' => 'white',
+                    'borderColor' => '#dc3545',
+                );
+            }
+
             echo json_encode([$resources, $events]);
         }
     }

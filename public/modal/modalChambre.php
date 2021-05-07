@@ -167,6 +167,26 @@
         });
     }
 
+    function updateStatut(ID_chambre, type) {
+        $(document).ready(function() {
+
+            if (type == 'update') {
+                $.ajax({
+                    url: 'updateStatut',
+                    type: 'post',
+                    data: {
+                        ID_chambre: ID_chambre,
+                        type: type,
+                    },
+
+                    success: function(data) {
+                        $('#modalUpdateChambre').html(data);
+                    }
+                })
+            }
+        });
+    }
+
     function updateChambreReservation(ID_chambre, ID_planning, type) {
         $(document).ready(function() {
 

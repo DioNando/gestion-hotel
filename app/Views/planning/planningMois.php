@@ -1,4 +1,5 @@
 <?php include("modal/modalPlanning.php"); ?>
+<?php include("assets/toast/myToast.php"); ?>
 
 <div class="container-fluid mt-3 mb-3">
     <!-- <h1>Planning du Mois</h1> -->
@@ -23,15 +24,21 @@
             schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
             height: "auto",
             locale: 'fr',
-            resourceAreaWidth: "15%",
+            resourceAreaWidth: "10%",
+            initialView: 'resourceTimelineMonth',
+            headerToolbar: {
+                left: 'resourceTimelineDay,resourceTimelineWeek,resourceTimelineMonth',
+                center: 'title',
+                right: 'today prev,next',
+            },
             buttonText: {
                 today: 'Aujourd\'hui',
                 month: 'Mois',
                 week: 'Semaine',
                 day: 'Jour',
-                list: 'Liste'
+                list: 'Liste',
+
             },
-            initialView: 'resourceTimelineMonth',
             resources: result[0],
             events: result[1],
         });
@@ -62,22 +69,26 @@
 
 <h3 class="center mt-3 mb-3">Disponibilité mensuelle des chambres</h3>
 <div class="container">
-    <div class="row row-cols-1 row-cols-lg-5 g-2 g-lg-3">
+    <div class="row row-cols-1 row-cols-lg-6 g-2 g-lg-3">
         <?php foreach ($chambres as $chambre) { ?>
             <div class="g-3">
 
-                <div class="btn border bg-light col-12">
-                    <div>
-                        <?php echo ($chambre['ID_chambre']) . ' : ' . ($chambre['motif']) ?>
+                <div class="checkChambre checkChambre-radius chambre border col-12 p-2">
+                    <div class="row">
+                        <label class="col form-check-label align-middle ms-3 text-start" for="checkbox_chambre <?php echo ($chambre['ID_chambre']) ?>"><?php echo ($chambre['ID_chambre']) ?>
+                        </label>
+                        <label class="col-auto form-check-label center me-3" for="checkbox_chambre <?php echo ($chambre['ID_chambre']) ?>">
+                            <?php if ($chambre['motif'] == 'Nuitée') echo ('<i class="fas fa-moon text-dark"></i>') ?>
+                            <?php if ($chambre['motif'] == 'Day use') echo ('<i class="fas fa-sun text-dark"></i>') ?>
+                        </label>
                     </div>
                 </div>
-
             </div>
         <?php } ?>
     </div>
 </div>
 
-<div class="mt-4 mb-2 center">
+<div class="container my-3 mx-3">
     <h3>Calendrier</h3>
 </div>
 

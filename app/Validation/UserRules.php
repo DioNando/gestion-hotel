@@ -10,9 +10,9 @@ class UserRules
     public function validateUser(string $str, string $fields, array $data)
     {
         $model = new userModel();
-        $user = $model->where('nom_user', $data['nom_user']) 
-                      ->first();
-        // $user = $model->like('CONCAT(nom_user, " ", prenom_user)', $data['nom_user'], 'both')->orLike('nom_user', $data['nom_user'], 'both')->orLike('prenom_user', $data['nom_user'], 'both')->first();
+        // $user = $model->where('nom_user', $data['nom_user']) 
+        //               ->first();
+        $user = $model->like('CONCAT(nom_user, " ", prenom_user)', $data['nom_user'], 'both')->orLike('nom_user', $data['nom_user'], 'both')->orLike('prenom_user', $data['nom_user'], 'both')->first();
 
         if (!$user)
             return false;

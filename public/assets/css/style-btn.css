@@ -17,7 +17,7 @@ background: linear-gradient(to right, #a7bfe8, #6190e8); */
   --color-4: #c1e6ff;
   --noir: #000000;
   --blanc: #ffffff;
-  --bg-dark: ;
+  --bg-dark: #212529;
   --border-dark: ;
   --bg-light: #f8f9fa;
   --border-light: #dee2e6;
@@ -143,8 +143,13 @@ background: linear-gradient(to right, #a7bfe8, #6190e8); */
   color: var(--blanc);
 } 
 
-input[type="search"]:focus {
-  box-shadow: #84ff3d;
+.histo-close {
+  cursor: pointer;
+  transition: color 0.5s;
+}
+
+.histo-close:hover {
+  color: rgb(122, 122, 122);
 }
 
 @media screen and (max-height: 450px) {

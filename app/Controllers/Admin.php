@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use App\models\userModel;
+use App\Models\userModel;
 
 class Admin extends BaseController
 {

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" type="image/png" href="assets/icons/signe-de-l'hotel.png">
+    <link rel="shortcut icon" type="image/png" href="assets/icons/favicon1.ico">
     <title>Hotel</title>
     <!-- CSS -->
 
@@ -31,7 +31,7 @@
                 /* background: #6190E8;
                 background: -webkit-linear-gradient(to right, #A7BFE8, #6190E8);
                 background: linear-gradient(to right, #A7BFE8, #6190E8); */
-                background-image: url("assets/images/background8.png");
+                background-image: url("assets/images/background1.png");
             }
         </style>
     <?php endif ?>
@@ -52,7 +52,7 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <a class="center" href="dashboard">
-                        <div class="logo-container"><img src="assets/icons/signe-de-l'hotel.png"></div>
+                        <div class="logo-container"><img src="assets/icons/admin.png"></div>
                     </a>
                     <div class="collapse navbar-collapse" id="navBarHeader">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -168,12 +168,12 @@
             <nav class="navbar navbar-expand-lg">
                 <div class="container-fluid">
                     <a class="center" href="index.php">
-                        <div class="logo-container"><img src="assets/icons/signe-de-l'hotel.png"></div>
+                        <div class="logo-container"><img src="assets/icons/admin.png"></div>
                     </a>
                     <div class="navbar-collapse">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li></li>
-                            <li class="nav-item"><a class="nav-link text-dark" id="connexion" href="index.php">Connexion</a></li>
+                            <li class="nav-item"><a class="nav-link text-secondary" id="connexion" href="index.php">Connexion</a></li>
                         </ul>
                     </div>
                 </div>

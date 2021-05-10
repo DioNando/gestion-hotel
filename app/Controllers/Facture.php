@@ -33,6 +33,7 @@ class Facture extends BaseController
 		$data = [
 			'type_payement_nuit' => $_POST['type_payement'],
 			'date_facture_nuit' => $_POST['date_facture_nuit'],
+			'somme_donne_nuit' => $_POST['somme_donne_nuit'],
 		];
 
 		$facture->set($data);
@@ -55,6 +56,7 @@ class Facture extends BaseController
 		$data = [
 			'type_payement_day' => $_POST['type_payement'],
 			'date_facture_day' => $_POST['date_facture_day'],
+			'somme_donne_day' => $_POST['somme_donne_day'],
 		];
 
 		$facture->set($data);

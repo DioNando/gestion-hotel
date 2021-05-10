@@ -4,7 +4,6 @@ foreach ($details as $detail) {
     $total = $total + ($detail['tarif_chambre'] * $detail['duree_day']);
 }
 $montant = $total;
-$reste = $total - $montant;
 ?>
 
 <div class="container p-0">
@@ -89,27 +88,27 @@ $reste = $total - $montant;
                     </div>
                     <div class="col-12 col-sm-6 mt-2 mb-2 text-center">
                         <div class="form-group">
-                            <label for="date_facture_nuit" class="form-label">Somme donnée</label>
+                            <label for="somme_facture_nuit" class="form-label">Somme donnée</label>
                             <div class="input-group">
-                                <input type="number" class="form-control" name="somme_facture_nuit" value="0" onclick="calculFacture(this.value, <?php echo ($total) ?>)" onmousedown="calculFacture(this.value, <?php echo ($total) ?>)" onkeyup="calculFacture(this.value, <?php echo ($total) ?>)" min="0">
+                                <input type="number" class="form-control" name="somme_donne_day" value="0" onclick="calculFacture(this.value, <?php echo ($total) ?>)" onmousedown="calculFacture(this.value, <?php echo ($total) ?>)" onkeyup="calculFacture(this.value, <?php echo ($total) ?>)" min="0">
                                 <span class="input-group-text">Ar</span>
                             </div>
                         </div>
                     </div>
                     <div class="col-12 col-sm-6 mt-2 mb-2 text-center">
                         <div class="form-group">
-                            <label for="date_facture_nuit" class="form-label">Rendu</label>
+                            <label for="rendu_nuit" class="form-label">Rendu</label>
                             <div class="input-group">
-                                <input type="number" class="form-control" id="rendu" name="rendu_facture_day" readonly>
+                                <input type="number" class="form-control" id="rendu_day" name="rendu_facture_day" readonly>
                                 <span class="input-group-text">Ar</span>
                             </div>
                         </div>
                     </div>
                     <div class="col-12 col-sm-6 mt-2 mb-2 text-center">
                         <div class="form-group">
-                            <label for="date_facture_nuit" class="form-label">Reste</label>
+                            <label for="reste_nuit" class="form-label">Reste</label>
                             <div class="input-group">
-                                <input type="number" class="form-control" id="reste" name="reste_facture_day" readonly>
+                                <input type="number" class="form-control" id="reste_day" name="reste_facture_day" readonly>
                                 <span class="input-group-text">Ar</span>
                             </div>
                         </div>
@@ -174,13 +173,28 @@ $reste = $total - $montant;
             <table>
 
                 <tr>
+                    <td class="text-end">Sous-total</td>
+                    <td class="text-center"><?php echo number_format($total, '0', '', ' ') . ' Ar' ?></td>
+                </tr>
+                <tr>
+                    <td class="text-end">Somme donnée</td>
+                    <td class="text-center"><?php echo number_format($facture['somme_donne_day'], '0', '', ' ') . ' Ar' ?></td>
+                </tr>
+                <tr>
+                    <td class="text-end">Rendu</td>
+                    <td class="text-center"><?php echo number_format(0, '0', '', ' ') . ' Ar' ?></td>
+                </tr>
+                <tr>
+                    <td class="text-end">Reste</td>
+                    <td class="text-center"><?php echo number_format($total - $facture['somme_donne_day'], '0', '', ' ') . ' Ar' ?></td>
+                </tr>
+
+                <tr>
                     <td class="text-end">Total</td>
                     <td class="text-center"><b> <?php echo number_format($total, '0', '', ' ') . ' Ar' ?> </b></td>
                 </tr>
-                <!-- <tr>
-                        <td class="text-end">Solde Dû</td>
-                        <td class="text-center"><b> <?php echo number_format($reste, '0', '', ' ') . ' Ar' ?> </b></td>
-                    </tr> -->
+
+
             </table>
             <!-- <div class="col-12 col-sm-6">
                     <div class="d-grid gap-2 mt-3">
@@ -261,7 +275,7 @@ $reste = $total - $montant;
             reste = total - somme;
         }
 
-        document.getElementById('rendu').value = rendu;
-        document.getElementById('reste').value = reste;
+        document.getElementById('rendu_day').value = rendu;
+        document.getElementById('reste_day').value = reste;
     }
 </script>

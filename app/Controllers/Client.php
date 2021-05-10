@@ -202,7 +202,6 @@ class Client extends BaseController
 
 					$clients->save($newData);
 
-					$clients->save($newData);
 					$dataCardex = [
 						'ID_client' => $clients->getInsertID(),
 					];

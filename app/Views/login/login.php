@@ -19,7 +19,7 @@
                 <button type="submit" class="btn btn-primary" name="btn_connexion">
                     <div class="row">
                         <div class="col text-start">Se connecter</div>
-                        <div class="col-1 center"><i class="fas fa-sign-out-alt"></i></div>
+                        <div class="col-1 center"><i class="fas fa-sign-in-alt"></i></div>
                     </div>
                 </button>
             </div>
@@ -35,7 +35,7 @@
     </div>
 
 
-    <div class="fixed-bottom">
+    <!-- <div class="fixed-bottom">
         <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
             <defs>
                 <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
@@ -43,10 +43,37 @@
             <g class="parallax">
                 <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(255,255,255,0.3)" />
                 <use xlink:href="#gentle-wave" x="48" y="2" fill="rgba(255,255,255,0.5)" />
-                <!-- <use xlink:href="#gentle-wave" x="48" y="2" fill="rgba(255,255,255,0.4)" /> -->
-                <!-- <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.6)" /> -->
+              
             </g>
         </svg>
-    </div>
+    </div> -->
 
 </div>
+
+<script>
+    window.onload = function chargementPage() {
+        $(document).ready(function() {
+            showDate();
+        });
+    }
+
+
+    function refresh() {
+        let t = 1000;
+        setTimeout('showDate()', t);
+    }
+
+    function showDate() {
+        var today = new Date();
+        const options = {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        };
+
+        var time = today.toLocaleDateString(undefined, options) + " à " + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        document.getElementById('heure-jour').innerHTML = time;
+        refresh();
+    }
+</script>

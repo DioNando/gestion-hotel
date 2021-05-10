@@ -9,33 +9,70 @@ $reste = $total - $montant;
 
 <div class="row">
     <div class="col">
-        <h5 class="mt-3 mb-3">A propos de la réservation</h5>
+        <!-- <h5 class="mt-3 mb-3">A propos de la réservation</h5> -->
 
         <div class="mb-1 row">
-            <label for="#" class="col-sm-2 col-form-label">Date de réservation</label>
-            <div class="col-sm-10">
+            <label for="#" class="col-auto col-form-label">Création :</label>
+            <div class="col">
                 <input type="text" readonly class="form-control-plaintext" id="#" value="<?php echo ($info['date_reservation_day'] . ' par ' . $info['nom_user']); ?>" readonly>
             </div>
         </div>
 
+    </div>
+    <div class="col">
+        <!-- <h5 class="mt-3 mb-3">A propos du client</h5> -->
+
+
         <div class="mb-1 row">
-            <label for="#" class="col-sm-2 col-form-label">Dernière modification</label>
-            <div class="col-sm-10">
+            <label for="#" class="col-auto col-form-label">Modification :</label>
+            <div class="col">
                 <input type="text" readonly class="form-control-plaintext" id="#" value="<?php echo ($info['date_modification_day'] . ' par ' . $info['nom_user_modif']); ?>" readonly>
             </div>
         </div>
-    </div>
-    <div class="col">
-        <h5 class="mt-3 mb-3">A propos du client</h5>
 
+    </div>
+
+    <div class="col-12">
         <div class="mb-1 row">
-            <label for="#" class="col-sm-2 col-form-label">Nom</label>
-            <div class="col-sm-10">
-                <input type="text" readonly class="form-control-plaintext" id="#" value="<?php echo ($info['nom_client_day']); ?>" readonly>
+            <label class="col-auto col-form-label">Commentaire :</label>
+            <div class="col">
+                <input type="text" class="form-control-plaintext" value="<?php echo ($info['commentaire_day']); ?>" readonly>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <!-- <h5 class="mt-3 mb-3">A propos de la réservation</h5> -->
+        <div class="mb-1 row">
+            <label class="col-auto col-form-label">Début :</label>
+            <div class="col-auto">
+                <input type="text" readonly class="form-control-plaintext" value="<?php echo ($info['heure_arrive']); ?>" readonly>
             </div>
         </div>
 
+    </div>
+    <div class="col">
+        <!-- <h5 class="mt-3 mb-3">A propos du client</h5> -->
+        <div class="mb-1 row">
+            <label class="col-auto col-form-label">Fin :</label>
+            <div class="col-auto">
+                <input type="text" readonly class="form-control-plaintext" value="<?php echo ($info['heure_depart']); ?>" readonly>
+            </div>
+        </div>
+    </div>
 
+    <div class="container">
+        <hr class="my-2">
+    </div>
+
+
+    <div class="col">
+        <div class="mb-1 row">
+            <label for="#" class="col-auto col-form-label">Nom :</label>
+            <div class="col-auto">
+                <input type="text" readonly class="form-control-plaintext" id="#" value="<?php echo ($info['nom_client_day']); ?>" readonly>
+            </div>
+        </div>
     </div>
 </div>
 

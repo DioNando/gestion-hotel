@@ -38,7 +38,18 @@ class ReservationDay extends BaseController
 			return ($data);
 		}
 		if (isset($_POST['updateDay'])) {
+
+			$archives = new archiveModel();
+			$relier = new relierModel();
+			$reservationDay = new pourModel();
+			$archive = $archives->where('etat_archive', 1)->orderBy('ID_archive', 'desc')->first();
+
+
 			$data['info'] = $this->infoSupplementaireDay($_POST['ID_day']);
+			// $data['chambres'] = $this->infoDetails($_POST['ID_day']);
+			$data['chambres'] = $reservationDay->where('ID_day', $_POST['ID_day'])->join('planning', 'pour.ID_planning = planning.ID_planning')->join('concerner', 'concerner.ID_planning = planning.ID_planning')->join('chambre', 'concerner.ID_chambre = chambre.ID_chambre')->join('relier', 'relier.ID_chambre = chambre.ID_chambre')->join('archive', 'relier.ID_archive = archive.ID_archive')->where('archive.ID_archive', $archive['ID_archive'])->find();
+			$data['listeChambres'] = $relier->where('relier.ID_archive', $archive['ID_archive'])->join('archive', 'relier.ID_archive =  archive.ID_archive')->join('chambre', 'relier.ID_chambre = chambre.ID_chambre')->findAll();
+		
 			echo view('reservation\updateDay', $data);
 			return ($data);
 		}
@@ -70,6 +81,8 @@ class ReservationDay extends BaseController
 					'date_day' => 'required',
 					'duree_day' => 'required|is_natural_no_zero',
 					'ID_chambre' => 'required',
+					'heure_depart' => 'valid_date',
+					'heure_arrive' => 'valid_date',
 				];
 
 				if (!$this->validate($rules)) {
@@ -80,7 +93,7 @@ class ReservationDay extends BaseController
 					$reservations = new reservationDayModel();
 					$planning = new planningModel();
 					$archives = new archiveModel();
-					$archive = $archives->orderBy('ID_archive', 'desc')->first();
+					$archive = $archives->where('etat_archive', 1)->orderBy('ID_archive', 'desc')->first();
 					$facture = new factureDayModel();
 
 					$newData = [
@@ -139,7 +152,15 @@ class ReservationDay extends BaseController
 		$archives = new archiveModel();
 		$archive = $archives->orderBy('ID_archive', 'desc')->first();
 
-		$data['chambres'] = $chambres->where('relier.ID_archive', $archive['ID_archive'])->join('archive', 'relier.ID_archive =  archive.ID_archive')->join('chambre', 'relier.ID_chambre = chambre.ID_chambre')->findAll();
+		$data['chambres'] = $chambres->select([
+			'*', '(CASE 
+			WHEN tarif_chambre < 5000 THEN "1"
+			WHEN tarif_chambre >= 5000 AND tarif_chambre < 10000 THEN "2"
+			WHEN tarif_chambre >= 10000 AND tarif_chambre < 20000 THEN "3"
+			WHEN tarif_chambre >= 20000 THEN "4"
+			END) AS prix'
+
+		])->where('relier.ID_archive', $archive['ID_archive'])->join('archive', 'relier.ID_archive =  archive.ID_archive')->join('chambre', 'relier.ID_chambre = chambre.ID_chambre')->findAll();
 		echo view('templates\header');
 		echo view('reservation\day', $data);
 		echo view('templates\footer');
@@ -192,7 +213,7 @@ class ReservationDay extends BaseController
 					'ID_planning' => $ID_planning,
 					'ID_archive' => $ID_archive,
 					'ID_chambre' => $valeur,
-					'statut_chambre' => 'Occupée',
+					'statut_chambre' => 'En attente',
 				];
 
 				$chambres->set($newData);
@@ -244,10 +265,9 @@ class ReservationDay extends BaseController
 	{
 		$data = [];
 		$reservations = new pourModel();
-		$archives = new archiveModel();
-        $archive = $archives->where('etat_archive', 1)->orderBy('ID_archive', 'desc')->first();
-		// $data = $reservations->where('pour.ID_day', $ID_day)->join('planning', 'pour.ID_day = planning.ID_day')->join('reservation_day', 'pour.ID_day = reservation_day.ID_day')->join('concerner', 'concerner.ID_planning = planning.ID_planning')->join('concerner', 'concerner.ID_chambre = chambre.ID_chambre')->groupBy('chambre.ID_chambre')->first();
-		// $data['details'] = $reservations->where('pour.ID_day', $ID_day)->join('reservation_day', 'pour.ID_day = reservation_day.ID_day')->join('planning', 'pour.ID_planning = planning.ID_planning')->join('concerner', 'concerner.ID_planning = planning.ID_planning')->join('concerner', 'concerner.ID_chambre = chambre.ID_chambre')->groupBy('chambre.ID_chambre')->findAll();
+		// $day = new reservationDayModel();
+		// $archive = $archives->where('etat_archive', 1)->orderBy('ID_archive', 'desc')->first();
+		$archive = $reservations->where('pour.ID_day', $ID_day)->join('reservation_day', 'pour.ID_day = reservation_day.ID_day')->join('planning', 'pour.ID_planning = planning.ID_planning')->join('concerner', 'concerner.ID_planning = planning.ID_planning')->first();
 		$data['details'] = $reservations->select(['*', 'DATE_FORMAT(date_facture_day, "%d %b %Y à %H:%i") AS date_facture_day'])->where('pour.ID_day', $ID_day)->join('reservation_day', 'pour.ID_day = reservation_day.ID_day')->join('facture_day', 'facture_day.ID_day = reservation_day.ID_day')->join('planning', 'pour.ID_planning = planning.ID_planning')->join('concerner', 'concerner.ID_planning = planning.ID_planning')->join('chambre', 'concerner.ID_chambre = chambre.ID_chambre')->join('relier', 'relier.ID_chambre = chambre.ID_chambre')->join('archive', 'relier.ID_archive = archive.ID_archive')->where('archive.ID_archive', $archive['ID_archive'])->find();
 		// $data['total'] = $reservations->select()->where('pour.ID_day', $ID_day)->join('reservation_day', 'pour.ID_day = reservation_day.ID_day')->join('planning', 'pour.ID_planning = planning.ID_planning')->join('concerner', 'concerner.ID_planning = planning.ID_planning')->join('chambre', 'concerner.ID_chambre = chambre.ID_chambre')->groupBy('concerner.ID_chambre')->find();
 		return $data;
@@ -262,6 +282,8 @@ class ReservationDay extends BaseController
 				$rules = [
 					'ID_day' => 'required',
 					'duree_day' => 'required|is_natural_no_zero',
+					'chambre_avant' => 'differs[chambre_apres]',
+					'chambre_apres' => 'differs[chambre_avant]',
 				];
 
 				if (!$this->validate($rules)) {
@@ -278,6 +300,16 @@ class ReservationDay extends BaseController
 					];
 
 					$id_planning = $pour->where('ID_day', $_POST['ID_day'])->first();
+
+					if($_POST['chambre_avant'] != '1' && $_POST['chambre_apres'] != '2') {
+						$concerner = new concernerModel();
+						$transfert = [
+							'ID_chambre' => $_POST['chambre_apres'],
+						];
+						$concerner->set($transfert);
+						$concerner->where('ID_chambre', $_POST['chambre_avant'])->where('ID_planning', $id_planning['ID_planning']);
+						$concerner->update();
+					};
 
 					$reservations->set($data);
 					$planning->set($data);

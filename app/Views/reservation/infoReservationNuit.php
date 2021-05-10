@@ -4,7 +4,7 @@
             <th scope="col" class="text-start">Type de réservation</th>
             <th scope="col">Nombre de personne</th>
             <th scope="col" class="text-start">Remarque</th>
-            <th scope="col" class="text-start">Date de réservation</th>
+            <th scope="col" class="text-start">Date de création</th>
             <!-- <th scope="col">Utilisateur</th> -->
             <th scope="col" class="text-start">Dernière modification</th>
             <!-- <th scope="col">Utilisateur</th> -->

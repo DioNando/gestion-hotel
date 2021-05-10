@@ -107,6 +107,10 @@
             <div class="modal-body" id="modalNouveauChambre">
                 <form action="" method="post">
                     <div class="form-group">
+                        <label class="form-label" for="num_chambre">Numéro de la chambre</label>
+                        <input type="text" class="form-control" name="num_chambre" id="num_chambre" disabled>
+                    </div>
+                    <div class="form-group mt-2">
                         <!-- <label class="form-label" for="description_chambre">Description</label>
                         <input type="text" class="form-control" name="description_chambre" id="description_chambre"> -->
                         <label for="descri_chambre" class="form-label">Description de la chambre</label>

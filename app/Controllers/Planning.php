@@ -34,9 +34,9 @@ class Planning extends BaseController
                     'start' => $row['debut_sejour'] . ' ' . $row['heure_arrive'],
                     'end' => $row['fin_sejour'] . ' ' . $row['heure_depart'],
                     'allDay' => 'false',
-                    'backgroundColor' => '#0d6efd',
+                    'backgroundColor' => '#283e51',
                     'textColor' => 'white',
-                    'borderColor' => '#0d6efd',
+                    'borderColor' => '#283e51',
                     'ID_reservation' => $row['ID_nuit'],
                     'motif' => $row['motif'],
                 );
@@ -48,9 +48,9 @@ class Planning extends BaseController
                     'title' => $row['nom_client_day'] . ' : ' . $row['duree_day'] . 'h ',
                     'start' => $row['debut_sejour'] . ' ' . $row['heure_arrive'],
                     'end' => $row['fin_sejour'] . ' ' . $row['heure_depart'],
-                    'backgroundColor' => '#dc3545',
+                    'backgroundColor' => '#ff5f6d',
                     'textColor' => 'white',
-                    'borderColor' => '#dc3545',
+                    'borderColor' => '#ff5f6d',
                     'ID_reservation' => $row['ID_day'],
                     'motif' => $row['motif'],
                 );
@@ -101,6 +101,18 @@ class Planning extends BaseController
                 //         'week' => $row['week'],
                 //     );
                 // }
+
+                // $week[] = array(
+                //     '1' => 'Dim',
+                //     '2' => 'Lun',
+                //     '3' => 'Mar',
+                //     '4' => 'Mer',
+                //     '5' => 'Jeu',
+                //     '6' => 'Ven',
+                //     '7' => 'Sam',
+                // );
+                $week = ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'];
+
                 for ($i = 1; $i < 8; $i++) {
                     foreach ($planningDay as $row) {
                         if ($row['week'] == $i) {
@@ -108,25 +120,27 @@ class Planning extends BaseController
                                 'reservation' => $row['nombre_reservation'],
                                 'motif' => $row['motif'],
                                 'id' => $i,
+                                'week' => $week[$i - 1],
                             );
                         }
                         // else {
-                        //     $day[] = array(
-                        //         'reservation' => 0,
-                        //         'motif' => $row['motif'],
-                        //         'id' => $i,
-                        //     );
-                        // }
-                    }
-                }
-
-                for ($i = 1; $i < 8; $i++) {
-                    foreach ($planningNuit as $row) {
-                        if ($row['week'] == $i) {
+                            //     $day[] = array(
+                                //         'reservation' => 0,
+                                //         'motif' => $row['motif'],
+                                //         'id' => $i,
+                                //     );
+                                // }
+                            }
+                        }
+                        
+                        for ($i = 1; $i < 8; $i++) {
+                            foreach ($planningNuit as $row) {
+                                if ($row['week'] == $i) {
                             $nuit[] = array(
                                 'reservation' => $row['nombre_reservation'],
                                 'motif' => $row['motif'],
                                 'id' => $i,
+                                'week' => $week[$i - 1],
                             );
                         }
                         //  else {
@@ -139,18 +153,6 @@ class Planning extends BaseController
                     };
                 }
 
-        
-
-
-                // $jour[] = array(
-                //     '1' => 'Dim',
-                //     '2' => 'Lun',
-                //     '3' => 'Mar',
-                //     '4' => 'Mer',
-                //     '5' => 'Jeu',
-                //     '6' => 'Ven',
-                //     '7' => 'Sam',
-                // );
                 for ($i = 1; $i < 8; $i++) {
                     $jour[] = array(
                         'id' => $i,
@@ -174,8 +176,16 @@ class Planning extends BaseController
         $data['day'] = $this->readDay();
         $data['nuit'] = $this->readNuit();
         $data['libre'] = $this->readLibre();
-        $data['plannings'] = array_merge($data['nuit'], $data['day']);
-        $data['chambres'] = $chambres->where('relier.ID_archive', $archive['ID_archive'])->join('archive', 'relier.ID_archive =  archive.ID_archive')->join('chambre', 'relier.ID_chambre = chambre.ID_chambre')->findAll();
+        $data['plannings'] = array_merge($data['nuit'], $data['day'], $data['libre']);
+        $data['chambres'] = $chambres->select([
+			'*', '(CASE 
+			WHEN tarif_chambre < 5000 THEN "1"
+			WHEN tarif_chambre >= 5000 AND tarif_chambre < 10000 THEN "2"
+			WHEN tarif_chambre >= 10000 AND tarif_chambre < 20000 THEN "3"
+			WHEN tarif_chambre >= 20000 THEN "4"
+			END) AS prix'
+
+		])->where('relier.ID_archive', $archive['ID_archive'])->join('archive', 'relier.ID_archive =  archive.ID_archive')->join('chambre', 'relier.ID_chambre = chambre.ID_chambre')->findAll();
 
         // $data['plannings'] = array_merge($data['nuit'], $data['day'], $data['libre']);
         // ksort($data['plannings'], SORT_NUMERIC);
@@ -210,9 +220,10 @@ class Planning extends BaseController
         $pour = new pourModel();
         $archives = new archiveModel();
         $archive = $archives->where('etat_archive', 1)->orderBy('ID_archive', 'desc')->first();
-
+        
         $tabPlanningDay = $pour->select(['*', 'DATE_FORMAT(heure_arrive, "%H:%i") AS heure_arrive', 'DATE_FORMAT(heure_depart, "%H:%i") AS heure_depart', '(tarif_chambre * duree_day) AS total'])->where('debut_sejour = CURDATE()')->join('planning', 'pour.ID_planning = planning.ID_planning')->join('reservation_day', 'pour.ID_day = reservation_day.ID_day')->join('concerner', 'concerner.ID_planning = planning.ID_planning')->join('chambre', 'concerner.ID_chambre = chambre.ID_chambre')->join('relier', 'relier.ID_chambre = chambre.ID_chambre')->join('archive', 'relier.ID_archive = archive.ID_archive')->where('relier.ID_archive', $archive['ID_archive'])->findAll();
-
+        // $tabPlanningDay = $pour->select(['*', 'DATE_FORMAT(heure_arrive, "%H:%i") AS heure_arrive', 'DATE_FORMAT(heure_depart, "%H:%i") AS heure_depart', '(tarif_chambre * duree_day) AS total'])->where('debut_sejour = CURDATE()')->join('planning', 'pour.ID_planning = planning.ID_planning')->join('reservation_day', 'pour.ID_day = reservation_day.ID_day')->join('concerner', 'concerner.ID_planning = planning.ID_planning')->join('chambre', 'concerner.ID_chambre = chambre.ID_chambre')->join('relier', 'relier.ID_chambre = chambre.ID_chambre')->join('archive', 'relier.ID_archive = archive.ID_archive')->findAll();
+        
         foreach ($tabPlanningDay as $row) {
             $data[] = array(
                 'ID_chambre' => $row['ID_chambre'],
@@ -271,13 +282,13 @@ class Planning extends BaseController
     {
         $data = [];
         $chambres = new chambreModel();
-        $archives = new archiveModel();
         $relier = new relierModel();
+        $archives = new archiveModel();
         $archive = $archives->where('etat_archive', 1)->orderBy('ID_archive', 'desc')->first();
 
-        // $tabPlanningLibre = $pour->select(['*', 'DATE_FORMAT(debut_sejour, "%d %b %Y") AS debut_sejour', 'DATE_FORMAT(fin_sejour, "%d %b %Y") AS fin_sejour', '(tarif_chambre * nbr_nuit) AS total'])->where('fin_sejour >= CURDATE() AND debut_sejour < CURDATE() + 1')->join('planning', 'pour.ID_planning = planning.ID_planning')->join('reservation_nuit', 'pour.ID_nuit = reservation_nuit.ID_nuit')->join('facture_nuit', 'facture_nuit.ID_nuit = reservation_nuit.ID_nuit')->join('client', 'reservation_nuit.ID_client = client.ID_client')->join('concerner', 'concerner.ID_planning = planning.ID_planning')->join('chambre', 'concerner.ID_chambre = chambre.ID_chambre')->join('relier', 'relier.ID_chambre = chambre.ID_chambre')->join('archive', 'relier.ID_archive = archive.ID_archive')->where('relier.ID_archive', $archive['ID_archive'])->findAll();
         $tabPlanningLibre = $chambres->where('statut_chambre', 'Libre')->join('relier', 'relier.ID_chambre = chambre.ID_chambre')->join('archive', 'relier.ID_archive = archive.ID_archive')->where('relier.ID_archive', $archive['ID_archive'])->findAll();
-
+        
+        // $tabPlanningLibre = $pour->select(['*', 'DATE_FORMAT(debut_sejour, "%d %b %Y") AS debut_sejour', 'DATE_FORMAT(fin_sejour, "%d %b %Y") AS fin_sejour', '(tarif_chambre * nbr_nuit) AS total'])->where('fin_sejour >= CURDATE() AND debut_sejour < CURDATE() + 1')->join('planning', 'pour.ID_planning = planning.ID_planning')->join('reservation_nuit', 'pour.ID_nuit = reservation_nuit.ID_nuit')->join('facture_nuit', 'facture_nuit.ID_nuit = reservation_nuit.ID_nuit')->join('client', 'reservation_nuit.ID_client = client.ID_client')->join('concerner', 'concerner.ID_planning = planning.ID_planning')->join('chambre', 'concerner.ID_chambre = chambre.ID_chambre')->join('relier', 'relier.ID_chambre = chambre.ID_chambre')->join('archive', 'relier.ID_archive = archive.ID_archive')->where('relier.ID_archive', $archive['ID_archive'])->findAll();
         foreach ($tabPlanningLibre as $row) {
             $data[] = array(
                 'ID_chambre' => $row['ID_chambre'],
@@ -333,9 +344,9 @@ class Planning extends BaseController
                     'start' => $row['debut_sejour'] . ' ' . $row['heure_arrive'],
                     'end' => $row['fin_sejour'] . ' ' . $row['heure_depart'],
                     'allDay' => 'false',
-                    'backgroundColor' => '#0d6efd',
+                    'backgroundColor' => '#283e51',
                     'textColor' => 'white',
-                    'borderColor' => '#0d6efd',
+                    'borderColor' => '#283e51',
                 );
             }
 
@@ -347,9 +358,9 @@ class Planning extends BaseController
                     // 'title' => $row['motif'],
                     'start' => $row['debut_sejour'] . ' ' . $row['heure_arrive'],
                     'end' => $row['fin_sejour'] . ' ' . $row['heure_depart'],
-                    'backgroundColor' => '#dc3545',
+                    'backgroundColor' => '#ff5f6d',
                     'textColor' => 'white',
-                    'borderColor' => '#dc3545',
+                    'borderColor' => '#ff5f6d',
                 );
             }
 
@@ -400,8 +411,11 @@ class Planning extends BaseController
 
         if ($_POST['motif'] == 'Nuitée') {
             // $data['detail'] = $pour->where('pour.ID_planning', $_POST['ID_planning'])->join('planning', 'pour.ID_planning = planning.ID_planning')->join('reservation_nuit', 'pour.ID_nuit = reservation_nuit.ID_nuit')->join('client', 'reservation_nuit.ID_client = client.ID_client')->first();
-            $archives = new archiveModel();
-            $archive = $archives->where('etat_archive', 1)->orderBy('ID_archive', 'desc')->first();
+            // $archives = new archiveModel();
+            // $archive = $archives->where('etat_archive', 1)->orderBy('ID_archive', 'desc')->first();
+            
+            $concerner = new concernerModel();
+            $archive = $concerner->where('ID_planning', $_POST['ID_planning'])->join('archive', 'concerner.ID_archive = archive.ID_archive')->first();
 
             $data['details'] = $pour->select(['*', 'DATE_FORMAT(debut_sejour, "%d %b %Y") AS debut_sejour', 'DATE_FORMAT(date_facture_nuit, "%d %b %Y à %H:%i") AS date_facture_nuit'])->where('pour.ID_planning', $_POST['ID_planning'])->join('reservation_nuit', 'pour.ID_nuit = reservation_nuit.ID_nuit')->join('etat', 'etat.ID_etat_reservation = reservation_nuit.ID_etat_reservation')->join('facture_nuit', 'facture_nuit.ID_nuit = reservation_nuit.ID_nuit')->join('planning', 'pour.ID_planning = planning.ID_planning')->join('concerner', 'concerner.ID_planning = planning.ID_planning')->join('chambre', 'concerner.ID_chambre = chambre.ID_chambre')->join('relier', 'relier.ID_chambre = chambre.ID_chambre')->join('archive', 'relier.ID_archive = archive.ID_archive')->where('archive.ID_archive', $archive['ID_archive'])->find();
 
@@ -409,7 +423,7 @@ class Planning extends BaseController
             $nuit = new effectuerModel();
 
             // $data['info'] = $nuit->where('ID_nuit', $_POST['ID_reservation'])->first();
-            $data['info'] = $nuit->select(['*', 'DATE_FORMAT(date_reservation_nuit, "%d %b %Y à %H:%i") AS date_reservation_nuit', 'DATE_FORMAT(date_modification_nuit, "%d %b %Y à %H:%i") AS date_modification_nuit'])
+            $data['info'] = $nuit->select(['*', 'DATE_FORMAT(debut_sejour, "%d %b %Y") AS debut_sejour', 'DATE_FORMAT(fin_sejour, "%d %b %Y") AS fin_sejour', 'DATE_FORMAT(date_reservation_nuit, "%d %b %Y à %H:%i") AS date_reservation_nuit', 'DATE_FORMAT(date_modification_nuit, "%d %b %Y à %H:%i") AS date_modification_nuit'])
                 ->where('effectuer.ID_nuit', $_POST['ID_reservation'])->join('user', 'effectuer.ID_user = user.ID_user')
                 ->join('reservation_nuit', 'effectuer.ID_nuit = reservation_nuit.ID_nuit')
                 ->join('etat', 'etat.ID_etat_reservation = reservation_nuit.ID_etat_reservation')
@@ -426,16 +440,21 @@ class Planning extends BaseController
 
         if ($_POST['motif'] == 'Day use') {
             // $data['detail'] = $pour->where('pour.ID_planning', $_POST['ID_planning'])->join('planning', 'pour.ID_planning = planning.ID_planning')->join('reservation_day', 'pour.ID_day = reservation_day.ID_day')->first();
-            $archives = new archiveModel();
-            $archive = $archives->where('etat_archive', 1)->orderBy('ID_archive', 'desc')->first();
+            // $archives = new archiveModel();
+            // $archive = $archives->where('etat_archive', 1)->orderBy('ID_archive', 'desc')->first();
 
+            $concerner = new concernerModel();
+            $archive = $concerner->where('ID_planning', $_POST['ID_planning'])->join('archive', 'concerner.ID_archive = archive.ID_archive')->first();
+
+
+            // $archive = $reservations->where('pour.ID_day', $ID_day)->join('reservation_day', 'pour.ID_day = reservation_day.ID_day')->join('planning', 'pour.ID_planning = planning.ID_planning')->join('concerner', 'concerner.ID_planning = planning.ID_planning')->first();
 
             $data['details'] = $pour->select(['*', 'DATE_FORMAT(date_facture_day, "%d %b %Y à %H:%i") AS date_facture_day'])->where('pour.ID_planning', $_POST['ID_planning'])->join('reservation_day', 'pour.ID_day = reservation_day.ID_day')->join('facture_day', 'facture_day.ID_day = reservation_day.ID_day')->join('planning', 'pour.ID_planning = planning.ID_planning')->join('concerner', 'concerner.ID_planning = planning.ID_planning')->join('chambre', 'concerner.ID_chambre = chambre.ID_chambre')->join('relier', 'relier.ID_chambre = chambre.ID_chambre')->join('archive', 'relier.ID_archive = archive.ID_archive')->where('archive.ID_archive', $archive['ID_archive'])->find();
 
             // $day = new reservationDayModel();
             $day = new effectuerModel();
 
-            $data['info'] = $day->select(['*', 'DATE_FORMAT(date_reservation_day, "%d %b %Y à %H:%i") AS date_reservation_day', 'DATE_FORMAT(date_modification_day, "%d %b %Y à %H:%i") AS date_modification_day'])->where('effectuer.ID_day', $_POST['ID_reservation'])->join('user', 'effectuer.ID_user = user.ID_user')->join('reservation_day', 'effectuer.ID_day = reservation_day.ID_day')->join('pour', 'pour.ID_day = reservation_day.ID_day')->join('planning', 'pour.ID_planning = planning.ID_planning')->first();
+            $data['info'] = $day->select(['*', 'DATE_FORMAT(heure_arrive, "%H:%i") AS heure_arrive', 'DATE_FORMAT(heure_depart, "%H:%i") AS heure_depart', 'DATE_FORMAT(date_reservation_day, "%d %b %Y à %H:%i") AS date_reservation_day', 'DATE_FORMAT(date_modification_day, "%d %b %Y à %H:%i") AS date_modification_day'])->where('effectuer.ID_day', $_POST['ID_reservation'])->join('user', 'effectuer.ID_user = user.ID_user')->join('reservation_day', 'effectuer.ID_day = reservation_day.ID_day')->join('pour', 'pour.ID_day = reservation_day.ID_day')->join('planning', 'pour.ID_planning = planning.ID_planning')->first();
 
             // $data['info'] = $day->where('ID_day', $_POST['ID_reservation'])->first();
 

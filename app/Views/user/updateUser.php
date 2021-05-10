@@ -22,7 +22,7 @@
             <label class="form-label" for="">Droit d'accès</label>
             <select class="form-select" name="droit_user">
                 <option <?php if ($info['droit_user'] == 'Utilisateur') echo ('selected'); ?> value="Utilisateur">Utilisateur</option>
-                <option <?php if ($info['droit_user'] == 'Contrôleur') echo ('selected'); ?> value="Contrôleur">Contrôleur</option>
+                <option <?php if ($info['droit_user'] == 'Controleur') echo ('selected'); ?> value="Controleur">Contrôleur</option>
                 <option <?php if ($info['droit_user'] == 'Administrateur') echo ('selected'); ?> value="Administrateur">Administrateur</option>
             </select>
         </div>

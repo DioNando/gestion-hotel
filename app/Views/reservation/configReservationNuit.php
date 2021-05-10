@@ -62,7 +62,7 @@
                     foreach ($reservations as $reservation) {
 
                 ?>
-                        <tr>
+                        <tr <?php if ($reservation['etat'] == 1) echo ('class="table-danger"') ?> <?php if ($reservation['etat'] == 2) echo ('class="table-primary"') ?> <?php if ($reservation['etat'] == 3) echo ('class=""') ?>>
                             <th scope="row"> <?php echo ($reservation['ID_nuit']) ?> </th>
                             <td class="text-end"> <?php echo ($reservation['debut_sejour']); ?> </td>
                             <td class="text-end"> <?php echo ($reservation['fin_sejour']); ?> </td>
@@ -70,8 +70,8 @@
                                 <div class="row">
                                     <div class="col"><?php echo ($reservation['nbr_nuit']) . ' nuitées'; ?></div>
                                     <div class="col-1 ms-2 center">
-                                        <?php if ($reservation['etat'] == 1) echo ('<i class="fas fa-hourglass-start text-primary"></i>') ?>
-                                        <?php if ($reservation['etat'] == 2) echo ('<i class="fas fa-hourglass-half text-success"></i>') ?>
+                                        <?php if ($reservation['etat'] == 1) echo ('<i class="fas fa-hourglass-start text-danger"></i>') ?>
+                                        <?php if ($reservation['etat'] == 2) echo ('<i class="fas fa-hourglass-half text-primary"></i>') ?>
                                         <?php if ($reservation['etat'] == 3) echo ('<i class="fas fa-hourglass-end text-secondary"></i>') ?>
                                     </div>
                                 </div>
@@ -120,7 +120,9 @@
                                 <div class="center">
                                     <div>
                                         <button type="button" class="btn btn-outline-dark btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalReservationUpdate" onclick="infoSupplementaireNuit('<?php echo $reservation['ID_nuit']; ?>', 'updateNuit')"><i class="fas fa-pencil-alt"></i></button>
-                                        <button type="button" class="btn btn-outline-danger btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalReservationDelete" onclick="deleteData('<?php echo $reservation['ID_nuit']; ?>')"><i class="fas fa-trash-alt"></i></button>
+                                        <?php if (session()->get('isUser') == 'Administrateur') : ?>
+                                            <button type="button" class="btn btn-outline-danger btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalReservationDelete" onclick="deleteData('<?php echo $reservation['ID_nuit']; ?>')"><i class="fas fa-trash-alt"></i></button>
+                                        <?php endif; ?>
                                     </div>
                                 </div>
                             </td>
@@ -157,7 +159,7 @@
         <div class="col-auto center">
             <div class="d-flex align-items-center">
                 <div class="flex-shrink-0">
-                    <i class="fas fa-hourglass-start text-primary"></i>
+                    <i class="fas fa-hourglass-start text-danger"></i>
                 </div>
                 <div class="flex-grow-1 ms-2">
                     <?php echo ('En attente : ' . $enAttente) ?> </div>
@@ -166,7 +168,7 @@
         <div class="col-auto center">
             <div class="d-flex align-items-center">
                 <div class="flex-shrink-0">
-                    <i class="fas fa-hourglass-half text-success"></i>
+                    <i class="fas fa-hourglass-half text-primary"></i>
                 </div>
                 <div class="flex-grow-1 ms-2">
                     <?php echo ('En cours : ' . $enCours) ?> </div>

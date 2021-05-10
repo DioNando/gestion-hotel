@@ -210,5 +210,103 @@
 </div>
 
 
+<div class="container mb-3">
+    <h2 class="mb-3 mx-5">Etat des chambres</h2>
+
+    <h3 class="mb-3">Catégorie 1</h3>
+    <div class="row row-cols-1 row-cols-lg-6 row-cols-sm-3 g-3">
+        <?php foreach ($chambres as $chambre) {
+            if ($chambre['prix'] == '1') : { ?>
+                    <div class="col">
+                        <div class="p-2 border checkChambre checkChambre-radius chambre<?php echo ($chambre['ID_chambre']) ?>">
+                            <div class="row">
+                                <label class="col form-check-label align-middle ms-3" for="checkbox_chambre <?php echo ($chambre['ID_chambre']) ?>"><?php echo ($chambre['ID_chambre']) ?>
+                                </label>
+                                <!-- <label class="col form-check-label align-middle" for="checkbox_chambre <?php echo ($chambre['ID_chambre']) ?>"><?php echo ($chambre['ID_chambre']) . ' : ' . number_format($chambre['tarif_chambre'], '0', '', ' ') . ' Ar' ?>
+                                            </label> -->
+                                <label class="col-auto form-check-label center me-3" for="checkbox_chambre <?php echo ($chambre['ID_chambre']) ?>">
+                                    <?php if ($chambre['statut_chambre'] == 'Libre') echo ('<i class="fas fa-tag text-success"></i>') ?>
+                                    <?php if ($chambre['statut_chambre'] == 'En attente') echo ('<i class="fas fa-exclamation-triangle text-danger"></i>') ?>
+                                    <?php if ($chambre['statut_chambre'] == 'Occupée') echo ('<i class="fas fa-house-user text-secondary"></i>') ?>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+        <?php }
+            endif;
+        } ?>
+    </div>
+    <hr class="my-3">
+    <h3 class="mb-3">Catégorie 2</h3>
+    <div class="row row-cols-1 row-cols-lg-6 row-cols-sm-3 g-3">
+        <?php foreach ($chambres as $chambre) {
+            if ($chambre['prix'] == '2') : { ?>
+                    <div class="col">
+                        <div class="p-2 border checkChambre checkChambre-radius chambre<?php echo ($chambre['ID_chambre']) ?>">
+                            <div class="row">
+                                <label class="col form-check-label align-middle ms-3" for="checkbox_chambre <?php echo ($chambre['ID_chambre']) ?>"><?php echo ($chambre['ID_chambre']) ?>
+                                </label>
+                                <!-- <label class="col form-check-label align-middle" for="checkbox_chambre <?php echo ($chambre['ID_chambre']) ?>"><?php echo ($chambre['ID_chambre']) . ' : ' . number_format($chambre['tarif_chambre'], '0', '', ' ') . ' Ar' ?>
+                                            </label> -->
+                                <label class="col-auto form-check-label center me-3" for="checkbox_chambre <?php echo ($chambre['ID_chambre']) ?>">
+                                    <?php if ($chambre['statut_chambre'] == 'Libre') echo ('<i class="fas fa-tag text-success"></i>') ?>
+                                    <?php if ($chambre['statut_chambre'] == 'En attente') echo ('<i class="fas fa-exclamation-triangle text-danger"></i>') ?>
+                                    <?php if ($chambre['statut_chambre'] == 'Occupée') echo ('<i class="fas fa-house-user text-secondary"></i>') ?>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+        <?php }
+            endif;
+        } ?>
+    </div>
+    <hr class="my-3">
+    <h3 class="mb-3">Catégorie 3</h3>
+    <div class="row row-cols-1 row-cols-lg-6 row-cols-sm-3 g-3">
+        <?php foreach ($chambres as $chambre) {
+            if ($chambre['prix'] == '3') : { ?>
+                    <div class="col">
+                        <div class="p-2 border checkChambre checkChambre-radius chambre<?php echo ($chambre['ID_chambre']) ?>">
+                            <div class="row">
+                                <label class="col form-check-label align-middle ms-3" for="checkbox_chambre <?php echo ($chambre['ID_chambre']) ?>"><?php echo ($chambre['ID_chambre']) ?>
+                                </label>
+                                <!-- <label class="col form-check-label align-middle" for="checkbox_chambre <?php echo ($chambre['ID_chambre']) ?>"><?php echo ($chambre['ID_chambre']) . ' : ' . number_format($chambre['tarif_chambre'], '0', '', ' ') . ' Ar' ?>
+                                            </label> -->
+                                <label class="col-auto form-check-label center me-3" for="checkbox_chambre <?php echo ($chambre['ID_chambre']) ?>">
+                                    <?php if ($chambre['statut_chambre'] == 'Libre') echo ('<i class="fas fa-tag text-success"></i>') ?>
+                                    <?php if ($chambre['statut_chambre'] == 'En attente') echo ('<i class="fas fa-exclamation-triangle text-danger"></i>') ?>
+                                    <?php if ($chambre['statut_chambre'] == 'Occupée') echo ('<i class="fas fa-house-user text-secondary"></i>') ?>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+        <?php }
+            endif;
+        } ?>
+    </div>
+    <hr class="my-3">
+    <h3 class="mb-3">Catégorie 4</h3>
+    <div class="row row-cols-1 row-cols-lg-6 row-cols-sm-3 g-3">
+        <?php foreach ($chambres as $chambre) {
+            if ($chambre['prix'] == '4') : { ?>
+                    <div class="col">
+                        <div class="p-2 border checkChambre checkChambre-radius chambre<?php echo ($chambre['ID_chambre']) ?>">
+                            <div class="row">
+                                <label class="col form-check-label align-middle ms-3" for="checkbox_chambre <?php echo ($chambre['ID_chambre']) ?>"><?php echo ($chambre['ID_chambre']) ?>
+                                </label>
+                                <label class="col-auto form-check-label center me-3" for="checkbox_chambre <?php echo ($chambre['ID_chambre']) ?>">
+                                    <?php if ($chambre['statut_chambre'] == 'Libre') echo ('<i class="fas fa-tag text-success"></i>') ?>
+                                    <?php if ($chambre['statut_chambre'] == 'En attente') echo ('<i class="fas fa-exclamation-triangle text-danger"></i>') ?>
+                                    <?php if ($chambre['statut_chambre'] == 'Occupée') echo ('<i class="fas fa-house-user text-secondary"></i>') ?>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+        <?php }
+            endif;
+        } ?>
+    </div>
+    <hr class="my-3">
+</div>
 
 <div class="container-fluid mb-4" id='calendar'></div>

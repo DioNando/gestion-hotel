@@ -15,8 +15,7 @@
     <hr>
 
     <?php if (count($infos) > 0) : {
-            foreach ($infos as $info) {
-    ?>
+            foreach ($infos as $info) { ?>
 
                 <!-- <p class="mt-3">
                     <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
@@ -33,7 +32,7 @@
                 <div class="accordion accordion-flush mb-3" id="accordionFlushExample">
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="flush-headingOne<?php echo ($info['ID_nuit']) ?>">
-                            <button class="accordion-button py-2 collapsed" style="background-color: #6190e8; color: white" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne<?php echo ($info['ID_nuit']) ?>" aria-expanded="false" aria-controls="flush-collapseOne<?php echo ($info['ID_nuit']) ?>">
+                            <button class="accordion-button py-2 collapsed text-light histo-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne<?php echo ($info['ID_nuit']) ?>" aria-expanded="false" aria-controls="flush-collapseOne<?php echo ($info['ID_nuit']) ?>">
                                 <div class="row">
                                     <div class="col-1 ms-2 center"><i class="fas fa-calendar-alt"></i></div>
                                     <div class="col text-start"><?php echo ($info['date_reservation_nuit']) ?></div>
@@ -60,8 +59,9 @@
                                 <div>Pour <?php echo ($info['nbr_personne']) ?> personne(s)</div>
                                 <?php foreach ($chambres as $chambre) {
                                     if ($chambre['ID_planning'] == $info['ID_planning']) { ?>
-                                        <div>Chambres n ° : <?php echo ($chambre['ID_chambre']) ?></div>
-                                <?php }
+                                        <div>Chambres n ° : <?php echo ($chambre['ID_chambre'] . ' avec ' . $chambre['lit_sup'] . ' lit pour ' . number_format($chambre['tarif_lit_sup'], '0', '', ' ') . ' Ar'); ?></div>
+                                       
+                                 <?php }
                                 } ?>
 
                             </div>
@@ -82,14 +82,16 @@
                                 Du : <?php echo ($info['date_facture_nuit']) ?><br>
                                 Remise : <?php echo ($info['remise']) . '%' ?><br>
                                 Payement : <?php echo ($info['type_payement_nuit']);
-                                            $total = 0; ?>
+                                            $total = 0;
+                                            $total_chambre = 0; ?>
                                 <?php foreach ($chambres as $chambre) {
                                     if ($chambre['ID_planning'] == $info['ID_planning']) {
                                         $total = $total + $chambre['tarif_chambre'] * $info['nbr_nuit'];
+                                        $total_chambre += $info['tarif_lit_sup'] * $info['lit_sup'];
                                 ?>
                                 <?php }
                                 } ?>
-                                <div><b> Total : <?php echo number_format($total - $total * $info['remise'] / 100, '0', '', ' ')  . ' Ar' ?></b></div>
+                                <div><b> Total : <?php echo number_format($total + $total_chambre  - ($total + $total_chambre) * $info['remise'] / 100, '0', '', ' ')  . ' Ar' ?></b></div>
                             </div>
                         </div>
                     </div>

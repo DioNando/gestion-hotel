@@ -1,4 +1,13 @@
-<div class="container">
+<?php
+$total = 0;
+foreach ($details as $detail) {
+    $total = $total + ($detail['tarif_chambre'] * $detail['duree_day']);
+}
+$montant = $total;
+$reste = $total - $montant;
+?>
+
+<div class="container p-0">
     <!-- <div class="container-fluid bg-light formulaire"> -->
     <!-- <h1 class="center mt-3 mb-3">
         <div class="row container-fluid">
@@ -17,69 +26,107 @@
             </div>
 
             <div class="container">
-                <div class="row">
-                    <div class="col">
-                        <h5 class="mt-3 mb-3">De</h5>
 
-                        <div class="mb-1 row">
-                            <label for="#" class="col-sm-2 col-form-label">Facture n ° </label>
-                            <div class="col-sm-10">
-                                <input type="text" readonly class="form-control-plaintext" id="#" value="<?php echo ($facture['ID_facture_day']) ?>" name="ID_facture_day" readonly>
-                            </div>
-                        </div>
-                        <div class="mb-1 row">
-                            <label for="#" class="col-sm-2 col-form-label">Nom</label>
-                            <div class="col-sm-10">
-                                <input type="text" readonly class="form-control-plaintext" id="#" value="Hotel" readonly>
-                            </div>
-                        </div>
+                <!-- <h5 class="mt-3 mb-3">De</h5> -->
 
-                        <div class="mb-1 row">
-                            <label for="#" class="col-sm-2 col-form-label">Adresse</label>
-                            <div class="col-sm-10">
-                                <input type="text" readonly class="form-control-plaintext" id="#" value="rue 02 Toamasina" readonly>
-                            </div>
-                        </div>
 
-                        <div class="mb-1 row">
-                            <label for="#" class="col-sm-2 col-form-label">Mail</label>
-                            <div class="col-sm-10">
-                                <input type="text" readonly class="form-control-plaintext" id="#" value="hotel@mail.mg" readonly>
-                            </div>
-                        </div>
-                        <div class="mb-1 row">
-                            <label for="#" class="col-sm-2 col-form-label">Téléphone</label>
-                            <div class="col-sm-10">
-                                <input type="text" readonly class="form-control-plaintext" id="#" value="+261 34 00 000 01" readonly>
-                            </div>
-                        </div>
-                        <div class="mb-1 row">
-                            <label for="#" class="col-sm-2 col-form-label">Par</label>
-                            <div class="col-sm-10">
-                                <input type="text" readonly class="form-control-plaintext" id="#" value="<?php echo ($info['nom_user']) ?>" name="nom_user" readonly>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <h5 class="mt-3 mb-3">Adresse de facturation</h5>
-
-                        <div class="mb-1 row">
-                            <label for="#" class="col-sm-2 col-form-label">Nom</label>
-                            <div class="col-sm-10">
-                                <input type="text" readonly class="form-control-plaintext" id="#" value="<?php echo ($info['nom_client_day']) ?>" readonly>
-                            </div>
-                        </div>
-
+                <div class="mb-1 row">
+                    <!-- <label for="#" class="col-sm-2 col-form-label">Nom</label> -->
+                    <div class="col-auto">
+                        <input type="text" readonly class="form-control-plaintext" id="#" value="Hotel" readonly>
                     </div>
                 </div>
+
+                <div class="mb-1 row">
+                    <!-- <label for="#" class="col-auto col-form-label">Adresse</label> -->
+                    <div class="col-auto">
+                        <input type="text" readonly class="form-control-plaintext" id="#" value="rue 02 Toamasina" readonly>
+                    </div>
+                </div>
+
+                <div class="mb-1 row">
+                    <label for="#" class="col-auto col-form-label">Mail :</label>
+                    <div class="col-auto">
+                        <input type="text" readonly class="form-control-plaintext" id="#" value="hotel@mail.mg" readonly>
+                    </div>
+                </div>
+                <div class="mb-1 row">
+                    <label for="#" class="col-auto col-form-label">Téléphone :</label>
+                    <div class="col-auto">
+                        <input type="text" readonly class="form-control-plaintext" id="#" value="+261 34 00 000 01" readonly>
+                    </div>
+                </div>
+                <hr class="my-3">
+                <div class="mb-1 row">
+                    <label for="#" class="col-auto col-form-label">Facture n ° </label>
+                    <div class="col-auto">
+                        <input type="text" readonly class="form-control-plaintext" id="#" value="<?php echo ($facture['ID_facture_day']) ?>" name="ID_facture_day" readonly>
+                    </div>
+                </div>
+                <div class="mb-1 row">
+                    <label for="#" class="col-auto col-form-label">Par :</label>
+                    <div class="col-auto">
+                        <input type="text" readonly class="form-control-plaintext" id="#" value="<?php echo ($info['nom_user']) ?>" name="nom_user" readonly>
+                    </div>
+                </div>
+                <div class="mb-1 row">
+                    <label for="#" class="col-auto col-form-label">Nom :</label>
+                    <div class="col-auto">
+                        <input type="text" readonly class="form-control-plaintext" id="#" value="<?php echo ($info['nom_client_day']) ?>" readonly>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-12 col-sm-6 mt-2 mb-2 text-center">
+                        <div class="form-group">
+                            <label for="date_facture_nuit" class="form-label">Total Ariary</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" value="<?php echo ($total) ?>" name="date_facture_day" readonly>
+                                <span class="input-group-text">Ar</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 mt-2 mb-2 text-center">
+                        <div class="form-group">
+                            <label for="date_facture_nuit" class="form-label">Somme donnée</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" name="somme_facture_nuit" value="0" onclick="calculFacture(this.value, <?php echo ($total) ?>)" onmousedown="calculFacture(this.value, <?php echo ($total) ?>)" onkeyup="calculFacture(this.value, <?php echo ($total) ?>)" min="0">
+                                <span class="input-group-text">Ar</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 mt-2 mb-2 text-center">
+                        <div class="form-group">
+                            <label for="date_facture_nuit" class="form-label">Rendu</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="rendu" name="rendu_facture_day" readonly>
+                                <span class="input-group-text">Ar</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 mt-2 mb-2 text-center">
+                        <div class="form-group">
+                            <label for="date_facture_nuit" class="form-label">Reste</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="reste" name="reste_facture_day" readonly>
+                                <span class="input-group-text">Ar</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
             </div>
+
+
 
 
             <div class="col-12 col-sm-6 mt-2 mb-2 text-center">
                 <div class="form-group">
                     <label for="date_facture_day" class="form-label">Date de facturation</label>
                     <!-- <input type="date" class="form-control" id="dateFacturation" name="debut_sejour"> -->
-                    <input type="date" class="form-control" value="<?php echo($facture['date_facture_day']) ?>" name="date_facture_day">
+                    <input type="date" class="form-control" value="<?php echo ($facture['date_facture_day']) ?>" name="date_facture_day">
                 </div>
             </div>
             <div class="col-12 col-sm-6 mt-2 mb-2 text-center">
@@ -90,43 +137,39 @@
                         <option <?php if ($facture['type_payement_day'] == 'MVola') echo ('selected'); ?> value="MVola">MVola</option>
                         <option <?php if ($facture['type_payement_day'] == 'Orange Money') echo ('selected'); ?> value="Orange Money">Orange Money</option>
                         <option <?php if ($facture['type_payement_day'] == 'Airtel Money') echo ('selected'); ?> value="Airtel Money">Airtel Money</option>
-                        <option <?php if ($facture['type_payement_day'] == 'VISA') echo ('selected'); ?> value="VISA">VISA</option>   
-                        <option <?php if ($facture['type_payement_day'] == 'Autre') echo ('selected'); ?> value="Autre">Autre</option>   
+                        <option <?php if ($facture['type_payement_day'] == 'Cheque') echo ('selected'); ?> value="Cheque">Chèque</option>
+                        <option <?php if ($facture['type_payement_day'] == 'VISA') echo ('selected'); ?> value="VISA">VISA</option>
+                        <option <?php if ($facture['type_payement_day'] == 'Autre') echo ('selected'); ?> value="Autre">Autre</option>
                     </select>
                 </div>
             </div>
 
-            <?php
-            $total = 0;
-            foreach ($details as $detail) {
-                $total = $total + ($detail['tarif_chambre'] * $detail['duree_day']);
-            }
-            $montant = $total;
-            $reste = $total - $montant;
-            ?>
 
-            <table class="table mt-2">
-                <thead>
-                    <tr>
-                        <th scope="col">N°Chambre</th>
-                        <th scope="col" class="text-end">Durée</th>
-                        <th scope="col" class="text-end">Prix Unitaire</th>
-                        <th scope="col" class="text-end">Montant</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($details as $detail) { ?>
+            <div class="container">
+                <table class="table mt-2">
+                    <thead>
                         <tr>
-                            <th> <?php echo ($detail['ID_chambre']); ?> </th>
-                            <td scope="row" class="text-end"> <?php echo ($detail['duree_day'] . 'h'); ?> </td>
-                            <td class="text-end"> <?php echo number_format($detail['tarif_chambre'], '0', '', ' ')  . ' Ar' ?> </td>
-                            <td class="text-end"> <?php echo number_format($detail['tarif_chambre'] * $detail['duree_day'], '0', '', ' ') . ' Ar' ?> </td>
-
+                            <th scope="col">N°Chambre</th>
+                            <th scope="col" class="text-end">Durée</th>
+                            <th scope="col" class="text-end">Prix Unitaire</th>
+                            <th scope="col" class="text-end">Montant</th>
                         </tr>
-                    <?php } ?>
-                </tbody>
-            </table>
-            <hr class="mt-4">
+                    </thead>
+                    <tbody>
+                        <?php foreach ($details as $detail) { ?>
+                            <tr>
+                                <th> <?php echo ($detail['ID_chambre']); ?> </th>
+                                <td scope="row" class="text-end"> <?php echo ($detail['duree_day'] . 'h'); ?> </td>
+                                <td class="text-end"> <?php echo number_format($detail['tarif_chambre'], '0', '', ' ')  . ' Ar' ?> </td>
+                                <td class="text-end"> <?php echo number_format($detail['tarif_chambre'] * $detail['duree_day'], '0', '', ' ') . ' Ar' ?> </td>
+
+                            </tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
+                <hr class="mt-4">
+            </div>
+
 
             <table>
 
@@ -189,7 +232,7 @@
 
 <script>
     var dateDebut = new Date();
-    document.getElementById('dateFacturation').valueAsDate = dateDebut;
+    // document.getElementById('dateFacturation').valueAsDate = dateDebut;
 
     function genPDF() {
 
@@ -205,5 +248,20 @@
         var doc = new jsPDF;
         doc.fromHTML($('#facturePDF').get(0), 20, 20);
         doc.save('Facture.pdf');
+    }
+
+    function calculFacture(somme, total) {
+        let rendu, reste;
+
+        if (somme >= total) {
+            rendu = somme - total;
+            reste = 0;
+        } else {
+            rendu = 0;
+            reste = total - somme;
+        }
+
+        document.getElementById('rendu').value = rendu;
+        document.getElementById('reste').value = reste;
     }
 </script>

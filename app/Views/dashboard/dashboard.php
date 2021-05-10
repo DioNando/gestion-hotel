@@ -105,7 +105,7 @@
                 labels: labels,
                 datasets: [{
                     label: "Statut des chambres",
-                    backgroundColor: ["#6190E8", "#c1e6ff", "#ff7c1f"],
+                    backgroundColor: ["#283e51", "#ff5f6d", "#ffc371"],
                     data: data,
                     borderWidth: false,
                 }],
@@ -140,10 +140,10 @@
             return e.reservation;
         });
         let label0 = result[0].map(function(e) {
-            return e.id;
+            return e.week;
         });
         let label1 = result[1].map(function(e) {
-            return e.id;
+            return e.week;
         });
 
         console.log(result[0]);
@@ -157,9 +157,9 @@
                 labels: label1,
 
                 datasets: [{
-                    label: "day use",
+                    label: "Day use",
                     data: data1,
-                    backgroundColor: '#6190E8',
+                    backgroundColor: '#ff5f6d',
                     borderWidth: false,
                     radius: 1,
                     tension: 0,
@@ -201,9 +201,9 @@
             data: {
                 labels: label0,
                 datasets: [{
-                        label: "nuitées",
+                        label: "Nuitée",
                         data: data0,
-                        backgroundColor: '#ff7c1f',
+                        backgroundColor: '#283e51',
                         borderWidth: false,
                         radius: 1,
                         tension: 0,
@@ -303,22 +303,28 @@
             calendrierData();
             chartData('chart1');
             chartData('chart2');
+            showDate();
+
+            // $('#doughtnut-content').show('slow');
+            // document.getElementById('doughtnut-content').style.opacity = 1;
+            // document.getElementById('dash-calendar').style.opacity = 1;
+            // document.getElementById('calendar').style.opacity = 1;
+            // document.getElementById('dash-content').style.opacity = 1;
+            // document.getElementById('dash-chart').style.opacity = 1;
         });
 
         $('#myChart4').hide();
         // $('#myChart5').hide();
     }
 
-
-
     $(document).ready(function() {
         $('#sun').click(function() {
-            $('#myChart5').hide('250');
-            $('#myChart4').show('250');
+            $('#myChart4').slideDown('250');
+            $('#myChart5').fadeOut('250');
         })
         $('#moon').click(function() {
-            $('#myChart4').hide('250');
-            $('#myChart5').show('250');
+            $('#myChart5').slideDown('250');
+            $('#myChart4').fadeOut('250');
         })
     });
 
@@ -331,7 +337,7 @@
 
 <div class="container-fluid mb-4">
     <div class="row g-3">
-        <div class="col-lg-6 col-sm-12">
+        <div class="col-lg-6 col-sm-12" id="doughtnut-content">
             <!-- <div class="container"> -->
             <div class="row gx-3" style="height: 100%;">
                 <div class="col-12">
@@ -375,12 +381,12 @@
             </div>
             <!-- </div> -->
         </div>
-        <div class="col-lg-6 col-sm-12">
+        <div class="col-lg-6 col-sm-12" id="dash-calendar">
             <div class="p-3 border bg-light bg-dashboard">
-                <div class="p-3" id='calendar'></div>
+                <div id='calendar'></div>
             </div>
         </div>
-        <div class="col-lg-6 col-sm-12">
+        <div class="col-lg-6 col-sm-12" id="dash-content">
             <!-- <div class="container"> -->
             <div class="row gx-3 height-dashboard">
                 <div class="col-6">
@@ -393,7 +399,7 @@
                                         <th scope="col"><i class="fab fa-slack-hash"></i></th>
                                         <!-- <th scope="col" class="text-start">Description</th>
                                         <th scope="col" class="text-end">Tarif (Ar)</th> -->
-                                        <th scope="col" class="text-start">Statut chambre</th>
+                                        <th scope="col" class="text-start">Chambres</th>
                                         <?php if (session()->get('isUser') == 'Administrateur') : ?>
                                             <th scope="col">Actions</th>
                                         <?php endif; ?>
@@ -479,7 +485,7 @@
                                 <div id="heure_jour"></div>
                             </h3>
                             <a href="dashboard">
-                                <div class="center mt-2 mb-4"><img src="assets/images/admin.png" style="width: 70%;"></div>
+                                <div class="center mt-2 mb-4"><img src="assets/images/hote.png" style="width: 70%;"></div>
                             </a>
                             <div class="container">
                                 <h5>
@@ -494,11 +500,11 @@
             </div>
             <!-- </div> -->
         </div>
-        <div class="col-lg-6 col-sm-12">
+        <div class="col-lg-6 col-sm-12" id="dash-chart">
             <div class="p-3 border bg-light bg-dashboard" style="height:100% !important">
                 <h4>
                     <div class="row">
-                        <div class="col text-start">En fonction de la semaine</div>
+                        <div class="col text-start">Tendance des réservations</div>
                         <div class="col-1 center"><i class="fas fa-tag"></i></div>
                     </div>
                 </h4>
@@ -520,6 +526,13 @@
 <!-- DATE D'AUJOURD'HUI -->
 
 <script>
+
+function refresh() {
+    let t = 1000;
+    setTimeout('showDate()', t);
+}
+
+function showDate() {
     var today = new Date();
     const options = {
         weekday: 'long',
@@ -528,6 +541,9 @@
         day: 'numeric'
     };
 
-    var time = today.toLocaleDateString(undefined, options) + " à " + today.getHours() + ":" + today.getMinutes();
-    document.getElementById('heure_jour').innerHTML = time
+    var time = today.toLocaleDateString(undefined, options) + " à " + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    document.getElementById('heure_jour').innerHTML = time;
+    refresh();
+}
+    
 </script>

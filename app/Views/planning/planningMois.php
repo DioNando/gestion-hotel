@@ -64,6 +64,7 @@
 <script>
     window.onload = function chargementPage() {
         calendrierData();
+        // document.getElementById('calendar').style.opacity = 1;        
     }
 </script>
 

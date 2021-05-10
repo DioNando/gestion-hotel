@@ -85,6 +85,7 @@
                             <option value="MVola">MVola</option>
                             <option value="Orange Money">Orange Money</option>
                             <option value="Airtel Money">Airtel Money</option>
+                            <option value="Cheque">Chèque</option>
                             <option value="VISA">VISA</option>
                         </select>
                     </div>

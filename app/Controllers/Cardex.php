@@ -54,7 +54,7 @@ class Cardex extends BaseController
 		// $data['clients'] = $clients->orderBy('ID_client', 'asc')->findAll();
 
 		$data = [
-			'clients' => $clients->join('cardex', 'cardex.ID_client = client.ID_client')->paginate(20, 'paginationResult'),
+			'clients' => $clients->join('cardex', 'cardex.ID_client = client.ID_client')->orderby('client.ID_client', 'desc')->paginate(20, 'paginationResult'),
 			'pager' => $clients->pager,
 			'total' => count($clients->join('cardex', 'cardex.ID_client = client.ID_client')->findAll()),
 			'total_all' => count($clients->join('cardex', 'cardex.ID_client = client.ID_client')->findAll()),
@@ -114,6 +114,18 @@ class Cardex extends BaseController
 				$rules = [
 					'nom_client' => 'required',
 					'prenom_client' => 'required',
+					'date_naissance' => 'required|valid_date',
+					'lieu_naissance' => 'required',
+					'pere_client' => 'required|string',
+					'mere_client' => 'required|string',
+					'profession' => 'required',
+					'domicile_habituel' => 'required',
+					'nationalite' => 'required|string',
+					'piece_identite' => 'required',
+					'num_piece_identite' => 'required|numeric',
+					'date_delivrance' => 'required|valid_date',
+					'lieu_delivrance' => 'required',
+					'date_fin_validite' => 'required|valid_date',
 				];
 
 				if (!$this->validate($rules)) {

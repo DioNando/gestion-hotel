@@ -1,7 +1,7 @@
 <table class="table table-hover table-striped">
         <thead>
             <tr>
-                <th scope="col" class="text-start">Date de réservation</th>
+                <th scope="col" class="text-start">Date de création</th>
                 <!-- <th scope="col">Utilisateur</th> -->
                 <th scope="col" class="text-start">Dernière modification</th>
                 <!-- <th scope="col">Utilisateur</th> -->

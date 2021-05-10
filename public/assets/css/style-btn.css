@@ -5,22 +5,29 @@ background: -webkit-linear-gradient(to right, #a7bfe8, #6190e8);
 background: linear-gradient(to right, #a7bfe8, #6190e8); */
 
 :root {
-  --primary-color: #136a8a;
+  --primary-color: #4b79a1;
   --secondary-color: #84ff3d;
-  --color-success: #067eed;
+  --color-success: #283e51;
   --color-warning: #c1e6ff;
   --color-info: #c1e6ff;
   --color-danger: #c1e6ff;
-  --color-1: #6190e8;
+  --color-1: #283e51;
   --color-2: #a7bfe8;
   --color-3: #ff7c1f;
   --color-4: #c1e6ff;
   --noir: #000000;
   --blanc: #ffffff;
   --bg-dark: #212529;
-  --border-dark: ;
+  --bg-grey: #6c757d;
+  --border-dark: #6c757d;
   --bg-light: #f8f9fa;
   --border-light: #dee2e6;
+
+
+  --color-A: #283e51;
+  --color-B: #4b79a1;
+  --color-C: #ff5f6d;
+  --color-D: #ffc371;
 }
 
 /* .bg-dash1 {
@@ -113,7 +120,7 @@ background: linear-gradient(to right, #a7bfe8, #6190e8); */
 }
 
 .btn-hover a:hover {
-  color: var(--blanc);
+  color: var(--color-C);
   /* font-weight: bold; */
   /* letter-spacing: 1px; */
   transform: translateY(-2px);
@@ -121,6 +128,11 @@ background: linear-gradient(to right, #a7bfe8, #6190e8); */
 
 .bg-dash1 .fa-tags, .bg-dash2 .fa-moon, .bg-dash3 .fa-sun {
   transition: transform 1s;
+  cursor: pointer;
+}
+
+.bg-dash1 .fa-tags {
+  cursor: default;
 }
 
 .bg-dash1 .fa-tags:hover, .bg-dash2 .fa-moon:hover, .bg-dash3 .fa-sun:hover {
@@ -151,6 +163,71 @@ background: linear-gradient(to right, #a7bfe8, #6190e8); */
 .histo-close:hover {
   color: rgb(122, 122, 122);
 }
+
+.histo-button {
+  background-color: var(--color-A);
+}
+
+.container .card .face {
+  width: 300px;
+  height: 200px;
+  transition: 1s;
+}
+
+.card-all:hover .accueil-card-body {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.accueil-card {
+  height: 200px;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.25) !important;
+  box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
+  backdrop-filter: blur(8.5px);
+  -webkit-backdrop-filter: blur(8.5px);
+}
+
+.accueil-card-body {
+  transition: 0.4s;
+  height: 200px;
+  opacity: 0;
+  transform: translateY(-200px);
+  color: var(--blanc);
+  background-color: var(--bg-grey);
+}
+
+.card-icon-alt1, .card-icon-alt2, .card-icon-alt3{
+  text-decoration: none;
+  cursor: pointer;
+  /* color: var(--bg-dark); */
+  /* color: #84ff3d; */
+}
+
+.card-icon-alt1:hover {
+  color: var(--color-A);
+  transition: 0.4s;
+}
+
+.card-icon-alt2:hover {
+  color: var(--color-C);
+  transition: 0.4s;
+}
+
+.card-icon-alt3:hover {
+  color: var(--color-D);
+  transition: 0.4s;
+}
+
+/* #doughtnut-content, #tabAnimation, #dash-calendar, #calendar {
+  opacity: 0;
+  transition: 1s;
+}
+
+#dash-content, #dash-chart {
+  opacity: 0;
+  transition: 2s;
+} */
 
 @media screen and (max-height: 450px) {
   .sideNav {

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" type="image/png" href="assets/icons/favicon1.ico">
+    <link rel="shortcut icon" type="image/png" href="assets/icons/hote.ico">
     <title>Hotel</title>
     <!-- CSS -->
 
@@ -31,7 +31,7 @@
                 /* background: #6190E8;
                 background: -webkit-linear-gradient(to right, #A7BFE8, #6190E8);
                 background: linear-gradient(to right, #A7BFE8, #6190E8); */
-                background-image: url("assets/images/background1.png");
+                background-image: url("assets/images/background11.png");
             }
         </style>
     <?php endif ?>
@@ -41,8 +41,28 @@
     <?php
     $page = $_SERVER['REQUEST_URI'];
     ?>
-    <header>
 
+    <script>
+        function sideBar(x) {
+            if (x.matches) {
+                $(document).ready(function() {
+                    $('#flush-collapse1').removeClass('show');
+                    $('#flush-collapse2').removeClass('show');
+                    $('#flush-collapse3').removeClass('show');
+                });
+            } else {
+                $('#flush-collapse1').addClass('show');
+                $('#flush-collapse2').addClass('show');
+                $('#flush-collapse3').addClass('show');
+            }
+        }
+        var x = window.matchMedia("(max-width: 900px)");
+        sideBar(x);
+        x.addListener(sideBar);
+    </script>
+
+
+    <header>
         <?php if (session()->get('isUser') == 'Administrateur') : ?>
 
             <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark"> -->
@@ -52,7 +72,7 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <a class="center" href="dashboard">
-                        <div class="logo-container"><img src="assets/icons/admin.png"></div>
+                        <div class="logo-container"><img src="assets/images/hote2.png" style="width: 32px;"></div>
                     </a>
                     <div class="collapse navbar-collapse" id="navBarHeader">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -115,32 +135,37 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <a class="center" href="dashboard">
-                        <div class="logo-container"><img src="assets/icons/signe-de-l'hotel.png"></div>
+                        <div class="logo-container"><img src="assets/images/hote2.png" style="width: 32px;"></div>
                     </a>
                     <div class="collapse navbar-collapse" id="navBarHeader">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li class="nav-item dropdown">
+                            <li class="nav-item dropdown btn-hover">
                                 <a class="nav-link dropdown-toggle headerMenu" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Tableau de bord</a>
-                                <ul class="dropdown-menu">
+                                <ul class="dropdown-menu border">
                                     <li><a class="dropdown-item" href="dashboard">Accueil</a></li>
                                     <li><a class="dropdown-item" href="etatFinancier">Etat financier</a></li>
                                     <li><a class="dropdown-item" href="statistique">Statistique</a></li>
                                 </ul>
                             </li>
-                            <li class="nav-item dropdown">
+                            <li class="nav-item dropdown btn-hover">
                                 <a class="nav-link dropdown-toggle headerMenu" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Planning</a>
-                                <ul class="dropdown-menu">
+                                <ul class="dropdown-menu border">
                                     <li><a class="dropdown-item" href="planningJour">Planning du jour</a></li>
                                     <li><a class="dropdown-item" href="planningMois">Planning du mois</a></li>
                                 </ul>
                             </li>
-                            <li class="nav-item"><a class="nav-link headerMenu" href="accueilClient">Réservation</a></li>
-                            <li class="nav-item"><a class="nav-link headerMenu" href="ficheCardex">Fiche cardex</a></li>
+                            <li class="nav-item btn-hover"><a class="nav-link headerMenu" href="accueilClient">Réservation</a></li>
+                            <li class="nav-item btn-hover"><a class="nav-link headerMenu" href="ficheCardex">Fiche cardex</a></li>
                         </ul>
-                        <ul class="navbar-nav my-2 my-lg-0">
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle headerMenu" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Paramètres</a>
-                                <ul class="dropdown-menu dropdown-taille dropdown-menu-lg-end">
+                        <ul class="navbar-nav my-2 my-lg-0 me-2">
+                            <li class="nav-item dropdown btn-hover">
+                                <a class="nav-link dropdown-toggle dropdown-toggle-cog headerMenu" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">
+                                    <div class="row">
+                                        <div class="col pe-2">Paramètres</div>
+                                        <div class="col-auto center ps-1"><i class="fas fa-cog"></i></div>
+                                    </div>
+                                </a>
+                                <ul class="dropdown-menu border dropdown-taille dropdown-menu-lg-end">
                                     <li><a class="dropdown-item" href="profil">Profil</a></li>
                                     <li><a class="dropdown-item" href="configUser">Utilisateur</a></li>
                                     <li><a class="dropdown-item" href="configAdmin">Administrateur</a></li>
@@ -157,6 +182,8 @@
                             </li>
                             <!-- <li class="nav-item"><a class="nav-link" href="#">Paramètres</a></li>
                             <li class="nav-item"><a class="nav-link" href="logout">Déconnexion</a></li> -->
+
+
                         </ul>
                     </div>
                 </div>
@@ -165,7 +192,7 @@
 
         <?php else : ?>
             <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark"> -->
-            <nav class="navbar navbar-expand-lg">
+            <!-- <nav class="navbar navbar-expand-lg">
                 <div class="container-fluid">
                     <a class="center" href="index.php">
                         <div class="logo-container"><img src="assets/icons/admin.png"></div>
@@ -173,11 +200,22 @@
                     <div class="navbar-collapse">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li></li>
-                            <li class="nav-item"><a class="nav-link text-secondary" id="connexion" href="index.php">Connexion</a></li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light" id="connexion" href="index.php">Connexion</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
-            </nav>
+            </nav> -->
+
+            <div class="container-fluid row m-5 ms-0">
+                <div class="col-1 center"><img src="assets/images/hote.png" style="width: 70%;"></div>
+                <div class="col d-flex align-items-center">
+                    <h1 class="text-light">
+                        <div id="heure-jour"></div>
+                    </h1>
+                </div>
+            </div>
 
         <?php endif ?>
 
@@ -193,7 +231,7 @@
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="flush-heading1">
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse1" aria-expanded="true" aria-controls="flush-collapse1">
-                                    <div class="row">
+                                    <div class="row" style="font-size: 1.2rem;">
                                         <div class="col-1 ms-2 center"><i class="fas fa-calendar-alt"></i></div>
                                         <div class="col text-start">Réservation</div>
                                     </div>
@@ -235,7 +273,7 @@
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="flush-heading2">
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse2" aria-expanded="true" aria-controls="flush-collapse2">
-                                    <div class="row">
+                                    <div class="row" style="font-size: 1.2rem;">
                                         <div class="col-1 ms-2 center"><i class="fas fa-users"></i></div>
                                         <div class="col text-start">Client</div>
                                     </div>
@@ -269,7 +307,7 @@
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="flush-heading3">
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse3" aria-expanded="true" aria-controls="flush-collapse3">
-                                    <div class="row">
+                                    <div class="row" style="font-size: 1.2rem;">
                                         <div class="col-1 ms-2 center"><i class="fas fa-home"></i></div>
                                         <div class="col text-start">Chambre</div>
                                     </div>
@@ -286,16 +324,16 @@
                                                 </div>
                                             </a>
                                         </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="configTarif">
-                                                <div class="row">
-                                                    <div class="col-1 ms-2 center"><i class="fas fa-comments-dollar"></i></div>
-                                                    <div class="col text-start">Tarif</div>
-                                                </div>
-                                            </a>
-                                        </li>
-
                                         <?php if (session()->get('isUser') == 'Administrateur') : ?>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="configTarif">
+                                                    <div class="row">
+                                                        <div class="col-1 ms-2 center"><i class="fas fa-comments-dollar"></i></div>
+                                                        <div class="col text-start">Tarif</div>
+                                                    </div>
+                                                </a>
+                                            </li>
+
                                             <li class="nav-item">
                                                 <a class="nav-link" href="addChambre">
                                                     <div class="row">

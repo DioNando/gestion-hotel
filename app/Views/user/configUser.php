@@ -71,7 +71,7 @@
                             <div class="row">
                                 <div class="col-1 ms-2 center">
                                     <?php if ($user['droit_user'] == 'Administrateur') echo ('<i class="fas fa-user-cog text-primary"></i>') ?>
-                                    <?php if ($user['droit_user'] == 'Contrôleur') echo ('<i class="fas fa-users-cog text-secondary"></i>') ?>
+                                    <?php if ($user['droit_user'] == 'Controleur') echo ('<i class="fas fa-users-cog text-secondary"></i>') ?>
                                     <?php if ($user['droit_user'] == 'Utilisateur') echo ('<i class="fas fa-user-friends text-dark"></i>') ?>
                                 </div>
                                 <div class="col text-start"><?php echo ($user['droit_user']); ?></div>

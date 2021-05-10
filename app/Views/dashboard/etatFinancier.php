@@ -33,40 +33,122 @@
             <div class="container">
                 <div class="row g-2">
                     <div class="col-12">
-                        <div class="p-3 border bg-light">Custom column padding</div>
+                        <div class="p-3 border bg-dark">Custom column padding</div>
                     </div>
                     <div class="col-4">
-                        <div class="p-3 border bg-light">Custom column padding</div>
+                        <div class="p-3 border bg-dark">Custom column padding</div>
                     </div>
                     <div class="col-4">
-                        <div class="p-3 border bg-light">Custom column padding</div>
+                        <div class="p-3 border bg-dark">Custom column padding</div>
                     </div>
                     <div class="col-4">
-                        <div class="p-3 border bg-light">Custom column padding</div>
+                        <div class="p-3 border bg-dark">Custom column padding</div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-6">
-            <div class="p-3 border bg-light">Custom column padding</div>
+            <div class="p-3 border bg-dark">Custom column padding</div>
         </div>
         <div class="col-6">
             <div class="container">
                 <div class="row g-2">
                     <div class="col-6">
-                        <div class="p-3 border bg-light">Custom column padding</div>
+                        <div class="p-3 border bg-dark">Custom column padding</div>
                     </div>
                     <div class="col-6">
-                        <div class="p-3 border bg-light">Custom column padding</div>
+                        <div class="p-3 border bg-dark">Custom column padding</div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-6">
-            <div class="p-3 border bg-light">Custom column padding</div>
+            <div class="p-3 border bg-dark">Custom column padding</div>
         </div>
     </div>
 </div>
+
+
+
+<!-- TRANSFERT CHAMBRE DEBUT -->
+
+<div class="container-fluid my-5" style="width: 50%;">
+    <div class="row">
+        <div class="input-group mb-3">
+            <select class="form-select" id="inputGroupSelect02">
+                <option selected>Choose...</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+            </select> <span class="input-group-text"><i class="fas fa-angle-double-right"></i></span>
+            <select class="form-select" id="inputGroupSelect02">
+                <option selected>Choose...</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+<!-- TRANSFERT CHAMBRE FIN -->
+
+<!-- <div class="container-fluid my-5" style="width: 50%;">
+    <div class="row">
+        <div class="input-group mb-3">
+            <select class="form-select" id="inputGroupSelect02">
+                <option selected>Choose...</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+            </select> <span class="input-group-text">
+                <div class="d-flex align-items-center">
+                   
+                    <div class="flex-shrink-0">
+                        <i class="fas fa-angle-double-right"></i>
+                    </div>
+                    <div class="flex-grow-1 ms-2">
+                        Vers
+                    </div>
+                </div>
+            </span>
+            <select class="form-select" id="inputGroupSelect02">
+                <option selected>Choose...</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+            </select>
+        </div>
+    </div>
+</div> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
 
 
 

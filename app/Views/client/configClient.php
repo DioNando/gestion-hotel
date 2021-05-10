@@ -52,7 +52,12 @@
                 <th scope="col" class="text-start">Nom</th>
                 <th scope="col" class="text-start">Prénom</th>
                 <th scope="col" class="text-start">Téléphone</th>
-                <th scope="col">Actions</th>
+
+                <?php if (session()->get('isUser') == 'Administrateur') : ?>
+                    <th scope="col">Actions</th>
+                <?php endif; ?>
+
+
             </tr>
         </thead>
         <tbody class="align-middle">
@@ -67,15 +72,17 @@
                         <td class="text-start"> <?php echo ($client['nom_client']); ?> </td>
                         <td class="text-start"> <?php echo ($client['prenom_client']); ?> </td>
                         <td class="text-start"> <?php echo ($client['telephone_client']); ?> </td>
-                        <td>
-                            <div class="center">
-                                <div>
-                                    <button type="button" class="btn btn-outline-dark btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalClientUpdate" onclick="updateClient('<?php echo $client['ID_client']; ?>' , 'update')"><i class="fas fa-pencil-alt"></i></button>
-                                    <button type="button" class="btn btn-outline-danger btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalClientDelete" onclick="deleteData('<?php echo $client['ID_client']; ?>')"><i class="fas fa-trash-alt"></i></button>
-                                    <!-- <button type="button" class="btn btn-outline-success btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalClientInfo" onclick="infoData('<?php echo $client['ID_client']; ?>')"><img src="assets/icons/info-circle-fill.svg" alt="Info"></button> -->
+                        <?php if (session()->get('isUser') == 'Administrateur') : ?>
+                            <td>
+                                <div class="center">
+                                    <div>
+                                        <button type="button" class="btn btn-outline-dark btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalClientUpdate" onclick="updateClient('<?php echo $client['ID_client']; ?>' , 'update')"><i class="fas fa-pencil-alt"></i></button>
+                                        <button type="button" class="btn btn-outline-danger btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalClientDelete" onclick="deleteData('<?php echo $client['ID_client']; ?>')"><i class="fas fa-trash-alt"></i></button>
+                                        <!-- <button type="button" class="btn btn-outline-success btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalClientInfo" onclick="infoData('<?php echo $client['ID_client']; ?>')"><img src="assets/icons/info-circle-fill.svg" alt="Info"></button> -->
+                                    </div>
                                 </div>
-                            </div>
-                        </td>
+                            </td>
+                        <?php endif; ?>
                     </tr>
                 <?php
                 }
@@ -85,7 +92,7 @@
                     <?php if (session()->get('isUser') == 'Administrateur') : ?>
                         <td colspan="5">Tableau vide.</td>
                     <?php else : ?>
-                        <td colspan="5">Tableau vide.</td>
+                        <td colspan="4">Tableau vide.</td>
                     <?php endif; ?>
                 </tr>
             <?php

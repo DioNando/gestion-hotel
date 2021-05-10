@@ -10,7 +10,7 @@
   --chambreOccupee: #c1e6ff;
   --chambreAttente: #067eed;
   --chambreReservation: #84ff3d; */
-  --primaryColor: #6190e8;
+  --primaryColor: #4b79a1;
   --headerColor: #136a8a;
   --secondaryColor: #067eed;
   --thirdColor: #ff7c1f;
@@ -18,6 +18,11 @@
   --fifthColor: #ffffff;
   --sidebarColor: #f8f9fa;
   --borderColor: #dee2e6;
+
+  --color-A: #283e51;
+  --color-B: #4b79a1;
+  --color-C: #ff5f6d;
+  --color-D: #ffc371;
 }
 
 @font-face {
@@ -61,7 +66,12 @@ a {
   color: var(--primaryColor);
 }
 
+a:hover {
+  color: var(--color-C);
+}
+
 h1,
+h2,
 h3,
 h4,
 h5 {
@@ -96,7 +106,7 @@ footer {
 
 .headerBar {
   /* background: var(--primaryColor); */
-  background: linear-gradient(to left, #a7bfe8, #6190e8);
+  background: linear-gradient(to left, var(--color-B), var(--color-A));
   box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
 }
 
@@ -263,7 +273,12 @@ footer {
 }
 
 .navbar-toggler-icon {
-  background-image: url("../icons/menu1.png");
+  background-image: url("../icons/menu4.png");
+  transition: 0.5s;
+}
+
+.navbar-toggler-icon:hover {
+  background-image: url("../icons/menu3.png");
 }
 
 .navbar-toggler:focus {
@@ -361,6 +376,7 @@ footer {
 .bg-dashboard {
   border-radius: 0.5rem;
   /* background: var(--sidebarColor) !important; */
+  box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
   background: rgba(255, 255, 255, 0.25) !important;
   backdrop-filter: blur(8.5px);
   -webkit-backdrop-filter: blur(8.5px);
@@ -400,6 +416,10 @@ footer {
 .parallax > use:nth-child(4) {
   animation-delay: -5s;
   animation-duration: 23s;
+}
+
+#myChart4, #myChart5 {
+  position: fixed;
 }
 
 @keyframes move-forever {

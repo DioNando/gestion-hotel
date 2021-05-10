@@ -46,7 +46,15 @@ class ReservationNuit extends BaseController
 			return ($data);
 		}
 		if (isset($_POST['updateNuit'])) {
+
+			$archives = new archiveModel();
+			$relier = new relierModel();
+			$archive = $archives->where('etat_archive', 1)->orderBy('ID_archive', 'desc')->first();
+
 			$data['info'] = $this->infoSupplementaireNuit($_POST['ID_nuit']);
+			$data['chambres'] = $this->infoDetails($_POST['ID_nuit']);
+			$data['listeChambres'] = $relier->where('relier.ID_archive', $archive['ID_archive'])->join('archive', 'relier.ID_archive =  archive.ID_archive')->join('chambre', 'relier.ID_chambre = chambre.ID_chambre')->findAll();
+			
 			echo view('reservation\updateNuit', $data);
 			return ($data);
 		}
@@ -77,6 +85,8 @@ class ReservationNuit extends BaseController
 					// 'telephone_client' => 'required',
 					'nbr_nuit' => 'is_natural_no_zero',
 					'ID_chambre' => 'required',
+					'debut_sejour' => 'valid_date',
+					'fin_sejour' => 'valid_date',
 				];
 
 				if (!$this->validate($rules)) {
@@ -177,7 +187,15 @@ class ReservationNuit extends BaseController
 		$archives = new archiveModel();
 		$archive = $archives->orderBy('ID_archive', 'desc')->first();
 
-		$data['chambres'] = $chambres->where('relier.ID_archive', $archive['ID_archive'])->join('archive', 'relier.ID_archive =  archive.ID_archive')->join('chambre', 'relier.ID_chambre = chambre.ID_chambre')->findAll();
+		$data['chambres'] = $chambres->select([
+			'*', '(CASE 
+				WHEN tarif_chambre < 5000 THEN "1"
+				WHEN tarif_chambre >= 5000 AND tarif_chambre < 10000 THEN "2"
+				WHEN tarif_chambre >= 10000 AND tarif_chambre < 20000 THEN "3"
+				WHEN tarif_chambre >= 20000 THEN "4"
+			END) AS prix'
+
+		])->where('relier.ID_archive', $archive['ID_archive'])->join('archive', 'relier.ID_archive =  archive.ID_archive')->join('chambre', 'relier.ID_chambre = chambre.ID_chambre')->findAll();
 		echo view('templates\header');
 		echo view('reservation\nuit', $data);
 		echo view('templates\footer');
@@ -374,8 +392,10 @@ class ReservationNuit extends BaseController
 	{
 		$data = [];
 		$reservations = new pourModel();
-		$archives = new archiveModel();
-        $archive = $archives->where('etat_archive', 1)->orderBy('ID_archive', 'desc')->first();
+		// $archives = new archiveModel();
+		// $archive = $archives->where('etat_archive', 1)->orderBy('ID_archive', 'desc')->first();
+
+		$archive = $reservations->where('pour.ID_nuit', $ID_nuit)->join('reservation_nuit', 'pour.ID_nuit = reservation_nuit.ID_nuit')->join('planning', 'pour.ID_planning = planning.ID_planning')->join('concerner', 'concerner.ID_planning = planning.ID_planning')->first();
 
 		$data = $reservations->select(['*', 'DATE_FORMAT(debut_sejour, "%d %b %Y") AS debut_sejour', 'DATE_FORMAT(fin_sejour, "%d %b %Y") AS fin_sejour', 'DATE_FORMAT(date_facture_nuit, "%d %b %Y à %H:%i") AS date_facture_nuit'])->where('pour.ID_nuit', $ID_nuit)->join('reservation_nuit', 'pour.ID_nuit = reservation_nuit.ID_nuit')->join('etat', 'etat.ID_etat_reservation = reservation_nuit.ID_etat_reservation')->join('facture_nuit', 'facture_nuit.ID_nuit = reservation_nuit.ID_nuit')->join('planning', 'pour.ID_planning = planning.ID_planning')->join('concerner', 'concerner.ID_planning = planning.ID_planning')->join('chambre', 'concerner.ID_chambre = chambre.ID_chambre')->join('relier', 'relier.ID_chambre = chambre.ID_chambre')->join('archive', 'relier.ID_archive = archive.ID_archive')->where('archive.ID_archive', $archive['ID_archive'])->find();
 		return $data;
@@ -405,6 +425,8 @@ class ReservationNuit extends BaseController
 				$rules = [
 					'ID_nuit' => 'required',
 					'nbr_nuit' => 'is_natural_no_zero',
+					'chambre_avant' => 'differs[chambre_apres]',
+					'chambre_apres' => 'differs[chambre_avant]',
 				];
 
 				if (!$this->validate($rules)) {
@@ -428,6 +450,16 @@ class ReservationNuit extends BaseController
 					];
 
 					$id_planning = $pour->where('ID_nuit', $_POST['ID_nuit'])->first();
+
+					if($_POST['chambre_avant'] != '1' && $_POST['chambre_apres'] != '2') {
+						$concerner = new concernerModel();
+						$transfert = [
+							'ID_chambre' => $_POST['chambre_apres'],
+						];
+						$concerner->set($transfert);
+						$concerner->where('ID_chambre', $_POST['chambre_avant'])->where('ID_planning', $id_planning['ID_planning']);
+						$concerner->update();
+					};
 
 					$reservations->set($data);
 					$planning->set($data);

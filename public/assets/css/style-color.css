@@ -1,0 +1,26 @@
+@charset "UTF-8";
+
+:root {
+  --blanc: #ffffff;
+  --chambreLibre: #198754;
+  --chambreOccupee: #6c757d;
+  --chambreAttente: #dc3545;
+  --chambreReservation: #0d6efd;
+  /* --chambreLibre: #ff7c1f;
+  --chambreOccupee: #c1e6ff;
+  --chambreAttente: #067eed;
+  --chambreReservation: #84ff3d; */
+  --primaryColor: #6190e8;
+  --headerColor: #136a8a;
+  --secondaryColor: #067eed;
+  --thirdColor: #ff7c1f;
+  --fourthColor: #c1e6ff;
+  --fifthColor: #ffffff;
+  --sidebarColor: #f8f9fa;
+  --borderColor: #dee2e6;
+
+  --color-A: #283e51;
+  --color-B: #4b79a1;
+  --color-C: #ff5f6d;
+  --color-D: #ffc371;
+}

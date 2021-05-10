@@ -14,6 +14,10 @@
                 <input type="number" class="form-control" value="<?php ?>" min="0">
             </div>
         </div> -->
+        <div class="form-group mt-2">
+            <label class="form-label" for="num_chambre">Numéro de la chambre</label>
+            <input type="text" class="form-control" name="num_chambre" id="num_chambre" disabled>
+        </div>
         <div class="col-12 col-sm-12 mt-2">
             <div class="form-group">
                 <label for="descri_chambre" class="form-label">Description de la chambre</label>

@@ -27,9 +27,9 @@ class Dashboard extends BaseController
         $data['nuit'] = $this->readNuit();
         $data['plannings'] = array_merge($data['nuit'], $data['day']);
 	
-		echo view('templates/header');
-		echo view('dashboard/dashboard', $data);
-		echo view('templates/footer');
+		echo view('templates\header');
+		echo view('dashboard\dashboard', $data);
+		echo view('templates\footer');
 	}
 
 	public function readReservation()

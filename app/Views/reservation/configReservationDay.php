@@ -39,7 +39,7 @@
             <?= session()->get('delete') ?>
         </div>
     <?php endif; ?> -->
-    <table class="table table-hover table-striped" id="result">
+    <table class="table table-hover" id="result">
         <thead>
             <tr>
                 <th scope="col"><i class="fab fa-slack-hash"></i></th>

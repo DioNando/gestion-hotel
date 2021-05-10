@@ -25,6 +25,7 @@
             height: "auto",
             locale: 'fr',
             resourceAreaWidth: "10%",
+            resourceOrder: '',
             initialView: 'resourceTimelineMonth',
             headerToolbar: {
                 left: 'resourceTimelineDay,resourceTimelineWeek,resourceTimelineMonth',

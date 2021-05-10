@@ -219,6 +219,15 @@ background: linear-gradient(to right, #a7bfe8, #6190e8); */
   transition: 0.4s;
 }
 
+.nom_result {
+  transition: 0.5s;
+}
+
+.nom_result:hover {
+  cursor: pointer;
+  background-color: var(--color-2) !important;
+}
+
 /* #doughtnut-content, #tabAnimation, #dash-calendar, #calendar {
   opacity: 0;
   transition: 1s;

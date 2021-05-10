@@ -131,6 +131,13 @@
         });
     }
 
+   
+    function showName(nom) {
+        $(document).ready(function() {
+            $('#search').val(nom);
+        });
+    }
+
     function liveSearch(element) {
         $(document).ready(function() {
             $.ajax({
@@ -144,15 +151,18 @@
                 success: function(result) {
                     $('.nom_result').remove();
                     for (var i = 0; i < result.clients.length; i++) {
-                        var myP = document.createElement('div');
-                        myP.className = 'nom_result bg-light my-1 p-2 ps-3 rounded-1';
-                        myP.id = 'result_name' + [i];
-                        myP.textContent = result.clients[i].nom_client + ' ' + result.clients[i].prenom_client;
-                        $('#resultSearch').append(myP);
+                        // var myP = document.createElement('div');
+                        // var resName = document.createElement('a');
+                        // myP.className = 'nom_result bg-light my-1 p-2 ps-3 rounded-1';
+                        // myP.id = 'result_name' + [i];
+                        // myP.textContent = result.clients[i].nom_client + ' ' + result.clients[i].prenom_client;
+                        // $('#resultSearch').append(myP);
+                        let client = result.clients[i].nom_client + ' ' + result.clients[i].prenom_client;
+                        $('#resultSearch').append('<div class="nom_result bg-light my-1 p-2 ps-3 rounded-1" onclick = "showName(\'' + client + '\')">' + client +'</div>');
                         $('#div-resultSearch').show();
                     }
 
-                    if(element == '') {
+                    if (element == '') {
                         $('#div-resultSearch').hide();
                     }
                 }

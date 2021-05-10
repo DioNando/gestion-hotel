@@ -30,7 +30,7 @@
             <div class="p-3"><canvas id="myChart3"></canvas></div>
         </div>
         <div class="col-lg-6 col-sm-12">
-            <div class="p-3"><canvas id="myChart4"></canvas></div>
+            <div class="p-3"><canvas id="myChart6"></canvas></div>
         </div>
     </div>
 </div>
@@ -132,7 +132,7 @@
 </script>
 
 <script>
-    new Chart(document.getElementById("myChart4"), {
+    new Chart(document.getElementById("myChart6"), {
         type: 'bubble',
         data: {
             labels: "Africa",

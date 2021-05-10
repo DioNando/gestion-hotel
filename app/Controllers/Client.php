@@ -111,7 +111,7 @@ class Client extends BaseController
 		$data = [];
 		$clients = new clientModel();		
 		$data = [
-			'clients' => $clients->like('CONCAT(nom_client, " ", prenom_client)', $_POST['element_recherche'], 'both')->orLike('nom_client', $_POST['element_recherche'], 'both')->orLike('prenom_client', $_POST['element_recherche'], 'both')->join('cardex', 'cardex.ID_client = client.ID_client')->orderby('cardex.ID_client', 'asc')->limit(10)->find(),
+			'clients' => $clients->like('CONCAT(nom_client, " ", prenom_client)', $_POST['element_recherche'], 'both')->orLike('nom_client', $_POST['element_recherche'], 'both')->orLike('prenom_client', $_POST['element_recherche'], 'both')->join('cardex', 'cardex.ID_client = client.ID_client')->orderby('cardex.ID_client', 'asc')->limit(5)->find(),
 			// 'clients' => $clients->like('CONCAT(nom_client, " ", prenom_client)', $_POST['element_recherche'], 'both')->orLike('nom_client', $_POST['element_recherche'], 'both')->orLike('prenom_client', $_POST['element_recherche'], 'both')->join('cardex', 'cardex.ID_client = client.ID_client')->limit(5)->find(),
 		];
 		return json_encode($data);

@@ -65,7 +65,7 @@
                 <!--Checkbox-->
                 <h2 class="center mt-3 mb-3">Chambres disponible</h2>
                 <div class="container">
-                <h3 class="mb-3">Catégorie 1</h3>
+                <h3 class="mb-3">Tarif 1</h3>
                     <div class="row row-cols-1 row-cols-lg-5 g-3 g-lg-3">
                         <?php foreach ($chambres as $chambre) {
                             if ($chambre['prix'] == '1') : { ?>
@@ -94,7 +94,7 @@
                     </div>
 
                     <hr class="my-3">
-                    <h3 class="mb-3">Catégorie 2</h3>
+                    <h3 class="mb-3">Tarif 2</h3>
 
                     <div class="row row-cols-1 row-cols-lg-5 g-3 g-lg-3">
                         <?php foreach ($chambres as $chambre) {
@@ -124,7 +124,7 @@
                     </div>
 
                     <hr class="my-3">
-                    <h3 class="mb-3">Catégorie 3</h3>
+                    <h3 class="mb-3">Tarif 3</h3>
 
                     <div class="row row-cols-1 row-cols-lg-5 g-3 g-lg-3">
                         <?php foreach ($chambres as $chambre) {
@@ -154,7 +154,7 @@
                     </div>
 
                     <hr class="my-3">
-                    <h3 class="mb-3">Catégorie 4</h3>
+                    <h3 class="mb-3">Tarif 4</h3>
 
                     <div class="row row-cols-1 row-cols-lg-5 g-3 g-lg-3">
                         <?php foreach ($chambres as $chambre) {

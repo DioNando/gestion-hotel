@@ -18,17 +18,17 @@
                             <?= session()->get('success') ?>
                         </div>
                     <?php endif; ?>
-                    <div class="form-group col-12"><label class="form-label" for="">Nom</label>
-                        <input type="text" class="form-control" name="nom_client" id="">
+                    <div class="form-group col-12"><label class="form-label" >Nom</label>
+                        <input type="text" class="form-control" name="nom_client" autocomplete="off">
                     </div>
 
                     <div class="form-group mt-2 col-12">
-                        <label class="form-label" for="">Prénom</label>
-                        <input type="text" class="form-control" name="prenom_client" id="">
+                        <label class="form-label" >Prénom</label>
+                        <input type="text" class="form-control" name="prenom_client" autocomplete="off">
                     </div>
                     <div class="form-group mt-2">
-                        <label class="form-label" for="">Téléphone</label>
-                        <input type="tel" class="form-control" name="telephone_client" id="">
+                        <label class="form-label" >Téléphone</label>
+                        <input type="tel" class="form-control" name="telephone_client" autocomplete="off">
                     </div>
                     <hr>
                     <div class="container-fluid p-0 d-flex justify-content-end">

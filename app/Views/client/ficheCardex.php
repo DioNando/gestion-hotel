@@ -99,7 +99,7 @@
             } else {
                 ?>
                 <tr>
-                    <?php if (session()->get('isUser') == 'Administrateur') : ?>
+                    <?php if (session()->get('isUser') == 'Administrateur' || session()->get('isUser') == 'Controleur') : ?>
                         <td colspan="7">Tableau vide.</td>
                     <?php else : ?>
                         <td colspan="7">Tableau vide.</td>

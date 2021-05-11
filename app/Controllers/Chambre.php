@@ -63,6 +63,7 @@ class Chambre extends BaseController
 
         if (isset($_POST['btn_enregistrer'])) : {
                 $rules = [
+                    'num_chambre' => 'required',
                     'tarif_temp' => 'required',
                 ];
 
@@ -71,6 +72,7 @@ class Chambre extends BaseController
                 } else {
                     $chambres = new chambreModel();
                     $newData = [
+                        'num_chambre' => $_POST['num_chambre'],
                         'tarif_ancien' => $_POST['tarif_temp'],
                         'tarif_temp' => 0,
                         // 'tarif_temp' => $_POST['tarif_temp'],
@@ -93,6 +95,7 @@ class Chambre extends BaseController
 
         if (isset($_POST['btn_enregistrer'])) : {
                 $rules = [
+                    'num_chambre' => 'required',
                     'tarif_temp' => 'required',
                 ];
 
@@ -101,6 +104,7 @@ class Chambre extends BaseController
                 } else {
                     $chambres = new chambreModel();
                     $newData = [
+                        'num_chambre' => $_POST['num_chambre'],
                         'tarif_ancien' => $_POST['tarif_temp'],
                         'tarif_temp' => 0,
                         // 'tarif_temp' => $_POST['tarif_temp'],
@@ -112,7 +116,7 @@ class Chambre extends BaseController
 
                     $session = session();
                     $session->setFlashdata('success', 'Création réussie');
-                    return redirect()->to('configChambre');
+                    return redirect()->to('addChambre');
                 }
             }
         endif;
@@ -179,6 +183,7 @@ class Chambre extends BaseController
         if (isset($_POST['btn_modification'])) : {
                 $rules = [
                     // 'tarif_chambre' => 'required|is_natural',
+                    'num_chambre' => 'required',
                     'statut_chambre' => 'required',
                 ];
 
@@ -187,6 +192,7 @@ class Chambre extends BaseController
                 } else {
                     $chambres = new chambreModel();
                     $data = [
+                        'num_chambre' => $_POST['num_chambre'],
                         'description_chambre' => $_POST['description_chambre'],
                         'tarif_temp' => $_POST['tarif_temp'],
                         'statut_chambre' => $_POST['statut_chambre'],
@@ -301,11 +307,11 @@ class Chambre extends BaseController
         // $data['chambres'] = $chambres->like('tarif_chambre', $element_recherche, 'both')->orLike('statut_chambre', $element_recherche, 'both')->find();
         $data = [
             // 'chambres' => $chambres->like('statut_chambre', $element_recherche, 'both')->orLike('tarif_chambre', $element_recherche, 'both')->paginate(15, 'paginationResult'),
-            'chambres' => $relier->join('archive', 'relier.ID_archive =  archive.ID_archive')->join('chambre', 'relier.ID_chambre = chambre.ID_chambre')->like('statut_chambre', $element_recherche, 'both')->orLike('tarif_chambre', $element_recherche, 'both')->where('archive.ID_archive', $archive['ID_archive'])->paginate(15, 'paginationResult'),
+            'chambres' => $relier->join('archive', 'relier.ID_archive =  archive.ID_archive')->join('chambre', 'relier.ID_chambre = chambre.ID_chambre')->like('statut_chambre', $element_recherche, 'both')->orLike('num_chambre', $element_recherche, 'both')->orLike('tarif_chambre', $element_recherche, 'both')->where('archive.ID_archive', $archive['ID_archive'])->paginate(15, 'paginationResult'),
             // 'temps' => $chambres->findAll(),
             'pager' => $relier->pager,
             // 'total' => count($relier->join('archive', 'relier.ID_archive =  archive.ID_archive')->join('chambre', 'relier.ID_chambre = chambre.ID_chambre')->like('statut_chambre', $element_recherche, 'both')->orLike('tarif_chambre', $element_recherche, 'both')->where('relier.ID_archive', $archive['ID_archive'])->findAll()),
-            'total' => count($relier->join('chambre', 'relier.ID_chambre = chambre.ID_chambre')->like('statut_chambre', $element_recherche, 'both')->orLike('tarif_chambre', $element_recherche, 'both')->where('relier.ID_archive', $archive['ID_archive'])->findAll()),
+            'total' => count($relier->join('chambre', 'relier.ID_chambre = chambre.ID_chambre')->like('statut_chambre', $element_recherche, 'both')->orLike('num_chambre', $element_recherche, 'both')->orLike('tarif_chambre', $element_recherche, 'both')->where('relier.ID_archive', $archive['ID_archive'])->findAll()),
             'total_all' => count($relier->where('relier.ID_archive', $archive['ID_archive'])->join('chambre', 'relier.ID_chambre = chambre.ID_chambre')->findAll()),
             'libre' => count($relier->where('relier.ID_archive', $archive['ID_archive'])->join('chambre', 'relier.ID_chambre = chambre.ID_chambre')->where('statut_chambre', 'Libre')->findAll()),
             'enAttente' => count($relier->where('relier.ID_archive', $archive['ID_archive'])->join('chambre', 'relier.ID_chambre = chambre.ID_chambre')->where('statut_chambre', 'En attente')->findAll()),
@@ -325,10 +331,10 @@ class Chambre extends BaseController
 
         $data = [
             // 'chambres' => $chambres->like('statut_chambre', $element_recherche, 'both')->orLike('tarif_chambre', $element_recherche, 'both')->paginate(15, 'paginationResult'),
-            'temps' => $chambres->like('statut_chambre', $element_recherche, 'both')->orLike('tarif_temp', $element_recherche, 'both')->orLike('tarif_ancien', $element_recherche, 'both')->paginate(15, 'paginationResult'),
+            'temps' => $chambres->like('statut_chambre', $element_recherche, 'both')->orLike('tarif_temp', $element_recherche, 'both')->orLike('num_chambre', $element_recherche, 'both')->orLike('tarif_ancien', $element_recherche, 'both')->paginate(15, 'paginationResult'),
             // 'temps' => $chambres->findAll(),
             'pager' => $chambres->pager,
-            'total' => count($chambres->like('statut_chambre', $element_recherche, 'both')->orLike('tarif_temp', $element_recherche, 'both')->orLike('tarif_ancien', $element_recherche, 'both')->findAll()),
+            'total' => count($chambres->like('statut_chambre', $element_recherche, 'both')->orLike('tarif_temp', $element_recherche, 'both')->orLike('num_chambre', $element_recherche, 'both')->orLike('tarif_ancien', $element_recherche, 'both')->findAll()),
             'total_all' => count($chambres->findAll()),
             'libre' => count($chambres->where('statut_chambre', 'Libre')->findAll()),
             'enAttente' => count($chambres->where('statut_chambre', 'En attente')->findAll()),

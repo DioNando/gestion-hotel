@@ -8,15 +8,15 @@
                 </div>
             <?php endif; ?>
             <div class="form-group"><label class="form-label" for="nom_client">Nom</label>
-                <input type="text" class="form-control" name="nom_client" id="nom_client">
+                <input type="text" class="form-control" name="nom_client" id="nom_client" autocomplete="off">
             </div>
             <div class="form-group mt-2">
                 <label class="form-label" for="prenom_client">Prénom</label>
-                <input type="text" class="form-control" name="prenom_client" id="prenom_client">
+                <input type="text" class="form-control" name="prenom_client" id="prenom_client" autocomplete="off">
             </div>
             <div class="form-group mt-2">
                 <label class="form-label" for="telephone_client">Téléphone</label>
-                <input type="tel" class="form-control" name="telephone_client" id="telephone_client">
+                <input type="tel" class="form-control" name="telephone_client" id="telephone_client" autocomplete="off">
             </div>
             
             <!-- <div class="d-grid gap-2 mt-3">

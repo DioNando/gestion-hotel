@@ -63,7 +63,7 @@
 
 
     <header>
-        <?php if (session()->get('isUser') == 'Administrateur') : ?>
+        <?php if (session()->get('isUser') == 'Administrateur' || session()->get('isUser') == 'Controleur') : ?>
 
             <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark"> -->
             <nav class="navbar navbar-expand-lg headerBar">
@@ -209,7 +209,7 @@
             </nav> -->
 
             <div class="container-fluid row m-5 ms-0">
-                <div class="col-1 center"><img src="assets/images/hote.png" style="width: 70%;"></div>
+                <div class="col-1 center"><img src="assets/images/hote.png" style="width: 64px;"></div>
                 <div class="col d-flex align-items-center">
                     <h1 class="text-light">
                         <div id="heure-jour"></div>
@@ -324,7 +324,7 @@
                                                 </div>
                                             </a>
                                         </li>
-                                        <?php if (session()->get('isUser') == 'Administrateur') : ?>
+                                        <?php if (session()->get('isUser') == 'Administrateur' || session()->get('isUser') == 'Controleur') : ?>
                                             <li class="nav-item">
                                                 <a class="nav-link" href="configTarif">
                                                     <div class="row">

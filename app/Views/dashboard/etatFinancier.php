@@ -72,7 +72,7 @@
 
 <!-- TRANSFERT CHAMBRE DEBUT -->
 
-<div class="container-fluid my-5" style="width: 50%;">
+<!-- <div class="container-fluid my-5" style="width: 50%;">
     <div class="row">
         <div class="input-group mb-3">
             <select class="form-select" id="inputGroupSelect02">
@@ -89,7 +89,7 @@
             </select>
         </div>
     </div>
-</div>
+</div> -->
 
 <!-- TRANSFERT CHAMBRE FIN -->
 

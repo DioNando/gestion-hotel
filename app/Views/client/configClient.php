@@ -53,7 +53,7 @@
                 <th scope="col" class="text-start">Prénom</th>
                 <th scope="col" class="text-start">Téléphone</th>
 
-                <?php if (session()->get('isUser') == 'Administrateur') : ?>
+                <?php if (session()->get('isUser') == 'Administrateur' || session()->get('isUser') == 'Controleur') : ?>
                     <th scope="col">Actions</th>
                 <?php endif; ?>
 
@@ -72,7 +72,7 @@
                         <td class="text-start"> <?php echo ($client['nom_client']); ?> </td>
                         <td class="text-start"> <?php echo ($client['prenom_client']); ?> </td>
                         <td class="text-start"> <?php echo ($client['telephone_client']); ?> </td>
-                        <?php if (session()->get('isUser') == 'Administrateur') : ?>
+                        <?php if (session()->get('isUser') == 'Administrateur' || session()->get('isUser') == 'Controleur') : ?>
                             <td>
                                 <div class="center">
                                     <div>
@@ -89,7 +89,7 @@
             } else {
                 ?>
                 <tr>
-                    <?php if (session()->get('isUser') == 'Administrateur') : ?>
+                    <?php if (session()->get('isUser') == 'Administrateur' || session()->get('isUser') == 'Controleur') : ?>
                         <td colspan="5">Tableau vide.</td>
                     <?php else : ?>
                         <td colspan="4">Tableau vide.</td>

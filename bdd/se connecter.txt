@@ -1,0 +1,20 @@
+Nom : admin
+Mdp : admin
+
+Nom : user
+Mdp : user
+
+Nom : contro
+Mdp : contro
+
+Nom : Live
+Mdp : 1234
+
+Nom : Annie
+Mdp : 1234
+
+Nom : Live
+Mdp : 1234
+
+Nom : Ben
+Mdp : 1234

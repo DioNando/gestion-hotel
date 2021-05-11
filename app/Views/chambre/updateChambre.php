@@ -16,7 +16,7 @@
         </div> -->
         <div class="form-group mt-2">
             <label class="form-label" for="num_chambre">Numéro de la chambre</label>
-            <input type="text" class="form-control" name="num_chambre" id="num_chambre" disabled>
+            <input type="text" class="form-control" value="<?php echo ($info['num_chambre']) ?>" name="num_chambre" id="num_chambre">
         </div>
         <div class="col-12 col-sm-12 mt-2">
             <div class="form-group">

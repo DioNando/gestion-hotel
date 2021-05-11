@@ -80,6 +80,7 @@
         <thead>
             <tr>
                 <th scope="col"><i class="fab fa-slack-hash"></i></th>
+                <th scope="col" class="text-start">Numéro</th>
                 <th scope="col" class="text-start">Description</th>
                 <th scope="col" class="text-start">Statut chambre</th>
                 <th scope="col" class="text-end">Tarif actuel</th>
@@ -98,6 +99,7 @@
             ?>
                     <tr>
                         <th scope="row"> <?php echo ($chambre['ID_chambre']) ?> </th>
+                        <th scope="row" class="text-start"> <?php echo ($chambre['num_chambre']) ?> </th>
                         <td>
                             <div class="d-flex align-items-center"> <?php echo ($chambre['description_chambre']) ?> </div>
                         </td>
@@ -136,7 +138,7 @@
                 ?>
                 <tr>
                     <?php if (session()->get('isUser') == 'Administrateur') : ?>
-                        <td colspan="6">Tableau vide.</td>
+                        <td colspan="5">Tableau vide.</td>
                     <?php else : ?>
                         <td colspan="5">Tableau vide.</td>
                     <?php endif; ?>

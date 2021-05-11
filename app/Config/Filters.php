@@ -9,6 +9,7 @@ use CodeIgniter\Filters\Honeypot;
 use App\Filters\Auth;
 use App\Filters\NoAuth;
 use App\Filters\IsAdmin;
+use App\Filters\IsContro;
 
 
 class Filters extends BaseConfig
@@ -28,8 +29,12 @@ class Filters extends BaseConfig
 		'isadmin' => [
 			IsAdmin::class,
 			Auth::class,
-	]
-];
+		],
+		'isadmincontro' => [
+			IsContro::class,
+			Auth::class,
+		]
+	];
 
 	/**
 	 * List of filter aliases that are always

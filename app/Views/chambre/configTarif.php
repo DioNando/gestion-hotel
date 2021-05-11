@@ -81,11 +81,12 @@
         <thead>
             <tr>
                 <th scope="col"><i class="fab fa-slack-hash"></i></th>
+                <th scope="col" class="text-start">Numéro</th>
                 <th scope="col" class="text-start">Description</th>
                 <th scope="col" class="text-start">Statut chambre</th>
                 <th scope="col" class="text-end">Tarif après</th>
                 <th scope="col" class="text-end">Tarif avant</th>
-                <?php if (session()->get('isUser') == 'Administrateur') : ?>
+                <?php if (session()->get('isUser') == 'Administrateur' || session()->get('isUser') == 'Controleur') : ?>
                     <th scope="col">Actions</th>
                 <?php endif; ?>
 
@@ -100,6 +101,7 @@
             ?>
                     <tr>
                         <th scope="row"> <?php echo ($temp['ID_chambre']) ?> </th>
+                        <th scope="row" class="text-start"> <?php echo ($temp['num_chambre']) ?> </th>
                         <td>
                             <div class="d-flex align-items-center"> <?php echo ($temp['description_chambre']) ?> </div>
                         </td>
@@ -122,7 +124,7 @@
                         </td>
                         <td class="text-end"> <?php echo number_format($temp['tarif_temp'], '0', '', ' ') . ' Ar' ?> </td>
                         <td class="text-end"> <?php echo number_format($temp['tarif_ancien'], '0', '', ' ') . ' Ar' ?> </td>
-                        <?php if (session()->get('isUser') == 'Administrateur') : ?>
+                        <?php if (session()->get('isUser') == 'Administrateur' || session()->get('isUser') == 'Controleur') : ?>
                             <td>
                                 <div class="center">
                                     <div>
@@ -139,10 +141,10 @@
             } else {
                 ?>
                 <tr>
-                    <?php if (session()->get('isUser') == 'Administrateur') : ?>
-                        <td colspan="6">Tableau vide.</td>
+                    <?php if (session()->get('isUser') == 'Administrateur' || session()->get('isUser') == 'Controleur') : ?>
+                        <td colspan="7">Tableau vide.</td>
                     <?php else : ?>
-                        <td colspan="5">Tableau vide.</td>
+                        <td colspan="7">Tableau vide.</td>
                     <?php endif; ?>
                 </tr>
             <?php

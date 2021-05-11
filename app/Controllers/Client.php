@@ -210,7 +210,7 @@ class Client extends BaseController
 					$session = session();
 					$session->set($newData);
 					$session->setFlashdata('success', 'Ajout réussie');
-					return redirect()->to('configClient');
+					return redirect()->to('addClient');
 				}
 			}
 		endif;

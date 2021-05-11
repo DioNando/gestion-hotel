@@ -9,13 +9,13 @@
         <div class="col-12 col-sm-6 mt-2">
             <div class="form-group">
                 <label for="nom_client" class="form-label">Nom</label>
-                <input type="text" class="form-control" value="<?php echo ($info['nom_client']); ?>" name="nom_client">
+                <input type="text" class="form-control" value="<?php echo ($info['nom_client']); ?>" <?php if (session()->get('isUser') == 'Utilisateur') echo('readonly') ?> name="nom_client">
             </div>
         </div>
         <div class="col-12 col-sm-6 mt-2">
             <div class="form-group">
                 <label for="prenom_client" class="form-label">Prénom</label>
-                <input type="text" class="form-control" value="<?php echo ($info['prenom_client']); ?>" name="prenom_client">
+                <input type="text" class="form-control" value="<?php echo ($info['prenom_client']); ?>" <?php if (session()->get('isUser') == 'Utilisateur') echo('readonly') ?> name="prenom_client">
             </div>
         </div>
 

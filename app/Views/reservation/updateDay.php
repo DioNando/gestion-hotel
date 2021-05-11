@@ -36,13 +36,13 @@
                 <div class="row">
                     <div class="input-group">
                         <select class="form-select" <?php if (session()->get('isUser') == 'Utilisateur') echo('disabled') ?> name="chambre_avant">
-                            <option selected value="1" style="display: none;">Avant</option>
+                            <option selected value="" style="display: none;">Avant</option>
                             <?php foreach ($chambres as $chambre) { ?>
                                 <option value="<?php echo($chambre['ID_chambre']) ?>"><?php echo($chambre['ID_chambre']) ?></option>
                             <?php } ?>
                         </select> <span class="input-group-text"><i class="fas fa-angle-double-right"></i></span>
                         <select class="form-select" <?php if (session()->get('isUser') == 'Utilisateur') echo('disabled') ?> name="chambre_apres">
-                            <option selected value="2" style="display: none;">Après</option>
+                            <option selected value="" style="display: none;">Après</option>
                             <?php foreach ($listeChambres as $listeChambre) { ?>
                                 <option value="<?php echo($listeChambre['ID_chambre']) ?>"><?php echo($listeChambre['ID_chambre']) ?></option>
                             <?php } ?>
@@ -59,8 +59,8 @@
         </div>
         <div class="col-12">
             <div class="form-group">
-                <label for="commentaire_day" class="form-label">Commentaire</label>
-                <textarea class="form-control" id="commentaire_day" name="commentaire_day" rows="2"></textarea>
+                <label for="commentaire_day" class="form-label">Commentaire de la part de l'utilisateur</label>
+                <textarea class="form-control" id="commentaire_day" name="commentaire_day" rows="2"><?php echo ($info['commentaire_day']) ?></textarea>
             </div>
         </div>
         <div class="col-12 mt-2">

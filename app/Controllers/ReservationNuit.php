@@ -425,18 +425,16 @@ class ReservationNuit extends BaseController
 				$rules = [
 					'ID_nuit' => 'required',
 					'nbr_nuit' => 'is_natural_no_zero',
-					'chambre_avant' => 'differs[chambre_apres]',
-					'chambre_apres' => 'differs[chambre_avant]',
+					'chambre_avant' => 'differs[chambre_apres]|permit_empty',
+					'chambre_apres' => 'differs[chambre_avant]|permit_empty|is_unique[concerner.ID_chambre]',
 				];
 
 				if (!$this->validate($rules)) {
-					$data['validation_nuit'] = $this->validator;
+					$data['validation'] = $this->validator;
 				} else {
 					$reservations = new reservationNuitModel();
 					$pour = new pourModel();
 					$planning = new planningModel();
-
-					// $etat = $this->etat($_POST['etat_client'], $_POST['confirmation_reservation']);
 
 					$data = [
 						'nbr_nuit' => $_POST['nbr_nuit'],
@@ -451,7 +449,7 @@ class ReservationNuit extends BaseController
 
 					$id_planning = $pour->where('ID_nuit', $_POST['ID_nuit'])->first();
 
-					if($_POST['chambre_avant'] != '1' && $_POST['chambre_apres'] != '2') {
+					if($_POST['chambre_avant'] != '' && $_POST['chambre_apres'] != '') {
 						$concerner = new concernerModel();
 						$transfert = [
 							'ID_chambre' => $_POST['chambre_apres'],

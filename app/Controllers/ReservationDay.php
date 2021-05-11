@@ -282,8 +282,8 @@ class ReservationDay extends BaseController
 				$rules = [
 					'ID_day' => 'required',
 					'duree_day' => 'required|is_natural_no_zero',
-					'chambre_avant' => 'differs[chambre_apres]',
-					'chambre_apres' => 'differs[chambre_avant]',
+					'chambre_avant' => 'differs[chambre_apres]|permit_empty',
+					'chambre_apres' => 'differs[chambre_avant]|permit_empty|is_unique[concerner.ID_chambre]',
 				];
 
 				if (!$this->validate($rules)) {
@@ -301,7 +301,7 @@ class ReservationDay extends BaseController
 
 					$id_planning = $pour->where('ID_day', $_POST['ID_day'])->first();
 
-					if($_POST['chambre_avant'] != '1' && $_POST['chambre_apres'] != '2') {
+					if($_POST['chambre_avant'] != '' && $_POST['chambre_apres'] != '') {
 						$concerner = new concernerModel();
 						$transfert = [
 							'ID_chambre' => $_POST['chambre_apres'],

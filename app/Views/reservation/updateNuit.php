@@ -39,13 +39,13 @@
                 <div class="row">
                     <div class="input-group mb-3">
                         <select class="form-select" <?php if (session()->get('isUser') == 'Utilisateur') echo('disabled') ?> name="chambre_avant">
-                            <option selected value="1" style="display: none;">Avant</option>
+                            <option selected value="" style="display: none;">Avant</option>
                             <?php foreach ($chambres as $chambre) { ?>
                                 <option value="<?php echo ($chambre['ID_chambre']) ?>"><?php echo ($chambre['ID_chambre']) ?></option>
                             <?php } ?>
                         </select> <span class="input-group-text"><i class="fas fa-angle-double-right"></i></span>
                         <select class="form-select" <?php if (session()->get('isUser') == 'Utilisateur') echo('disabled') ?> name="chambre_apres">
-                            <option selected value="2" style="display: none;">Après</option>
+                            <option selected value="" style="display: none;">Après</option>
                             <?php foreach ($listeChambres as $listeChambre) { ?>
                                 <option value="<?php echo ($listeChambre['ID_chambre']) ?>"><?php echo ($listeChambre['ID_chambre']) ?></option>
                             <?php } ?>

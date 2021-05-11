@@ -27,36 +27,38 @@ class Facture extends BaseController
 	{
 		$data = [];
 		helper(['form']);
-
+		
 		$facture = new factureNuitModel();
-
+		$fac = $facture->where('ID_facture_nuit', $ID_facture)->first();
+		
 		$data = [
 			'type_payement_nuit' => $_POST['type_payement'],
 			'date_facture_nuit' => $_POST['date_facture_nuit'],
-			'somme_donne_nuit' => $_POST['somme_donne_nuit'],
+			'somme_donne_nuit' => $_POST['somme_donne_nuit'] + $fac['somme_donne_nuit'],
 		];
-
+		
 		$facture->set($data);
 		$facture->where('ID_facture_nuit', $ID_facture);
 		$facture->update();
-
+		
 		$this->addEffectuerModif($ID_facture, session()->get('nom_user'), 'Nuitée');
-
+		
 		$session = session();
 		$session->setFlashdata('update', 'La facture a été sauvegardé');
 	}
-
+	
 	public function addFactureDay($ID_facture)
 	{
 		$data = [];
 		helper(['form']);
-
+		
 		$facture = new factureDayModel();
-
+		$fac = $facture->where('ID_facture_day', $ID_facture)->first();
+		
 		$data = [
 			'type_payement_day' => $_POST['type_payement'],
 			'date_facture_day' => $_POST['date_facture_day'],
-			'somme_donne_day' => $_POST['somme_donne_day'],
+			'somme_donne_day' => $_POST['somme_donne_day'] + $fac['somme_donne_day'],
 		];
 
 		$facture->set($data);

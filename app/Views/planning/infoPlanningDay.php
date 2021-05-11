@@ -4,7 +4,8 @@ foreach ($details as $detail) {
     $total = $total + ($detail['tarif_chambre'] * $detail['duree_day']);
 }
 $montant = $total;
-$reste = $total - $montant;
+// $reste = $total - $montant;
+$reste = $total - $detail['somme_donne_day'];
 ?>
 
 <div class="row">
@@ -103,7 +104,7 @@ $reste = $total - $montant;
         <tr>
             <td colspan="2">Payement du <?php echo ($detail['date_facture_day']); ?></td>
             <td colspan="1"><?php echo ($detail['type_payement_day']); ?></td>
-            <td class="text-end"><?php echo number_format($montant, '0', '', ' ') . ' Ar'; ?></td>
+            <td class="text-end"><?php echo number_format($detail['somme_donne_day'], '0', '', ' ') . ' Ar'; ?></td>
         </tr>
         <tr>
             <td colspan="3">RESTE A PAYER</td>

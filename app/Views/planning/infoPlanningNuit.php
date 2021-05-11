@@ -3,8 +3,8 @@ $total = 0;
 foreach ($details as $detail) {
     $total = $total + ($detail['tarif_chambre'] * $detail['nbr_nuit'] + $detail['lit_sup'] * $detail['tarif_lit_sup']);
 }
-$montant = $total - $detail['remise'] * $total / 100;
-$reste = $total - $total;
+$montant = $total - $total * $detail['remise'] / 100;
+$reste = $montant - $detail['somme_donne_nuit'];
 ?>
 
 <div class="row">
@@ -17,7 +17,6 @@ $reste = $total - $total;
                 <input type="text" readonly class="form-control-plaintext" value="<?php echo ($info['date_reservation_nuit'] . ' par ' . $info['nom_user']); ?>" readonly>
             </div>
         </div>
-
     </div>
     <div class="col">
         <!-- <h5 class="mt-3 mb-3">A propos du client</h5> -->
@@ -85,7 +84,7 @@ $reste = $total - $total;
 
     <div class="mb-1 row">
         <label class="col-auto col-form-label">Remarque :</label>
-        <div class="col-auto">
+        <div class="col">
             <input type="text" readonly class="form-control-plaintext" value="<?php echo ($info['remarque_reservation']); ?>" readonly>
         </div>
     </div>
@@ -120,13 +119,13 @@ $reste = $total - $total;
 
 
         <tr>
-            <td colspan="5">TOTAL (sans <?php echo ($detail['remise'] . '% de remise)'); ?> </td>
-            <td class="text-end"><b> <?php echo number_format($total, '0', '', ' ') . ' Ar'; ?> </b></td>
+            <td colspan="5">TOTAL (avec <?php echo ($detail['remise'] . '% de remise)'); ?> </td>
+            <td class="text-end"><b> <?php echo number_format($montant, '0', '', ' ') . ' Ar'; ?> </b></td>
         </tr>
         <tr>
             <td colspan="3">Payement du <?php echo ($detail['date_facture_nuit']); ?></td>
             <td colspan="2"><?php echo ($detail['type_payement_nuit']); ?></td>
-            <td class="text-end"> <?php echo number_format($montant, '0', '', ' ') . ' Ar'; ?> </td>
+            <td class="text-end"> <?php echo number_format($detail['somme_donne_nuit'], '0', '', ' ') . ' Ar'; ?> </td>
         </tr>
         <tr>
             <td colspan="5">RESTE A PAYER</td>

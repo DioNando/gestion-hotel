@@ -273,12 +273,12 @@ footer {
 }
 
 .navbar-toggler-icon {
-  background-image: url("../icons/menu4.png");
+  background-image: url("../icons/menu6.png");
   transition: 0.5s;
 }
 
 .navbar-toggler-icon:hover {
-  background-image: url("../icons/menu3.png");
+  background-image: url("../icons/menu5.png");
 }
 
 .navbar-toggler:focus {

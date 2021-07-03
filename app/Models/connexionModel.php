@@ -6,5 +6,5 @@ class connexionModel extends model {
     protected $table = 'connexion';
     protected $primaryKey = 'ID_connexion';
 
-    protected $allowedFields = ['ID_user', 'etat_connexion'];
+    protected $allowedFields = ['ID_user', 'etat_connexion', 'date_connexion', 'date_deconnexion'];
 }

@@ -6,9 +6,13 @@ foreach ($details as $detail) {
 $montant = $total;
 $remise = $total * $facture['remise'] / 100;
 $rendu = $facture['somme_donne_nuit'] - $total;
-if ($rendu < 0) { $rendu = 0;};
+if ($rendu < 0) {
+    $rendu = 0;
+};
 $reste = ($total - $remise) - $facture['somme_donne_nuit'];
-if ($reste < 0) { $reste = 0;};
+if ($reste < 0) {
+    $reste = 0;
+};
 ?>
 
 
@@ -72,7 +76,7 @@ if ($reste < 0) { $reste = 0;};
                         <div class="mb-1 row">
                             <label for="#" class="col-auto col-form-label">Par :</label>
                             <div class="col-auto">
-                                <input type="text" readonly class="form-control-plaintext" id="#" value="<?php echo ($info['nom_user']) ?>" name="nom_user" readonly>
+                                <input type="text" readonly class="form-control-plaintext" id="#" value="<?php echo (session()->get('nom_user')) ?>" name="nom_user" readonly>
                             </div>
                         </div>
                         <div class="mb-1 row">
@@ -247,24 +251,13 @@ if ($reste < 0) { $reste = 0;};
                 else : {  ?>
                         <tr>
                             <td class="text-end">Sejour offert</td>
-                            <td class="text-end"><b> <?php echo number_format(0, '0', '', ' ') . ' Ar' ?> </b></td>
+                            <!-- <td class="text-end"><b> <?php echo number_format(0, '0', '', ' ') . ' Ar' ?> </b></td> -->
+                            <td class="text-center"><b> Oui </b></td>
                         </tr>
                 <?php }
                 endif ?>
 
             </table>
-
-            <!-- <div class="col-12 col-sm-6">
-                    <div class="d-grid gap-2 mt-3">
-                        <button type="submit" class="btn btn-primary" name="btn_facture_nuit">Sauvegarder</button>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6">
-                    <div class="d-grid gap-2 mt-3">
-                        <button type="submit" class="btn btn-secondary" name="btn_imprimer" onclick="genPDF()" disabled>Imprimer</button>
-                    </div>
-                </div> -->
-
             <div class="container-fluid d-flex justify-content-end mt-3">
                 <button type="submit" class="btn btn-primary mx-2" name="btn_facture_nuit">
                     <div class="d-flex align-items-center">
@@ -276,7 +269,7 @@ if ($reste < 0) { $reste = 0;};
                         </div>
                     </div>
                 </button>
-                <button type="submit" class="btn btn-secondary mx-2" name="btn_imprimer" onclick="genPDF()" disabled>
+                <button type="button" class="btn btn-secondary mx-2" id="imprimer">
                     <div class="d-flex align-items-center">
                         <div class="flex-shrink-0">
                             <i class="fas fa-print"></i>
@@ -301,25 +294,128 @@ if ($reste < 0) { $reste = 0;};
     <!-- </div> -->
 </div>
 
+<div style="position:absolute; visibility: hidden; top: 0; z-index: -5">
+    <div class="container" id="facturePDF">
+        <h2>Hotel</h2>
+        <div>Rue 2 Toamasina</div>
+        <div>Mail : hotel@mail.mg</div>
+        <div>Téléphone : +261 34 00 000 01</div>
+
+        <h3>Facture n ° <?php echo ($facture['ID_facture_nuit']) ?></h3>
+        <div>Du : <?php echo ($facture['date_facture_nuit']) ?></div>
+        <div>Fait par : <?php echo (session()->get('nom_user')) ?></div>
+        <div>Au nom de : <?php echo ($info['nom_client'] . ' ' . $info['prenom_client']) ?></div>
+        <h4>Client au comptant Ariary</h4>
+        <div>Type de payement : <?php echo ($facture['type_payement_nuit']) ?></div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>N°Chambre</th>
+                    <th>Prix Unitaire</th>
+                    <th>Nuitée</th>
+                    <th>Lit supplémentaire</th>
+                    <th>Montant</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($details as $detail) { ?>
+                    <tr>
+                        <th> <?php echo ($detail['ID_chambre']) ?> </th>
+                        <td> <?php echo number_format($detail['tarif_chambre'], '0', '', ' ')  . ' Ar' ?> </td>
+                        <td> <?php echo ($detail['nbr_nuit']) ?> </td>
+                        <td> <?php echo number_format($detail['lit_sup'] * $detail['tarif_lit_sup'], '0', '', ' ')  . ' Ar' ?> </td>
+                        <td> <?php echo number_format($detail['tarif_chambre'] * $detail['nbr_nuit'] + $detail['lit_sup'] * $detail['tarif_lit_sup'], '0', '', ' ') . ' Ar' ?> </td>
+                    </tr>
+                <?php } ?>
+            </tbody>
+        </table>
+
+
+        <table>
+            <tr>
+                <td>Sous-total</td>
+                <td><?php echo ($total . ' Ar') ?></td>
+            </tr>
+            <tr>
+                <td>Remise (<?php echo ($facture['remise']) . ' %' ?>)</td>
+                <td><?php echo ($remise . ' Ar') ?></td>
+            </tr>
+            <tr>
+                <td>Somme donnée</td>
+                <td><?php echo ($facture['somme_donne_nuit'] . ' Ar') ?></td>
+            </tr>
+            <tr>
+                <td>Rendu</td>
+                <td><?php echo ($rendu . ' Ar') ?></td>
+            </tr>
+            <tr>
+                <td>Reste</td>
+                <td><?php echo ($reste . ' Ar') ?></td>
+            </tr>
+            <?php if (session()->get('offert') == 0) : { ?>
+                    <tr>
+                        <td>Total</td>
+                        <td><b> <?php echo number_format($total - $remise, '0', '', ' ') . ' Ar' ?> </b></td>
+                    </tr>
+                <?php }
+            else : {  ?>
+                    <tr>
+                        <td>Sejour offert</td>
+                        <!-- <td class="text-end"><b> <?php echo number_format(0, '0', '', ' ') . ' Ar' ?> </b></td> -->
+                        <td><b> Oui </b></td>
+                    </tr>
+            <?php }
+            endif ?>
+        </table>
+    </div>
+</div>
+
 <script>
-    var dateDebut = new Date();
-    // document.getElementById('dateDebutSejour').valueAsDate = dateDebut;
+    // function genPDF() {
+    //     html2canvas($("#facturePDF"), {
+    //         onrendered: function(canvas) {
+    //             var imgData = canvas.toDataURL(
+    //                 'image/png');
+    //             var doc = new jsPDF('p', 'mm');
+    //             doc.addImage(imgData, 'PNG', 10, 10);
+    //             doc.save('sample-Facture.pdf');
+    //         }
+    //     });
 
-    function genPDF() {
+    //     var doc = new jsPDF;
+    //     doc.fromHTML($('#facturePDF').get(0), 20, 20);
+    //     doc.line(20, 20, 60, 20);
+    //     doc.save('Facture.pdf');     
+    // }
 
-        // html2canvas($('#facturePDF'), {
-        //     onrendered: function(canvas) {
-        //         var img = canvas.toDataURL()
-        //         var doc = new jsPDF;
-        //         doc.addImage(img, 'PNG', 20, 20);
-        //         doc.save('Facture.pdf');
-        //     }
-        // });
+    $('#imprimer').click(function() {
+        var pdf = new jsPDF('p', 'pt', 'letter'),
+            source = $('#facturePDF')[0],
+            specialElementHandlers = {
+                '#bypassme': function(element, renderer) {
+                    return true
+                }
+            }
 
-        var doc = new jsPDF;
-        doc.fromHTML($('#facturePDF').get(0), 20, 20);
-        doc.save('Facture.pdf');
-    }
+        margins = {
+            top: 40,
+            bottom: 60,
+            left: 40,
+            right: 40,
+            width: '100%'
+        };
+        pdf.fromHTML(
+            source, margins.left, margins.top, {
+                'width': margins.width,
+                'elementHandlers': specialElementHandlers,
+            },
+            function(dispose) {
+                pdf.save("<?php echo ('Facture ' . $info['nom_client'] . ' ' . date('d-m-y H-i')) ?>");
+            },
+            margins
+        )
+    });
 
     function calculFacture(somme, total) {
         let rendu, reste;
@@ -334,8 +430,5 @@ if ($reste < 0) { $reste = 0;};
 
         document.getElementById('rendu_nuit').value = rendu;
         document.getElementById('reste_nuit').value = reste;
-        // document.getElementById('somme2').value = somme;
-        // document.getElementById('rendu2').value = rendu2;
-        // document.getElementById('reste2').value = reste2;
     }
 </script>

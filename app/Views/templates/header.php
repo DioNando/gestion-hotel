@@ -8,29 +8,24 @@
     <link rel="shortcut icon" type="image/png" href="assets/icons/hote.ico">
     <title>Hotel</title>
     <!-- CSS -->
-
-    <!-- <link href='https://use.fontawesome.com/releases/v5.0.6/css/all.css' rel='stylesheet'> -->
-    <!-- <link href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css' rel='stylesheet' /> -->
     <link rel="stylesheet" href="assets/css/all.css">
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/Chart.css">
     <link rel="stylesheet" href="assets/css/main.css">
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/style-main.css">
     <link rel="stylesheet" href="assets/css/style-btn.css">
     <!-- JAVASCRIPT -->
     <script src="assets/jquery/jquery.min.js"></script>
+    <!-- <script src="assets/js/bootstrap.min.js"></script> -->
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/Chart.js"></script>
     <script src="assets/js/jspdf.min.js"></script>
     <script src="assets/js/html2canvas.js"></script>
     <script src="assets/js/all.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
     <script src="assets/js/main.js"></script>
     <?php if (!session()->get('isLoggedIn')) : ?>
         <style>
             body {
-                /* background: #6190E8;
-                background: -webkit-linear-gradient(to right, #A7BFE8, #6190E8);
-                background: linear-gradient(to right, #A7BFE8, #6190E8); */
                 background-image: url("assets/images/background11.png");
             }
         </style>
@@ -59,8 +54,14 @@
         var x = window.matchMedia("(max-width: 900px)");
         sideBar(x);
         x.addListener(sideBar);
-    </script>
 
+        $(document).ready(function() {
+            $('[data-bs-toggle="popover"]').popover({
+                trigger: 'hover',
+                placement: 'top',
+            });
+        });
+    </script>
 
     <header>
         <?php if (session()->get('isUser') == 'Administrateur' || session()->get('isUser') == 'Controleur') : ?>
@@ -72,12 +73,12 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <a class="center" href="dashboard">
-                        <div class="logo-container"><img src="assets/images/hote2.png" style="width: 32px;"></div>
+                        <div class="logo-container mx-2"><img src="assets/images/hote2.png" style="width: 32px;"></div>
                     </a>
                     <div class="collapse navbar-collapse" id="navBarHeader">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item dropdown btn-hover">
-                                <a class="nav-link dropdown-toggle headerMenu" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Tableau de bord</a>
+                                <a class="nav-link dropdown-toggle headerMenu mx-2" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Tableau de bord</a>
                                 <ul class="dropdown-menu border">
                                     <li><a class="dropdown-item" href="dashboard">Accueil</a></li>
                                     <li><a class="dropdown-item" href="etatFinancier">Etat financier</a></li>
@@ -85,20 +86,20 @@
                                 </ul>
                             </li>
                             <li class="nav-item dropdown btn-hover">
-                                <a class="nav-link dropdown-toggle headerMenu" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Planning</a>
+                                <a class="nav-link dropdown-toggle headerMenu mx-2" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Planning</a>
                                 <ul class="dropdown-menu border">
                                     <li><a class="dropdown-item" href="planningJour">Planning du jour</a></li>
                                     <li><a class="dropdown-item" href="planningMois">Planning du mois</a></li>
                                 </ul>
                             </li>
-                            <li class="nav-item btn-hover"><a class="nav-link headerMenu" href="accueilClient">Réservation</a></li>
-                            <li class="nav-item btn-hover"><a class="nav-link headerMenu" href="ficheCardex">Fiche cardex</a></li>
+                            <li class="nav-item btn-hover"><a class="nav-link headerMenu mx-2" href="accueilClient">Réservation</a></li>
+                            <li class="nav-item btn-hover"><a class="nav-link headerMenu mx-2" href="ficheCardex">Fiche cardex</a></li>
                         </ul>
                         <ul class="navbar-nav my-2 my-lg-0 me-2">
                             <li class="nav-item dropdown btn-hover">
                                 <a class="nav-link dropdown-toggle dropdown-toggle-cog headerMenu" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">
                                     <div class="row">
-                                        <div class="col pe-2">Paramètres</div>
+                                        <div class="col pe-2 mx-2">Paramètres</div>
                                         <div class="col-auto center ps-1"><i class="fas fa-cog"></i></div>
                                     </div>
                                 </a>
@@ -135,12 +136,12 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <a class="center" href="dashboard">
-                        <div class="logo-container"><img src="assets/images/hote2.png" style="width: 32px;"></div>
+                        <div class="logo-container mx-2"><img src="assets/images/hote2.png" style="width: 32px;"></div>
                     </a>
                     <div class="collapse navbar-collapse" id="navBarHeader">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item dropdown btn-hover">
-                                <a class="nav-link dropdown-toggle headerMenu" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Tableau de bord</a>
+                                <a class="nav-link dropdown-toggle headerMenu mx-2" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Tableau de bord</a>
                                 <ul class="dropdown-menu border">
                                     <li><a class="dropdown-item" href="dashboard">Accueil</a></li>
                                     <li><a class="dropdown-item" href="etatFinancier">Etat financier</a></li>
@@ -148,20 +149,20 @@
                                 </ul>
                             </li>
                             <li class="nav-item dropdown btn-hover">
-                                <a class="nav-link dropdown-toggle headerMenu" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Planning</a>
+                                <a class="nav-link dropdown-toggle headerMenu mx-2" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Planning</a>
                                 <ul class="dropdown-menu border">
                                     <li><a class="dropdown-item" href="planningJour">Planning du jour</a></li>
                                     <li><a class="dropdown-item" href="planningMois">Planning du mois</a></li>
                                 </ul>
                             </li>
-                            <li class="nav-item btn-hover"><a class="nav-link headerMenu" href="accueilClient">Réservation</a></li>
-                            <li class="nav-item btn-hover"><a class="nav-link headerMenu" href="ficheCardex">Fiche cardex</a></li>
+                            <li class="nav-item btn-hover"><a class="nav-link headerMenu mx-2" href="accueilClient">Réservation</a></li>
+                            <li class="nav-item btn-hover"><a class="nav-link headerMenu mx-2" href="ficheCardex">Fiche cardex</a></li>
                         </ul>
                         <ul class="navbar-nav my-2 my-lg-0 me-2">
                             <li class="nav-item dropdown btn-hover">
                                 <a class="nav-link dropdown-toggle dropdown-toggle-cog headerMenu" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">
                                     <div class="row">
-                                        <div class="col pe-2">Paramètres</div>
+                                        <div class="col pe-2 mx-2">Paramètres</div>
                                         <div class="col-auto center ps-1"><i class="fas fa-cog"></i></div>
                                     </div>
                                 </a>

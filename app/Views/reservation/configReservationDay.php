@@ -46,6 +46,7 @@
                 <th scope="col" class="text-end">Heure d'arrivée</th>
                 <th scope="col" class="text-end">Heure de départ</th>
                 <th scope="col" class="text-end">Durée</th>
+                <th scope="col" class="text-end">Minuteur</th>
                 <th scope="col">Détails</th>
                 <th scope="col" class="text-start">Client</th>
                 <th scope="col">Info réservation</th>
@@ -73,6 +74,7 @@
 
 
                         </td>
+                        <td class="text-end" id="<?php echo ($reservation['ID_day']) ?>"> </td>
                         <td>
                             <div class="center">
                                 <div>
@@ -90,10 +92,10 @@
                         </td>
                         <td>
                             <div class="center">
-                                <div>
-                                    <button type="button" class="btn btn-outline-dark btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalReservationUpdate" onclick="infoSupplementaireDay('<?php echo $reservation['ID_day']; ?>', 'updateDay')"><i class="fas fa-pencil-alt"></i></button>
+                                <div class="row">
+                                    <button type="button" class="col btn btn-outline-dark btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalReservationUpdate" onclick="infoSupplementaireDay('<?php echo $reservation['ID_day']; ?>', 'updateDay')"><i class="fas fa-pencil-alt"></i></button>
                                     <?php if (session()->get('isUser') == 'Administrateur') : ?>
-                                        <button type="button" class="btn btn-outline-danger btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalReservationDelete" onclick="deleteData('<?php echo $reservation['ID_day']; ?>')"><i class="fas fa-trash-alt"></i></button>
+                                        <button type="button" class="col btn btn-outline-danger btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalReservationDelete" onclick="deleteData('<?php echo $reservation['ID_day']; ?>')"><i class="fas fa-trash-alt"></i></button>
                                     <?php endif; ?>
                                 </div>
                             </div>
@@ -116,7 +118,7 @@
         </tbody>
     </table>
 
-    <div class="row mb-4">
+    <div class="row mb-4 flex__legend">
         <div class="col"><?= $pager->links('paginationResult', 'pagination') ?></div>
         <div class="col-auto center">
             <div class="d-flex align-items-center">
@@ -151,9 +153,52 @@
                     <i class="fas fa-hourglass-end text-secondary"></i>
                 </div>
                 <div class="flex-grow-1 ms-2">
-                    <?php echo ('Terminé : ' . $termine) ?> </div>
+                    <?php echo ('Terminée : ' . $termine) ?> </div>
             </div>
         </div>
     </div>
 
 </div>
+
+<script>
+    window.onload = function chargementPage() {
+        $(document).ready(function() {
+            <?php
+            if (count($reservations) > 0) {
+                foreach ($reservations as $reservation) {
+            ?>
+                    if ("<?php echo ($reservation['reste']) ?>" !== "00:00:00") {
+                        showDate<?php echo ($reservation['ID_day']) ?>();
+                    }
+            <?php }
+            } ?>
+        });
+    }
+
+    <?php
+    if (count($reservations) > 0) {
+        foreach ($reservations as $reservation) {
+    ?>
+            if ("<?php echo ($reservation['reste']) ?>" !== "00:00:00") {
+                var temp = "<?php echo ($reservation['reste']); ?>";
+                var y = temp.split(':');
+
+                let left<?php echo ($reservation['ID_day']) ?> = parseInt(y[0]) * 3600 + parseInt(y[1]) * 60 + parseInt(y[2]);
+
+                function refresh<?php echo ($reservation['ID_day']) ?>() {
+                    setTimeout('showDate<?php echo ($reservation['ID_day']) ?>()', 1000);
+                }
+
+                function showDate<?php echo ($reservation['ID_day']) ?>() {
+
+                    left<?php echo ($reservation['ID_day']) ?> = left<?php echo ($reservation['ID_day']) ?> - 1;
+                    var time = left<?php echo ($reservation['ID_day']) ?>;
+                    time = Math.trunc(time / 3600) + ":" + Math.trunc(((time / 3600) - Math.trunc(time / 3600)) * 60);
+
+                    document.getElementById('<?php echo ($reservation['ID_day']) ?>').innerHTML = time;
+                    refresh<?php echo ($reservation['ID_day']) ?>()
+                }
+            }
+    <?php }
+    } ?>
+</script>

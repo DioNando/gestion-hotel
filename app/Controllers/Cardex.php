@@ -15,13 +15,13 @@ class Cardex extends BaseController
 		if (isset($_POST['type'])) {
 			if ($_POST['type'] == 'update') {
 				$data['info'] = $this->infoUpdate($_POST['ID_client']);
-				echo view('client\updateCardex', $data);
+				echo view('client/updateCardex', $data);
 				return ($data);
 			}
 			if ($_POST['type'] == 'historique') {
 				$data = [];
 				$data = $this->historique($_POST['ID_client']);
-				echo view('client\historique', $data);
+				echo view('client/historique', $data);
 				return ($data);
 			}
 		}
@@ -31,19 +31,19 @@ class Cardex extends BaseController
 		}
 		if (isset($_POST['ID_client'])) {
 			$data['client'] = $this->ficheCardex($_POST['ID_client']);
-			echo view('client\Cardex', $data);
+			echo view('client/cardex', $data);
 			return ($data);
 		}
 		if (isset($_POST['btn_recherche']) and $_POST['element_recherche'] != NULL) {
 			$data = $this->search($_POST['element_recherche']);
-			echo view('templates\header');
-			echo view('client\ficheCardex', $data);
-			echo view('templates\footer');
+			echo view('templates/header');
+			echo view('client/ficheCardex', $data);
+			echo view('templates/footer');
 		} else {
 			$data = $this->read();
-			echo view('templates\header');
-			echo view('client\ficheCardex', $data);
-			echo view('templates\footer');
+			echo view('templates/header');
+			echo view('client/ficheCardex', $data);
+			echo view('templates/footer');
 		}
 	}
 

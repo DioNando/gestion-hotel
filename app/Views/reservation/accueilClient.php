@@ -32,7 +32,7 @@
                 </a>
                 <div class="card-body d-flex align-items-end accueil-card-body">
                     <div class="container-fluid px-0">
-                        <h5 class="card-title">Day use</h5>
+                        <h5 class="card-title">Nuitée</h5>
                         <p class="card-text">Réservation d'une ou plusieurs nuitées pour un nouveau client.</p>
                         <a class="btn btn-primary col-12 center" data-bs-toggle="modal" data-bs-target="#modalNouveauClient">
                             <div class="d-flex align-items-center">

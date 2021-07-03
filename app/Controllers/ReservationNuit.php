@@ -27,13 +27,13 @@ class ReservationNuit extends BaseController
 
 		if (isset($_POST['infoClient'])) {
 			$data['info'] = $this->infoSupplementaireNuit($_POST['ID_nuit']);
-			echo view('reservation\infoReservationClient', $data);
+			echo view('reservation/infoReservationClient', $data);
 			return ($data);
 		}
 		if (isset($_POST['infoNuit'])) {
 			$data['info'] = $this->infoSupplementaireNuit($_POST['ID_nuit']);
 			$data['chambres'] = $this->infoDetails($_POST['ID_nuit']);
-			echo view('reservation\infoReservationNuit', $data);
+			echo view('reservation/infoReservationNuit', $data);
 			return ($data);
 		}
 		if (isset($_POST['infoDetails'])) {
@@ -42,7 +42,7 @@ class ReservationNuit extends BaseController
 			$reservation = new reservationNuitModel();
 			$data['info'] = $reservation->where('reservation_nuit.ID_nuit', $_POST['ID_nuit'])->join('client', 'client.ID_client = reservation_nuit.ID_client')->join('effectuer', 'effectuer.ID_nuit = reservation_nuit.ID_nuit')->join('user', 'effectuer.ID_user = user.ID_user')->first();
 			$data['facture'] = $factures->select(['*', 'CONVERT(date_facture_nuit, DATE) AS date_facture_nuit'])->where('ID_nuit', $_POST['ID_nuit'])->first();
-			echo view('reservation\infoNuitDetails', $data);
+			echo view('reservation/infoNuitDetails', $data);
 			return ($data);
 		}
 		if (isset($_POST['updateNuit'])) {
@@ -54,8 +54,8 @@ class ReservationNuit extends BaseController
 			$data['info'] = $this->infoSupplementaireNuit($_POST['ID_nuit']);
 			$data['chambres'] = $this->infoDetails($_POST['ID_nuit']);
 			$data['listeChambres'] = $relier->where('relier.ID_archive', $archive['ID_archive'])->join('archive', 'relier.ID_archive =  archive.ID_archive')->join('chambre', 'relier.ID_chambre = chambre.ID_chambre')->findAll();
-			
-			echo view('reservation\updateNuit', $data);
+
+			echo view('reservation/updateNuit', $data);
 			return ($data);
 		}
 		if (isset($_POST['btn_modification'])) {
@@ -67,9 +67,9 @@ class ReservationNuit extends BaseController
 			return redirect()->to('configReservationNuit');
 		} else {
 			$data = $this->read();
-			echo view('templates\header');
-			echo view('reservation\configReservationNuit', $data);
-			echo view('templates\footer');
+			echo view('templates/header');
+			echo view('reservation/configReservationNuit', $data);
+			echo view('templates/footer');
 		}
 	}
 
@@ -149,6 +149,7 @@ class ReservationNuit extends BaseController
 						'remise' => $_POST['remise'],
 						'ID_nuit' => $id,
 						'type_payement_nuit' => 'Autre',
+						'date_facture_nuit' => date("Y-m-d H:i:s"),
 					];
 
 					$facture->save($newDataFacture);
@@ -196,9 +197,9 @@ class ReservationNuit extends BaseController
 			END) AS prix'
 
 		])->where('relier.ID_archive', $archive['ID_archive'])->join('archive', 'relier.ID_archive =  archive.ID_archive')->join('chambre', 'relier.ID_chambre = chambre.ID_chambre')->findAll();
-		echo view('templates\header');
-		echo view('reservation\nuit', $data);
-		echo view('templates\footer');
+		echo view('templates/header');
+		echo view('reservation/nuit', $data);
+		echo view('templates/footer');
 	}
 
 	public function addEffectuer($ID_reservation, $ID_user)
@@ -210,6 +211,8 @@ class ReservationNuit extends BaseController
 			'ID_nuit' => $ID_reservation,
 			'ID_user' => $ID_user,
 			'nom_user_modif' => $user['nom_user'],
+			'date_modif' => date("Y-m-d H:i:s"),
+
 		];
 		$effectuer->save($newData);
 	}
@@ -221,6 +224,7 @@ class ReservationNuit extends BaseController
 		// $user = $users->where('ID_user', $ID_user)->first();
 		$newData = [
 			'nom_user_modif' => $nom_user,
+			'date_modif' => date("Y-m-d H:i:s"),
 		];
 
 		$effectuer->set($newData);
@@ -337,9 +341,9 @@ class ReservationNuit extends BaseController
 		endif;
 
 
-		echo view('templates\header');
-		echo view('reservation\accueilClient', $data);
-		echo view('templates\footer');
+		echo view('templates/header');
+		echo view('reservation/accueilClient', $data);
+		echo view('templates/footer');
 	}
 
 	public function read()
@@ -377,7 +381,7 @@ class ReservationNuit extends BaseController
 		$reservations = new effectuerModel();
 
 		$data = $reservations
-			->select(['*', 'DATE_FORMAT(date_reservation_nuit, "%d %b %Y à %H:%i") AS date_reservation_nuit', 'DATE_FORMAT(date_modification_nuit, "%d %b %Y à %H:%i") AS date_modification_nuit'])
+			->select(['*', 'DATE_FORMAT(date_reservation_nuit, "%d %b %Y à %H:%i") AS date_reservation_nuit', 'DATE_FORMAT(date_modif, "%d %b %Y à %H:%i") AS date_modif'])
 			->where('effectuer.ID_nuit', $ID_nuit)->join('user', 'effectuer.ID_user = user.ID_user')
 			->join('reservation_nuit', 'effectuer.ID_nuit = reservation_nuit.ID_nuit')
 			->join('etat', 'etat.ID_etat_reservation = reservation_nuit.ID_etat_reservation')
@@ -426,7 +430,9 @@ class ReservationNuit extends BaseController
 					'ID_nuit' => 'required',
 					'nbr_nuit' => 'is_natural_no_zero',
 					'chambre_avant' => 'differs[chambre_apres]|permit_empty',
-					'chambre_apres' => 'differs[chambre_avant]|permit_empty|is_unique[concerner.ID_chambre]',
+					'chambre_apres' => 'differs[chambre_avant]|permit_empty',
+					'chambre_ajout' => 'differs[chambre_suppression]|permit_empty',
+					'chambre_suppression' => 'differs[chambre_ajout]|permit_empty',
 				];
 
 				if (!$this->validate($rules)) {
@@ -447,16 +453,47 @@ class ReservationNuit extends BaseController
 						'mode_transport' => $_POST['mode_transport'],
 					];
 
-					$id_planning = $pour->where('ID_nuit', $_POST['ID_nuit'])->first();
+					$id_planning = $pour->where('ID_nuit', $_POST['ID_nuit'])->join('planning', 'pour.ID_planning = planning.ID_planning')->join('concerner', 'concerner.ID_planning = planning.ID_planning')->first();
 
-					if($_POST['chambre_avant'] != '' && $_POST['chambre_apres'] != '') {
+					if ($_POST['chambre_avant'] != '' && $_POST['chambre_apres'] != '') {
 						$concerner = new concernerModel();
 						$transfert = [
 							'ID_chambre' => $_POST['chambre_apres'],
 						];
 						$concerner->set($transfert);
 						$concerner->where('ID_chambre', $_POST['chambre_avant'])->where('ID_planning', $id_planning['ID_planning']);
-						$concerner->update();
+						try {
+							$concerner->update();
+						}
+						catch (\Exception $e) {
+							// duplicate entry exception
+							// die($e->getMessage());
+							return 0;
+						}
+					};
+
+					if ($_POST['chambre_ajout'] != '') {
+						$concerner = new concernerModel();
+						$ajout = [
+							'ID_planning' => $id_planning['ID_planning'],
+							'ID_archive' => $id_planning['ID_archive'],
+							'ID_chambre' => $_POST['chambre_ajout'],
+						];
+						try {
+							$concerner->save($ajout);
+						}
+						catch (\Exception $e) {
+							// duplicate entry exception
+							// die($e->getMessage());
+							return 0;
+						}
+					};
+
+					if ($_POST['chambre_suppression'] != '') {
+						$concerner = new concernerModel();
+						$concerner->where('ID_planning', $id_planning['ID_planning'])->where('ID_archive', $id_planning['ID_archive'])->where('ID_chambre', $_POST['chambre_suppression']);
+						
+						$concerner->delete();
 					};
 
 					$reservations->set($data);

@@ -109,6 +109,7 @@
                                     <?php if ($chambre['statut_chambre'] == 'Libre') { ?><button type="button" class="btn btn-outline-success btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalChambreUpdate" onclick="updateStatut('<?php echo $chambre['ID_chambre']; ?>' ,'update')"><i class="fas fa-tag"></i></button><?php } ?>
                                     <?php if ($chambre['statut_chambre'] == 'En attente') { ?><button type="button" class="btn btn-outline-danger btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalChambreUpdate" onclick="updateStatut('<?php echo $chambre['ID_chambre']; ?>' ,'update')"><i class="fas fa-exclamation-triangle"></i></button><?php } ?>
                                     <?php if ($chambre['statut_chambre'] == 'Occupée') { ?><button type="button" class="btn btn-outline-secondary btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalChambreUpdate" onclick="updateStatut('<?php echo $chambre['ID_chambre']; ?>' ,'update')"><i class="fas fa-house-user"></i></button><?php } ?>
+                                    <?php if ($chambre['statut_chambre'] == 'Non disponible') { ?><button type="button" class="btn btn-outline-secondary btn-icon btn-sm disabled" data-bs-toggle="modal" data-bs-target="#modalChambreUpdate" onclick="updateStatut('<?php echo $chambre['ID_chambre']; ?>' ,'update')"><i class="fas fa-times-circle"></i></button><?php } ?>
 
 
 
@@ -201,7 +202,7 @@
 
     <!-- </form> -->
 
-    <div class="row mb-4 mt-3">
+    <div class="row mb-4 mt-3 flex__legend">
         <div class="col"><?= $pager->links('paginationResult', 'pagination') ?></div>
         <div class="col-auto center">
             <div class="d-flex align-items-center">

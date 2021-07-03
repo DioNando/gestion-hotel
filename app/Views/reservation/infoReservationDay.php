@@ -12,7 +12,7 @@
                     <tr>                    
                         <td class="text-start"> <?php echo ($info['date_reservation_day'] . ' par ' . $info['nom_user']); ?> </td>
                         <!-- <td> <?php echo ($info['nom_user']); ?> </td> -->
-                        <td class="text-start"> <?php echo ($info['date_modification_day'] . ' par ' . $info['nom_user_modif']); ?> </td>
+                        <td class="text-start"> <?php echo ($info['date_modif'] . ' par ' . $info['nom_user_modif']); ?> </td>
                         <!-- <td> <?php echo ($info['nom_user_modif']); ?> </td> -->
                     </tr>
 

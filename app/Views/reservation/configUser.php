@@ -107,7 +107,7 @@
         </tbody>
     </table>
 
-    <div class="row mb-4 flex__legend">
+    <div class="row mb-4">
         <div class="col"><?= $pager->links('paginationResult', 'pagination') ?></div>
         <div class="col-auto center">
             <div class="d-flex align-items-center">

@@ -59,19 +59,20 @@ $routes->match(['get','post'], 'configReservationDay', 'ReservationDay::index', 
 $routes->match(['get','post'], 'ficheCardex', 'Cardex::index', ['filter' => 'auth']);
 $routes->match(['get','post'], 'planningJour', 'Planning::planningJour', ['filter' => 'auth']);
 $routes->post('planningChambre', 'Planning::planningChambre', ['filter' => 'auth']);
-// $routes->match(['get','post'], 'tabPlanningJour', 'Planning::tabPlanningJour', ['filter' => 'auth']);
 $routes->match(['get','post'], 'planningMois', 'Planning::planningMois', ['filter' => 'auth']);
 $routes->post('ajaxPlanning', 'Planning::ajaxPlanning', ['filter' => 'auth']);
+$routes->match(['get','post'], 'facture', 'Facture::index', ['filter' => 'auth']);
+$routes->get('dashboard', 'Dashboard::index', ['filter' => 'auth']);
+$routes->get('etatFinancier', 'EtatFinancier::index', ['filter' => 'auth']);
+$routes->post('searchEtatFinancier', 'EtatFinancier::search', ['filter' => 'auth']);
+$routes->get('statistique', 'Statistique::index', ['filter' => 'auth']);
+$routes->get('logout', 'Home::logout');
+// $routes->match(['get','post'], 'tabPlanningJour', 'Planning::tabPlanningJour', ['filter' => 'auth']);
 // $routes->match(['get','post'], 'factureDay', 'Facture::factureDay', ['filter' => 'auth']);
 // $routes->match(['get','post'], 'factureNuit', 'Facture::factureNuit', ['filter' => 'auth']);
-$routes->match(['get','post'], 'facture', 'Facture::index', ['filter' => 'auth']);
 // $routes->post('nouveauUser', 'User::create', ['filter' => 'auth']);
 // $routes->post('nouveauClient', 'Client::create', ['filter' => 'auth']);
 // $routes->post('nouveauChambre', 'Chambre::create', ['filter' => 'auth']);
-$routes->get('dashboard', 'Dashboard::index', ['filter' => 'auth']);
-$routes->get('etatFinancier', 'Dashboard::etatFinancier', ['filter' => 'auth']);
-$routes->get('statistique', 'Dashboard::statistique', ['filter' => 'auth']);
-$routes->get('logout', 'Home::logout');
 
 /*
  * --------------------------------------------------------------------

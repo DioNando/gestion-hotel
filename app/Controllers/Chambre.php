@@ -13,7 +13,7 @@ class Chambre extends BaseController
     {
         if (isset($_POST['type']) == 'update') {
             $data['info'] = $this->infoUpdate($_POST['ID_chambre']);
-            echo view('chambre\updateChambre', $data);
+            echo view('chambre/updateChambre', $data);
             return ($data);
         }
         if (isset($_POST['btn_modification'])) {
@@ -26,14 +26,14 @@ class Chambre extends BaseController
         }
         if (isset($_POST['btn_recherche']) and $_POST['element_recherche'] != NULL) {
             $data = $this->search($_POST['element_recherche']);
-            echo view('templates\header');
-            echo view('chambre\configChambre', $data);
-            echo view('templates\footer');
+            echo view('templates/header');
+            echo view('chambre/configChambre', $data);
+            echo view('templates/footer');
         } else {
             $data = $this->read();
-            echo view('templates\header');
-            echo view('chambre\configChambre', $data);
-            echo view('templates\footer');
+            echo view('templates/header');
+            echo view('chambre/configChambre', $data);
+            echo view('templates/footer');
         }
     }
 
@@ -45,14 +45,14 @@ class Chambre extends BaseController
         }
         if (isset($_POST['btn_recherche']) and $_POST['element_recherche'] != NULL) {
             $data = $this->searchTarif($_POST['element_recherche']);
-            echo view('templates\header');
-            echo view('chambre\configTarif', $data);
-            echo view('templates\footer');
+            echo view('templates/header');
+            echo view('chambre/configTarif', $data);
+            echo view('templates/footer');
         } else {
             $data = $this->readTarif();
-            echo view('templates\header');
-            echo view('chambre\configTarif', $data);
-            echo view('templates\footer');
+            echo view('templates/header');
+            echo view('chambre/configTarif', $data);
+            echo view('templates/footer');
         }
     }
 
@@ -229,11 +229,11 @@ class Chambre extends BaseController
                 $chambres->update();
                 $session = session();
                 $session->setFlashdata('update', 'La ligne a été modifié avec succès');
-                return redirect()->to('planningJour');
+                return redirect()->to('configChambre');
             }
         } else {
             $data['info'] = $this->infoUpdate($_POST['ID_chambre']);
-            echo view('chambre\updateStatut', $data);
+            echo view('chambre/updateStatut', $data);
             return ($data);
         }
     }
@@ -245,7 +245,7 @@ class Chambre extends BaseController
         $archive = $archives->where('etat_archive', 1)->orderBy('ID_archive', 'desc')->first();
 
         $data['info'] = $concerner->where('ID_planning', $_POST['ID_planning'])->where('concerner.ID_chambre', $_POST['ID_chambre'])->join('chambre', 'concerner.ID_chambre = chambre.ID_chambre')->join('relier', 'relier.ID_chambre = chambre.ID_chambre')->join('archive', 'relier.ID_archive = archive.ID_archive')->where('archive.ID_archive', $archive['ID_archive'])->first();
-        echo view('chambre\updateChambreReservation', $data);
+        echo view('chambre/updateChambreReservation', $data);
         return ($data);
     }
 

@@ -105,7 +105,7 @@
                 labels: labels,
                 datasets: [{
                     label: "Statut des chambres",
-                    backgroundColor: ["#283e51", "#ff5f6d", "#ffc371"],
+                    backgroundColor: ["#283e51", "#ff5f6d", "#ffc371", "#4b79a1"],
                     data: data,
                     borderWidth: false,
                 }],
@@ -243,6 +243,64 @@
         });
     }
 
+    function planning2Display(result) {
+        console.log(result);
+
+        let calendarEl = document.getElementById('calendar2');
+        let calendar = new FullCalendar.Calendar(calendarEl, {
+            schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
+            height: "100%",
+            locale: 'fr',
+            resourceAreaWidth: "15%",
+            resourceOrder: '',
+            initialView: 'resourceTimelineMonth',
+            headerToolbar: {
+                left: 'resourceTimelineDay,resourceTimelineMonth,resourceTimelineYear',
+                right: 'title',
+            },
+            footerToolbar: {
+                left: 'today',
+                right: 'prevYear prev,next nextYear',
+            },
+            buttonText: {
+                today: 'Aujourd\'hui',
+                month: 'Mois',
+                week: 'Semaine',
+                day: 'Jour',
+                year: 'Année',
+                list: 'Liste',
+
+            },
+
+            resources: result[0],
+            events: result[1],
+
+            eventMouseEnter: function(info) {
+                var res;
+                var description_event = result[1].map(function(e) {
+                    if (e.id == info.event.id) {
+                        res = {"title" : e.client, "description" : e.description};
+                        return 1;
+                    }
+                });
+
+                $(info.el).popover({
+                    title: res.title,
+                    placement: 'top',
+                    content: res.description,
+                    container: 'body'
+                }).popover('show');
+            },
+
+            eventMouseLeave: function(info) {
+                $(info.el).popover('hide');
+            }
+
+
+        });
+        calendar.render();
+    }
+
     function calendrierData() {
         $.ajax({
             url: 'Planning',
@@ -258,6 +316,23 @@
             }
         })
     }
+
+    function calendrierData2() {
+        $.ajax({
+            url: 'planningChambre',
+            type: 'post',
+            dataType: 'JSON',
+            data: {
+                planning: 'planning'
+            },
+
+            success: function(data) {
+                planning2Display(data);
+            }
+        })
+    }
+
+
 
     function chartData(num_chart) {
         if (num_chart == 'chart1') {
@@ -301,6 +376,7 @@
     window.onload = function chargementPage() {
         $(document).ready(function() {
             calendrierData();
+            calendrierData2();
             chartData('chart1');
             chartData('chart2');
             showDate();
@@ -313,7 +389,7 @@
             // document.getElementById('dash-chart').style.opacity = 1;
         });
 
-        $('#myChart4').hide();
+        // $('#myChart4').hide();
         // $('#myChart5').hide();
     }
 
@@ -335,7 +411,12 @@
     // }
 </script>
 
+
+
 <div class="container-fluid mb-4">
+    <!-- <div class="container-fluid p-3 mb-3 border bg-light bg-dashboard" style="height: 70vh;">
+        <div id='calendar2'></div>
+    </div> -->
     <div class="row g-3">
         <div class="col-lg-6 col-sm-12" id="doughtnut-content">
             <!-- <div class="container"> -->
@@ -391,7 +472,7 @@
             <div class="row gx-3 height-dashboard">
                 <div class="col-6">
                     <div class="p-3 border bg-light bg-dashboard height-dashboard container-fluid">
-                        <div style="overflow-y:scroll; height:45vh !important">
+                        <div style="overflow-y:scroll; height:100% !important">
 
                             <table class="table table-hover table-striped" id="result">
                                 <thead>
@@ -470,31 +551,42 @@
                     </div>
                 </div>
                 <div class="col-6">
-                    <div class="p-3 border bg-light bg-dashboard height-dashboard container-fluid center">
-                        <div>
-                            <!-- <a href="dashboard">
-                                <div class="center"><img src="assets/images/admin.png" style="width: 70%;"></div>
-                            </a>
-                            <div class="container">
-                                <h5>
-                                    <?php echo ($user['nom_user']) . ' ' . $user['prenom_user'] . ',' ?>
-                                    <?php echo ($user['droit_user']) ?><br>
-                                </h5>
-                            </div> -->
-                            <h3>
-                                <div id="heure_jour"></div>
-                            </h3>
-                            <a href="dashboard">
-                                <div class="center mt-2 mb-4"><img src="assets/images/hote.png" style="width: 70%;"></div>
-                            </a>
-                            <div class="container">
-                                <h5>
-                                    <?php echo ($user['nom_user']) . ' ' . $user['prenom_user'] . ',' ?>
-                                    <?php echo ($user['droit_user']) ?><br>
-                                </h5>
+                    <div class="row d-flex align-items-stretch" style="height: 100%">
+                        <div class="col-12 mb-2">
+                            <div class="p-3 col border bg-light bg-dashboard height-dashboard container-fluid center">
+                                <div>
+                                    <h5>
+                                        <div id="heure_jour"></div>
+                                    </h5>
+                                    <a href="dashboard">
+                                        <div class="center mt-2 mb-4"><img src="assets/images/hote.png" style="width: 60%;"></div>
+                                    </a>
+                                    <!-- <div class="container">
+                                        <h5>
+                                            <?php echo ($user['nom_user']) . ' ' . $user['prenom_user'] . ',' ?>
+                                            <?php echo ($user['droit_user']) ?><br>
+                                        </h5>
+                                    </div> -->
+                                </div>
+
                             </div>
                         </div>
+                        <div class="col-12 mt-2">
+                            <div class="p-3 col border bg-light bg-dashboard height-dashboard container-fluid center">
+                                <div>
+                                    <a href="dashboard">
+                                        <div class="center mt-2 mb-4"><img src="assets/images/login.png" style="width: 50%;"></div>
+                                    </a>
+                                    <div class="container">
+                                        <h5>
+                                            <?php echo ($user['nom_user']) . ' ' . $user['prenom_user'] . ',' ?>
+                                            <?php echo ($user['droit_user']) ?><br>
+                                        </h5>
+                                    </div>
+                                </div>
 
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -512,12 +604,16 @@
                         <canvas class="bg-dark col-6" id="myChart4"></canvas>
                         <canvas class="bg-dark col-6" id="myChart5"></canvas>
                     </div> -->
-                <div>
-                    <canvas class="mt-3" id="myChart4"></canvas>
-                    <canvas class="mt-3" id="myChart5"></canvas>
+                <div class="row canvas__chart d-flex align-items-center g-3" style="height: 100%;">
+                    <canvas id="myChart4"></canvas>
+                    <canvas id="myChart5"></canvas>
                 </div>
             </div>
         </div>
+    </div>
+
+     <div class="container-fluid p-3 mt-3 border bg-light bg-dashboard" style="height: 70vh;">
+        <div id='calendar2'></div>
     </div>
 </div>
 
@@ -526,24 +622,22 @@
 <!-- DATE D'AUJOURD'HUI -->
 
 <script>
+    function refresh() {
+        let t = 1000;
+        setTimeout('showDate()', t);
+    }
 
-function refresh() {
-    let t = 1000;
-    setTimeout('showDate()', t);
-}
+    function showDate() {
+        var today = new Date();
+        const options = {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        };
 
-function showDate() {
-    var today = new Date();
-    const options = {
-        weekday: 'long',
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-    };
-
-    var time = today.toLocaleDateString(undefined, options) + " à " + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-    document.getElementById('heure_jour').innerHTML = time;
-    refresh();
-}
-    
+        var time = today.toLocaleDateString(undefined, options) + " à " + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        document.getElementById('heure_jour').innerHTML = time;
+        refresh();
+    }
 </script>

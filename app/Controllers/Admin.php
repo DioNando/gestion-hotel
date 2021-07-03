@@ -20,9 +20,9 @@ class Admin extends BaseController
 
         else {      
             $data = $this->read();
-            echo view('templates\header');
-            echo view('admin\configAdmin', $data);
-            echo view('templates\footer');
+            echo view('templates/header');
+            echo view('admin/configAdmin', $data);
+            echo view('templates/footer');
         }
     }
 

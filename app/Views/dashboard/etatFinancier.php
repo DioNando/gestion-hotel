@@ -25,7 +25,7 @@
 </div>
 
 
-<div class="container">
+<!-- <div class="container">
     <h5 class="mt-5 mb-5">En cours de développement...</h5>
 
     <div class="row g-2">
@@ -66,61 +66,117 @@
             <div class="p-3 border bg-dark">Custom column padding</div>
         </div>
     </div>
-</div>
-
-
-
-<!-- TRANSFERT CHAMBRE DEBUT -->
-
-<!-- <div class="container-fluid my-5" style="width: 50%;">
-    <div class="row">
-        <div class="input-group mb-3">
-            <select class="form-select" id="inputGroupSelect02">
-                <option selected>Choose...</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-            </select> <span class="input-group-text"><i class="fas fa-angle-double-right"></i></span>
-            <select class="form-select" id="inputGroupSelect02">
-                <option selected>Choose...</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-            </select>
-        </div>
-    </div>
 </div> -->
 
-<!-- TRANSFERT CHAMBRE FIN -->
-
-<!-- <div class="container-fluid my-5" style="width: 50%;">
-    <div class="row">
-        <div class="input-group mb-3">
-            <select class="form-select" id="inputGroupSelect02">
-                <option selected>Choose...</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-            </select> <span class="input-group-text">
-                <div class="d-flex align-items-center">
-                   
-                    <div class="flex-shrink-0">
-                        <i class="fas fa-angle-double-right"></i>
-                    </div>
-                    <div class="flex-grow-1 ms-2">
-                        Vers
-                    </div>
+<!-- <div class="container"> -->
+<!-- <div class="container-fluid">
+    <form action="searchEtatFinancier" method="post" class="d-flex row">
+        <div class="input-group col">
+            <span class="input-group-text">De</span>
+            <input type="date" class="form-control" name="date_debut">
+        </div>
+        <div class="input-group col">
+            <span class="input-group-text">A</span>
+            <input type="date" class="form-control" name="date_fin">
+        </div>
+        <button class="btn btn-outline-success border col" type="submit" name="btn_recherche">
+            <div class="d-flex align-items-center">
+                <div class="flex-shrink-0">
+                    <i class="fas fa-search"></i>
                 </div>
-            </span>
-            <select class="form-select" id="inputGroupSelect02">
-                <option selected>Choose...</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-            </select>
-        </div>
-    </div>
+                <div class="flex-grow-1 ms-2">
+                    Rechercher
+                </div>
+            </div>
+        </button>
+    </form>
 </div> -->
+
+<div class="container-fluid">
+    <nav class="navbar navbar-light">
+        <div class="container-fluid">
+            <a class="navbar-brand">Période <?php if (isset($debut) and isset($fin)) {
+                                                echo (' : ' . $debut . ' à ' . $fin);
+                                            } ?></a>
+            <form action="searchEtatFinancier" method="post" class="d-flex">
+                <div class="input-group me-3">
+                    <span class="input-group-text">De</span>
+                    <input type="date" class="form-control" name="date_debut">
+                </div>
+                <div class="input-group me-3">
+                    <span class="input-group-text">A</span>
+                    <input type="date" class="form-control" name="date_fin">
+                </div>
+                <button class="btn btn-outline-success border col" type="submit" name="btn_recherche">
+                    <div class="d-flex align-items-center">
+                        <div class="flex-shrink-0">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                            Rechercher
+                        </div>
+                    </div>
+                </button>
+            </form>
+        </div>
+    </nav>
+    <div class="m-3">
+        <h2>Total : <?php echo number_format($total, '0', '', ' ') . ' Ar'; ?></h2>
+    </div>
+</div>
+
+<!-- ICI COMMENCE LE TABLEAU -->
+
+<div class="container-fluid overflow-auto mt-4">
+    <table class="table table-hover table-striped">
+        <thead>
+            <tr>
+                <th scope="col"><i class="fab fa-slack-hash"></i></th>
+                <th scope="col" class="text-center">Durée</th>
+                <th scope="col" class="text-end">Montant</th>
+                <th scope="col" class="text-end">Surplus</th>
+                <th scope="col" class="text-center">Offert</th>
+                <th scope="col" class="text-end">Remise</th>
+                <th scope="col" class="text-end">Total</th>
+            </tr>
+        </thead>
+        <tbody class="align-middle">
+
+            <?php
+            if (count($plannings) > 0) {
+                foreach ($plannings as $planning) { ?>
+
+                    <tr>
+                        <th scope="row">
+                            <?php echo ($planning['ID_chambre']); ?>
+                        </th>
+                        <td class="text-center"><?php echo ($planning['duree']); ?></td>
+                        <td class="text-end"><?php echo number_format($planning['montant'], '0', '', ' ') . ' Ar'; ?></td>
+                        <td class="text-end"><?php echo number_format($planning['surplus'], '0', '', ' ') . ' Ar'; ?></td>
+                        <td class="text-center"><?php if ($planning['offert']) echo ('Oui'); ?></td>
+                        <td class="text-end"><?php echo ($planning['remise']) . ' %'; ?></td>
+                        <td class="text-end"><?php echo number_format($planning['total'], '0', '', ' ') . ' Ar'; ?></td>
+
+                    <?php
+                }
+            } else {
+                    ?>
+                    <tr>
+                        <?php if (session()->get('isUser') == 'Administrateur') : ?>
+                            <td colspan="7">Tableau vide.</td>
+                        <?php else : ?>
+                            <td colspan="7">Tableau vide.</td>
+                        <?php endif; ?>
+                    </tr>
+                <?php
+            }
+                ?>
+        </tbody>
+    </table>
+
+</div>
+
+
 
 
 
@@ -147,35 +203,3 @@
 
 
 </div>
-
-
-
-
-
-
-
-<!-- <script>
-    $(document).ready(function() {
-        $(".show-toast").click(function() {
-            $("#myToast").toast('show');
-
-        });
-    });
-</script>
-
-<div class="container mt-4">
-    <button type="button" class="btn btn-primary show-toast">Show Toast</button>
-</div>
-
-<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 5">
-    <div id="myToast" class="toast hide" role="alert" data-autohide="false" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header">
-            <strong class="me-auto">Bootstrap</strong>
-            <small>11 mins ago</small>
-            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-        <div class="toast-body alert alert-success alert-toast" role="alert">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Extionem laborum optio voluptate nobis harum minima alias!
-        </div>
-    </div>
-</div> -->

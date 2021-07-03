@@ -42,6 +42,7 @@
                 <option <?php if ($info['statut_chambre'] == 'Libre') echo ('selected'); ?> value="Libre">Libre</option>
                 <option <?php if ($info['statut_chambre'] == 'En attente') echo ('selected'); ?> value="En attente">En attente</option>
                 <option <?php if ($info['statut_chambre'] == 'Occupée') echo ('selected'); ?> value="Occupée">Occupée</option>
+                <option <?php if ($info['statut_chambre'] == 'Non disponible') echo ('selected'); ?> value="Non disponible">Non disponible</option>
             </select>
         </div>
 

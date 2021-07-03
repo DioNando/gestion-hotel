@@ -15,7 +15,7 @@ class User extends BaseController
 
         if (isset($_POST['type']) == 'update') {
             $data['info'] = $this->infoUpdate($_POST['ID_user']);
-            echo view('user\updateUser', $data);
+            echo view('user/updateUser', $data);
             return ($data);
         }
         if (isset($_POST['btn_enregistrer'])) {
@@ -32,14 +32,14 @@ class User extends BaseController
         }
         if (isset($_POST['btn_recherche']) and $_POST['element_recherche'] != NULL) {
             $data = $this->search($_POST['element_recherche']);
-            echo view('templates\header');
-            echo view('user\configUser', $data);
-            echo view('templates\footer');
+            echo view('templates/header');
+            echo view('user/configUser', $data);
+            echo view('templates/footer');
         } else {
             $data = $this->read();
-            echo view('templates\header');
-            echo view('user\configUser', $data);
-            echo view('templates\footer');
+            echo view('templates/header');
+            echo view('user/configUser', $data);
+            echo view('templates/footer');
         }
     }
 
@@ -47,12 +47,6 @@ class User extends BaseController
     {
         $data = [];
         helper('form');
-
-        // if (isset($_POST['type']) == 'user') {
-        //     helper('form');
-        //     echo view('user\addUser');
-        //     return 0;
-        // }
 
         if (isset($_POST['btn_enregistrer'])) : {
                 $rules = [
@@ -112,9 +106,9 @@ class User extends BaseController
             }
         endif;
 
-        echo view('templates\header');
-        echo view('user\addUser', $data);
-        echo view('templates\footer');
+        echo view('templates/header');
+        echo view('user/addUser', $data);
+        echo view('templates/footer');
     }
 
     public function read()
@@ -286,9 +280,9 @@ class User extends BaseController
 
         $data['user'] = $users->where('ID_user', session()->get('ID_user'))->first();
 
-        echo view('templates\header', $data);
-        echo view('user\profil.php');
-        echo view('templates\footer');
+        echo view('templates/header', $data);
+        echo view('user/profil.php');
+        echo view('templates/footer');
     }
 
     public function search($element_recherche)

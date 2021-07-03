@@ -27,9 +27,9 @@ class Dashboard extends BaseController
         $data['nuit'] = $this->readNuit();
         $data['plannings'] = array_merge($data['nuit'], $data['day']);
 	
-		echo view('templates\header');
-		echo view('dashboard\dashboard', $data);
-		echo view('templates\footer');
+		echo view('templates/header');
+		echo view('dashboard/dashboard', $data);
+		echo view('templates/footer');
 	}
 
 	public function readReservation()
@@ -82,20 +82,6 @@ class Dashboard extends BaseController
 		$data['nbrDay'] = $reservations->where('MONTH(debut_sejour) = MONTH(CURDATE())')->join('user', 'effectuer.ID_user = user.ID_user')->join('reservation_day', 'effectuer.ID_day = reservation_day.ID_day')->join('pour', 'pour.ID_day = reservation_day.ID_day')->join('planning', 'pour.ID_planning = planning.ID_planning')->findAll();
 		return count($data['nbrDay']) + count($data['nbrNuit']);
     }
-
-	public function etatFinancier()
-	{
-		echo view('templates/header');
-		echo view('dashboard/etatFinancier');
-		echo view('templates/footer');
-	}
-
-	public function statistique()
-	{
-		echo view('templates/header');
-		echo view('dashboard/statistique');
-		echo view('templates/footer');
-	}
 
 	function readDay()
     {

@@ -57,11 +57,22 @@ background: linear-gradient(to right, #a7bfe8, #6190e8); */
   border: none;
 }
 
-.fc-list-event-title a,
+/* .fc-list-event-title a,
 .fc-list-event-time,
 .fc-event-title,
 .fc-event-time {
-  cursor: default;
+  cursor: pointer;
+} */
+
+.fc-list-event, .fc-timeline-event {
+  cursor: pointer;
+}
+
+.planning-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-around;
 }
 
 .btn-close:focus {
@@ -100,11 +111,39 @@ background: linear-gradient(to right, #a7bfe8, #6190e8); */
   border-radius: 10px;
 }
 
+.toast-reservation {
+  position: relative;
+}
+
+.toast-reservation:hover .chambre-toast {
+  display: initial;
+  transition: .2s;
+}
+
+.toast-header-reservation {
+  background-color: var(--color-A);
+  border-top-left-radius: .5rem;
+  border-top-right-radius: .5rem;
+}
+
+.toast-body-reservation {
+  background-color: var(--color-A);
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
 .chambre-toast {
   border: none;
   box-shadow: none;
-  width: 350px;
+  min-width: 90%;
   max-width: none;
+  margin-bottom: 1rem;
+  transition: .2s;
+  position: absolute;
+  top: -6.5rem;
+  display: none;
 }
 
 .dropdown-toggle-cog::after {

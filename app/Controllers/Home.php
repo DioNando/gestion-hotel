@@ -33,6 +33,7 @@ class Home extends BaseController
 					$data = [
 						'ID_user' => $user['ID_user'],
 						'etat_connexion' => 1,
+						'date_connexion' => date("Y-m-d H:i:s"),
 					];
 
 					$connexion->save($data);
@@ -55,6 +56,7 @@ class Home extends BaseController
 
 		$data = [
 			'etat_connexion' => 0,
+			'date_deconnexion' => date("Y-m-d H:i:s"),
 		];
 		$connexion->set($data);
 		$connexion->where('ID_connexion', session()->get('ID_connexion'));

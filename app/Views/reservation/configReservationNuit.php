@@ -118,10 +118,10 @@
                             </td>
                             <td>
                                 <div class="center">
-                                    <div>
-                                        <button type="button" class="btn btn-outline-dark btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalReservationUpdate" onclick="infoSupplementaireNuit('<?php echo $reservation['ID_nuit']; ?>', 'updateNuit')"><i class="fas fa-pencil-alt"></i></button>
+                                    <div class="row">
+                                        <button type="button" class="col btn btn-outline-dark btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalReservationUpdate" onclick="infoSupplementaireNuit('<?php echo $reservation['ID_nuit']; ?>', 'updateNuit')"><i class="fas fa-pencil-alt"></i></button>
                                         <?php if (session()->get('isUser') == 'Administrateur') : ?>
-                                            <button type="button" class="btn btn-outline-danger btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalReservationDelete" onclick="deleteData('<?php echo $reservation['ID_nuit']; ?>')"><i class="fas fa-trash-alt"></i></button>
+                                            <button type="button" class="col btn btn-outline-danger btn-icon btn-sm" data-bs-toggle="modal" data-bs-target="#modalReservationDelete" onclick="deleteData('<?php echo $reservation['ID_nuit']; ?>')"><i class="fas fa-trash-alt"></i></button>
                                         <?php endif; ?>
                                     </div>
                                 </div>
@@ -145,7 +145,7 @@
         </table>
     </div>
 
-    <div class="row mb-4">
+    <div class="row mb-4 flex__legend">
         <div class="col"><?= $pager->links('paginationResult', 'pagination') ?></div>
         <div class="col-auto center">
             <div class="d-flex align-items-center">

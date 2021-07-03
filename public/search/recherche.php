@@ -4,10 +4,10 @@ $page = $_SERVER['REQUEST_URI'];
 
 <!-- <nav class="navbar navbar-light bg-light mb-3">
     <div class="container-fluid"> -->
-<nav class="navbar navbar-light mb-2">
+<nav class="navbar navbar-light mb-2 flex__legend">
     <div class="container-fluid px-0">
 
-        <?php if (session()->get('isUser') == 'Administrateur') : ?>
+        <?php if (session()->get('isUser') == 'Administrateur' || session()->get('isUser') == 'Controleur') : ?>
             <?php if ($page == '/hotel/public/configTarif') { ?>
                 <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalNouveauChambre" name="btn_nouveau">
                     <div class="d-flex align-items-center">
@@ -37,13 +37,13 @@ $page = $_SERVER['REQUEST_URI'];
         <a class="navbar-brand"></a>
         <form class="d-flex" method="post">
             <!-- <div class="input-group"> -->
-                <input class="form-control me-2" type="search" name="element_recherche" id="search" aria-label="Search" autocomplete="off">
+                <input class="form-control me-3" type="search" name="element_recherche" id="search" aria-label="Search" autocomplete="off">
                 <button class="btn btn-outline-success border" type="submit" name="btn_recherche">
                     <div class="d-flex align-items-center">
                         <div class="flex-shrink-0">
                             <i class="fas fa-search"></i>
                         </div>
-                        <div class="flex-grow-1 ms-2">
+                        <div class="flex-grow-1 ms-3">
                             Rechercher
                         </div>
                     </div>

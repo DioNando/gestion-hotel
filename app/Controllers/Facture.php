@@ -94,6 +94,7 @@ class Facture extends BaseController
 
 		$newData = [
 			'nom_user_modif' => $nom_user,
+			'date_modif' => date("Y-m-d H:i:s"),
 		];
 
 		if ($motif == 'Nuitée') {
@@ -123,25 +124,4 @@ class Facture extends BaseController
 		}
 	}
 
-	// public function factureNuit()
-	// {
-	// 	$data = [];
-	// 	helper('form');
-	// 	$facture = new factureNuitModel();
-	// 	$data['facture'] = $facture->where('ID_facture_nuit', session()->get('ID_facture_nuit'))->first();
-	// 	$data['details'] = $this->infoDetailsNuit(session()->get('ID_nuit'), session()->get('ID_archive'));
-	// 	echo view('templates\header');
-	// 	echo view('facture\factureNuit', $data);
-	// 	echo view('templates\footer');
-	// }
-
-	// public function factureDay()
-	// {
-	// 	$data = [];
-	// 	helper('form');
-	// 	$data['details'] = $this->infoDetailsDay(session()->get('ID_day'), session()->get('ID_archive'));
-	// 	echo view('templates\header');
-	// 	echo view('facture\factureDay', $data);
-	// 	echo view('templates\footer');
-	// }
 }

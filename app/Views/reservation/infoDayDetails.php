@@ -5,9 +5,13 @@ foreach ($details as $detail) {
 }
 $montant = $total;
 $rendu = $facture['somme_donne_day'] - $total;
-if ($rendu < 0) { $rendu = 0;};
+if ($rendu < 0) {
+    $rendu = 0;
+};
 $reste = $total - $facture['somme_donne_day'];
-if ($reste < 0) { $reste = 0;};
+if ($reste < 0) {
+    $reste = 0;
+};
 ?>
 
 <div class="container p-0">
@@ -30,18 +34,13 @@ if ($reste < 0) { $reste = 0;};
 
             <div class="container">
 
-                <!-- <h5 class="mt-3 mb-3">De</h5> -->
-
-
                 <div class="mb-1 row">
-                    <!-- <label for="#" class="col-sm-2 col-form-label">Nom</label> -->
                     <div class="col-auto">
                         <input type="text" readonly class="form-control-plaintext" id="#" value="Hotel" readonly>
                     </div>
                 </div>
 
                 <div class="mb-1 row">
-                    <!-- <label for="#" class="col-auto col-form-label">Adresse</label> -->
                     <div class="col-auto">
                         <input type="text" readonly class="form-control-plaintext" id="#" value="rue 02 Toamasina" readonly>
                     </div>
@@ -69,7 +68,7 @@ if ($reste < 0) { $reste = 0;};
                 <div class="mb-1 row">
                     <label for="#" class="col-auto col-form-label">Par :</label>
                     <div class="col-auto">
-                        <input type="text" readonly class="form-control-plaintext" id="#" value="<?php echo ($info['nom_user']) ?>" name="nom_user" readonly>
+                        <input type="text" readonly class="form-control-plaintext" id="#" value="<?php echo (session()->get('nom_user')) ?>" name="nom_user" readonly>
                     </div>
                 </div>
                 <div class="mb-1 row">
@@ -209,18 +208,7 @@ if ($reste < 0) { $reste = 0;};
 
 
             </table>
-            <!-- <div class="col-12 col-sm-6">
-                    <div class="d-grid gap-2 mt-3">
-                        <button type="submit" class="btn btn-primary" name="btn_facture_day">Sauvegarder</button>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6">
-                    <div class="d-grid gap-2 mt-3">
-                        <button type="submit" class="btn btn-secondary" name="btn_imprimer" onclick="genPDF()" disabled>Imprimer</button>
-                    </div>
-                </div> -->
-
-
+          
             <div class="container-fluid d-flex justify-content-end mt-3">
                 <button type="submit" class="btn btn-primary mx-2" name="btn_facture_day">
                     <div class="d-flex align-items-center">
@@ -232,7 +220,7 @@ if ($reste < 0) { $reste = 0;};
                         </div>
                     </div>
                 </button>
-                <button type="submit" class="btn btn-secondary mx-2" name="btn_imprimer" onclick="genPDF()" disabled>
+                <button type="button" class="btn btn-secondary mx-2" id="imprimer">
                     <div class="d-flex align-items-center">
                         <div class="flex-shrink-0">
                             <i class="fas fa-print"></i>
@@ -257,25 +245,108 @@ if ($reste < 0) { $reste = 0;};
     <!-- </div> -->
 </div>
 
+<div style="position:absolute; visibility: hidden; top: 0; z-index: -5">
+    <div class="container" id="facturePDF">
+        <h2>Hotel</h2>
+        <div>Rue 2 Toamasina</div>
+        <div>Mail : hotel@mail.mg</div>
+        <div>Téléphone : +261 34 00 000 01</div>
+
+        <h3>Facture n ° <?php echo ($facture['ID_facture_day']) ?></h3>
+        <div>Du : <?php echo ($facture['date_facture_day']) ?></div>
+        <div>Fait par : <?php echo (session()->get('nom_user')) ?></div>
+        <div>Au nom de : <?php echo ($info['nom_client_day']) ?></div>
+        <h4>Client au comptant Ariary</h4>
+        <div>Type de payement : <?php echo ($facture['type_payement_day']) ?></div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>N°Chambre</th>
+                    <th>Durée</th>
+                    <th>Prix Unitaire</th>
+                    <th>Montant</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($details as $detail) { ?>
+                    <tr>
+                        <th> <?php echo ($detail['ID_chambre']) ?> </th>
+                        <td> <?php echo ($detail['duree_day']) ?> </td>
+                        <td> <?php echo number_format($detail['tarif_chambre'], '0', '', ' ')  . ' Ar' ?> </td>
+                        <td> <?php echo number_format($detail['tarif_chambre'] * $detail['duree_day'], '0', '', ' ') . ' Ar' ?> </td>
+                    </tr>
+                <?php } ?>
+            </tbody>
+        </table>
+
+
+        <table>
+            <tr>
+                <td>Somme donnée</td>
+                <td><?php echo ($facture['somme_donne_day'] . ' Ar') ?></td>
+            </tr>
+            <tr>
+                <td>Rendu</td>
+                <td><?php echo ($rendu . ' Ar') ?></td>
+            </tr>
+            <tr>
+                <td>Reste</td>
+                <td><?php echo ($reste . ' Ar') ?></td>
+            </tr>
+            <tr>
+                <td>Total</td>
+                <td><?php echo ($total . ' Ar') ?></td>
+            </tr>
+        </table>
+    </div>
+</div>
+
 <script>
-    var dateDebut = new Date();
-    // document.getElementById('dateFacturation').valueAsDate = dateDebut;
+    // function genPDF() {
+    //     html2canvas($("#facturePDF"), {
+    //         onrendered: function(canvas) {
+    //             var imgData = canvas.toDataURL(
+    //                 'image/png');
+    //             var doc = new jsPDF('p', 'mm');
+    //             doc.addImage(imgData, 'PNG', 10, 10);
+    //             doc.save('sample-Facture.pdf');
+    //         }
+    //     });
 
-    function genPDF() {
+        // var doc = new jsPDF;
+        // doc.fromHTML($('#facturePDF').get(0), 20, 20);
+        // doc.save('Facture.pdf');
+    // }
 
-        // html2canvas($('#facturePDF'), {
-        //     onrendered: function(canvas) {
-        //         var img = canvas.toDataURL()
-        //         var doc = new jsPDF;
-        //         doc.addImage(img, 'PNG', 20, 20);
-        //         doc.save('Facture.pdf');
-        //     }
-        // });
+    $('#imprimer').click(function() {
+        var pdf = new jsPDF('p', 'pt', 'letter'),
+            source = $('#facturePDF')[0],
+            specialElementHandlers = {
+                '#bypassme': function(element, renderer) {
+                    return true
+                }
+            }
 
-        var doc = new jsPDF;
-        doc.fromHTML($('#facturePDF').get(0), 20, 20);
-        doc.save('Facture.pdf');
-    }
+        margins = {
+            top: 40,
+            bottom: 60,
+            left: 40,
+            right: 40,
+            width: '100%'
+        };
+        pdf.fromHTML(
+            source, margins.left, margins.top, {
+                'width': margins.width,
+                'elementHandlers': specialElementHandlers,
+            },
+            function(dispose) {
+                pdf.save("<?php echo ('Facture ' . $info['nom_client_day'] . ' ' . date('d-m-y H-i')) ?>");
+            },
+            margins
+        )
+    });
+
 
     function calculFacture(somme, total) {
         let rendu, reste;

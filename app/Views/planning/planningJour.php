@@ -19,7 +19,7 @@
 
 <script>
     function planningDisplay(result) {
-        console.log(result);
+        console.table(result);
 
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -125,7 +125,7 @@
     }
 </script>
 
-<div class="container-fluid" style="overflow-x:auto;">
+<div class="container-fluid overflow-auto">
     <table class="table table-hover table-striped">
         <thead>
             <tr>

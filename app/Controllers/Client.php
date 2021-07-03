@@ -12,7 +12,7 @@ class Client extends BaseController
 	{
 		if (isset($_POST['type']) == 'update') {
 			$data['info'] = $this->infoUpdate($_POST['ID_client']);
-			echo view('client\updateClient', $data);
+			echo view('client/updateClient', $data);
 			return ($data);
 		}
 		if (isset($_POST['btn_validation'])) {
@@ -29,14 +29,14 @@ class Client extends BaseController
 		}
 		if (isset($_POST['btn_recherche']) and $_POST['element_recherche'] != NULL) {
 			$data = $this->search($_POST['element_recherche']);
-			echo view('templates\header');
-			echo view('client\configClient', $data);
-			echo view('templates\footer');
+			echo view('templates/header');
+			echo view('client/configClient', $data);
+			echo view('templates/footer');
 		} else {
 			$data = $this->read();
-			echo view('templates\header');
-			echo view('client\configClient', $data);
-			echo view('templates\footer');
+			echo view('templates/header');
+			echo view('client/configClient', $data);
+			echo view('templates/footer');
 		}
 	}
 
@@ -215,8 +215,8 @@ class Client extends BaseController
 			}
 		endif;
 
-		echo view('templates\header');
-		echo view('client\addClient', $data);
-		echo view('templates\footer');
+		echo view('templates/header');
+		echo view('client/addClient', $data);
+		echo view('templates/footer');
 	}
 }

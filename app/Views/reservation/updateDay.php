@@ -54,6 +54,30 @@
             </div>
         </div>
 
+        <div class="col-12 col-sm-6 mt-2">
+            <div class="form-group">
+                <label for="fin_sejour" class="form-label">Ajout d'une chambre</label>
+                <select class="form-select" <?php if (session()->get('isUser') == 'Utilisateur') echo ('disabled') ?> name="chambre_ajout">
+                    <option selected value="" style="display: none;">Ajouter</option>
+                    <?php foreach ($listeChambres as $listeChambre) { ?>
+                        <option value="<?php echo ($listeChambre['ID_chambre']) ?>"><?php echo ($listeChambre['ID_chambre']) ?></option>
+                    <?php } ?>
+                </select>
+            </div>
+        </div>
+        <div class="col-12 col-sm-6 mt-2">
+            <div class="form-group">
+                <label for="debut_sejour" class="form-label">Suppression d'une chambre</label>
+                <select class="form-select" <?php if (session()->get('isUser') == 'Utilisateur') echo ('disabled') ?> name="chambre_suppression">
+                    <option selected value="" style="display: none;">Supprimer</option>
+                    <?php foreach ($chambres as $chambre) { ?>
+                        <option value="<?php echo ($chambre['ID_chambre']) ?>"><?php echo ($chambre['ID_chambre']) ?></option>
+                    <?php } ?>
+                </select>
+            </div>
+        </div>
+
+
         <div class="container">
             <hr>
         </div>

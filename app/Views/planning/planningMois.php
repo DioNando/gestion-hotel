@@ -102,8 +102,17 @@
     }
 </script>
 
+
+
+<div class="container my-3 mx-3">
+    <h3>Calendrier</h3>
+</div>
+
+
+<div class="container-fluid" id='calendar'></div>
+
 <h3 class="center mt-3 mb-3">Disponibilité mensuelle des chambres</h3>
-<div class="container">
+<div class="container mb-4">
     <div class="row row-cols-1 row-cols-lg-3 g-2 g-lg-3">
         <?php foreach ($chambres as $chambre) { ?>
             <div class="g-3">
@@ -122,10 +131,3 @@
         <?php } ?>
     </div>
 </div>
-
-<div class="container my-3 mx-3">
-    <h3>Calendrier</h3>
-</div>
-
-
-<div class="container-fluid mb-4" id='calendar'></div>

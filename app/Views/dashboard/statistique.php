@@ -1,5 +1,207 @@
 <!-- DEBUT -->
 
+<script>
+    function chart1Display(result) {
+        let labels = result.map(function(e) {
+            return e.statut;
+        });
+        let data = result.map(function(e) {
+            return e.nombre;
+        });
+
+        new Chart(document.getElementById('myChart2'), {
+            type: 'doughnut',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: "Statut des chambres",
+                    backgroundColor: ["#283e51", "#ff5f6d", "#ffc371", "#4b79a1"],
+                    data: data,
+                    borderWidth: false,
+                }],
+            },
+            options: {
+                responsive: true,
+                title: {
+                    display: false,
+                    text: 'Disponibilité des chambres'
+                },
+                legend: {
+                    display: true,
+                    position: 'top',
+                    align: 'start',
+                    labels: {
+                        boxWidth: 50,
+                        usePointStyle: true,
+                        pointStyle: 'cross',
+                    }
+                },
+            }
+        });
+    }
+
+
+
+    function chart2Display(result) {
+        let data0 = result[0].map(function(e) {
+            return e.reservation;
+        });
+        let data1 = result[1].map(function(e) {
+            return e.reservation;
+        });
+        let label0 = result[0].map(function(e) {
+            return e.week;
+        });
+        let label1 = result[1].map(function(e) {
+            return e.week;
+        });
+
+        console.log(result[0]);
+        console.log(result[1]);
+        console.log(result[2]);
+
+        new Chart(document.getElementById("myChart4"), {
+            type: 'bar',
+            data: {
+
+                labels: label1,
+
+                datasets: [{
+                    label: "Day use",
+                    data: data1,
+                    backgroundColor: '#ff5f6d',
+                    borderWidth: false,
+                    radius: 1,
+                    tension: 0,
+                    barThickness: 7,
+                }, ]
+            },
+            options: {
+                title: {
+                    display: false,
+                    text: 'Tendance des reservations'
+                },
+                responsive: true,
+                legend: {
+                    display: true,
+                    position: 'top',
+                    align: 'end',
+                },
+                scales: {
+                    xAxes: [{
+                        display: true,
+                        stacked: true,
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }],
+                    yAxes: [{
+                        display: false,
+                        stacked: true,
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            },
+        });
+
+        new Chart(document.getElementById("myChart5"), {
+            type: 'bar',
+            data: {
+                labels: label0,
+                datasets: [{
+                        label: "Nuitée",
+                        data: data0,
+                        backgroundColor: '#283e51',
+                        borderWidth: false,
+                        radius: 1,
+                        tension: 0,
+                        barThickness: 7,
+                    },
+
+                ]
+            },
+            options: {
+                title: {
+                    display: false,
+                    text: 'Tendance des reservations'
+                },
+                responsive: true,
+                legend: {
+                    display: true,
+                    position: 'top',
+                    align: 'end',
+                },
+                scales: {
+                    xAxes: [{
+                        display: true,
+                        stacked: true,
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }],
+                    yAxes: [{
+                        display: false,
+                        stacked: true,
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            },
+        });
+    }
+
+
+    function chartData(num_chart) {
+        if (num_chart == 'chart1') {
+            $.ajax({
+                url: 'Planning',
+                type: 'post',
+                dataType: 'JSON',
+                data: {
+                    chart: num_chart
+                },
+
+                success: function(result) {
+                    $(document).ready(function() {
+                        chart1Display(result);
+                    });
+                }
+            })
+        }
+
+        if (num_chart == 'chart2') {
+            $.ajax({
+                url: 'Planning',
+                type: 'post',
+                dataType: 'JSON',
+                data: {
+                    chart: num_chart
+                },
+
+                success: function(result) {
+                    $(document).ready(function() {
+                        chart2Display(result);
+                    });
+
+                }
+            })
+        }
+    }
+</script>
+
+
+<script>
+    window.onload = function chargementPage() {
+        $(document).ready(function() {
+            chartData('chart1');
+            chartData('chart2');
+        });
+    }
+</script>
+
 <div class="container-fluid mt-3 mb-3">
 
     <!-- <h1>Statistique</h1> -->
@@ -16,187 +218,36 @@
 
 </div>
 
-<div class="container mb-4">
-    <h5 class="mt-5">En cours de développement...</h5>
-    <h6 class="mt-3">Test librairie ChartJS</h6>
-    <div class="row g-2">
-        <div class="col-lg-6 col-sm-12">
-            <div class="p-3"><canvas id="myChart1"></canvas></div>
+<div class="container mb-3">
+    <div class="row p-2 g-3">
+        <div class="col-12 mb-1 stat__sub p-3 border bg-light bg-dashboard">
+            <div class="p-3">
+                <canvas id="myChart4"></canvas>
+            </div>
+            <div class="p-3">
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Minus aut id itaque commodi, tenetur odio nobis harum repellendus repellat possimus dolores. Repellat pariatur cupiditate ducimus eveniet ex enim natus illo.
+            </div>
         </div>
-        <div class="col-lg-6 col-sm-12">
-            <div class="p-3"><canvas id="myChart2"></canvas></div>
+        <div class="col-12 mb-1 stat__sub p-3 border bg-light bg-dashboard">
+            <div class="p-3">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente animi modi necessitatibus itaque voluptas dicta! Corporis, sequi repellat expedita, fugiat tempora blanditiis provident enim deserunt inventore, temporibus ad velit incidunt.
+            </div>
+            <div class="p-3">
+                <canvas id="myChart5"></canvas>
+            </div>
         </div>
-        <div class="col-lg-6 col-sm-12">
-            <div class="p-3"><canvas id="myChart3"></canvas></div>
+        <div class="col-12 mb-1 stat__sub p-3 border bg-light bg-dashboard">
+            <div class="p-3">
+                <canvas id="myChart2"></canvas>
+            </div>
+            <div class="p-3">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente animi modi necessitatibus itaque voluptas dicta! Corporis, sequi repellat expedita, fugiat tempora blanditiis provident enim deserunt inventore, temporibus ad velit incidunt.
+            </div>
+
         </div>
-        <div class="col-lg-6 col-sm-12">
-            <div class="p-3"><canvas id="myChart6"></canvas></div>
-        </div>
+
     </div>
+
 </div>
-
-<script>
-    new Chart(document.getElementById("myChart1"), {
-        type: 'bar',
-        data: {
-            labels: ["1900", "1950", "1999", "2050"],
-            datasets: [{
-                label: "Africa",
-                backgroundColor: "#3e95cd",
-                data: [133, 221, 783, 2478]
-            }, {
-                label: "Europe",
-                backgroundColor: "#8e5ea2",
-                data: [408, 547, 675, 734]
-            }]
-        },
-        options: {
-            title: {
-                display: true,
-                text: 'Population growth (millions)'
-            }
-        }
-    });
-</script>
-
-<script>
-    new Chart(document.getElementById('myChart2'), {
-        type: 'pie',
-        data: {
-            labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
-            datasets: [{
-                label: "Population (millions)",
-                backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
-                data: [2478, 5267, 734, 784, 433],
-                borderWidth: false,
-            }]
-        },
-        options: {
-            title: {
-                display: true,
-                text: 'Predicted world population (millions) in 2050'
-            },
-            legend: {
-                display: true,
-                position: 'bottom',
-                align: 'center',
-                labels: {
-                    boxWidth: 50,
-                    usePointStyle: true,
-                    pointStyle: 'cross',
-                }
-            },
-        }
-    });
-</script>
-
-<script>
-    new Chart(document.getElementById("myChart3"), {
-        type: 'line',
-        data: {
-            labels: [1500, 1600, 1700, 1750, 1800, 1850, 1900, 1950, 1999, 2050],
-            datasets: [{
-                data: [86, 114, 106, 106, 107, 111, 133, 221, 783, 2478],
-                label: "Africa",
-                borderColor: "#3e95cd",
-                fill: false
-            }, {
-                data: [282, 350, 411, 502, 635, 809, 947, 1402, 3700, 5267],
-                label: "Asia",
-                borderColor: "#8e5ea2",
-                fill: false
-            }, {
-                data: [168, 170, 178, 190, 203, 276, 408, 547, 675, 734],
-                label: "Europe",
-                borderColor: "#3cba9f",
-                fill: false
-            }, {
-                data: [40, 20, 10, 16, 24, 38, 74, 167, 508, 784],
-                label: "Latin America",
-                borderColor: "#e8c3b9",
-                fill: false
-            }, {
-                data: [6, 3, 2, 2, 7, 26, 82, 172, 312, 433],
-                label: "North America",
-                borderColor: "#c45850",
-                fill: false
-            }]
-        },
-        options: {
-            title: {
-                display: true,
-                text: 'World population per region (in millions)'
-            }
-        }
-    });
-</script>
-
-<script>
-    new Chart(document.getElementById("myChart6"), {
-        type: 'bubble',
-        data: {
-            labels: "Africa",
-            datasets: [{
-                label: ["China"],
-                backgroundColor: "rgba(255,221,50,0.2)",
-                borderColor: "rgba(255,221,50,1)",
-                data: [{
-                    x: 21269017,
-                    y: 5.245,
-                    r: 15
-                }]
-            }, {
-                label: ["Denmark"],
-                backgroundColor: "rgba(60,186,159,0.2)",
-                borderColor: "rgba(60,186,159,1)",
-                data: [{
-                    x: 258702,
-                    y: 7.526,
-                    r: 10
-                }]
-            }, {
-                label: ["Germany"],
-                backgroundColor: "rgba(0,0,0,0.2)",
-                borderColor: "#000",
-                data: [{
-                    x: 3979083,
-                    y: 6.994,
-                    r: 15
-                }]
-            }, {
-                label: ["Japan"],
-                backgroundColor: "rgba(193,46,12,0.2)",
-                borderColor: "rgba(193,46,12,1)",
-                data: [{
-                    x: 4931877,
-                    y: 5.921,
-                    r: 15
-                }]
-            }]
-        },
-        options: {
-            title: {
-                display: true,
-                text: 'Predicted world population (millions) in 2050'
-            },
-            scales: {
-                yAxes: [{
-                    scaleLabel: {
-                        display: true,
-                        labelString: "Happiness"
-                    }
-                }],
-                xAxes: [{
-                    scaleLabel: {
-                        display: true,
-                        labelString: "GDP (PPP)"
-                    }
-                }]
-            }
-        }
-    });
-</script>
-
-
 
 <!-- FIN -->

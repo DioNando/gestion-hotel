@@ -445,6 +445,17 @@ footer {
   visibility: hidden;
 }
 
+.stat__sub {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.stat__sub > * {
+  flex: 6;
+  width: 100%;
+}
+
 /* .form-check {
   position: relative;
 }

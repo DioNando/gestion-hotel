@@ -612,7 +612,7 @@
         </div>
     </div>
 
-     <div class="container-fluid p-3 mt-3 border bg-light bg-dashboard" style="height: 70vh;">
+     <div class="container-fluid p-3 mt-3 border bg-light bg-dashboard" style="height: 100vh;">
         <div id='calendar2'></div>
     </div>
 </div>
